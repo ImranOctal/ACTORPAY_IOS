@@ -1,0 +1,6 @@
+framework module Pods_ActorpayTests {
+  umbrella header "Pods-ActorpayTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

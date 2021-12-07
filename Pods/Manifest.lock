@@ -1,0 +1,36 @@
+PODS:
+  - AKSideMenu (1.4.6)
+  - DropDown (2.3.13)
+  - IQKeyboardManagerSwift (6.5.9)
+  - NKVPhonePicker (2.1.1)
+  - SwiftQRScanner (0.1.0)
+  - Toast-Swift (5.0.1)
+
+DEPENDENCIES:
+  - AKSideMenu
+  - DropDown
+  - IQKeyboardManagerSwift
+  - NKVPhonePicker
+  - SwiftQRScanner
+  - Toast-Swift (~> 5.0.1)
+
+SPEC REPOS:
+  trunk:
+    - AKSideMenu
+    - DropDown
+    - IQKeyboardManagerSwift
+    - NKVPhonePicker
+    - SwiftQRScanner
+    - Toast-Swift
+
+SPEC CHECKSUMS:
+  AKSideMenu: 1f2b261a82b89f980624dda4b3385544fbf178e0
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  NKVPhonePicker: c71b3e8e53ce74e0b4e4d5c5adf54cbb3dd16fd8
+  SwiftQRScanner: fba218bce4e5ac5de8ab6b72c6c7fefa09d29c5b
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+
+PODFILE CHECKSUM: c1e3b3352f736856f8e1dcc21c0b983b6a826b1d
+
+COCOAPODS: 1.11.2
