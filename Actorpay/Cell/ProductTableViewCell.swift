@@ -9,12 +9,19 @@ import UIKit
 
 class ProductTableViewCell: UITableViewCell {
     
-//    @IBOutlet weak var descriptionLabel: UILabel!
-//    @IBOutlet weak var titleLabel: UILabel!
-//    @IBOutlet weak var buyNowButton: UIButton!
-//    @IBOutlet weak var addToCartButton: UIButton!
-//    @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var buyNowButton: UIButton!
+    @IBOutlet weak var addToCartButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var totalPriceLabel: UILabel!
+    @IBOutlet weak var iconImage: UIImageView!
 
+    var buyNowButtonHandler: (() -> ())!
+    var addToCartButtonHandler: (() -> ())!
+    var likeButtonHandler: (() -> ())!
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,6 +31,18 @@ class ProductTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @IBAction func likeButtonAction(_ sender: UIButton){
+        likeButtonHandler()
+    }
+    
+    @IBAction func buyNowButtonAction(_ sender: UIButton){
+        buyNowButtonHandler()
+    }
+    
+    @IBAction func addTocartButtonAction(_ sender: UIButton){
+        addToCartButtonHandler()
     }
 
 }

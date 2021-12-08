@@ -25,7 +25,7 @@ class MoreViewController: UIViewController {
     
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func aboutUsButtonAction(_ sender: UIButton) {

@@ -56,18 +56,25 @@ class TabBarViewController: UITabBarController {
     func setupMiddleButton() {
         let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         var menuButtonFrame = menuButton.frame
-        menuButtonFrame.origin.y = (view.bounds.height - menuButtonFrame.height) - ((ScreenSize.SCREEN_MAX_LENGTH >= 812.0) ? 50 : 20)
-        menuButtonFrame.origin.x = view.bounds.width/2 - menuButtonFrame.size.width/2
+        menuButtonFrame.origin.y = (self.view.bounds.height - menuButtonFrame.height) - ((ScreenSize.SCREEN_MAX_LENGTH >= 812.0) ? 50 : 20)
+        menuButtonFrame.origin.x = self.view.bounds.width/2 - menuButtonFrame.size.width/2
         menuButton.frame = menuButtonFrame
 
         menuButton.backgroundColor = UIColor.init(hexFromString: "#2878B6")
         menuButton.layer.cornerRadius = menuButtonFrame.height/2
-        view.addSubview(menuButton)
-
+        self.view.addSubview(menuButton)
+//        self.tabBarItem.
+        
         menuButton.setImage(UIImage(named: "qr-code"), for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
 
-        view.layoutIfNeeded()
+        self.view.layoutIfNeeded()
     }
     
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        selectedTabIndex = item.tag
+        print(item.tag)
+        selectedTabTag = item.tag
+        NotificationCenter.default.post(name:  Notification.Name("refreshRightButton"), object: self)
+    }
 }

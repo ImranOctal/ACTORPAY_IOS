@@ -8,7 +8,9 @@
 import UIKit
 
 class ProductDetailsViewController: UIViewController {
-
+    
+    //MARK: - Properties -
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var tableViewHeightConstaint: NSLayoutConstraint!
@@ -16,9 +18,10 @@ class ProductDetailsViewController: UIViewController {
     
     var productArray = [1,2,3,4,5,6,7]
     
+    //MARK: - Life Cycle Function -
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.register(UINib(nibName: "MyOrdersTableViewCell", bundle: nil), forCellReuseIdentifier: "MyOrdersTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
         scrollView.delegate = self
@@ -34,16 +37,30 @@ class ProductDetailsViewController: UIViewController {
     
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-//        self.navigationController?.popToRootViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
+        //back Button action
+        self.navigationController?.popViewController(animated: true)
     }
-
+    
+    @IBAction func buyNowButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        //Buy Now Button action
+    }
+    
+    @IBAction func addToCartButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        //Add To Cart Button action
+        
+    }
+    
     //MARK:- Helper Functions -
     func tableViewHeightManage() {
+        //tableView Height Manage
         tableViewHeightConstaint.constant = (productArray.count == 0 ? 120.0 : CGFloat( 120 * productArray.count))
     }
     
 }
+
+//MARK: - Extensions -
 
 extension ProductDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -57,19 +74,14 @@ extension ProductDetailsViewController: UITableViewDelegate, UITableViewDataSour
     
 }
 
-
-
 extension ProductDetailsViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-               let visibleRect = CGRect(origin: scrollView.contentOffset, size: scrollView.bounds.size)
-               //let visiblePoint = CGPoint(x: visibleRect.minX, y: visibleRect.minY)
-               //print(visibleRect.minY)
-           if (visibleRect.minY < 100) {
-               headerView.isHidden = false
-           } else{
-             headerView.isHidden = true
-           }
-           
-       }
+        let visibleRect = CGRect(origin: scrollView.contentOffset, size: scrollView.bounds.size)
+        if (visibleRect.minY < 100) {
+            headerView.isHidden = false
+        } else{
+            headerView.isHidden = true
+        }
+    }
 }
 

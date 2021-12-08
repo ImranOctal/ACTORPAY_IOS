@@ -77,6 +77,20 @@ extension UIView {
         }
     }
     
+//    @IBInspectable var dashBorder: Bool {
+//        get {
+//            return layer.shadowOpacity > 0.0
+//        }
+//        set {
+//            if newValue == true {
+//                self.setDashBorder()
+//            } else {
+//                layer.borderColor = UIColor.clear.cgColor
+//                layer.borderWidth = 0
+//            }
+//        }
+//    }
+    
     func showBlurLoader() {
         let blurLoader = BlurLoader(frame: frame)
         self.addSubview(blurLoader)
@@ -99,8 +113,7 @@ extension UIView {
             layer.render(in: rendererContext.cgContext)
         }
     }
-    
-    
+        
     func addShadow(shadowColor: CGColor = UIColor.black.cgColor,
                    shadowOffset: CGSize = CGSize(width: 1.0, height: 2.0),
                    shadowOpacity: Float = 0.5,
@@ -743,5 +756,45 @@ class BlurLoader: UIView {
         blurEffectView.contentView.addSubview(activityIndicator)
         activityIndicator.center = blurEffectView.contentView.center
         activityIndicator.startAnimating()
+    }
+}
+
+class DashedBorderView: UIView {
+
+//    @IBInspectable var cornerRadius: CGFloat = 4
+//    @IBInspectable var borderColor: UIColor = UIColor.black
+    @IBInspectable var dashPaintedSize: Int = 5
+    @IBInspectable var dashUnpaintedSize: Int = 5
+
+    let dashedBorder = CAShapeLayer()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+
+    private func commonInit() {
+        //custom initialization
+        self.layer.addSublayer(dashedBorder)
+        applyDashBorder()
+    }
+
+    override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
+        applyDashBorder()
+    }
+
+    func applyDashBorder() {
+        dashedBorder.strokeColor = UIColor.gray.cgColor
+        dashedBorder.lineDashPattern = [NSNumber(value: dashPaintedSize), NSNumber(value: dashUnpaintedSize)]
+        dashedBorder.fillColor = nil
+        dashedBorder.cornerRadius = cornerRadius
+        dashedBorder.path = UIBezierPath(rect: self.bounds).cgPath
+        dashedBorder.frame = self.bounds
     }
 }

@@ -57,8 +57,6 @@ class HomeViewController: UIViewController {
         self.view.endEditing(true)
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
         self.navigationController?.pushViewController(newVC, animated: true)
-//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
-//        self.navigationController?.pushViewController(newVC, animated: true)
     }
 
 }

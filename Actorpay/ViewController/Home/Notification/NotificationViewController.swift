@@ -29,8 +29,8 @@ class NotificationViewController: UIViewController {
 
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        self.navigationController?.popToRootViewController(animated: true)
-//        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+
     }
 }
 

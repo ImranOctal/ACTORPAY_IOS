@@ -23,6 +23,6 @@ class PaymentSucceedViewController: UIViewController {
     
     @objc func timerAction() {
         timer.invalidate()
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }

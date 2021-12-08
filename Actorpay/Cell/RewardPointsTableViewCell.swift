@@ -14,6 +14,8 @@ class RewardPointsTableViewCell: UITableViewCell {
     @IBOutlet weak var redeemButton: UIButton!
     @IBOutlet weak var iconImage: UIImageView!
     
+    var redeemButtonHandler: (() -> ())!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,4 +27,8 @@ class RewardPointsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func redeemButtonAction(_ sender: UIButton){
+        redeemButtonHandler()
+    }
+    
 }
