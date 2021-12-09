@@ -18,9 +18,13 @@ class TabBarRootViewController: UIViewController {
     var category:[Category] = [
         Category(title: "Add Money", icon: UIImage(named: "add_money")),
         Category(title: "Send Money", icon: UIImage(named: "send_money")),
-        Category(title: "QRCode Scan", icon: UIImage(named: "qr-code2")),
+        Category(title: "Mobile & DTH", icon: UIImage(named: "smartphone")),
+        Category(title: "Utility Bill", icon: UIImage(named: "bill")),
+        Category(title: "Add Money", icon: UIImage(named: "add_money")),
+        Category(title: "Send Money", icon: UIImage(named: "send_money")),
         Category(title: "Mobile & DTH", icon: UIImage(named: "smartphone")),
         Category(title: "Utility Bill", icon: UIImage(named: "bill"))
+        
     ]
     let contactHeaderHeight: CGFloat = 32
     
@@ -68,10 +72,10 @@ class TabBarRootViewController: UIViewController {
     
     @IBAction func notificationButtonAction(_ sender: UIButton){
         self.view.endEditing(true)
-        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
-        self.navigationController?.pushViewController(newVC, animated: true)
-//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RemittanceViewController") as! RemittanceViewController
+//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
 //        self.navigationController?.pushViewController(newVC, animated: true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RemittanceViewController") as! RemittanceViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     @objc private func menuButtonAction(sender: UIButton) {
@@ -119,15 +123,6 @@ extension TabBarRootViewController: UICollectionViewDelegate, UICollectionViewDa
             self.navigationController?.pushViewController(vc, animated: true)
         case 1:
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
-            self.navigationController?.pushViewController(vc, animated: true)
-        case 2:
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ScanQRCodeViewController") as! ScanQRCodeViewController
-            self.navigationController?.pushViewController(vc, animated: true)
-        case 3:
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "DTHRechageViewController") as! DTHRechageViewController
-            self.navigationController?.pushViewController(vc, animated: true)
-        case 4:
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "UtilityBillViewController") as! UtilityBillViewController
             self.navigationController?.pushViewController(vc, animated: true)
 
         default:

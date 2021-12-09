@@ -9,7 +9,6 @@ import UIKit
 import DropDown
 import Toast_Swift
 import ContactsUI
-//import SwiftQRScanner
 
 class QRCodeViewController: UIViewController {
     
@@ -210,7 +209,7 @@ class QRCodeViewController: UIViewController {
     }
     
     private func add(asChildViewController viewController: UIViewController) {
-        addChild(viewController)
+//        addChild(viewController)
         qrCodeView.addSubview(viewController.view)
         viewController.view.frame = qrCodeView.bounds
         viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -221,9 +220,20 @@ class QRCodeViewController: UIViewController {
 
 extension QRCodeViewController: QRScannerCodeDelegate {
     func qrScanner(_ controller: UIViewController, scanDidComplete result: String) {
+        
+        //        guard let url = URL(string: result) else {
+        //          return //be safe
+        //        }
+        //
+        //        if #available(iOS 10.0, *) {
+        //            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        //        } else {
+        //            UIApplication.shared.openURL(url)
+        //        }
+//
+        //        Helpers.processQRScan(self, result)
         print(result)
-        payNowView.isHidden = (result.count == 0) ? true : false
-        qrCodeView.isHidden = true
+        payNowView.isHidden = (result == "") ? true : false
         
         //searchUsers(result)
     }

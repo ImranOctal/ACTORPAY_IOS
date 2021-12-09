@@ -33,8 +33,8 @@ class WalletStatementViewController: UIViewController {
     
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        self.sideMenuViewController?.hideMenuViewController()
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func filterButtonAction(_ sender: UIButton) {

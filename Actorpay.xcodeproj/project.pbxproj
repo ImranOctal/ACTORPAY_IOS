@@ -10,8 +10,6 @@
 		2DCE0284B1497D2DCCE44B05 /* Pods_ActorpayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DAF0FEF10A4CAF18896C6F0 /* Pods_ActorpayTests.framework */; };
 		6E559C174545D9DF39EAECDC /* Pods_Actorpay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54045D2DD4F3E5A8FA5A442 /* Pods_Actorpay.framework */; };
 		84381A8580F1DF7FD7AF959A /* Pods_Actorpay_ActorpayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F702F9D90B5B4DD83D2DB88 /* Pods_Actorpay_ActorpayUITests.framework */; };
-		880E011E2760AEEC00016D3C /* DTHRechageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880E011D2760AEEC00016D3C /* DTHRechageViewController.swift */; };
-		880E01262760B05400016D3C /* RechargeOperatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880E01252760B05400016D3C /* RechargeOperatorCollectionViewCell.swift */; };
 		881A921E275A184600825572 /* PaymentSucceedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A921D275A184600825572 /* PaymentSucceedViewController.swift */; };
 		881A9227275A256F00825572 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A9226275A256F00825572 /* QRCodeViewController.swift */; };
 		881A922D275A2DE400825572 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A922C275A2DE400825572 /* WalletViewController.swift */; };
@@ -27,6 +25,8 @@
 		8836A25B275DEF400099C5E0 /* RewardPointsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8836A25A275DEF400099C5E0 /* RewardPointsTableViewCell.swift */; };
 		8836A260275DEF510099C5E0 /* RewardPointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8836A25F275DEF510099C5E0 /* RewardPointsViewController.swift */; };
 		886254EA275E3A49001D09F1 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886254E9275E3A49001D09F1 /* ProductTableViewCell.swift */; };
+		888FE749275B51E9006A9FFE /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888FE747275B51E9006A9FFE /* SquareView.swift */; };
+		888FE74A275B51E9006A9FFE /* SwiftQRScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888FE748275B51E9006A9FFE /* SwiftQRScanner.swift */; };
 		88A572A32757A29300F2FC66 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A572A22757A29300F2FC66 /* Global.swift */; };
 		88AE6370275F6A250069ABB4 /* TabBarRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AE636F275F6A250069ABB4 /* TabBarRootViewController.swift */; };
 		88B596F527574C71008F64EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B596F427574C71008F64EE /* AppDelegate.swift */; };
@@ -40,17 +40,6 @@
 		88BBF7D0275DC9220090C449 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBF7CF275DC9220090C449 /* MoreViewController.swift */; };
 		88BBF7DE275DD9240090C449 /* MyOrdersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBF7DC275DD9240090C449 /* MyOrdersTableViewCell.swift */; };
 		88BBF7E5275DDD1D0090C449 /* MyOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBF7E4275DDD1D0090C449 /* MyOrdersViewController.swift */; };
-		88BCE77F2760DB9200471BB3 /* SwiftQRScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BCE77D2760DB9200471BB3 /* SwiftQRScanner.swift */; };
-		88BCE7802760DB9200471BB3 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BCE77E2760DB9200471BB3 /* SquareView.swift */; };
-		88BCE7852760DEBB00471BB3 /* QRCodePayNowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BCE7842760DEBB00471BB3 /* QRCodePayNowViewController.swift */; };
-		88D099792760B9E500B5E564 /* UtilityBillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D099782760B9E500B5E564 /* UtilityBillViewController.swift */; };
-		88D0997D2760BA8B00B5E564 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88B5977D27575427008F64EE /* Poppins-Light.ttf */; };
-		88D0997E2760BA8B00B5E564 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88B5977B27575427008F64EE /* Poppins-Bold.ttf */; };
-		88D0997F2760BA8B00B5E564 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88B5977E27575427008F64EE /* Poppins-Regular.ttf */; };
-		88D099802760BA8B00B5E564 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88B5977C27575427008F64EE /* Poppins-SemiBold.ttf */; };
-		88D099812760BA8B00B5E564 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88B5977A27575427008F64EE /* Poppins-Medium.ttf */; };
-		88D099862760BC9400B5E564 /* UtilityBillCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D099852760BC9400B5E564 /* UtilityBillCollectionViewCell.swift */; };
-		88D099EE2760C8DB00B5E564 /* ScanQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D099ED2760C8DB00B5E564 /* ScanQRCodeViewController.swift */; };
 		88EF905C27588AC000FEA684 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EF905B27588AC000FEA684 /* TabBarViewController.swift */; };
 		88EF906127588B4E00FEA684 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EF906027588B4E00FEA684 /* CustomTabBar.swift */; };
 		88EF90672758927500FEA684 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EF90662758927500FEA684 /* HomeViewController.swift */; };
@@ -91,8 +80,6 @@
 		5E04284485ECC5E08A877F25 /* Pods-Actorpay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Actorpay.release.xcconfig"; path = "Target Support Files/Pods-Actorpay/Pods-Actorpay.release.xcconfig"; sourceTree = "<group>"; };
 		79DD4D70A37C1E3945F3E61A /* Pods-Actorpay-ActorpayUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Actorpay-ActorpayUITests.debug.xcconfig"; path = "Target Support Files/Pods-Actorpay-ActorpayUITests/Pods-Actorpay-ActorpayUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		84071F5206CA115EC0A98368 /* Pods-Actorpay-ActorpayUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Actorpay-ActorpayUITests.release.xcconfig"; path = "Target Support Files/Pods-Actorpay-ActorpayUITests/Pods-Actorpay-ActorpayUITests.release.xcconfig"; sourceTree = "<group>"; };
-		880E011D2760AEEC00016D3C /* DTHRechageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTHRechageViewController.swift; sourceTree = "<group>"; };
-		880E01252760B05400016D3C /* RechargeOperatorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RechargeOperatorCollectionViewCell.swift; sourceTree = "<group>"; };
 		881A921D275A184600825572 /* PaymentSucceedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSucceedViewController.swift; sourceTree = "<group>"; };
 		881A9226275A256F00825572 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		881A922C275A2DE400825572 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +95,8 @@
 		8836A25A275DEF400099C5E0 /* RewardPointsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardPointsTableViewCell.swift; sourceTree = "<group>"; };
 		8836A25F275DEF510099C5E0 /* RewardPointsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardPointsViewController.swift; sourceTree = "<group>"; };
 		886254E9275E3A49001D09F1 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
+		888FE747275B51E9006A9FFE /* SquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		888FE748275B51E9006A9FFE /* SwiftQRScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftQRScanner.swift; sourceTree = "<group>"; };
 		88A572A22757A29300F2FC66 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		88AE636F275F6A250069ABB4 /* TabBarRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRootViewController.swift; sourceTree = "<group>"; };
 		88B596F127574C71008F64EE /* Actorpay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Actorpay.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,12 +121,6 @@
 		88BBF7CF275DC9220090C449 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		88BBF7DC275DD9240090C449 /* MyOrdersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersTableViewCell.swift; sourceTree = "<group>"; };
 		88BBF7E4275DDD1D0090C449 /* MyOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersViewController.swift; sourceTree = "<group>"; };
-		88BCE77D2760DB9200471BB3 /* SwiftQRScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftQRScanner.swift; sourceTree = "<group>"; };
-		88BCE77E2760DB9200471BB3 /* SquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
-		88BCE7842760DEBB00471BB3 /* QRCodePayNowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePayNowViewController.swift; sourceTree = "<group>"; };
-		88D099782760B9E500B5E564 /* UtilityBillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityBillViewController.swift; sourceTree = "<group>"; };
-		88D099852760BC9400B5E564 /* UtilityBillCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityBillCollectionViewCell.swift; sourceTree = "<group>"; };
-		88D099ED2760C8DB00B5E564 /* ScanQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRCodeViewController.swift; sourceTree = "<group>"; };
 		88EF905B27588AC000FEA684 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		88EF906027588B4E00FEA684 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		88EF90662758927500FEA684 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -195,18 +178,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		880E011C2760AECC00016D3C /* DTHRecharge */ = {
-			isa = PBXGroup;
-			children = (
-				880E011D2760AEEC00016D3C /* DTHRechageViewController.swift */,
-			);
-			path = DTHRecharge;
-			sourceTree = "<group>";
-		};
 		881A9222275A247A00825572 /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
-				88BCE7792760DB6E00471BB3 /* QRCodeScanner */,
+				888FE746275B51D3006A9FFE /* QRCodeScanner */,
 				881A9226275A256F00825572 /* QRCodeViewController.swift */,
 			);
 			path = QRCode;
@@ -271,6 +246,15 @@
 				8836A24C275DEAD00099C5E0 /* WalletStatementViewController.swift */,
 			);
 			path = WalletStatement;
+			sourceTree = "<group>";
+		};
+		888FE746275B51D3006A9FFE /* QRCodeScanner */ = {
+			isa = PBXGroup;
+			children = (
+				888FE747275B51E9006A9FFE /* SquareView.swift */,
+				888FE748275B51E9006A9FFE /* SwiftQRScanner.swift */,
+			);
+			path = QRCodeScanner;
 			sourceTree = "<group>";
 		};
 		88B596E827574C71008F64EE = {
@@ -384,33 +368,6 @@
 			path = MyOrder;
 			sourceTree = "<group>";
 		};
-		88BCE7792760DB6E00471BB3 /* QRCodeScanner */ = {
-			isa = PBXGroup;
-			children = (
-				88BCE77E2760DB9200471BB3 /* SquareView.swift */,
-				88BCE77D2760DB9200471BB3 /* SwiftQRScanner.swift */,
-			);
-			name = QRCodeScanner;
-			path = ../../../../../../../.Trash/QRCodeScanner;
-			sourceTree = "<group>";
-		};
-		88D099772760B9C000B5E564 /* UtilityBill */ = {
-			isa = PBXGroup;
-			children = (
-				88D099782760B9E500B5E564 /* UtilityBillViewController.swift */,
-			);
-			path = UtilityBill;
-			sourceTree = "<group>";
-		};
-		88D099EC2760C8C600B5E564 /* ScanQRCode */ = {
-			isa = PBXGroup;
-			children = (
-				88D099ED2760C8DB00B5E564 /* ScanQRCodeViewController.swift */,
-				88BCE7842760DEBB00471BB3 /* QRCodePayNowViewController.swift */,
-			);
-			path = ScanQRCode;
-			sourceTree = "<group>";
-		};
 		88EF905627588A3100FEA684 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,9 +389,6 @@
 		88EF90652758926300FEA684 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				88D099EC2760C8C600B5E564 /* ScanQRCode */,
-				88D099772760B9C000B5E564 /* UtilityBill */,
-				880E011C2760AECC00016D3C /* DTHRecharge */,
 				882FEF1B275E098F003E8812 /* Notification */,
 				882626B02759D29C00C9C26D /* AddMoney */,
 				88EF90662758927500FEA684 /* HomeViewController.swift */,
@@ -469,8 +423,6 @@
 				8836A251275DEAF10099C5E0 /* WalletStatementTableViewCell.swift */,
 				882FEF24275E09AF003E8812 /* NotificationTableViewCell.swift */,
 				886254E9275E3A49001D09F1 /* ProductTableViewCell.swift */,
-				880E01252760B05400016D3C /* RechargeOperatorCollectionViewCell.swift */,
-				88D099852760BC9400B5E564 /* UtilityBillCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -619,15 +571,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				88B5970127574C74008F64EE /* LaunchScreen.storyboard in Resources */,
-				88D0997D2760BA8B00B5E564 /* Poppins-Light.ttf in Resources */,
-				88D0997E2760BA8B00B5E564 /* Poppins-Bold.ttf in Resources */,
 				88B596FE27574C74008F64EE /* Assets.xcassets in Resources */,
 				88EF90FA2758E91000FEA684 /* SideMenuTableViewCell.xib in Resources */,
 				88EF90972758BF9000FEA684 /* TransactionTableViewCell.xib in Resources */,
-				88D099802760BA8B00B5E564 /* Poppins-SemiBold.ttf in Resources */,
 				88B596FC27574C71008F64EE /* Main.storyboard in Resources */,
-				88D0997F2760BA8B00B5E564 /* Poppins-Regular.ttf in Resources */,
-				88D099812760BA8B00B5E564 /* Poppins-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -755,14 +702,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88D099792760B9E500B5E564 /* UtilityBillViewController.swift in Sources */,
 				881A9233275A2E0D00825572 /* ProfileViewController.swift in Sources */,
-				880E011E2760AEEC00016D3C /* DTHRechageViewController.swift in Sources */,
 				88B596F927574C71008F64EE /* LoginViewController.swift in Sources */,
 				882AEA7A275F16120085EA23 /* ProductListViewController.swift in Sources */,
 				88EF90792758A9D000FEA684 /* Category.swift in Sources */,
 				8836A25B275DEF400099C5E0 /* RewardPointsTableViewCell.swift in Sources */,
-				88BCE77F2760DB9200471BB3 /* SwiftQRScanner.swift in Sources */,
 				882FEF25275E09AF003E8812 /* NotificationTableViewCell.swift in Sources */,
 				88AE6370275F6A250069ABB4 /* TabBarRootViewController.swift in Sources */,
 				886254EA275E3A49001D09F1 /* ProductTableViewCell.swift in Sources */,
@@ -771,7 +715,7 @@
 				88BBF7DE275DD9240090C449 /* MyOrdersTableViewCell.swift in Sources */,
 				88EF90D62758D94500FEA684 /* SideMenuViewController.swift in Sources */,
 				88EF906127588B4E00FEA684 /* CustomTabBar.swift in Sources */,
-				88BCE7852760DEBB00471BB3 /* QRCodePayNowViewController.swift in Sources */,
+				888FE74A275B51E9006A9FFE /* SwiftQRScanner.swift in Sources */,
 				88BBF7E5275DDD1D0090C449 /* MyOrdersViewController.swift in Sources */,
 				8836A252275DEAF10099C5E0 /* WalletStatementTableViewCell.swift in Sources */,
 				88EF91122758F83E00FEA684 /* RootViewController.swift in Sources */,
@@ -783,19 +727,16 @@
 				88A572A32757A29300F2FC66 /* Global.swift in Sources */,
 				88EF9070275892D700FEA684 /* HistoryViewController.swift in Sources */,
 				88EF907F2758AB1200FEA684 /* CategoryCollectionViewCell.swift in Sources */,
+				888FE749275B51E9006A9FFE /* SquareView.swift in Sources */,
 				88EF905C27588AC000FEA684 /* TabBarViewController.swift in Sources */,
 				882FEF37275E2737003E8812 /* ProductDetailsViewController.swift in Sources */,
 				88F895C52759F51400B679BE /* AddCardViewController.swift in Sources */,
 				88EF90FB2758E91000FEA684 /* SideMenuTableViewCell.swift in Sources */,
-				88D099862760BC9400B5E564 /* UtilityBillCollectionViewCell.swift in Sources */,
 				881A9227275A256F00825572 /* QRCodeViewController.swift in Sources */,
-				880E01262760B05400016D3C /* RechargeOperatorCollectionViewCell.swift in Sources */,
-				88D099EE2760C8DB00B5E564 /* ScanQRCodeViewController.swift in Sources */,
 				88BBF7D0275DC9220090C449 /* MoreViewController.swift in Sources */,
 				8836A260275DEF510099C5E0 /* RewardPointsViewController.swift in Sources */,
 				882AEA80275F23EA0085EA23 /* RemittanceViewController.swift in Sources */,
 				88EF90962758BF9000FEA684 /* TransactionTableViewCell.swift in Sources */,
-				88BCE7802760DB9200471BB3 /* SquareView.swift in Sources */,
 				B35B08F8275770F600AC6F65 /* Extensions.swift in Sources */,
 				8836A24D275DEAD00099C5E0 /* WalletStatementViewController.swift in Sources */,
 			);

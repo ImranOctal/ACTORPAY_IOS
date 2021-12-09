@@ -47,8 +47,6 @@ final class SideMenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-        self.sideMenuViewController?.dismiss(animated: true, completion: nil)
-        self.sideMenuViewController?.hideMenuViewController()
     }
     
 
@@ -60,26 +58,41 @@ extension SideMenuViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row {
         case 0:
-//            let firstVC = storyboard?.instantiateViewController(withIdentifier: "HistoryViewController") as! HistoryViewController
-//            self.navigationController?.pushViewController(firstVC, animated: true)
-            break
+            if let firstVC = storyboard?.instantiateViewController(withIdentifier: "HistoryViewController") {
+                let contentViewController = UINavigationController(rootViewController: firstVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
+            }
         case 1:
-            let secondVC = storyboard?.instantiateViewController(withIdentifier: "WalletStatementViewController") as! WalletStatementViewController
-            self.navigationController?.pushViewController(secondVC, animated: true)
+            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "WalletStatementViewController") {
+                let contentViewController = UINavigationController(rootViewController: secondVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
+            }
         case 2:
-            let secondVC = storyboard?.instantiateViewController(withIdentifier: "MyOrdersViewController") as! MyOrdersViewController
-            self.navigationController?.pushViewController(secondVC, animated: true)
-            
+            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "MyOrdersViewController") {
+                let contentViewController = UINavigationController(rootViewController: secondVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
+            }
         case 3:
-
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RemittanceViewController") as! RemittanceViewController
-            self.navigationController?.pushViewController(newVC, animated: true)
-        case 4:
-            let secondVC = storyboard?.instantiateViewController(withIdentifier: "RewardPointsViewController") as! RewardPointsViewController
-            self.navigationController?.pushViewController(secondVC, animated: true)
+            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "RewardPointsViewController") {
+                let contentViewController = UINavigationController(rootViewController: secondVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
+            }
+//        case 4:
+//            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "secondViewController") {
+//                let contentViewController = UINavigationController(rootViewController: secondVC)
+//                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+//                sideMenuViewController?.hideMenuViewController()
+//            }
         case 5:
-            let secondVC = storyboard?.instantiateViewController(withIdentifier: "MoreViewController") as! MoreViewController
-            self.navigationController?.pushViewController(secondVC, animated: true)
+            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "MoreViewController") {
+                let contentViewController = UINavigationController(rootViewController: secondVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
+            }
 //        case 6:
 //            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "secondViewController") {
 //                let contentViewController = UINavigationController(rootViewController: secondVC)

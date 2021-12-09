@@ -138,12 +138,6 @@ class LoginViewController: UIViewController {
             self.alertViewController(message: "Please Enter an Password.")
             return
         }
-        
-        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
-        myApp.window?.rootViewController = newVC
-    
-//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RootViewController") as! RootViewController
-//        self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     @IBAction func signupButtonAction(_ sender: UIButton) {

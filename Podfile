@@ -10,7 +10,7 @@ target 'Actorpay' do
   pod 'NKVPhonePicker'
   pod 'DropDown'
   pod 'AKSideMenu'
-#  pod 'SwiftQRScanner'
+  pod 'SwiftQRScanner'
   pod 'Toast-Swift', '~> 5.0.1'
 
 
