@@ -30,22 +30,32 @@ class MoreViewController: UIViewController {
     
     @IBAction func aboutUsButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     @IBAction func contactUsButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     @IBAction func faqButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     @IBAction func termsAndConditionButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     @IBAction func privacyPolicyButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     

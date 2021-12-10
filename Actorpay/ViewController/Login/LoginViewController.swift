@@ -91,6 +91,15 @@ class LoginViewController: UIViewController {
         signInUIManage()
     }
     
+    @IBAction func forgotPasswordButton(_ sender: UIButton) {
+        let popOverConfirmVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
+        self.addChild(popOverConfirmVC)
+        popOverConfirmVC.view.frame = self.view.frame
+        self.view.center = popOverConfirmVC.view.center
+        self.view.addSubview(popOverConfirmVC.view)
+        popOverConfirmVC.didMove(toParent: self)
+    }
+    
     @IBAction func alreadyLoginButton(_ sender: UIButton) {
         isSignIn = true
         signInUIManage()
@@ -138,6 +147,12 @@ class LoginViewController: UIViewController {
             self.alertViewController(message: "Please Enter an Password.")
             return
         }
+        
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
+        myApp.window?.rootViewController = newVC
+    
+//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RootViewController") as! RootViewController
+//        self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     @IBAction func signupButtonAction(_ sender: UIButton) {
@@ -192,8 +207,12 @@ class LoginViewController: UIViewController {
     @objc func tapLabel(gesture: UITapGestureRecognizer) {
         if gesture.didTapAttributedTextInLabel(label: termsAndPrivacyLabel, targetText: "Terms of Use") {
             print("Terms of Use")
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+            self.navigationController?.pushViewController(newVC, animated: true)
         } else if gesture.didTapAttributedTextInLabel(label: termsAndPrivacyLabel, targetText: "Privacy Policy") {
             print("Privacy Policy")
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+            self.navigationController?.pushViewController(newVC, animated: true)
         }
     }
     

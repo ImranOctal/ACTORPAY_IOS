@@ -13,10 +13,10 @@ import AKSideMenu
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true
-//        showHomePage()
         return true
     }
 
@@ -35,19 +35,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-//    func showHomePage(){
-//        let contentViewController = HomeViewController(nibName: "HomeViewController", bundle: nil)
-//        var homeNavigationController: UINavigationController!
-//        homeNavigationController = UINavigationController.init(rootViewController: contentViewController)
-//        let menuViewController = SideMenuViewController(nibName: "SideMenuViewController", bundle: nil)
-//        
-//            // Create side menu controller
-//        let sideMenuViewController: AKSideMenu = AKSideMenu(contentViewController: homeNavigationController, leftMenuViewController: menuViewController, rightMenuViewController: UIViewController())
-//        window?.rootViewController = sideMenuViewController
-//        window?.backgroundColor = UIColor.white
-//        window?.makeKeyAndVisible()
-//    }
+    
+    func setupNavigation(){
+        if ((token).count > 0){
+            let newVC = self.storyBoard.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
+            myApp.window?.rootViewController = newVC
+        }else{
+            let newVC = self.storyBoard.instantiateViewController(withIdentifier: "loginVC") as! UINavigationController
+            myApp.window?.rootViewController = newVC
+        }
+    }
     
 }
 

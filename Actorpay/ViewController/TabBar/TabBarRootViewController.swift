@@ -20,11 +20,8 @@ class TabBarRootViewController: UIViewController {
         Category(title: "Send Money", icon: UIImage(named: "send_money")),
         Category(title: "Mobile & DTH", icon: UIImage(named: "smartphone")),
         Category(title: "Utility Bill", icon: UIImage(named: "bill")),
-        Category(title: "Add Money", icon: UIImage(named: "add_money")),
-        Category(title: "Send Money", icon: UIImage(named: "send_money")),
-        Category(title: "Mobile & DTH", icon: UIImage(named: "smartphone")),
-        Category(title: "Utility Bill", icon: UIImage(named: "bill"))
-        
+        Category(title: "Online Payment", icon: UIImage(named: "qr-code2")),
+        Category(title: "Product List", icon: UIImage(named: "bill"))
     ]
     let contactHeaderHeight: CGFloat = 32
     
@@ -72,10 +69,10 @@ class TabBarRootViewController: UIViewController {
     
     @IBAction func notificationButtonAction(_ sender: UIButton){
         self.view.endEditing(true)
-//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
-//        self.navigationController?.pushViewController(newVC, animated: true)
-        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RemittanceViewController") as! RemittanceViewController
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
         self.navigationController?.pushViewController(newVC, animated: true)
+//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RemittanceViewController") as! RemittanceViewController
+//        self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     @objc private func menuButtonAction(sender: UIButton) {
@@ -86,17 +83,19 @@ class TabBarRootViewController: UIViewController {
 
     //MARK:- Helper Function -
     func setupMiddleButton() {
-        let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         var menuButtonFrame = menuButton.frame
         menuButtonFrame.origin.y = (self.view.bounds.height - menuButtonFrame.height) - ((ScreenSize.SCREEN_MAX_LENGTH >= 812.0) ? 50 : 20)
         menuButtonFrame.origin.x = self.view.bounds.width/2 - menuButtonFrame.size.width/2
         menuButton.frame = menuButtonFrame
-
+        menuButton.layer.shadowColor = UIColor.black.cgColor
+        menuButton.layer.shadowOffset = CGSize(width: 1.0, height: 2.0)
+        menuButton.layer.shadowOpacity = 0.5
+        menuButton.layer.shadowRadius = 2.0
         menuButton.backgroundColor = UIColor.init(hexFromString: "#2878B6")
         menuButton.layer.cornerRadius = menuButtonFrame.height/2
         self.view.addSubview(menuButton)
-//        self.tabBarItem.
-        
+
         menuButton.setImage(UIImage(named: "qr-code"), for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
 
@@ -124,7 +123,18 @@ extension TabBarRootViewController: UICollectionViewDelegate, UICollectionViewDa
         case 1:
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
             self.navigationController?.pushViewController(vc, animated: true)
-
+        case 2:
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "DTHRechageViewController") as! DTHRechageViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 3:
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "UtilityBillViewController") as! UtilityBillViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 4:
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ScanQRCodeViewController") as! ScanQRCodeViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 5:
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductListViewController") as! ProductListViewController
+            self.navigationController?.pushViewController(vc, animated: true)
         default:
             break
         }

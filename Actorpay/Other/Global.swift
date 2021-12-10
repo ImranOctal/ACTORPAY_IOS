@@ -10,6 +10,8 @@ import UIKit
 
 
 let obj_AppDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+let myApp = UIApplication.shared.delegate as! AppDelegate
+let token = "adas"
 typealias typeAliasStringDictionary         = [String: String]
 var selectedTabIndex = 0
 var selectedTabTag = 1001

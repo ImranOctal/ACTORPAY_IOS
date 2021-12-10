@@ -39,6 +39,9 @@ class HomeViewController: UIViewController {
         transactionTableView.register(UINib(nibName: "TransactionTableViewCell", bundle: nil), forCellReuseIdentifier: "TransactionTableViewCell")
         transactionTableView.estimatedRowHeight = 70
         transactionTableView.rowHeight = UITableView.automaticDimension
+        
+        
+        
         // Do any additional setup after loading the view.
     }
     
@@ -55,9 +58,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func notificationButtonAction(_ sender: UIButton){
         self.view.endEditing(true)
-//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
-//        self.navigationController?.pushViewController(newVC, animated: true)
-        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RemittanceViewController") as! RemittanceViewController
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
         self.navigationController?.pushViewController(newVC, animated: true)
     }
 
@@ -132,6 +133,4 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
 
         return view
     }
-    
 }
-

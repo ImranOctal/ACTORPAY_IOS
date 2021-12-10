@@ -32,73 +32,90 @@ final class SideMenuViewController: UIViewController {
         super.viewDidLoad()
         
         //MARK: Create Data Dic for Side menu
-        let myProfile: typeAliasStringDictionary = [VAL_TITLE :"My Profile", VAL_IMAGE : "my_profile"]
-        let walletStatement: typeAliasStringDictionary = [VAL_TITLE :"Wallet Statement", VAL_IMAGE : "wallet_statement"]
         let myOrders: typeAliasStringDictionary = [VAL_TITLE :"My Orders", VAL_IMAGE : "my_orders"]
+        let walletStatement: typeAliasStringDictionary = [VAL_TITLE :"Wallet Statement", VAL_IMAGE : "wallet_statement"]
+        let rewardsPoints: typeAliasStringDictionary = [VAL_TITLE :"My Loyalty/Rewards Points", VAL_IMAGE : "my_profile"]
+        let referral: typeAliasStringDictionary = [VAL_TITLE :"Referral", VAL_IMAGE : "my_orders"]
+        let availabelMoney: typeAliasStringDictionary = [VAL_TITLE :"View Available Money in Wallet", VAL_IMAGE : "my_orders"]
+        let my_profile: typeAliasStringDictionary = [VAL_TITLE :"My Profile", VAL_IMAGE : "my_profile"]
+        let changePassword: typeAliasStringDictionary = [VAL_TITLE :"Change Password", VAL_IMAGE : "my_profile"]
+        let promo_offers: typeAliasStringDictionary = [VAL_TITLE :"Promo & Offers", VAL_IMAGE : "my_profile"]
         let changePaymentOption: typeAliasStringDictionary = [VAL_TITLE :"Change Payment Option", VAL_IMAGE : "change_payment_option"]
         let settings: typeAliasStringDictionary = [VAL_TITLE :"Settings", VAL_IMAGE : "settings"]
         let more: typeAliasStringDictionary = [VAL_TITLE :"More", VAL_IMAGE : "more"]
         
         let logout: typeAliasStringDictionary = [VAL_TITLE :"Logout", VAL_IMAGE : "logout"]
         //TODO: CHANGE ORDER OF SIDE MENU CHANGE HERE
-        sidemenuArray = [myProfile,walletStatement,myOrders,changePaymentOption,settings,more,logout]
+        sidemenuArray = [myOrders,walletStatement,rewardsPoints,referral,availabelMoney,my_profile,changePassword,promo_offers,changePaymentOption,settings,more,logout]
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }
-    
-
 }
 
 extension SideMenuViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        self.sideMenuViewController?.dismiss(animated: true, completion: nil)
+        self.sideMenuViewController?.hideMenuViewController()
         switch indexPath.row {
         case 0:
-            if let firstVC = storyboard?.instantiateViewController(withIdentifier: "HistoryViewController") {
-                let contentViewController = UINavigationController(rootViewController: firstVC)
-                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
-                sideMenuViewController?.hideMenuViewController()
-            }
+            let secondVC = storyboard?.instantiateViewController(withIdentifier: "MyOrdersViewController") as! MyOrdersViewController
+            self.navigationController?.pushViewController(secondVC, animated: true)
         case 1:
-            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "WalletStatementViewController") {
-                let contentViewController = UINavigationController(rootViewController: secondVC)
-                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
-                sideMenuViewController?.hideMenuViewController()
-            }
+            let secondVC = storyboard?.instantiateViewController(withIdentifier: "WalletStatementViewController") as! WalletStatementViewController
+            self.navigationController?.pushViewController(secondVC, animated: true)
         case 2:
-            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "MyOrdersViewController") {
-                let contentViewController = UINavigationController(rootViewController: secondVC)
-                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
-                sideMenuViewController?.hideMenuViewController()
-            }
+            let secondVC = storyboard?.instantiateViewController(withIdentifier: "RewardPointsViewController") as! RewardPointsViewController
+            self.navigationController?.pushViewController(secondVC, animated: true)
         case 3:
-            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "RewardPointsViewController") {
-                let contentViewController = UINavigationController(rootViewController: secondVC)
-                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
-                sideMenuViewController?.hideMenuViewController()
-            }
-//        case 4:
-//            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "secondViewController") {
-//                let contentViewController = UINavigationController(rootViewController: secondVC)
-//                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
-//                sideMenuViewController?.hideMenuViewController()
-//            }
+            //Referral
+            obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
+            break
+        case 4:
+            //Available Money
+            obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
+            break
         case 5:
-            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "MoreViewController") {
-                let contentViewController = UINavigationController(rootViewController: secondVC)
-                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
-                sideMenuViewController?.hideMenuViewController()
+            //My Profile
+            isProfileView = true
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
+            myApp.window?.rootViewController = newVC
+            
+//            obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
+            
+        case 6:
+            //Change Password
+            if let opo = obj_AppDelegate.window?.rootViewController {
+            let popOverConfirmVC = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
+            obj_AppDelegate.window?.rootViewController?.addChild(popOverConfirmVC)
+            popOverConfirmVC.view.frame = opo.view.frame
+            opo.view.center = popOverConfirmVC.view.center
+            opo.view.addSubview(popOverConfirmVC.view)
+            popOverConfirmVC.didMove(toParent: self)
             }
-//        case 6:
-//            if let secondVC = storyboard?.instantiateViewController(withIdentifier: "secondViewController") {
-//                let contentViewController = UINavigationController(rootViewController: secondVC)
-//                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
-//                sideMenuViewController?.hideMenuViewController()
-//            }
+        case 7:
+            //Promo and Offers
+            obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
+            break
+        case 8:
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RemittanceViewController") as! RemittanceViewController
+            self.navigationController?.pushViewController(newVC, animated: true)
+        case 9:
+            //Settings
+            obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
+            break
+        case 10:
+            let secondVC = storyboard?.instantiateViewController(withIdentifier: "MoreViewController") as! MoreViewController
+            self.navigationController?.pushViewController(secondVC, animated: true)
+        case 11:
+            // Logout
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as! UINavigationController
+            myApp.window?.rootViewController = newVC
+            break
         default:
             break
         }
@@ -121,7 +138,7 @@ extension SideMenuViewController: UITableViewDataSource {
         let dict: typeAliasStringDictionary = sidemenuArray[indexPath.row]
         cell.imgSideBar.image = UIImage(named: dict[VAL_IMAGE]!)
         cell.lblSideBarName.text = NSLocalizedString(dict[VAL_TITLE]!, comment: "")
-        
+        cell.viewWithTag(1001)?.isHidden = indexPath.row == 10 ? false : true
        /* if dict == selectedObject {
             cell.imgSideBar.tintColor = primaryColor
             cell.lblSideBarName.textColor = primaryColor

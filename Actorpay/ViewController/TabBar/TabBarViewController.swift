@@ -29,8 +29,12 @@ class TabBarViewController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if isProfileView {
+            self.selectedIndex = 4
+            isProfileView = false
+            return
+        }
         self.navigationController?.navigationBar.isHidden = true
-        selectedTabIndex = self.tabBarController?.selectedIndex ?? 0
     }
 
     
@@ -73,7 +77,6 @@ class TabBarViewController: UITabBarController {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         selectedTabIndex = item.tag
-        print(item.tag)
         selectedTabTag = item.tag
         NotificationCenter.default.post(name:  Notification.Name("refreshRightButton"), object: self)
     }
