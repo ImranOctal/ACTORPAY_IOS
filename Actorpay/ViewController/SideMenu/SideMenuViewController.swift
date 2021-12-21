@@ -113,9 +113,20 @@ extension SideMenuViewController: UITableViewDelegate {
             self.navigationController?.pushViewController(secondVC, animated: true)
         case 11:
             // Logout
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as! UINavigationController
-            myApp.window?.rootViewController = newVC
-            break
+            let alert = UIAlertController(title: "Logout", message: "Are you sure you want to Logout??", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "ok", style: .default) { (action) in
+                AppManager.shared.token = ""
+                AppManager.shared.userId = ""
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as! UINavigationController
+                myApp.window?.rootViewController = newVC
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+                self.dismiss(animated: true, completion: nil)
+            }
+            alert.addAction(ok)
+            alert.addAction(cancel)
+            obj_AppDelegate.window?.rootViewController?.present(alert, animated: true, completion: nil)
+//            break
         default:
             break
         }

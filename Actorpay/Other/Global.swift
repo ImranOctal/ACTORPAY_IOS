@@ -8,16 +8,38 @@
 import Foundation
 import UIKit
 
-
 let obj_AppDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 let myApp = UIApplication.shared.delegate as! AppDelegate
-let token = "adas"
+let token = ""
 typealias typeAliasStringDictionary         = [String: String]
 var selectedTabIndex = 0
 var selectedTabTag = 1001
 let VAL_TITLE                               = "Val_TITLE"
 let VAL_IMAGE                               = "VAL_IMAGE"
 var primaryColor = UIColor.init(hexFromString: "#183967")
+
+func startActivityIndicator(shouldCenter: Bool = true) {
+    DispatchQueue.main.async {
+        let yPosition: CGFloat = shouldCenter ? (UIScreen.main.bounds.height/2) : 0
+            let activityView = UIActivityIndicatorView(style: .whiteLarge)
+            activityView.color = UIColor.black
+            activityView.center = CGPoint(x: UIScreen.main.bounds.width/2, y: yPosition)
+        myApp.window?.rootViewController?.view.addSubview(activityView)
+            activityView.startAnimating()
+        
+    }
+}
+
+func stopActivityIndicator() {
+    if let activityViews = myApp.window?.rootViewController?.view.subviews.filter({ $0 is UIActivityIndicatorView }) as? [UIActivityIndicatorView] {
+        DispatchQueue.main.async {
+            activityViews.forEach { (loader) in
+                loader.stopAnimating()
+                loader.removeFromSuperview()
+            }
+        }
+    }
+}
 
 func attributedString(countryCode: String, arrow : String) -> NSMutableAttributedString {
     let countryCodeAttr = [ NSAttributedString.Key.foregroundColor: UIColor.black ]

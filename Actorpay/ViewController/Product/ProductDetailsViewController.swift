@@ -69,6 +69,12 @@ extension ProductDetailsViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTableViewCell", for: indexPath) as! ProductTableViewCell
+        
+        
+        cell.likeButtonHandler = {
+            cell.likeButton.isSelected = !cell.likeButton.isSelected
+        }
+        
         return cell
     }
     

@@ -29,8 +29,8 @@ class ProductTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        likeButton.setImage( UIImage(named: "like_small"), for: .normal)
+        likeButton.setImage( UIImage(named: "liked_small"), for: .selected)
     }
     
     @IBAction func likeButtonAction(_ sender: UIButton){

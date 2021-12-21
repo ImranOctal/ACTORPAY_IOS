@@ -39,10 +39,7 @@ class HomeViewController: UIViewController {
         transactionTableView.register(UINib(nibName: "TransactionTableViewCell", bundle: nil), forCellReuseIdentifier: "TransactionTableViewCell")
         transactionTableView.estimatedRowHeight = 70
         transactionTableView.rowHeight = UITableView.automaticDimension
-        
-        
-        
-        // Do any additional setup after loading the view.
+        getUserDetailsApi()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +58,22 @@ class HomeViewController: UIViewController {
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
         self.navigationController?.pushViewController(newVC, animated: true)
     }
-
+    
+    func getUserDetailsApi(){
+        APIHelper.getUserDetailsById(id: AppManager.shared.userId) { (success, response) in
+            if !success {
+                stopActivityIndicator()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                stopActivityIndicator()
+                let data = response.response["data"]
+                user = User.init(json: data)
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }
+        }
+    }
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {

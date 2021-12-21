@@ -7,48 +7,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DF9FCAC5-F75C-4D32-82E1-FB463FF61246"
-            shouldBeEnabled = "No"
+            uuid = "8EBB75BE-DF03-47EC-B708-8024B7F940D0"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Actorpay/ViewController/TabBar/TabBarRootViewController.swift"
+            filePath = "Actorpay/ViewController/SideMenu/SideMenuViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "refreshRightButton()"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8EBB75BE-DF03-47EC-B708-8024B7F940D0 - 664815292281c2f7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Actorpay.SideMenuViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Actorpay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/imac/Documents/Work/iOS/ActorPay/Actorpay/ViewController/SideMenu/SideMenuViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "10360">
+               </Location>
+               <Location
+                  uuid = "8EBB75BE-DF03-47EC-B708-8024B7F940D0 - 664815292281c2f7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Actorpay.SideMenuViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Actorpay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/imac/Documents/Work/iOS/ActorPay/Actorpay/ViewController/SideMenu/SideMenuViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "12013">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4FE8EE96-6D80-4BCB-9B8B-D5683282855C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Actorpay/ViewController/Login/ForgotPasswordViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "okButtonAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DD2ED1C1-CBCA-4AFD-B732-F738E6DFBECE"
-            shouldBeEnabled = "No"
+            uuid = "4B1F9C99-CAE7-4C3D-96F8-C218D6418D32"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Actorpay/ViewController/TabBar/TabBarRootViewController.swift"
+            filePath = "Actorpay/ViewController/Login/ForgotPasswordViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "refreshRightButton()"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "okButtonAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "70235E22-8998-47C9-BDC1-A0278705A003"
-            shouldBeEnabled = "No"
+            uuid = "0AF3CA8A-2750-414C-B990-C9A6AB9FFEE9"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Actorpay/ViewController/QRCode/QRCodeViewController.swift"
+            filePath = "Actorpay/ViewController/Profile/ProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
-            landmarkName = "qrScanner(_:scanDidComplete:)"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "setupUserData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

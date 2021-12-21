@@ -228,7 +228,6 @@ extension QRCodeViewController: QRScannerCodeDelegate {
         print(result)
         payNowView.isHidden = (result.count == 0) ? true : false
         qrCodeView.isHidden = true
-        
         //searchUsers(result)
     }
     

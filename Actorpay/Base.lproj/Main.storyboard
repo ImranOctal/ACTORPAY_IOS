@@ -280,11 +280,11 @@
                                                                                 </connections>
                                                                             </button>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svt-Vi-mgE">
-                                                                                <rect key="frame" x="171" y="20" width="124" height="20"/>
+                                                                                <rect key="frame" x="205" y="20" width="90" height="20"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="20" id="fzs-PY-dYM"/>
                                                                                 </constraints>
-                                                                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                                                                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="11"/>
                                                                                 <state key="normal" title="Forgot Password?">
                                                                                     <color key="titleColor" red="0.16862745098039217" green="0.32941176470588235" blue="0.76470588235294112" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 </state>
@@ -293,8 +293,8 @@
                                                                                 </connections>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Me" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebn-4F-hXi">
-                                                                                <rect key="frame" x="30" y="17.5" width="109.5" height="25"/>
-                                                                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
+                                                                                <rect key="frame" x="30" y="23" width="79.5" height="14"/>
+                                                                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                                                 <color key="textColor" red="0.55686274509803924" green="0.56470588235294117" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
@@ -308,6 +308,7 @@
                                                                             <constraint firstItem="HjP-af-DLd" firstAttribute="centerY" secondItem="ZID-uk-5bd" secondAttribute="centerY" id="bXE-So-BIv"/>
                                                                             <constraint firstAttribute="trailing" secondItem="svt-Vi-mgE" secondAttribute="trailing" id="d36-oY-JDN"/>
                                                                             <constraint firstAttribute="height" constant="60" id="qXg-1G-X7o"/>
+                                                                            <constraint firstItem="svt-Vi-mgE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ebn-4F-hXi" secondAttribute="trailing" constant="10" id="r5g-uj-I7T"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Kd-9G-bUE">
@@ -437,16 +438,16 @@
                                                                         <rect key="frame" x="0.0" y="341" width="295" height="60"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="UbV-gS-WWe">
-                                                                                <rect key="frame" x="33.5" y="22.5" width="228" height="35"/>
+                                                                                <rect key="frame" x="44" y="25.5" width="207" height="29"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7W1-j8-Jbe">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="178" height="35"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="29"/>
                                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
                                                                                         <color key="textColor" red="0.5568627451" green="0.56470588239999997" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="426-sE-zQ8">
-                                                                                        <rect key="frame" x="180" y="0.0" width="48" height="35"/>
+                                                                                        <rect key="frame" x="162" y="0.0" width="45" height="29"/>
                                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                                                         <state key="normal" title="Signup">
                                                                                             <color key="titleColor" red="0.16862745100000001" green="0.3294117647" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -787,6 +788,9 @@
                                                                                         </constraints>
                                                                                         <color key="tintColor" red="0.792156862745098" green="0.81176470588235294" blue="0.83921568627450982" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <state key="normal" image="calender"/>
+                                                                                        <connections>
+                                                                                            <action selector="showCalender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="avl-nW-KKf"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -865,10 +869,10 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8hd-3e-cPN">
                                                                                 <rect key="frame" x="0.0" y="531" width="295" height="150"/>
                                                                                 <subviews>
-                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWn-e3-TlQ">
+                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" By Signing up you are agreeing to our Terms of Use and Privacy Policy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWn-e3-TlQ">
                                                                                         <rect key="frame" x="10" y="10" width="275" height="130"/>
-                                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                                        <nil key="textColor"/>
+                                                                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
+                                                                                        <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
@@ -878,7 +882,7 @@
                                                                                     <constraint firstItem="DWn-e3-TlQ" firstAttribute="leading" secondItem="8hd-3e-cPN" secondAttribute="leading" constant="10" id="Kuh-9z-FUo"/>
                                                                                     <constraint firstAttribute="trailing" secondItem="DWn-e3-TlQ" secondAttribute="trailing" constant="10" id="Oxj-dM-exD"/>
                                                                                     <constraint firstItem="DWn-e3-TlQ" firstAttribute="top" secondItem="8hd-3e-cPN" secondAttribute="top" constant="10" id="p8o-vb-MLW"/>
-                                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="vGU-o0-aiX"/>
+                                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="vGU-o0-aiX"/>
                                                                                 </constraints>
                                                                             </view>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kYc-Fa-Kur">
@@ -1050,16 +1054,16 @@
                                                                         <rect key="frame" x="0.0" y="884" width="295" height="60"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ7-xC-UY3">
-                                                                                <rect key="frame" x="29" y="22.5" width="237.5" height="35"/>
+                                                                                <rect key="frame" x="42" y="25.5" width="211" height="29"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wED-k0-F5J">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="198.5" height="35"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="174" height="29"/>
                                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
                                                                                         <color key="textColor" red="0.5568627451" green="0.56470588239999997" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FqZ-r8-Tbk">
-                                                                                        <rect key="frame" x="200.5" y="0.0" width="37" height="35"/>
+                                                                                        <rect key="frame" x="176" y="0.0" width="35" height="29"/>
                                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                                                         <state key="normal" title="Login">
                                                                                             <color key="titleColor" red="0.16862745098039217" green="0.32941176470588235" blue="0.76470588235294112" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1129,8 +1133,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="ju0-8W-5CP"/>
                     <connections>
+                        <outlet property="dateOfBirthTextField" destination="G70-SX-JXb" id="kQU-y4-meU"/>
                         <outlet property="emailAddressTextField" destination="xaX-iR-gRe" id="suX-k4-lMt"/>
                         <outlet property="firstNameTextField" destination="Uu3-Kf-GBl" id="GOC-fo-fWF"/>
+                        <outlet property="genderTextField" destination="XsL-8w-HEr" id="cg2-Fj-gU0"/>
                         <outlet property="lastNameTextField" destination="f5i-Ro-hMv" id="eQZ-u2-sgQ"/>
                         <outlet property="loginButton" destination="EOd-O1-ILO" id="YtY-Oa-4uc"/>
                         <outlet property="loginLineView" destination="ga5-9J-zME" id="lhd-wO-D56"/>
@@ -1186,14 +1192,14 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WalletStatementTableViewCell" id="eYe-hB-Chk" customClass="WalletStatementTableViewCell" customModule="Actorpay" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="134.5"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="108.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eYe-hB-Chk" id="Bjx-Wp-5xe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="134.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="108.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbj-aK-eyd">
-                                                            <rect key="frame" x="15" y="5" width="345" height="124.5"/>
+                                                            <rect key="frame" x="15" y="5" width="345" height="98.5"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hd3-xV-XBm">
                                                                     <rect key="frame" x="10" y="20" width="325" height="25"/>
@@ -1295,10 +1301,10 @@
                                                                     </constraints>
                                                                 </stackView>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HmK-fj-Ix7">
-                                                                    <rect key="frame" x="10" y="65" width="325" height="49.5"/>
+                                                                    <rect key="frame" x="10" y="65" width="325" height="23.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eof-KO-gIs">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="325" height="49.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="325" height="23.5"/>
                                                                             <string key="text">A paragraph is a series of related sentences developing a central idea, called the topic. Try to think about paragraphs in terms of thematic unity.</string>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="10"/>
                                                                             <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -1400,7 +1406,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Klx-yM-Dai">
-                                        <rect key="frame" x="20" y="13" width="25" height="25"/>
+                                        <rect key="frame" x="20" y="19" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="JAE-kt-Kh1"/>
                                             <constraint firstAttribute="width" secondItem="Klx-yM-Dai" secondAttribute="height" id="YU6-XV-8wS"/>
@@ -1411,16 +1417,16 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fA9-Vi-lUr">
-                                        <rect key="frame" x="146" y="4.5" width="83.5" height="41.5"/>
+                                        <rect key="frame" x="149.5" y="16.5" width="76.5" height="29.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Balance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mjf-6D-MiZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="16.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="76.5" height="12"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="10"/>
                                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$50,245" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yrr-9b-2dr">
-                                                <rect key="frame" x="0.0" y="16.5" width="83.5" height="25"/>
+                                                <rect key="frame" x="0.0" y="12" width="76.5" height="17.5"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
                                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1428,7 +1434,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NVT-Lr-4Hg">
-                                        <rect key="frame" x="330" y="13" width="25" height="25"/>
+                                        <rect key="frame" x="330" y="19" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="23A-wL-6Lj"/>
                                             <constraint firstAttribute="width" secondItem="NVT-Lr-4Hg" secondAttribute="height" id="ka8-Tj-6VN"/>
@@ -1617,13 +1623,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wWY-kV-aEP">
-                                        <rect key="frame" x="148.5" y="15" width="78.5" height="30"/>
+                                        <rect key="frame" x="151.5" y="24" width="72.5" height="21"/>
                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
                                         <color key="textColor" systemColor="systemBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3c-qp-Ais">
-                                        <rect key="frame" x="11" y="15" width="30" height="30"/>
+                                        <rect key="frame" x="11" y="19.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="A1S-fZ-9dj"/>
                                             <constraint firstAttribute="width" secondItem="o3c-qp-Ais" secondAttribute="height" id="nmK-iI-3h6"/>
@@ -1680,28 +1686,28 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5412  3012  6511  1498" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSL-li-TV6">
-                                                                                <rect key="frame" x="55" y="78.5" width="113" height="18.5"/>
+                                                                                <rect key="frame" x="55" y="90.5" width="116.5" height="13"/>
                                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="11"/>
                                                                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BIN BURHAN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tm8-fH-0Lx">
-                                                                                <rect key="frame" x="30" y="117" width="87" height="23"/>
+                                                                                <rect key="frame" x="30" y="123.5" width="86" height="16.5"/>
                                                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                                                                 <color key="textColor" red="0.60392156862745094" green="0.94509803921568625" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="szy-am-uHH">
-                                                                                <rect key="frame" x="177.5" y="108.5" width="67.5" height="40"/>
+                                                                                <rect key="frame" x="182.5" y="116.5" width="62.5" height="31"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ex Date : 02/22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKO-PW-5bC">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="67.5" height="15"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="62.5" height="10.5"/>
                                                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="9"/>
                                                                                         <color key="textColor" systemColor="systemBackgroundColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CVC : 351" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5MZ-la-5bl">
-                                                                                        <rect key="frame" x="0.0" y="25" width="67.5" height="15"/>
+                                                                                        <rect key="frame" x="0.0" y="20.5" width="62.5" height="10.5"/>
                                                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="9"/>
                                                                                         <color key="textColor" systemColor="systemBackgroundColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -2053,7 +2059,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save card for future Transaction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YSb-9P-pgB">
-                                                                        <rect key="frame" x="30" y="18.5" width="225" height="23"/>
+                                                                        <rect key="frame" x="30" y="22" width="199.5" height="16.5"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                                         <color key="textColor" red="0.5568627451" green="0.56470588239999997" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -2180,7 +2186,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUJ-D6-Or5">
-                                        <rect key="frame" x="20" y="12" width="25" height="25"/>
+                                        <rect key="frame" x="20" y="18" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="dUJ-D6-Or5" secondAttribute="height" id="jVK-Zc-JKR"/>
                                             <constraint firstAttribute="height" constant="25" id="sb7-oe-T1g"/>
@@ -2191,16 +2197,16 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZVs-1S-Ukf">
-                                        <rect key="frame" x="146" y="3.5" width="83.5" height="41.5"/>
+                                        <rect key="frame" x="149.5" y="15.5" width="76.5" height="29.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Balance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d98-qf-pxY">
-                                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="16.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="76.5" height="12"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="10"/>
                                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$50,245" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOc-ol-DJR">
-                                                <rect key="frame" x="0.0" y="16.5" width="83.5" height="25"/>
+                                                <rect key="frame" x="0.0" y="12" width="76.5" height="17.5"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
                                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
@@ -2208,13 +2214,13 @@
                                         </subviews>
                                     </stackView>
                                     <label hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Orders" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z7G-yu-g8y">
-                                        <rect key="frame" x="135" y="12" width="105.5" height="33"/>
+                                        <rect key="frame" x="140.5" y="21.5" width="94" height="23.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZSY-m3-4ZF">
-                                        <rect key="frame" x="330" y="12" width="25" height="25"/>
+                                        <rect key="frame" x="330" y="18" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="4O9-oa-Whd"/>
                                             <constraint firstAttribute="width" secondItem="ZSY-m3-4ZF" secondAttribute="height" id="WRG-WL-jOf"/>
@@ -2463,6 +2469,9 @@
                                                                                         <real key="value" value="11"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="editImageButton:" destination="SV1-eG-ehm" eventType="touchUpInside" id="Cgr-Eg-yx7"/>
+                                                                                </connections>
                                                                             </button>
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2599,6 +2608,9 @@
                                                                         <state key="normal" title="Save">
                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </state>
+                                                                        <connections>
+                                                                            <action selector="saveButtonAction:" destination="SV1-eG-ehm" eventType="touchUpInside" id="gnO-cS-WS4"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" red="0.84723657370000005" green="0.17969027160000001" blue="0.33586099740000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2674,7 +2686,11 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-6"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="emailTextField" destination="0IU-aa-cax" id="zaE-iN-r4u"/>
                         <outlet property="mainView" destination="PyL-vP-IHp" id="7ZF-h7-iid"/>
+                        <outlet property="nameTextField" destination="cwm-hW-Syt" id="pvV-5S-BPL"/>
+                        <outlet property="phoneNumberTextField" destination="vZo-Fh-iHn" id="oei-TZ-yz8"/>
+                        <outlet property="userImageView" destination="95Y-LL-ZKz" id="GYl-kT-09N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wqP-z5-QKh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2708,7 +2724,7 @@
                                                                         <rect key="frame" x="10" y="10" width="315" height="140"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$252.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N6O-SE-Bva">
-                                                                                <rect key="frame" x="97.5" y="20" width="120" height="40"/>
+                                                                                <rect key="frame" x="103.5" y="20" width="108.5" height="40"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="40" id="Qx4-dB-L8f"/>
                                                                                 </constraints>
@@ -2717,13 +2733,13 @@
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Availabel Credit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHL-xi-EDu">
-                                                                                <rect key="frame" x="110" y="60" width="95" height="20"/>
+                                                                                <rect key="frame" x="115.5" y="60" width="84" height="14"/>
                                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="leQ-bF-pHl">
-                                                                                <rect key="frame" x="100" y="88.5" width="115" height="35"/>
+                                                                                <rect key="frame" x="100" y="82.5" width="115" height="35"/>
                                                                                 <subviews>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhS-Wh-sGD">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="115" height="35"/>
@@ -2815,14 +2831,14 @@
                                                                         </constraints>
                                                                         <prototypes>
                                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WalletStatementTableViewCell" id="JTh-Np-ucc" customClass="WalletStatementTableViewCell" customModule="Actorpay" customModuleProvider="target">
-                                                                                <rect key="frame" x="0.0" y="28" width="335" height="124.5"/>
+                                                                                <rect key="frame" x="0.0" y="28" width="335" height="110"/>
                                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JTh-Np-ucc" id="zJi-vM-ESr">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="124.5"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="110"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <subviews>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kMv-OT-C0H">
-                                                                                            <rect key="frame" x="0.0" y="5" width="335" height="114.5"/>
+                                                                                            <rect key="frame" x="0.0" y="5" width="335" height="100"/>
                                                                                             <subviews>
                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8h7-hF-Ehc">
                                                                                                     <rect key="frame" x="20" y="10" width="295" height="25"/>
@@ -2912,10 +2928,10 @@
                                                                                                     </constraints>
                                                                                                 </stackView>
                                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJC-qa-RaV">
-                                                                                                    <rect key="frame" x="20" y="55" width="295" height="49.5"/>
+                                                                                                    <rect key="frame" x="20" y="55" width="295" height="35"/>
                                                                                                     <subviews>
                                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCl-Rl-WUi">
-                                                                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="49.5"/>
+                                                                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="35"/>
                                                                                                             <string key="text">A paragraph is a series of related sentences developing a central idea, called the topic. Try to think about paragraphs in terms of thematic unity.</string>
                                                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="10"/>
                                                                                                             <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -3141,13 +3157,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Money In Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAP-HF-Fy2">
-                                        <rect key="frame" x="80.5" y="22" width="214.5" height="33"/>
+                                        <rect key="frame" x="95" y="31.5" width="185" height="23.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="09Y-Ux-T39">
-                                        <rect key="frame" x="11" y="23.5" width="30" height="30"/>
+                                        <rect key="frame" x="11" y="28.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="d1L-v6-xYk"/>
                                             <constraint firstAttribute="width" secondItem="09Y-Ux-T39" secondAttribute="height" id="mGr-Le-WJx"/>
@@ -5068,13 +5084,13 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Misc." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jA7-0f-aXy">
-                                        <rect key="frame" x="161.5" y="22" width="52" height="33"/>
+                                        <rect key="frame" x="163.5" y="31.5" width="48.5" height="23.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b13-fH-AGB">
-                                        <rect key="frame" x="11" y="23.5" width="30" height="30"/>
+                                        <rect key="frame" x="11" y="28.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="kYt-wy-9WM"/>
                                             <constraint firstAttribute="width" secondItem="b13-fH-AGB" secondAttribute="height" id="md1-N9-KG6"/>
@@ -5125,7 +5141,7 @@ added to your walllet.</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huH-63-BxQ">
-                                                        <rect key="frame" x="60" y="13.5" width="243" height="23"/>
+                                                        <rect key="frame" x="60" y="17" width="243" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -5187,7 +5203,7 @@ added to your walllet.</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact Us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzw-FS-wwR">
-                                                        <rect key="frame" x="60" y="13.5" width="243" height="23"/>
+                                                        <rect key="frame" x="60" y="17" width="243" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -5248,7 +5264,7 @@ added to your walllet.</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYx-Be-Aet">
-                                                        <rect key="frame" x="60" y="13.5" width="243" height="23"/>
+                                                        <rect key="frame" x="60" y="17" width="243" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -5305,7 +5321,7 @@ added to your walllet.</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T&amp;C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P32-DG-bT3">
-                                                        <rect key="frame" x="60" y="13.5" width="243" height="23"/>
+                                                        <rect key="frame" x="60" y="17" width="243" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -5362,7 +5378,7 @@ added to your walllet.</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldW-Bz-GNf">
-                                                        <rect key="frame" x="60" y="13.5" width="243" height="23"/>
+                                                        <rect key="frame" x="60" y="17" width="243" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -5448,13 +5464,13 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Orders" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsp-gN-pCB">
-                                        <rect key="frame" x="135" y="22" width="105.5" height="33"/>
+                                        <rect key="frame" x="140.5" y="31.5" width="94" height="23.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7R-AS-dHg">
-                                        <rect key="frame" x="11" y="23.5" width="30" height="30"/>
+                                        <rect key="frame" x="11" y="28.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Ufy-rP-MCR"/>
                                             <constraint firstAttribute="width" secondItem="X7R-AS-dHg" secondAttribute="height" id="aoH-oe-5fq"/>
@@ -5465,7 +5481,7 @@ added to your walllet.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNk-lc-AkM">
-                                        <rect key="frame" x="334" y="23.5" width="30" height="30"/>
+                                        <rect key="frame" x="334" y="28.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="gNk-lc-AkM" secondAttribute="height" id="IVW-2I-MUg"/>
                                             <constraint firstAttribute="height" constant="30" id="jfF-z9-iLr"/>
@@ -5497,14 +5513,14 @@ added to your walllet.</string>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyOrdersTableViewCell" id="u0t-2E-JSm" customClass="MyOrdersTableViewCell" customModule="Actorpay" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="149"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="117"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="u0t-2E-JSm" id="cD9-ZU-Trr">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="117"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TZV-rM-hu0">
-                                                            <rect key="frame" x="15" y="5" width="345" height="139"/>
+                                                            <rect key="frame" x="15" y="5" width="345" height="107"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YdB-yy-Zas">
                                                                     <rect key="frame" x="10" y="10" width="325" height="25"/>
@@ -5641,10 +5657,10 @@ added to your walllet.</string>
                                                                     </constraints>
                                                                 </stackView>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9sI-vQ-KZt">
-                                                                    <rect key="frame" x="10" y="55" width="325" height="74"/>
+                                                                    <rect key="frame" x="10" y="55" width="325" height="42"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5g-zO-Bhz">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="325" height="74"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="325" height="42"/>
                                                                             <string key="text">A paragraph is a series of related sentences developing a central idea, called the topic. Try to think about paragraphs in terms of thematic unity: a paragraph is a sentence or a group of sentences that supports one central, unified idea. Paragraphs add one idea at a time to your broader argument.</string>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="9"/>
                                                                             <color key="textColor" red="0.63137254901960782" green="0.6470588235294118" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
@@ -5744,13 +5760,13 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Statement" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YZ-S1-5jn">
-                                        <rect key="frame" x="97" y="22" width="181.5" height="33"/>
+                                        <rect key="frame" x="111.5" y="31.5" width="152.5" height="23.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6g2-IW-hy4">
-                                        <rect key="frame" x="11" y="23.5" width="30" height="30"/>
+                                        <rect key="frame" x="11" y="28.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="X4O-1b-Vt4"/>
                                             <constraint firstAttribute="width" secondItem="6g2-IW-hy4" secondAttribute="height" id="klV-Kw-rRD"/>
@@ -5761,7 +5777,7 @@ added to your walllet.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DEe-Ix-jNw">
-                                        <rect key="frame" x="334" y="23.5" width="30" height="30"/>
+                                        <rect key="frame" x="334" y="28.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="6xL-sz-YbM"/>
                                             <constraint firstAttribute="width" secondItem="DEe-Ix-jNw" secondAttribute="height" id="MPs-XU-Nde"/>
@@ -5793,14 +5809,14 @@ added to your walllet.</string>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WalletStatementTableViewCell" id="ypF-fw-jrs" customClass="WalletStatementTableViewCell" customModule="Actorpay" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="159"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="127"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ypF-fw-jrs" id="MeH-sW-UHT">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="159"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="127"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLK-LF-dDL">
-                                                            <rect key="frame" x="15" y="5" width="345" height="149"/>
+                                                            <rect key="frame" x="15" y="5" width="345" height="117"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MmP-ac-ZJ4">
                                                                     <rect key="frame" x="10" y="20" width="325" height="25"/>
@@ -5902,10 +5918,10 @@ added to your walllet.</string>
                                                                     </constraints>
                                                                 </stackView>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V8z-b6-efA">
-                                                                    <rect key="frame" x="10" y="65" width="325" height="74"/>
+                                                                    <rect key="frame" x="10" y="65" width="325" height="42"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNJ-gB-m9o">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="325" height="74"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="325" height="42"/>
                                                                             <string key="text">A paragraph is a series of related sentences developing a central idea, called the topic. Try to think about paragraphs in terms of thematic unity: a paragraph is a sentence or a group of sentences that supports one central, unified idea. Paragraphs add one idea at a time to your broader argument.</string>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="9"/>
                                                                             <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -6003,13 +6019,13 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reward Points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RP-kl-gla">
-                                        <rect key="frame" x="114" y="22" width="147.5" height="33"/>
+                                        <rect key="frame" x="122.5" y="31.5" width="130.5" height="23.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aIu-Xb-c12">
-                                        <rect key="frame" x="11" y="23.5" width="30" height="30"/>
+                                        <rect key="frame" x="11" y="28.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="C5o-0n-RqL"/>
                                             <constraint firstAttribute="width" secondItem="aIu-Xb-c12" secondAttribute="height" id="JZR-jh-7J2"/>
@@ -6020,7 +6036,7 @@ added to your walllet.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xgm-AU-8PK">
-                                        <rect key="frame" x="334" y="23.5" width="30" height="30"/>
+                                        <rect key="frame" x="334" y="28.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Xgm-AU-8PK" secondAttribute="height" id="Cug-Hk-nit"/>
                                             <constraint firstAttribute="height" constant="30" id="gn1-79-5hF"/>
@@ -6052,17 +6068,17 @@ added to your walllet.</string>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RewardPointsTableViewCell" id="lau-Hu-53g" customClass="RewardPointsTableViewCell" customModule="Actorpay" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="110"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="101"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lau-Hu-53g" id="afo-Wy-Cyh">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="101"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TZd-kR-Yl9">
-                                                            <rect key="frame" x="15" y="5" width="345" height="100"/>
+                                                            <rect key="frame" x="15" y="5" width="345" height="91"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zEy-Te-0UU">
-                                                                    <rect key="frame" x="10" y="17.5" width="65" height="65"/>
+                                                                    <rect key="frame" x="10" y="13" width="65" height="65"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="gtA-Xi-TmB">
                                                                             <rect key="frame" x="12.5" y="12.5" width="40" height="40"/>
@@ -6117,10 +6133,10 @@ added to your walllet.</string>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEF-Ib-9hH">
-                                                                    <rect key="frame" x="85" y="35" width="250" height="30"/>
+                                                                    <rect key="frame" x="85" y="35" width="250" height="21"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A paragraph is a series of related sentences developing a central idea, called the topic. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctp-BL-vtC" userLabel="What Is an Order ID Number ?">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="30"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="21"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="9"/>
                                                                             <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -6135,7 +6151,7 @@ added to your walllet.</string>
                                                                     </constraints>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9zh-Mn-XaQ">
-                                                                    <rect key="frame" x="85" y="70" width="60" height="20"/>
+                                                                    <rect key="frame" x="85" y="61" width="60" height="20"/>
                                                                     <subviews>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akv-1R-Jtb">
                                                                             <rect key="frame" x="0.0" y="0.0" width="60" height="20"/>
@@ -6245,13 +6261,13 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6RV-WE-Ucc">
-                                        <rect key="frame" x="127.5" y="22" width="120" height="33"/>
+                                        <rect key="frame" x="136.5" y="31.5" width="102" height="23.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjc-NH-oCE">
-                                        <rect key="frame" x="11" y="23.5" width="30" height="30"/>
+                                        <rect key="frame" x="11" y="28.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="hjc-NH-oCE" secondAttribute="height" id="3a5-ZG-sgp"/>
                                             <constraint firstAttribute="height" constant="30" id="ujH-Di-Oi3"/>
@@ -6280,17 +6296,17 @@ added to your walllet.</string>
                                         <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationTableViewCell" id="WHJ-6h-gnz" customClass="NotificationTableViewCell" customModule="Actorpay" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="85"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="78.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WHJ-6h-gnz" id="MbI-id-qtj">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="78.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o0F-r4-wY2">
-                                                            <rect key="frame" x="15" y="5" width="345" height="75"/>
+                                                            <rect key="frame" x="15" y="5" width="345" height="68.5"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I1N-iH-hMo">
-                                                                    <rect key="frame" x="10" y="12.5" width="50" height="50"/>
+                                                                    <rect key="frame" x="10" y="9.5" width="50" height="50"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tick_blue" translatesAutoresizingMaskIntoConstraints="NO" id="qjm-8i-Xad">
                                                                             <rect key="frame" x="15" y="15" width="20" height="20"/>
@@ -6315,16 +6331,16 @@ added to your walllet.</string>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="PN3-rS-SJo">
-                                                                    <rect key="frame" x="70" y="10" width="186.5" height="55"/>
+                                                                    <rect key="frame" x="70" y="10" width="166.5" height="48.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount Received by Bank" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSz-Wq-xoR">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="186.5" height="23.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="166.5" height="17"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date - 20/08/2022" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnO-Br-n6P">
-                                                                            <rect key="frame" x="0.0" y="25.5" width="186.5" height="13.5"/>
+                                                                            <rect key="frame" x="0.0" y="19" width="166.5" height="13.5"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="13.5" id="sGF-Sz-Pdc"/>
                                                                             </constraints>
@@ -6333,7 +6349,7 @@ added to your walllet.</string>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account No. ******8999" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltf-dd-nhC">
-                                                                            <rect key="frame" x="0.0" y="41" width="186.5" height="14"/>
+                                                                            <rect key="frame" x="0.0" y="34.5" width="166.5" height="14"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="14" id="UNG-lv-Pl2"/>
                                                                             </constraints>
@@ -6344,16 +6360,16 @@ added to your walllet.</string>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="XDH-CD-G4O">
-                                                                    <rect key="frame" x="266.5" y="17.5" width="68.5" height="40"/>
+                                                                    <rect key="frame" x="246.5" y="20" width="88.5" height="29"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iQ-UT-i5q">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="68.5" height="23"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="88.5" height="16.5"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                                             <color key="textColor" name="BlueColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saving" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHd-zM-wRm">
-                                                                            <rect key="frame" x="0.0" y="25" width="68.5" height="15"/>
+                                                                            <rect key="frame" x="0.0" y="18.5" width="88.5" height="10.5"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="9"/>
                                                                             <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -6438,16 +6454,16 @@ added to your walllet.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7kS-mG-ZvF">
-                                <rect key="frame" x="0.0" y="-20" width="375" height="687"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZGY-ac-x8S">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="687"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pvx-IY-hj0" userLabel="main2">
-                                                <rect key="frame" x="0.0" y="-20" width="375" height="1016"/>
+                                                <rect key="frame" x="0.0" y="-20" width="375" height="1036"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="MbW-cp-5Ue">
-                                                        <rect key="frame" x="0.0" y="-20" width="375" height="1036"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1036"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="men_fashion" translatesAutoresizingMaskIntoConstraints="NO" id="2FM-8b-7FW">
                                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
@@ -6468,23 +6484,23 @@ added to your walllet.</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rks-dh-LJ3">
-                                                                                <rect key="frame" x="0.0" y="35" width="335" height="298"/>
+                                                                                <rect key="frame" x="0.0" y="35" width="335" height="30"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1500" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLU-LM-Pdc">
-                                                                                        <rect key="frame" x="2" y="139" width="35" height="20"/>
+                                                                                        <rect key="frame" x="2" y="8" width="33.5" height="14"/>
                                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                                                         <color key="textColor" systemColor="systemRedColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6h8-J5-Nlf">
-                                                                                        <rect key="frame" x="0.5" y="147.5" width="38.5" height="1"/>
+                                                                                        <rect key="frame" x="0.5" y="13.5" width="36.5" height="1"/>
                                                                                         <color key="backgroundColor" systemColor="systemRedColor"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="height" constant="1" id="4ox-du-QvJ"/>
                                                                                         </constraints>
                                                                                     </view>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1700" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqE-Du-7Lg">
-                                                                                        <rect key="frame" x="47" y="0.0" width="52" height="298"/>
+                                                                                        <rect key="frame" x="45.5" y="0.0" width="50.5" height="30"/>
                                                                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
                                                                                         <color key="textColor" name="BlueColor"/>
                                                                                         <nil key="highlightedColor"/>
@@ -6494,6 +6510,7 @@ added to your walllet.</string>
                                                                                 <constraints>
                                                                                     <constraint firstItem="fqE-Du-7Lg" firstAttribute="top" secondItem="Rks-dh-LJ3" secondAttribute="top" id="Cul-Qd-2JF"/>
                                                                                     <constraint firstAttribute="bottom" secondItem="fqE-Du-7Lg" secondAttribute="bottom" id="HQZ-SL-6Hc"/>
+                                                                                    <constraint firstAttribute="height" constant="30" id="IJW-1v-GhH"/>
                                                                                     <constraint firstItem="jLU-LM-Pdc" firstAttribute="leading" secondItem="Rks-dh-LJ3" secondAttribute="leading" constant="2" id="K57-tS-B97"/>
                                                                                     <constraint firstItem="6h8-J5-Nlf" firstAttribute="centerX" secondItem="jLU-LM-Pdc" secondAttribute="centerX" id="R9o-2l-CRP"/>
                                                                                     <constraint firstItem="6h8-J5-Nlf" firstAttribute="centerY" secondItem="jLU-LM-Pdc" secondAttribute="centerY" constant="-1" id="Rv7-Ru-Ohp"/>
@@ -6503,10 +6520,10 @@ added to your walllet.</string>
                                                                                 </constraints>
                                                                             </view>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LNG-XB-3lC">
-                                                                                <rect key="frame" x="0.0" y="333" width="335" height="148"/>
+                                                                                <rect key="frame" x="0.0" y="65" width="335" height="416"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvo-Ua-BQe">
-                                                                                        <rect key="frame" x="0.0" y="5" width="335" height="128"/>
+                                                                                        <rect key="frame" x="0.0" y="5" width="335" height="396"/>
                                                                                         <string key="text">An Order ID is the unique number associated with every our secure checkout.This is the number you'll An Order ID is the unique number associated with every our secure checkout.This is the number you.</string>
                                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6611,7 +6628,7 @@ added to your walllet.</string>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O7C-DS-jkp">
                                                                                 <rect key="frame" x="0.0" y="576" width="335" height="120"/>
                                                                                 <subviews>
-                                                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Zw-Sx-iS2">
+                                                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Zw-Sx-iS2">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="120"/>
                                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                                         <constraints>
@@ -6619,17 +6636,17 @@ added to your walllet.</string>
                                                                                         </constraints>
                                                                                         <prototypes>
                                                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductTableViewCell" id="1NU-Eb-tSZ" customClass="ProductTableViewCell" customModule="Actorpay" customModuleProvider="target">
-                                                                                                <rect key="frame" x="0.0" y="28" width="335" height="135.5"/>
+                                                                                                <rect key="frame" x="0.0" y="28" width="335" height="115"/>
                                                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1NU-Eb-tSZ" id="gBd-Zl-m2H">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="135.5"/>
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="115"/>
                                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                                     <subviews>
                                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GY9-Cb-JR0">
-                                                                                                            <rect key="frame" x="20" y="5" width="295" height="125.5"/>
+                                                                                                            <rect key="frame" x="20" y="5" width="295" height="105"/>
                                                                                                             <subviews>
                                                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUg-Df-YR0">
-                                                                                                                    <rect key="frame" x="10" y="30.5" width="65" height="65"/>
+                                                                                                                    <rect key="frame" x="10" y="20" width="65" height="65"/>
                                                                                                                     <subviews>
                                                                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="men_fashion" translatesAutoresizingMaskIntoConstraints="NO" id="az5-3M-IkC">
                                                                                                                             <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
@@ -6659,7 +6676,7 @@ added to your walllet.</string>
                                                                                                                     </userDefinedRuntimeAttributes>
                                                                                                                 </view>
                                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Ygn-Vg-b8E">
-                                                                                                                    <rect key="frame" x="85" y="10" width="200" height="105.5"/>
+                                                                                                                    <rect key="frame" x="85" y="10" width="200" height="85"/>
                                                                                                                     <subviews>
                                                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are many variations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihD-EZ-FgN">
                                                                                                                             <rect key="frame" x="0.0" y="0.0" width="200" height="20"/>
@@ -6674,20 +6691,20 @@ added to your walllet.</string>
                                                                                                                             <rect key="frame" x="0.0" y="22" width="200" height="15"/>
                                                                                                                             <subviews>
                                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1500" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyw-Mb-4Ro">
-                                                                                                                                    <rect key="frame" x="2" y="1" width="23.5" height="13.5"/>
+                                                                                                                                    <rect key="frame" x="2" y="3" width="22.5" height="9.5"/>
                                                                                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="8"/>
                                                                                                                                     <color key="textColor" systemColor="systemRedColor"/>
                                                                                                                                     <nil key="highlightedColor"/>
                                                                                                                                 </label>
                                                                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sss-v7-S0Y">
-                                                                                                                                    <rect key="frame" x="1" y="6" width="25.5" height="1"/>
+                                                                                                                                    <rect key="frame" x="1" y="6" width="24.5" height="1"/>
                                                                                                                                     <color key="backgroundColor" systemColor="systemRedColor"/>
                                                                                                                                     <constraints>
                                                                                                                                         <constraint firstAttribute="height" constant="1" id="B8b-cf-6hp"/>
                                                                                                                                     </constraints>
                                                                                                                                 </view>
                                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1700" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZS2-SE-6nm">
-                                                                                                                                    <rect key="frame" x="32.5" y="0.0" width="29" height="15"/>
+                                                                                                                                    <rect key="frame" x="31.5" y="0.0" width="28" height="15"/>
                                                                                                                                     <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="10"/>
                                                                                                                                     <color key="textColor" name="BlueColor"/>
                                                                                                                                     <nil key="highlightedColor"/>
@@ -6707,13 +6724,13 @@ added to your walllet.</string>
                                                                                                                             </constraints>
                                                                                                                         </view>
                                                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An Order ID is the unique number associated with every our secure checkout.This is the number you'll " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUQ-RM-hyJ">
-                                                                                                                            <rect key="frame" x="0.0" y="39" width="200" height="39.5"/>
+                                                                                                                            <rect key="frame" x="0.0" y="39" width="200" height="19"/>
                                                                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="8"/>
                                                                                                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                             <nil key="highlightedColor"/>
                                                                                                                         </label>
                                                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcz-ZB-yfE">
-                                                                                                                            <rect key="frame" x="0.0" y="80.5" width="200" height="25"/>
+                                                                                                                            <rect key="frame" x="0.0" y="60" width="200" height="25"/>
                                                                                                                             <subviews>
                                                                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Shy-bh-RAB">
                                                                                                                                     <rect key="frame" x="0.0" y="5" width="60" height="20"/>
@@ -6869,7 +6886,7 @@ added to your walllet.</string>
                                                     <constraint firstAttribute="bottom" secondItem="MbW-cp-5Ue" secondAttribute="bottom" id="MFS-sS-LCq"/>
                                                     <constraint firstAttribute="trailing" secondItem="MbW-cp-5Ue" secondAttribute="trailing" id="YkL-fg-lFW"/>
                                                     <constraint firstItem="MbW-cp-5Ue" firstAttribute="leading" secondItem="pvx-IY-hj0" secondAttribute="leading" id="mNd-Yd-yHJ"/>
-                                                    <constraint firstItem="MbW-cp-5Ue" firstAttribute="top" secondItem="pvx-IY-hj0" secondAttribute="top" constant="-20" id="qSN-sx-E5o"/>
+                                                    <constraint firstItem="MbW-cp-5Ue" firstAttribute="top" secondItem="pvx-IY-hj0" secondAttribute="top" id="qSN-sx-E5o"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -6893,13 +6910,13 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Men Fashion Stock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVO-kk-UTv">
-                                        <rect key="frame" x="51" y="12" width="194.5" height="33"/>
+                                        <rect key="frame" x="51" y="21.5" width="173" height="23.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KA3-JZ-DEG">
-                                        <rect key="frame" x="11" y="13.5" width="30" height="30"/>
+                                        <rect key="frame" x="11" y="18.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Zsc-vf-XqZ"/>
                                             <constraint firstAttribute="width" secondItem="KA3-JZ-DEG" secondAttribute="height" id="w9M-BQ-ya3"/>
@@ -6910,7 +6927,7 @@ added to your walllet.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CfX-LB-HLp">
-                                        <rect key="frame" x="334" y="13.5" width="30" height="30"/>
+                                        <rect key="frame" x="334" y="18.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="4M5-Od-d93"/>
                                             <constraint firstAttribute="width" secondItem="CfX-LB-HLp" secondAttribute="height" id="8BT-8F-tRf"/>
@@ -6944,7 +6961,7 @@ added to your walllet.</string>
                             <constraint firstItem="pvx-IY-hj0" firstAttribute="width" secondItem="4ca-oW-VGn" secondAttribute="width" id="JLD-hH-8pi"/>
                             <constraint firstItem="ARy-gz-UEG" firstAttribute="trailing" secondItem="7kS-mG-ZvF" secondAttribute="trailing" id="Kvr-CX-Wo4"/>
                             <constraint firstItem="ARy-gz-UEG" firstAttribute="bottom" secondItem="7kS-mG-ZvF" secondAttribute="bottom" id="Osx-5g-PeE"/>
-                            <constraint firstItem="7kS-mG-ZvF" firstAttribute="top" secondItem="4ca-oW-VGn" secondAttribute="topMargin" constant="-20" id="QbT-Hg-xVK"/>
+                            <constraint firstItem="7kS-mG-ZvF" firstAttribute="top" secondItem="4ca-oW-VGn" secondAttribute="topMargin" id="QbT-Hg-xVK"/>
                             <constraint firstItem="tTV-S1-bTd" firstAttribute="top" secondItem="4ca-oW-VGn" secondAttribute="top" id="Sns-yk-nqU"/>
                             <constraint firstItem="ARy-gz-UEG" firstAttribute="trailing" secondItem="tTV-S1-bTd" secondAttribute="trailing" id="amq-vw-ZO2"/>
                             <constraint firstItem="tTV-S1-bTd" firstAttribute="leading" secondItem="4ca-oW-VGn" secondAttribute="leading" id="kQb-w2-xe3"/>
@@ -6975,13 +6992,13 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HvH-uS-xXe">
-                                        <rect key="frame" x="127.5" y="12" width="120.5" height="33"/>
+                                        <rect key="frame" x="133.5" y="21.5" width="108.5" height="23.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baM-rL-zu1">
-                                        <rect key="frame" x="11" y="13.5" width="30" height="30"/>
+                                        <rect key="frame" x="11" y="18.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="baM-rL-zu1" secondAttribute="height" id="754-jH-jIe"/>
                                             <constraint firstAttribute="height" constant="30" id="JqF-cf-nYE"/>
@@ -6992,7 +7009,7 @@ added to your walllet.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="acW-Ps-dHn">
-                                        <rect key="frame" x="334" y="13.5" width="30" height="30"/>
+                                        <rect key="frame" x="334" y="18.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="uKH-vz-ACx"/>
                                         </constraints>
@@ -7024,17 +7041,17 @@ added to your walllet.</string>
                                         <color key="separatorColor" red="0.76470588240000004" green="0.86666666670000003" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductTableViewCell" id="oaO-C0-ltD" customClass="ProductTableViewCell" customModule="Actorpay" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="122.5"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="115"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oaO-C0-ltD" id="2Ju-gd-5vK">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="122.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="115"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O66-jn-PNy">
-                                                            <rect key="frame" x="20" y="5" width="335" height="112.5"/>
+                                                            <rect key="frame" x="20" y="5" width="335" height="105"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="twU-bG-B7e">
-                                                                    <rect key="frame" x="10" y="24" width="65" height="65"/>
+                                                                    <rect key="frame" x="10" y="20" width="65" height="65"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="men_fashion" translatesAutoresizingMaskIntoConstraints="NO" id="N7c-Jf-nEm">
                                                                             <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
@@ -7064,7 +7081,7 @@ added to your walllet.</string>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="C8z-Jy-O1L">
-                                                                    <rect key="frame" x="85" y="10" width="240" height="92.5"/>
+                                                                    <rect key="frame" x="85" y="10" width="240" height="85"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are many variations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cA-zf-8eH">
                                                                             <rect key="frame" x="0.0" y="0.0" width="240" height="20"/>
@@ -7079,20 +7096,20 @@ added to your walllet.</string>
                                                                             <rect key="frame" x="0.0" y="22" width="240" height="15"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1500" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PvP-Js-qXv">
-                                                                                    <rect key="frame" x="2" y="1" width="23.5" height="13.5"/>
+                                                                                    <rect key="frame" x="2" y="3" width="22.5" height="9.5"/>
                                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="8"/>
                                                                                     <color key="textColor" systemColor="systemRedColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yPx-yT-vZn">
-                                                                                    <rect key="frame" x="1" y="6" width="25.5" height="1"/>
+                                                                                    <rect key="frame" x="1" y="6" width="24.5" height="1"/>
                                                                                     <color key="backgroundColor" systemColor="systemRedColor"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="1" id="jFA-yn-Jw3"/>
                                                                                     </constraints>
                                                                                 </view>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1700" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JcL-z5-HhA">
-                                                                                    <rect key="frame" x="32.5" y="0.0" width="29" height="15"/>
+                                                                                    <rect key="frame" x="31.5" y="0.0" width="28" height="15"/>
                                                                                     <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="10"/>
                                                                                     <color key="textColor" name="BlueColor"/>
                                                                                     <nil key="highlightedColor"/>
@@ -7112,13 +7129,13 @@ added to your walllet.</string>
                                                                             </constraints>
                                                                         </view>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An Order ID is the unique number associated with every our secure checkout.This is the number you'll " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vix-qo-dCR">
-                                                                            <rect key="frame" x="0.0" y="39" width="240" height="26.5"/>
+                                                                            <rect key="frame" x="0.0" y="39" width="240" height="19"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="8"/>
                                                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pzR-bJ-Hba">
-                                                                            <rect key="frame" x="0.0" y="67.5" width="240" height="25"/>
+                                                                            <rect key="frame" x="0.0" y="60" width="240" height="25"/>
                                                                             <subviews>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMW-pt-Dve">
                                                                                     <rect key="frame" x="0.0" y="5" width="60" height="20"/>
@@ -7284,13 +7301,13 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remittance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8q-oa-CxM">
-                                        <rect key="frame" x="127.5" y="12" width="120" height="33"/>
+                                        <rect key="frame" x="136.5" y="21.5" width="102" height="23.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmy-nj-jbg">
-                                        <rect key="frame" x="11" y="13.5" width="30" height="30"/>
+                                        <rect key="frame" x="11" y="18.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="zmy-nj-jbg" secondAttribute="height" id="cp6-mQ-9E4"/>
                                             <constraint firstAttribute="height" constant="30" id="zen-mc-nbD"/>
@@ -8310,7 +8327,7 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CBM-8q-85O">
-                                        <rect key="frame" x="20" y="12" width="30" height="30"/>
+                                        <rect key="frame" x="20" y="21.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="CBM-8q-85O" secondAttribute="height" id="KyJ-4x-ovU"/>
                                             <constraint firstAttribute="height" constant="30" id="eGN-H6-HBT"/>
@@ -8321,10 +8338,10 @@ added to your walllet.</string>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nY1-Rh-XaI">
-                                        <rect key="frame" x="114.5" y="12" width="146" height="33"/>
+                                        <rect key="frame" x="122" y="21.5" width="131" height="23.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DTH Recharge" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rAo-GP-cae">
-                                                <rect key="frame" x="0.0" y="0.0" width="146" height="33"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="131" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
@@ -8670,7 +8687,7 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tNI-EA-mZI">
-                                        <rect key="frame" x="20" y="12" width="30" height="30"/>
+                                        <rect key="frame" x="20" y="21.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="FUp-zW-3sO"/>
                                             <constraint firstAttribute="width" secondItem="tNI-EA-mZI" secondAttribute="height" id="hWB-ez-NdS"/>
@@ -8681,10 +8698,10 @@ added to your walllet.</string>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YNq-cK-bUy">
-                                        <rect key="frame" x="139.5" y="12" width="96" height="33"/>
+                                        <rect key="frame" x="146" y="21.5" width="83" height="23.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Utility Bill" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3T-bu-a8N">
-                                                <rect key="frame" x="0.0" y="0.0" width="96" height="33"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="83" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
@@ -9195,7 +9212,7 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DvF-Mj-Q0f">
-                                        <rect key="frame" x="20" y="13.5" width="30" height="30"/>
+                                        <rect key="frame" x="20" y="18.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="DvF-Mj-Q0f" secondAttribute="height" id="KQh-rx-tRU"/>
                                             <constraint firstAttribute="height" constant="30" id="guh-Ik-X1p"/>
@@ -9206,10 +9223,10 @@ added to your walllet.</string>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TlR-iq-NbE">
-                                        <rect key="frame" x="114" y="12" width="147" height="33"/>
+                                        <rect key="frame" x="120.5" y="21.5" width="134.5" height="23.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan QR Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjI-33-mbG">
-                                                <rect key="frame" x="0.0" y="0.0" width="147" height="33"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="134.5" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
@@ -9273,7 +9290,7 @@ added to your walllet.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pvu-QC-6VB">
-                                        <rect key="frame" x="20" y="12" width="30" height="30"/>
+                                        <rect key="frame" x="20" y="21.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Pvu-QC-6VB" secondAttribute="height" id="5oP-x3-5vN"/>
                                             <constraint firstAttribute="height" constant="30" id="nvL-Fc-hay"/>
@@ -9284,10 +9301,10 @@ added to your walllet.</string>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sCu-en-5ZM">
-                                        <rect key="frame" x="128.5" y="12" width="118.5" height="33"/>
+                                        <rect key="frame" x="136.5" y="21.5" width="102" height="23.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jonh Smith" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6g-xg-rwk">
-                                                <rect key="frame" x="0.0" y="0.0" width="118.5" height="33"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="102" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
@@ -9546,11 +9563,11 @@ added to your walllet.</string>
                                                         <rect key="frame" x="20" y="0.0" width="275" height="50"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" placeholder="Enter Current Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ltr-sW-nyq">
-                                                                <rect key="frame" x="10" y="0.0" width="245" height="50"/>
+                                                                <rect key="frame" x="10" y="0.0" width="215" height="50"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                             </textField>
-                                                            <button hidden="YES" opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFr-il-G6i">
+                                                            <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFr-il-G6i">
                                                                 <rect key="frame" x="237" y="11" width="28" height="28"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="UFr-il-G6i" secondAttribute="height" multiplier="1:1" id="Zgc-Fl-fwh"/>
@@ -9566,7 +9583,7 @@ added to your walllet.</string>
                                                             <constraint firstItem="ltr-sW-nyq" firstAttribute="top" secondItem="UQX-4f-4me" secondAttribute="top" id="W4b-cS-V7p"/>
                                                             <constraint firstItem="UFr-il-G6i" firstAttribute="centerY" secondItem="ltr-sW-nyq" secondAttribute="centerY" id="g7A-UK-TGz"/>
                                                             <constraint firstItem="ltr-sW-nyq" firstAttribute="leading" secondItem="UQX-4f-4me" secondAttribute="leading" constant="10" id="ptB-wh-uIp"/>
-                                                            <constraint firstAttribute="trailing" secondItem="ltr-sW-nyq" secondAttribute="trailing" constant="20" id="riM-X3-diP"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ltr-sW-nyq" secondAttribute="trailing" constant="50" id="riM-X3-diP"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -9597,11 +9614,11 @@ added to your walllet.</string>
                                                         <rect key="frame" x="20" y="0.0" width="275" height="50"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" placeholder="Enter New Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hsz-ib-KNO">
-                                                                <rect key="frame" x="10" y="0.0" width="245" height="50"/>
+                                                                <rect key="frame" x="10" y="0.0" width="215" height="50"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                             </textField>
-                                                            <button hidden="YES" opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIw-6D-VWw">
+                                                            <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIw-6D-VWw">
                                                                 <rect key="frame" x="237" y="11" width="28" height="28"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="AIw-6D-VWw" secondAttribute="height" multiplier="1:1" id="IjC-Mv-zBt"/>
@@ -9612,7 +9629,7 @@ added to your walllet.</string>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="Hsz-ib-KNO" secondAttribute="trailing" constant="20" id="03R-Zp-8VB"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Hsz-ib-KNO" secondAttribute="trailing" constant="50" id="03R-Zp-8VB"/>
                                                             <constraint firstItem="Hsz-ib-KNO" firstAttribute="top" secondItem="Bwv-P1-GIC" secondAttribute="top" id="Nt9-Lj-fXv"/>
                                                             <constraint firstItem="Hsz-ib-KNO" firstAttribute="leading" secondItem="Bwv-P1-GIC" secondAttribute="leading" constant="10" id="Ycy-O2-WeF"/>
                                                             <constraint firstAttribute="trailing" secondItem="AIw-6D-VWw" secondAttribute="trailing" constant="10" id="bR9-Re-mj9"/>
@@ -9648,11 +9665,11 @@ added to your walllet.</string>
                                                         <rect key="frame" x="20" y="0.0" width="275" height="50"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" placeholder="Confirm Enter New Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="alS-g4-rTB">
-                                                                <rect key="frame" x="10" y="0.0" width="245" height="50"/>
+                                                                <rect key="frame" x="10" y="0.0" width="215" height="50"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                             </textField>
-                                                            <button hidden="YES" opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Inp-g5-o8c">
+                                                            <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Inp-g5-o8c">
                                                                 <rect key="frame" x="237" y="11" width="28" height="28"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="28" id="mCp-z5-Pak"/>
@@ -9664,7 +9681,7 @@ added to your walllet.</string>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="alS-g4-rTB" secondAttribute="bottom" id="7Tz-QZ-D1Y"/>
-                                                            <constraint firstAttribute="trailing" secondItem="alS-g4-rTB" secondAttribute="trailing" constant="20" id="FGY-R0-T6r"/>
+                                                            <constraint firstAttribute="trailing" secondItem="alS-g4-rTB" secondAttribute="trailing" constant="50" id="FGY-R0-T6r"/>
                                                             <constraint firstItem="alS-g4-rTB" firstAttribute="leading" secondItem="6PS-M3-Sdy" secondAttribute="leading" constant="10" id="Fq1-P7-gmE"/>
                                                             <constraint firstItem="alS-g4-rTB" firstAttribute="top" secondItem="6PS-M3-Sdy" secondAttribute="top" id="Vjw-av-fto"/>
                                                             <constraint firstAttribute="trailing" secondItem="Inp-g5-o8c" secondAttribute="trailing" constant="10" id="cXa-fM-bCq"/>
@@ -9823,6 +9840,9 @@ added to your walllet.</string>
                         <outlet property="buttonView" destination="EgN-OW-1jP" id="rKu-a1-5mN"/>
                         <outlet property="changePasswordLabelView" destination="u7q-Lr-aCS" id="XbD-t4-lQs"/>
                         <outlet property="changePasswordView" destination="Z3p-h1-63F" id="4aI-y0-16k"/>
+                        <outlet property="confirmNewPasswordTextField" destination="alS-g4-rTB" id="700-WH-1C3"/>
+                        <outlet property="currentPasswordTextField" destination="ltr-sW-nyq" id="aCM-ZD-j43"/>
+                        <outlet property="newPasswordTextField" destination="Hsz-ib-KNO" id="yzY-Eg-HrG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uS2-7t-0z6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -9869,9 +9889,9 @@ added to your walllet.</string>
                                                         <rect key="frame" x="20" y="0.0" width="275" height="50"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" placeholder="Enter Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JA3-Yc-uBp">
-                                                                <rect key="frame" x="10" y="0.0" width="245" height="50"/>
+                                                                <rect key="frame" x="10" y="0.0" width="255" height="50"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
-                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                                <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <button hidden="YES" opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JkJ-Et-ktI">
                                                                 <rect key="frame" x="237" y="11" width="28" height="28"/>
@@ -9886,7 +9906,7 @@ added to your walllet.</string>
                                                         <constraints>
                                                             <constraint firstItem="JA3-Yc-uBp" firstAttribute="top" secondItem="Roi-7X-R3W" secondAttribute="top" id="RfC-Vn-fno"/>
                                                             <constraint firstItem="JA3-Yc-uBp" firstAttribute="leading" secondItem="Roi-7X-R3W" secondAttribute="leading" constant="10" id="SXL-ac-vQX"/>
-                                                            <constraint firstAttribute="trailing" secondItem="JA3-Yc-uBp" secondAttribute="trailing" constant="20" id="SuA-Tr-LAS"/>
+                                                            <constraint firstAttribute="trailing" secondItem="JA3-Yc-uBp" secondAttribute="trailing" constant="10" id="SuA-Tr-LAS"/>
                                                             <constraint firstAttribute="trailing" secondItem="JkJ-Et-ktI" secondAttribute="trailing" constant="10" id="ksq-3t-64h"/>
                                                             <constraint firstItem="JkJ-Et-ktI" firstAttribute="centerY" secondItem="JA3-Yc-uBp" secondAttribute="centerY" id="mxS-RQ-71b"/>
                                                             <constraint firstAttribute="bottom" secondItem="JA3-Yc-uBp" secondAttribute="bottom" id="vAr-F5-ldJ"/>
@@ -10042,6 +10062,7 @@ added to your walllet.</string>
                     </view>
                     <connections>
                         <outlet property="buttonView" destination="GyT-rf-bMR" id="Lsf-41-1Xa"/>
+                        <outlet property="emailTextField" destination="JA3-Yc-uBp" id="Dtp-ol-r5f"/>
                         <outlet property="forgotPasswordLabelView" destination="r84-k8-rCZ" id="t08-an-1DT"/>
                         <outlet property="forgotPasswordView" destination="MaI-dk-Epk" id="DxU-G2-idn"/>
                     </connections>

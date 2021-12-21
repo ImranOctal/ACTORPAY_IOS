@@ -6,6 +6,10 @@ target 'Actorpay' do
   use_frameworks!
 
   # Pods for Actorpay
+
+  pod 'Alamofire'
+  pod 'SwiftyJSON'
+  
   pod 'IQKeyboardManagerSwift'
   pod 'NKVPhonePicker'
   pod 'DropDown'

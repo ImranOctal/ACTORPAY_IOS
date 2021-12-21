@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Alamofire
 
 class ForgotPasswordViewController: UIViewController {
 
     @IBOutlet weak var forgotPasswordView: UIView!
     @IBOutlet weak var forgotPasswordLabelView: UIView!
     @IBOutlet weak var buttonView: UIView!
+    @IBOutlet weak var emailTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +55,33 @@ class ForgotPasswordViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func okButtonAction(_ sender: UIButton){
-        removeAnimate()
-        self.dismiss(animated: true, completion: nil)
+        
+        if emailTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+            self.view.makeToast("Please Enter an Email Address.")
+            return
+        }
+        
+        if !isValidEmail(emailTextField.text?.trimmingCharacters(in: .whitespaces) ?? ""){
+            self.alertViewController(message: "Please enter a valid Email ID.")
+            return
+        }
+        
+        let params: Parameters = [
+            "emailId": "\(emailTextField.text ?? "")"
+        ]
+        startActivityIndicator()
+        APIHelper.forgotPassword(params: params) { (success,response)  in
+            if !success {
+                stopActivityIndicator()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                stopActivityIndicator()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+                self.removeAnimate()
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
 }

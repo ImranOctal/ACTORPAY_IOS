@@ -8,10 +8,12 @@
 import UIKit
 import NKVPhonePicker
 import DropDown
+import SwiftyJSON
+import Alamofire
 
 class LoginViewController: UIViewController {
     
-//    MARK: - Properties -
+    //    MARK: - Properties -
     
     @IBOutlet weak var loginButton:UIButton!
     @IBOutlet weak var loginLineView:UIView!
@@ -30,16 +32,21 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var phoneNumberTextField:UITextField!
     @IBOutlet weak var firstNameTextField:UITextField!
     @IBOutlet weak var lastNameTextField:UITextField!
+    @IBOutlet weak var genderTextField:UITextField!
+    @IBOutlet weak var dateOfBirthTextField: UITextField!
     @IBOutlet weak var emailAddressTextField:UITextField!
     @IBOutlet weak var signUpPasswordTextField:UITextField!
     @IBOutlet weak var termsAndPrivacyLabel: UILabel!
     @IBOutlet weak var phoneCodeButton: UIButton!
-        
+    
     var isSignIn = true
     var isPassTap = false
     var isRememberMeTap = false
     var mobileCode: String?
     let dropDown = DropDown()
+    var datePicker = UIDatePicker()
+    var datePickerConstraints = [NSLayoutConstraint]()
+    var blurEffectView = UIView()
     
     // MARK: - Life cycle Functions -
     
@@ -60,7 +67,7 @@ class LoginViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         selectedTabIndex = self.tabBarController?.selectedIndex ?? 0
     }
-
+    
     
     //    MARK: - Selectors -
     
@@ -74,6 +81,10 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBAction func showCalender(_ sender: UIButton) {
+        self.view.endEditing(true)
+        showDatePicker()
+    }
     @IBAction func rememberMeButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         // remember Me
@@ -148,11 +159,27 @@ class LoginViewController: UIViewController {
             return
         }
         
-        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
-        myApp.window?.rootViewController = newVC
-    
-//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RootViewController") as! RootViewController
-//        self.navigationController?.pushViewController(newVC, animated: true)
+        let params: Parameters = [
+            "email": "\(userNameTextField.text ?? "")",
+            "password": "\(loginPasswordTextField.text ?? "")"
+        ]
+        APIHelper.loginUser(params: params) { (success,response)  in
+            if !success {
+                stopActivityIndicator()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                stopActivityIndicator()
+                let data = response.response["data"]
+                user = User.init(json: data)
+                AppManager.shared.token = user?.access_token ?? ""
+                AppManager.shared.userId = user?.id ?? ""
+                //                AppUserDefaults.saveObject(self.user?.access_token, forKey: .userAuthToken)
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
+                myApp.window?.rootViewController = newVC
+                myApp.window?.rootViewController?.view.makeToast(response.message)
+            }
+        }
     }
     
     @IBAction func signupButtonAction(_ sender: UIButton) {
@@ -188,6 +215,28 @@ class LoginViewController: UIViewController {
         if signUpPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
             self.alertViewController(message: "Please Enter a Password.")
             return
+        }
+        
+        let params: Parameters = [
+            "email":"\(emailAddressTextField.text ?? "")",
+            "extensionNumber":"\(phoneCodeTextField.text ?? "")",
+            "contactNumber":"\(phoneNumberTextField.text ?? "")",
+            "password":"\(signUpPasswordTextField.text ?? "")",
+            "gender":"\(genderTextField.text ?? "")",
+            "firstName":"\(firstNameTextField.text ?? "")",
+            "lastName":"\(lastNameTextField.text ?? "")",
+            "dateOfBirth":"\(dateOfBirthTextField.text ?? "")"
+        ]
+        
+        APIHelper.registerUser(params: params) { (success,response)  in
+            if !success {
+                stopActivityIndicator()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                stopActivityIndicator()
+                myApp.window?.rootViewController?.view.makeToast(response.message)
+            }
         }
     }
     
@@ -230,7 +279,7 @@ class LoginViewController: UIViewController {
         dropDown.bottomOffset = CGPoint(x: 0, y: 50)
         dropDown.direction = .bottom
     }
-  
+    
     
     func signInUIManage(){
         // login and Signup Manage
@@ -253,14 +302,14 @@ class LoginViewController: UIViewController {
     }
     
     func setSwipeGestureToView() {
-//        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-//        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        //        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        //        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         
-//        leftSwipe.direction = .left
-//        rightSwipe.direction = .right
-//
-//        view.addGestureRecognizer(leftSwipe)
-//        view.addGestureRecognizer(rightSwipe)
+        //        leftSwipe.direction = .left
+        //        rightSwipe.direction = .right
+        //
+        //        view.addGestureRecognizer(leftSwipe)
+        //        view.addGestureRecognizer(rightSwipe)
     }
     
     func numberPickerSetup() {
@@ -269,14 +318,14 @@ class LoginViewController: UIViewController {
         phoneCodeTextField.flagSize = CGSize(width: 20, height: 10)
         phoneCodeTextField.flagInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         phoneCodeTextField.shouldScrollToSelectedCountry = false
-        phoneCodeTextField.enablePlusPrefix = true
+        phoneCodeTextField.enablePlusPrefix = false
         
         if ((UserDefaults.standard.string(forKey: "countryCode")) != nil) {
             let code = (UserDefaults.standard.string(forKey: "countryCode") ?? Locale.current.regionCode) ?? ""
             let country = Country.country(for: NKVSource(countryCode: code))
             phoneCodeTextField.country = country
             phoneCodeTextField.text = country?.phoneExtension
-//            phoneCodeButton.setAttributedTitle(attributedString(countryCode: "+\(country?.phoneExtension ?? "")", arrow: " ▾"), for: .normal)
+            //            phoneCodeButton.setAttributedTitle(attributedString(countryCode: "+\(country?.phoneExtension ?? "")", arrow: " ▾"), for: .normal)
             phoneCodeTextField.setCode(source: NKVSource(country: country!))
             mobileCode = country?.phoneExtension ?? ""
             UserDefaults.standard.synchronize()
@@ -285,7 +334,7 @@ class LoginViewController: UIViewController {
             let country = Country.country(for: NKVSource(countryCode: code))
             phoneCodeTextField.country = country
             phoneCodeTextField.text = country?.phoneExtension
-//            phoneCodeButton.setAttributedTitle(attributedString(countryCode: "+\(country?.phoneExtension ?? "")", arrow: " ▾"), for: .normal)
+            //            phoneCodeButton.setAttributedTitle(attributedString(countryCode: "+\(country?.phoneExtension ?? "")", arrow: " ▾"), for: .normal)
             phoneCodeTextField.setCode(source: NKVSource(country: country!))
             mobileCode = country?.phoneExtension ?? ""
         }
@@ -304,6 +353,48 @@ class LoginViewController: UIViewController {
         termsAndPrivacyLabel.isUserInteractionEnabled = true
         termsAndPrivacyLabel.addGestureRecognizer(tapAction)
     }
+    
+    func showDatePicker() {
+        datePicker = UIDatePicker()
+        datePicker.date = Date()
+        datePicker.locale = .current
+        if #available(iOS 14.0, *) {
+            datePicker.preferredDatePickerStyle = .inline
+        } else {
+            // Fallback on earlier versions
+        }
+        datePicker.addTarget(self, action: #selector(dateSet), for: .valueChanged)
+        addDatePickerToSubview()
+    }
+
+        func addDatePickerToSubview() {
+            // Give the background Blur Effect
+            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.regular)
+            blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = self.view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            self.view.addSubview(blurEffectView)
+            self.view.addSubview(datePicker)
+            datePicker.translatesAutoresizingMaskIntoConstraints = false
+            centerDatePicker()
+            view.bringSubviewToFront(datePicker)
+        }
+
+        func centerDatePicker() {
+           
+            // Center the Date Picker
+            datePickerConstraints.append(datePicker.centerYAnchor.constraint(equalTo: self.view.centerYAnchor))
+            datePickerConstraints.append(datePicker.centerXAnchor.constraint(equalTo: self.view.centerXAnchor))
+            NSLayoutConstraint.activate(datePickerConstraints)
+        }
+    
+    @objc func dateSet() {
+        // Get the date from the Date Picker and put it in a Text Field
+        dateOfBirthTextField.text = datePicker.date.description
+        blurEffectView.removeFromSuperview()
+        datePicker.removeFromSuperview()
+    }
+    
 }
 
 //MARK:- Extensions -
@@ -352,7 +443,7 @@ extension LoginViewController: CountriesViewControllerDelegate, UITextFieldDeleg
         print("✳️ Did select country: \(country.countryCode)")
         UserDefaults.standard.set(country.countryCode, forKey: "countryCode")
         mobileCode = country.phoneExtension
-//        phoneCodeButton.setAttributedTitle(attributedString(countryCode: "+\(country.phoneExtension)", arrow: " ▾"), for: .normal)
+        //        phoneCodeButton.setAttributedTitle(attributedString(countryCode: "+\(country.phoneExtension)", arrow: " ▾"), for: .normal)
         phoneCodeTextField.country = country
     }
     
