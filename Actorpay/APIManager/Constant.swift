@@ -12,7 +12,6 @@ enum APIBaseUrlPoint: String {
 }
 
 enum APIEndPoint: String {
-   
     case login = "user-service/users/login"
     case register = "user-service/users/signup"
     case userUpdate = "user-service/users/update"
@@ -20,7 +19,13 @@ enum APIEndPoint: String {
     case forgetPassword = "user-service/users/forget/password"
     case resetPassword = "user-service/users/reset/password"
     case get_user_details_by_id = "user-service/users/by/id/"
-    case linkWallet = "link-wallet"
+    case productList = "user-service/products"
+    case allOrders = "user-service/orders"
+    case addToCart = "user-service/cartitems/add"
+    case cartItemList = "user-service/cartitems/view"
+    case faqAll = "cms-service/faq/all"
+    case removeCartItem = "user-service/cartitems/remove"
+    case updateCartItem = "user-service/cartitems/update"
 }
 
 struct MessageConstant {

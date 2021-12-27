@@ -47,6 +47,7 @@ struct User {
         invalidLoginAttempts = json["invalidLoginAttempts"].int
         createdAt = json["createdAt"].string
         updatedAt = json["updatedAt"].string
+        roles = json["roles"].arrayObject as? [String]
         active = json["active"].bool
         kycDone = json["kycDone"].bool
     }

@@ -69,10 +69,13 @@ class TabBarRootViewController: UIViewController {
     
     @IBAction func notificationButtonAction(_ sender: UIButton){
         self.view.endEditing(true)
-        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
-        self.navigationController?.pushViewController(newVC, animated: true)
+//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
+//        self.navigationController?.pushViewController(newVC, animated: true)
 //        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RemittanceViewController") as! RemittanceViewController
 //        self.navigationController?.pushViewController(newVC, animated: true)
+        
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     @objc private func menuButtonAction(sender: UIButton) {

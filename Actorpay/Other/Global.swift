@@ -7,7 +7,9 @@
 
 import Foundation
 import UIKit
+import MBProgressHUD
 
+var progressHud = MBProgressHUD()
 let obj_AppDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 let myApp = UIApplication.shared.delegate as! AppDelegate
 let token = ""
@@ -18,27 +20,37 @@ let VAL_TITLE                               = "Val_TITLE"
 let VAL_IMAGE                               = "VAL_IMAGE"
 var primaryColor = UIColor.init(hexFromString: "#183967")
 
-func startActivityIndicator(shouldCenter: Bool = true) {
+func showLoading() {
     DispatchQueue.main.async {
-        let yPosition: CGFloat = shouldCenter ? (UIScreen.main.bounds.height/2) : 0
-            let activityView = UIActivityIndicatorView(style: .whiteLarge)
-            activityView.color = UIColor.black
-            activityView.center = CGPoint(x: UIScreen.main.bounds.width/2, y: yPosition)
-        myApp.window?.rootViewController?.view.addSubview(activityView)
-            activityView.startAnimating()
-        
+        if progressHud.superview != nil {
+            progressHud.hide(animated: false)
+        }
+        progressHud = MBProgressHUD.showAdded(to: (myApp.window?.rootViewController!.view)!, animated: true)
+        if #available(iOS 9.0, *) {
+            UIActivityIndicatorView.appearance(whenContainedInInstancesOf: [MBProgressHUD.self]).color = UIColor.gray
+        } else {
+        }
+        DispatchQueue.main.async {
+            progressHud.show(animated: true)
+        }
     }
 }
 
-func stopActivityIndicator() {
-    if let activityViews = myApp.window?.rootViewController?.view.subviews.filter({ $0 is UIActivityIndicatorView }) as? [UIActivityIndicatorView] {
-        DispatchQueue.main.async {
-            activityViews.forEach { (loader) in
-                loader.stopAnimating()
-                loader.removeFromSuperview()
-            }
-        }
+func dissmissLoader() {
+    DispatchQueue.main.async {
+        progressHud.hide(animated: true)
     }
+}
+
+func deviceID() -> String{
+    return UIDevice.current.identifierForVendor?.uuidString ?? ""
+}
+
+func appVersion() -> String {
+    if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+        return version
+    }
+    return ""
 }
 
 func attributedString(countryCode: String, arrow : String) -> NSMutableAttributedString {
@@ -59,7 +71,7 @@ func topCorner(bgView:UIView, maskToBounds: Bool) {
     bgView.layer.shadowOffset = CGSize(width: -1, height: -2)
     bgView.layer.shadowRadius = 2
     bgView.layer.shadowOpacity = 0.1
-    bgView.layer.cornerRadius = 50
+    bgView.layer.cornerRadius = 40
     bgView.layer.masksToBounds = maskToBounds
  }
 

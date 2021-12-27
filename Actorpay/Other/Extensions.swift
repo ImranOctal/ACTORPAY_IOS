@@ -440,7 +440,7 @@ extension UITableView {
 extension Date {
     var formatted: String {
         let df = DateFormatter()
-        df.dateFormat = "dd/MM/yyyy"
+        df.dateFormat = "dd-MM-yyyy"
         return df.string(from: self)
     }
     
@@ -797,4 +797,76 @@ class DashedBorderView: UIView {
         dashedBorder.path = UIBezierPath(rect: self.bounds).cgPath
         dashedBorder.frame = self.bounds
     }
+}
+
+extension UIDevice {
+    var hasNotch: Bool {
+        let bottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        return bottom > 0
+    }
+    
+    static let modelName: String = {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
+        }
+        
+        func mapToDevice(identifier: String) -> String {
+            #if os(iOS)
+            switch identifier {
+            case "iPhone1,1" : return "iPhone"
+            case "iPhone1,2" : return "iPhone 3G"
+            case "iPhone2,1" : return "iPhone 3GS"
+            case "iPhone3,1" : return "iPhone 4"
+            case "iPhone3,2" : return "iPhone 4 GSM Rev A"
+            case "iPhone3,3" : return "iPhone 4 CDMA"
+            case "iPhone4,1" : return "iPhone 4S"
+            case "iPhone5,1" : return "iPhone 5 (GSM)"
+            case "iPhone5,2" : return "iPhone 5 (GSM+CDMA)"
+            case "iPhone5,3" : return "iPhone 5C (GSM)"
+            case "iPhone5,4" : return "iPhone 5C (Global)"
+            case "iPhone6,1" : return "iPhone 5S (GSM)"
+            case "iPhone6,2" : return "iPhone 5S (Global)"
+            case "iPhone7,1" : return "iPhone 6 Plus"
+            case "iPhone7,2" : return "iPhone 6"
+            case "iPhone8,1" : return "iPhone 6s"
+            case "iPhone8,2" : return "iPhone 6s Plus"
+            case "iPhone8,4" : return "iPhone SE (GSM)"
+            case "iPhone9,1" : return "iPhone 7"
+            case "iPhone9,2" : return "iPhone 7 Plus"
+            case "iPhone9,3" : return "iPhone 7"
+            case "iPhone9,4" : return "iPhone 7 Plus"
+            case "iPhone10,1" : return "iPhone 8"
+            case "iPhone10,2" : return "iPhone 8 Plus"
+            case "iPhone10,3" : return "iPhone X Global"
+            case "iPhone10,4" : return "iPhone 8"
+            case "iPhone10,5" : return "iPhone 8 Plus"
+            case "iPhone10,6" : return "iPhone X GSM"
+            case "iPhone11,2" : return "iPhone XS"
+            case "iPhone11,4" : return "iPhone XS Max"
+            case "iPhone11,6" : return "iPhone XS Max Global"
+            case "iPhone11,8" : return "iPhone XR"
+            case "iPhone12,1" : return "iPhone 11"
+            case "iPhone12,3" : return "iPhone 11 Pro"
+            case "iPhone12,5" : return "iPhone 11 Pro Max"
+            case "iPhone12,8" : return "iPhone SE 2nd Gen"
+            case "iPhone13,1" : return "iPhone 12 Mini"
+            case "iPhone13,2" : return "iPhone 12"
+            case "iPhone13,3" : return "iPhone 12 Pro"
+            case "iPhone13,4" : return "iPhone 12 Pro Max"
+            case "iPhone14,2" : return "iPhone 13 Pro"
+            case "iPhone14,3" : return "iPhone 13 Pro Max"
+            case "iPhone14,4" : return "iPhone 13 Mini"
+            case "iPhone14,5" : return "iPhone 13"
+            case "i386", "x86_64": return "Simulator \(mapToDevice(identifier: ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] ?? "iOS"))"
+            default:                                        return identifier
+            }
+            #endif
+        }
+        
+        return mapToDevice(identifier: identifier)
+    }()
 }

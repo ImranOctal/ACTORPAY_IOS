@@ -9,11 +9,12 @@ target 'Actorpay' do
 
   pod 'Alamofire'
   pod 'SwiftyJSON'
-  
+  pod 'SDWebImage', '~> 5.0'
   pod 'IQKeyboardManagerSwift'
   pod 'NKVPhonePicker'
   pod 'DropDown'
   pod 'AKSideMenu'
+  pod 'MBProgressHUD', '~> 1.1.0'
 #  pod 'SwiftQRScanner'
   pod 'Toast-Swift', '~> 5.0.1'
 

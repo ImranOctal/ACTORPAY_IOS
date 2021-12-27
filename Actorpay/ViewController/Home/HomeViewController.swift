@@ -40,6 +40,8 @@ class HomeViewController: UIViewController {
         transactionTableView.estimatedRowHeight = 70
         transactionTableView.rowHeight = UITableView.automaticDimension
         getUserDetailsApi()
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("getUserDetail"), object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(self.getUserDetailsApi),name:Notification.Name("getUserDetail"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,18 +61,19 @@ class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(newVC, animated: true)
     }
     
-    func getUserDetailsApi(){
+    @objc func getUserDetailsApi(){
+        showLoading()
         APIHelper.getUserDetailsById(id: AppManager.shared.userId) { (success, response) in
             if !success {
-                stopActivityIndicator()
+                dissmissLoader()
                 let message = response.message
                 myApp.window?.rootViewController?.view.makeToast(message)
             }else {
-                stopActivityIndicator()
+                dissmissLoader()
                 let data = response.response["data"]
                 user = User.init(json: data)
-                let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+//                let message = response.message
+//                myApp.window?.rootViewController?.view.makeToast(message)
             }
         }
     }

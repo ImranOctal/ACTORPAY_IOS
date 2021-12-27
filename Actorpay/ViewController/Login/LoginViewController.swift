@@ -36,6 +36,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var dateOfBirthTextField: UITextField!
     @IBOutlet weak var emailAddressTextField:UITextField!
     @IBOutlet weak var signUpPasswordTextField:UITextField!
+    @IBOutlet weak var pancardOrAdharCardNumberTextField:UITextField!
     @IBOutlet weak var termsAndPrivacyLabel: UILabel!
     @IBOutlet weak var phoneCodeButton: UIButton!
     
@@ -47,6 +48,7 @@ class LoginViewController: UIViewController {
     var datePicker = UIDatePicker()
     var datePickerConstraints = [NSLayoutConstraint]()
     var blurEffectView = UIView()
+    var imagePicker = UIImagePickerController()
     
     // MARK: - Life cycle Functions -
     
@@ -55,6 +57,7 @@ class LoginViewController: UIViewController {
         signUpLineView.isHidden = true
         signUpView.isHidden = true
         phoneCodeTextField.delegate = self
+        dateOfBirthTextField.delegate = self
         setupDropDown()
         signInUIManage()
         setSwipeGestureToView()
@@ -85,6 +88,23 @@ class LoginViewController: UIViewController {
         self.view.endEditing(true)
         showDatePicker()
     }
+    
+    @IBAction func uploadDocumentButton(_ sender: UIButton) {
+        self.view.endEditing(true)
+        let alertController = UIAlertController(title:NSLocalizedString("title", comment: ""), message: "", preferredStyle: .actionSheet)
+             let okAction = UIAlertAction(title: NSLocalizedString("ChooseExisting", comment: ""), style: .default) { (action) in
+                 self.openPhotos()
+             }
+             let okAction2 = UIAlertAction(title: NSLocalizedString("TakePhoto", comment: ""), style: .default) { (action) in
+                 self.openCamera()
+             }
+             let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
+             alertController.addAction(okAction)
+             alertController.addAction(okAction2)
+             alertController.addAction(cancelAction)
+             self.present(alertController, animated: true, completion: nil)
+    }
+    
     @IBAction func rememberMeButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         // remember Me
@@ -151,25 +171,36 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonAction(_ sender: UIButton) {
         //  Login Validation 
         if userNameTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.alertViewController(message: "Please Enter an username.")
+            self.view.makeToast( "Please Enter an username.")
             return
         }
         if loginPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.alertViewController(message: "Please Enter an Password.")
+            self.view.makeToast( "Please Enter an Password.")
             return
         }
         
         let params: Parameters = [
             "email": "\(userNameTextField.text ?? "")",
-            "password": "\(loginPasswordTextField.text ?? "")"
+            "password": "\(loginPasswordTextField.text ?? "")",
+            "device_id": deviceID(),
+            "device_type": "iOS",
+            "app_version": appVersion(),
+            "device_data": [
+                "api_level": "",
+                "device": "Apple",
+                "model": "\(UIDevice.modelName)",
+                "product": "Apple",
+                "brand": "Apple"
+            ]
         ]
+        showLoading()
         APIHelper.loginUser(params: params) { (success,response)  in
             if !success {
-                stopActivityIndicator()
+                dissmissLoader()
                 let message = response.message
                 myApp.window?.rootViewController?.view.makeToast(message)
             }else {
-                stopActivityIndicator()
+                dissmissLoader()
                 let data = response.response["data"]
                 user = User.init(json: data)
                 AppManager.shared.token = user?.access_token ?? ""
@@ -184,36 +215,52 @@ class LoginViewController: UIViewController {
     
     @IBAction func signupButtonAction(_ sender: UIButton) {
         //  Signin Validation
-        if userTypeTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.alertViewController(message: "Please select an user type.")
-            return
-        }
-        if phoneCodeTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.alertViewController(message: "Please Select Country Code.")
-            return
-        }
-        if phoneNumberTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.alertViewController(message: "Please Enter a phone number.")
-            return
-        }
+//        if userTypeTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+//            self.view.makeToast( "Please select an user type.")
+//            return
+//        }
         if firstNameTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.alertViewController(message: "Please Enter a first name.")
+            self.view.makeToast("Please Enter a first name.")
             return
         }
         if lastNameTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.alertViewController(message: "Please Enter a last name.")
+            self.view.makeToast( "Please Enter a last name.")
             return
         }
         if emailAddressTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.alertViewController(message: "Please Enter an email.")
+            self.view.makeToast( "Please Enter an email.")
             return
         }
         if !isValidEmail(emailAddressTextField.text?.trimmingCharacters(in: .whitespaces) ?? ""){
-            self.alertViewController(message: "Please enter a valid Email ID.")
+            self.view.makeToast( "Please enter a valid Email ID.")
+            return
+        }
+        if phoneCodeTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+            self.view.makeToast( "Please Select Country Code.")
+            return
+        }
+        if phoneNumberTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+            self.view.makeToast( "Please Enter a phone number.")
             return
         }
         if signUpPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.alertViewController(message: "Please Enter a Password.")
+            self.view.makeToast( "Please Enter a Password.")
+            return
+        }
+        if genderTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+            self.view.makeToast( "Please select a gender.")
+            return
+        }
+        if dateOfBirthTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+            self.view.makeToast( "Please select a Date of Birth.")
+            return
+        }
+        if dateOfBirthTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+            self.view.makeToast( "Please select a Date of Birth.")
+            return
+        }
+        if pancardOrAdharCardNumberTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+            self.view.makeToast( "Please Enter a Pan Cardb Number or Adhar Card Number .")
             return
         }
         
@@ -227,15 +274,18 @@ class LoginViewController: UIViewController {
             "lastName":"\(lastNameTextField.text ?? "")",
             "dateOfBirth":"\(dateOfBirthTextField.text ?? "")"
         ]
-        
+        print(params)
+        showLoading()
         APIHelper.registerUser(params: params) { (success,response)  in
             if !success {
-                stopActivityIndicator()
+                dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+                self.view.makeToast(message)
             }else {
-                stopActivityIndicator()
-                myApp.window?.rootViewController?.view.makeToast(response.message)
+                dissmissLoader()
+                self.isSignIn = true
+                self.signInUIManage()
+                self.view.makeToast(response.message)
             }
         }
     }
@@ -268,10 +318,10 @@ class LoginViewController: UIViewController {
     //    MARK: - helper Functions -
     
     func setupDropDown()  {
-        dropDown.anchorView = userTypeTextField
-        dropDown.dataSource = ["New","Old"]
+        dropDown.anchorView = genderTextField
+        dropDown.dataSource = ["Female","Male","Other"]
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.userTypeTextField.text = item
+            self.genderTextField.text = item
             self.view.endEditing(true)
             self.dropDown.hide()
         }
@@ -299,6 +349,9 @@ class LoginViewController: UIViewController {
         lastNameTextField.text = nil
         emailAddressTextField.text = nil
         signUpPasswordTextField.text = nil
+        dateOfBirthTextField.text = nil
+        genderTextField.text = nil
+        pancardOrAdharCardNumberTextField.text = nil
     }
     
     func setSwipeGestureToView() {
@@ -361,10 +414,12 @@ class LoginViewController: UIViewController {
         if #available(iOS 14.0, *) {
             datePicker.preferredDatePickerStyle = .inline
         } else {
-            // Fallback on earlier versions
+//            datePicker.preferredDatePickerStyle = .inline
         }
         datePicker.addTarget(self, action: #selector(dateSet), for: .valueChanged)
         addDatePickerToSubview()
+        datePicker.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        datePicker.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
 
         func addDatePickerToSubview() {
@@ -376,28 +431,54 @@ class LoginViewController: UIViewController {
             self.view.addSubview(blurEffectView)
             self.view.addSubview(datePicker)
             datePicker.translatesAutoresizingMaskIntoConstraints = false
-            centerDatePicker()
             view.bringSubviewToFront(datePicker)
-        }
-
-        func centerDatePicker() {
-           
-            // Center the Date Picker
-            datePickerConstraints.append(datePicker.centerYAnchor.constraint(equalTo: self.view.centerYAnchor))
-            datePickerConstraints.append(datePicker.centerXAnchor.constraint(equalTo: self.view.centerXAnchor))
-            NSLayoutConstraint.activate(datePickerConstraints)
         }
     
     @objc func dateSet() {
         // Get the date from the Date Picker and put it in a Text Field
-        dateOfBirthTextField.text = datePicker.date.description
+        dateOfBirthTextField.text = datePicker.date.formatted
         blurEffectView.removeFromSuperview()
         datePicker.removeFromSuperview()
     }
+    func openCamera(){
+        /// Open Camera
+        if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }else{
+            let alert  = UIAlertController(title: "Warning", message: "Camera Not Supported", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
+    func openPhotos(){
+        ///Open Photo Gallary
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        imagePicker.allowsEditing = false
+        self.present(imagePicker, animated: true, completion: nil)
+    }
 }
 
-//MARK:- Extensions -
+
+// MARK: - Extensions -
+
+extension LoginViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage{
+//            userImageView.image = image
+            print(image)
+            
+        }
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+}
+
 
 extension UITapGestureRecognizer {
     func didTapAttributedTextInLabel(label: UILabel, targetText: String) -> Bool {
@@ -455,4 +536,24 @@ extension LoginViewController: CountriesViewControllerDelegate, UITextFieldDeleg
         self.view.endEditing(true)
         return true
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == dateOfBirthTextField {
+            if textField.text?.count == 2 || textField.text?.count == 5 {
+                //Handle backspace being pressed
+                if !(string == "") {
+                    // append the text
+                    if let text = textField.text {
+                        textField.text = text + "-"
+                    }
+                }
+            }
+            // check the condition not exceed 9 chars
+            return !(textField.text!.count > 9 && (string.count ) > range.length)
+        } else {
+            return true
+        }
+    }
+   
+    
 }

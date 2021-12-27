@@ -11,6 +11,8 @@ import Alamofire
 var isProfileView = false
 
 class ProfileViewController: UIViewController {
+    
+    //MARK: - Prope
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var userImageView: UIImageView!
@@ -49,24 +51,47 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func saveButtonAction(_ sender: UIButton) {
+        // Validation
+        if nameTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+            self.view.makeToast( "Please Enter a last name.")
+            return
+        }
+        
+        if emailTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+            self.view.makeToast( "Please Enter an email.")
+            return
+        }
+        
+        if !isValidEmail(emailTextField.text?.trimmingCharacters(in: .whitespaces) ?? ""){
+            self.view.makeToast( "Please enter a valid Email ID.")
+            return
+        }
+        
+        if phoneNumberTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+            self.view.makeToast( "Please Enter a phone number.")
+            return
+        }
+        
         self.view.endEditing(true)
         
         let params: Parameters = [
-            "username":"vickyTesting",
+            "username": "\(nameTextField.text ?? "")",
             "extensionNumber":"+91",
-            "contactNumber":"1111111111",
+            "contactNumber":"\(phoneNumberTextField.text ?? "")",
+            "email": "\(emailTextField.text ?? "")",
             "id":"\(AppManager.shared.userId)"
         ]
-        startActivityIndicator()
+        showLoading()
         APIHelper.updateUser(params: params) { (success,response)  in
             if !success {
-                stopActivityIndicator()
+                dissmissLoader()
                 let message = response.message
                 myApp.window?.rootViewController?.view.makeToast(message)
             }else {
-                stopActivityIndicator()
+                dissmissLoader()
                 let message = response.message
                 myApp.window?.rootViewController?.view.makeToast(message)
+                NotificationCenter.default.post(name:  Notification.Name("getUserDetail"), object: self)
             }
         }        
     }

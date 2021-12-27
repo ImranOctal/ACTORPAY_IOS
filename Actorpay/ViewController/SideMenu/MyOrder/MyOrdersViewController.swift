@@ -12,6 +12,8 @@ class MyOrdersViewController: UIViewController {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
+    var myOrders: [OrderDetails] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         topCorner(bgView: mainView, maskToBounds: true)
@@ -23,6 +25,7 @@ class MyOrdersViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getProductListAPI()
         self.navigationController?.navigationBar.isHidden = true
     }
 
@@ -33,6 +36,24 @@ class MyOrdersViewController: UIViewController {
     
     @IBAction func filterButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
+    }
+    
+    func getProductListAPI(){
+        showLoading()
+        APIHelper.getAllOrders() { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let data = response.response["data"]
+                self.myOrders.append(OrderDetails(json: data)) 
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+                self.tableView.reloadData()
+            }
+        }
     }
     
 }

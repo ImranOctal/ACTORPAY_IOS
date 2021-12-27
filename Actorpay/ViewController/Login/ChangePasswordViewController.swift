@@ -66,10 +66,15 @@ class ChangePasswordViewController: UIViewController {
             isPassTap = !isPassTap
             currentPasswordTextField.isSecureTextEntry = !isPassTap
             sender.setImage(UIImage(named: isPassTap ? "hide" : "show"), for: .normal)
+        } else if sender.tag == 1002{
+            // login password
+            isPassTap = !isPassTap
+            newPasswordTextField.isSecureTextEntry = !isPassTap
+            sender.setImage(UIImage(named: isPassTap ? "hide" : "show"), for: .normal)
         }else{
             //signup Password
             isPassTap = !isPassTap
-            newPasswordTextField.isSecureTextEntry = !isPassTap
+            confirmNewPasswordTextField.isSecureTextEntry = !isPassTap
             sender.setImage(UIImage(named: isPassTap ? "hide" : "show"), for: .normal)
         }
     }
@@ -101,14 +106,14 @@ class ChangePasswordViewController: UIViewController {
             "newPassword": "\(newPasswordTextField.text ?? "")",
             "confirmPassword": "\(confirmNewPasswordTextField.text ?? "")"
         ]
-        startActivityIndicator()
+        showLoading()
         APIHelper.changePassword(params: params) { (success,response)  in
             if !success {
-                stopActivityIndicator()
+                dissmissLoader()
                 let message = response.message
                 myApp.window?.rootViewController?.view.makeToast(message)
             }else {
-                stopActivityIndicator()
+                dissmissLoader()
                 let message = response.message
                 myApp.window?.rootViewController?.view.makeToast(message)
                 self.removeAnimate()

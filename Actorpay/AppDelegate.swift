@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setupNavigation(){
-        if ((token).count > 0){
+        if (AppManager.shared.token.count > 0){
             let newVC = self.storyBoard.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
             myApp.window?.rootViewController = newVC
         }else{

@@ -42,7 +42,9 @@ class MoreViewController: UIViewController {
     
     @IBAction func faqButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+//        self.navigationController?.pushViewController(newVC, animated: true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "FAQViewController") as! FAQViewController
         self.navigationController?.pushViewController(newVC, animated: true)
     }
     

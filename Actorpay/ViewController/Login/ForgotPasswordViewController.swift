@@ -69,14 +69,14 @@ class ForgotPasswordViewController: UIViewController {
         let params: Parameters = [
             "emailId": "\(emailTextField.text ?? "")"
         ]
-        startActivityIndicator()
+        showLoading()
         APIHelper.forgotPassword(params: params) { (success,response)  in
             if !success {
-                stopActivityIndicator()
+                dissmissLoader()
                 let message = response.message
                 myApp.window?.rootViewController?.view.makeToast(message)
             }else {
-                stopActivityIndicator()
+                dissmissLoader()
                 let message = response.message
                 myApp.window?.rootViewController?.view.makeToast(message)
                 self.removeAnimate()

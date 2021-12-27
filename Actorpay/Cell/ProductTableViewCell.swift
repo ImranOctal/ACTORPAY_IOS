@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ProductTableViewCell: UITableViewCell {
     
@@ -14,9 +15,27 @@ class ProductTableViewCell: UITableViewCell {
     @IBOutlet weak var buyNowButton: UIButton!
     @IBOutlet weak var addToCartButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var dealPriceLabel: UILabel!
+    @IBOutlet weak var actualPriceLabel: UILabel!
+    
+    var item: Items? {
+        didSet {
+            let totalGst = (item?.cgst ?? 0) + (item?.sgst ?? 0)
+            let totalPrice = totalGst + (item?.dealPrice ?? 0)
+            if let item = self.item {
+                titleLabel.text = item.name
+                descriptionLabel.text = item.description
+                if let url = URL(string: item.image ?? "") {
+//                    print(url)
+                    iconImage.sd_setImage(with: url, completed: nil)
+                }
+//                dealPriceLabel.text = "\(item.dealPrice ?? 0)"
+                dealPriceLabel.text = "$\(totalPrice)"
+                actualPriceLabel.text = "\(item.actualPrice ?? 0)"
+            }
+        }
+    }
 
     var buyNowButtonHandler: (() -> ())!
     var addToCartButtonHandler: (() -> ())!
