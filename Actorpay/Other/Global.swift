@@ -13,6 +13,7 @@ var progressHud = MBProgressHUD()
 let obj_AppDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 let myApp = UIApplication.shared.delegate as! AppDelegate
 let token = ""
+var deviceFcmToken : String?
 typealias typeAliasStringDictionary         = [String: String]
 var selectedTabIndex = 0
 var selectedTabTag = 1001

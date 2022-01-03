@@ -105,18 +105,22 @@ extension MyCartViewController {
     }
     
     // Update Cart Item
-    func updateCartItem(productQty: Int) {
-//        let params: Parameters = [:]
-//        APIHelper.updateCartItem(params: params) { (success, response) in
-//            if !success {
-//                dissmissLoader()
-//                let message = response.message
-//                myApp.window?.rootViewController?.view.makeToast(message)
-//            }else {
-//                dissmissLoader()
-//                self.cartItemList()
-//            }
-//        }
+    func updateCartItem(productQty: Int, cartItemId: String) {
+        let params: Parameters = [
+            "cartItemId":cartItemId,
+            "productQty":productQty
+        ]
+        showLoading()
+        APIHelper.updateCartItem(params: params) { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                self.cartItemList()
+            }
+        }
     }
     
     
@@ -134,10 +138,11 @@ extension MyCartViewController: UITableViewDelegate, UITableViewDataSource {
         cell.productTitleLabel.text = cartList?.cartItemDTOList?[indexPath.row].productName
         cell.productPriceLabel.text = "Price ₹\(cartList?.cartItemDTOList?[indexPath.row].productPrice ?? 0) (Including 18.0% gst)"
         var count = self.cartList?.cartItemDTOList?[indexPath.row].productQty ?? 0
+        let cartItemId = self.cartList?.cartItemDTOList?[indexPath.row].cartItemId ?? ""
         cell.addButtonHandler = {
             count += 1
             cell.productQuntityLabel.text = "\(count)"
-            self.updateCartItem(productQty: count)
+            self.updateCartItem(productQty: count,cartItemId: cartItemId)
         }
         cell.minusButtonHandler = {
             if count == 1 {
@@ -145,7 +150,7 @@ extension MyCartViewController: UITableViewDelegate, UITableViewDataSource {
             }
             count -= 1
             cell.productQuntityLabel.text = "\(count)"
-            self.updateCartItem(productQty: count)
+            self.updateCartItem(productQty: count, cartItemId: cartItemId)
         }
         
         cell.deleteButtonHandler = {

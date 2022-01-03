@@ -73,7 +73,8 @@ class LoginViewController: UIViewController {
     
     
     //    MARK: - Selectors -
-    
+
+    // Login and SignUp Button Action
     @IBAction func loginAndSignupButton(_ sender: UIButton){
         if sender.tag == 1001 {
             isSignIn = true
@@ -84,11 +85,13 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // Show Calender Button Action
     @IBAction func showCalender(_ sender: UIButton) {
         self.view.endEditing(true)
         showDatePicker()
     }
     
+    // Upload Document Button Action
     @IBAction func uploadDocumentButton(_ sender: UIButton) {
         self.view.endEditing(true)
         let alertController = UIAlertController(title:NSLocalizedString("title", comment: ""), message: "", preferredStyle: .actionSheet)
@@ -105,6 +108,7 @@ class LoginViewController: UIViewController {
              self.present(alertController, animated: true, completion: nil)
     }
     
+    // Remember Me Button Action
     @IBAction func rememberMeButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         // remember Me
@@ -117,11 +121,13 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // New Register Button Action
     @IBAction func newRegisterButton(_ sender: UIButton) {
         isSignIn = false
         signInUIManage()
     }
     
+    // Forgot Password Button Action
     @IBAction func forgotPasswordButton(_ sender: UIButton) {
         let popOverConfirmVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
         self.addChild(popOverConfirmVC)
@@ -131,11 +137,13 @@ class LoginViewController: UIViewController {
         popOverConfirmVC.didMove(toParent: self)
     }
     
+    // Alerady Login Button Action
     @IBAction func alreadyLoginButton(_ sender: UIButton) {
         isSignIn = true
         signInUIManage()
     }
     
+    // Password Toggle Button Action
     @IBAction func passwordToggleButton(_ sender: UIButton) {
         self.view.endEditing(true)
         if sender.tag == 1001{
@@ -151,6 +159,7 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // Phone Code Button Action
     @IBAction func phoneCodeBtnAction(_ sender: UIButton) {
         self.view.endEditing(true)
         print("Tap")
@@ -163,58 +172,35 @@ class LoginViewController: UIViewController {
         
     }
     
+    // Drop Down Button Action
     @IBAction func dropdownButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         dropDown.show()
     }
     
+    
+    // Login Button Action
     @IBAction func loginButtonAction(_ sender: UIButton) {
         //  Login Validation 
-        if userNameTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+        if userNameTextField.text?.trimmingCharacters(in: .whitespaces).count == 0
+        {
             self.view.makeToast( "Please Enter an username.")
             return
         }
-        if loginPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
+        
+        if loginPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0
+        {
             self.view.makeToast( "Please Enter an Password.")
             return
         }
         
-        let params: Parameters = [
-            "email": "\(userNameTextField.text ?? "")",
-            "password": "\(loginPasswordTextField.text ?? "")",
-            "device_id": deviceID(),
-            "device_type": "iOS",
-            "app_version": appVersion(),
-            "device_data": [
-                "api_level": "",
-                "device": "Apple",
-                "model": "\(UIDevice.modelName)",
-                "product": "Apple",
-                "brand": "Apple"
-            ]
-        ]
-        showLoading()
-        APIHelper.loginUser(params: params) { (success,response)  in
-            if !success {
-                dissmissLoader()
-                let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
-            }else {
-                dissmissLoader()
-                let data = response.response["data"]
-                user = User.init(json: data)
-                AppManager.shared.token = user?.access_token ?? ""
-                AppManager.shared.userId = user?.id ?? ""
-                //                AppUserDefaults.saveObject(self.user?.access_token, forKey: .userAuthToken)
-                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
-                myApp.window?.rootViewController = newVC
-                myApp.window?.rootViewController?.view.makeToast(response.message)
-            }
-        }
+        self.loginApi()
+        
     }
     
     @IBAction func signupButtonAction(_ sender: UIButton) {
         //  Signin Validation
+        
 //        if userTypeTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
 //            self.view.makeToast( "Please select an user type.")
 //            return
@@ -264,32 +250,11 @@ class LoginViewController: UIViewController {
             return
         }
         
-        let params: Parameters = [
-            "email":"\(emailAddressTextField.text ?? "")",
-            "extensionNumber":"\(phoneCodeTextField.text ?? "")",
-            "contactNumber":"\(phoneNumberTextField.text ?? "")",
-            "password":"\(signUpPasswordTextField.text ?? "")",
-            "gender":"\(genderTextField.text ?? "")",
-            "firstName":"\(firstNameTextField.text ?? "")",
-            "lastName":"\(lastNameTextField.text ?? "")",
-            "dateOfBirth":"\(dateOfBirthTextField.text ?? "")"
-        ]
-        print(params)
-        showLoading()
-        APIHelper.registerUser(params: params) { (success,response)  in
-            if !success {
-                dissmissLoader()
-                let message = response.message
-                self.view.makeToast(message)
-            }else {
-                dissmissLoader()
-                self.isSignIn = true
-                self.signInUIManage()
-                self.view.makeToast(response.message)
-            }
-        }
+        self.signUpApi()
+
     }
     
+    // Swipe Gesture  Action
     @objc func handleSwipes(_ sender: UISwipeGestureRecognizer)
     {
         if sender.direction == .right {
@@ -303,6 +268,7 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // Label Action
     @objc func tapLabel(gesture: UITapGestureRecognizer) {
         if gesture.didTapAttributedTextInLabel(label: termsAndPrivacyLabel, targetText: "Terms of Use") {
             print("Terms of Use")
@@ -317,6 +283,7 @@ class LoginViewController: UIViewController {
     
     //    MARK: - helper Functions -
     
+    // SetUp Drop Down
     func setupDropDown()  {
         dropDown.anchorView = genderTextField
         dropDown.dataSource = ["Female","Male","Other"]
@@ -331,7 +298,9 @@ class LoginViewController: UIViewController {
     }
     
     
+    // Sign In UI Manage
     func signInUIManage(){
+        
         // login and Signup Manage
         signUpView.isHidden = isSignIn
         loginView.isHidden = !isSignIn
@@ -339,9 +308,11 @@ class LoginViewController: UIViewController {
         loginLineView.isHidden = !isSignIn
         loginButton.setTitleColor((isSignIn) ? UIColor.init(hexFromString: "#2878B6") : UIColor.darkGray, for: .normal)
         signUpButton.setTitleColor((!isSignIn) ? UIColor.init(hexFromString: "#2878B6") : UIColor.darkGray, for: .normal)
+        
         // login
         userNameTextField.text = nil
         loginPasswordTextField.text = nil
+        
         // Signup
         userTypeTextField.text = nil
         phoneNumberTextField.text = nil
@@ -365,6 +336,7 @@ class LoginViewController: UIViewController {
         //        view.addGestureRecognizer(rightSwipe)
     }
     
+    // Country Code Picker Setup
     func numberPickerSetup() {
         phoneCodeTextField.phonePickerDelegate = self
         phoneCodeTextField.countryPickerDelegate = self
@@ -393,6 +365,7 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // Tap Label SetUp
     func setupMultipleTapLabel() {
         termsAndPrivacyLabel.text = "By Signing up you are agreeing to our \n Terms of Use and Privacy Policy"
         let text = (termsAndPrivacyLabel.text)!
@@ -407,6 +380,7 @@ class LoginViewController: UIViewController {
         termsAndPrivacyLabel.addGestureRecognizer(tapAction)
     }
     
+    // Date Picker SetUp
     func showDatePicker() {
         datePicker = UIDatePicker()
         datePicker.date = Date()
@@ -422,24 +396,28 @@ class LoginViewController: UIViewController {
         datePicker.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
 
-        func addDatePickerToSubview() {
-            // Give the background Blur Effect
-            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.regular)
-            blurEffectView = UIVisualEffectView(effect: blurEffect)
-            blurEffectView.frame = self.view.bounds
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            self.view.addSubview(blurEffectView)
-            self.view.addSubview(datePicker)
-            datePicker.translatesAutoresizingMaskIntoConstraints = false
-            view.bringSubviewToFront(datePicker)
-        }
+    // Add Date Picker To SubView
+    func addDatePickerToSubview() {
+        // Give the background Blur Effect
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.regular)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.view.addSubview(blurEffectView)
+        self.view.addSubview(datePicker)
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        view.bringSubviewToFront(datePicker)
+    }
     
+    // Date Picker Date Set
     @objc func dateSet() {
         // Get the date from the Date Picker and put it in a Text Field
         dateOfBirthTextField.text = datePicker.date.formatted
         blurEffectView.removeFromSuperview()
         datePicker.removeFromSuperview()
     }
+    
+    // Open Camera
     func openCamera(){
         /// Open Camera
         if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
@@ -453,6 +431,7 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // Open Photo Gallary
     func openPhotos(){
         ///Open Photo Gallary
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
@@ -464,7 +443,82 @@ class LoginViewController: UIViewController {
 
 // MARK: - Extensions -
 
+//MARK: API Call
+extension LoginViewController {
+    
+    //LogIn Api
+    func loginApi() {
+        let params: Parameters = [
+            "email": "\(userNameTextField.text ?? "")",
+            "password": "\(loginPasswordTextField.text ?? "")",
+            "deviceInfo": [
+                "deviceType":"mobile" as String,
+                "appVersion":"27" as String,
+                "deviceToken":(deviceFcmToken ?? "") as String,
+                "deviceData":"\(UIDevice.modelName)"
+            ]
+        ]
+        showLoading()
+        APIHelper.loginUser(params: params) { (success,response)  in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let data = response.response["data"]
+                user = User.init(json: data)
+                AppManager.shared.token = user?.access_token ?? ""
+                AppManager.shared.userId = user?.id ?? ""
+                //                AppUserDefaults.saveObject(self.user?.access_token, forKey: .userAuthToken)
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
+                myApp.window?.rootViewController = newVC
+                myApp.window?.rootViewController?.view.makeToast(response.message)
+            }
+        }
+    }
+    
+    //SignUp Api
+    func signUpApi() {
+        let params: Parameters = [
+            "email":"\(emailAddressTextField.text ?? "")",
+            "extensionNumber":"+\(phoneCodeTextField.text ?? "")",
+            "contactNumber":"\(phoneNumberTextField.text ?? "")",
+            "password":"\(signUpPasswordTextField.text ?? "")",
+            "gender":"\(genderTextField.text ?? "")",
+            "firstName":"\(firstNameTextField.text ?? "")",
+            "lastName":"\(lastNameTextField.text ?? "")",
+            "dateOfBirth":"\(dateOfBirthTextField.text ?? "")",
+            "panNumber": "\(pancardOrAdharCardNumberTextField.text ?? "")",
+            "aadharNumber": "359845627963",
+            "deviceInfo": [
+                "deviceType":"mobile" as String,
+                "appVersion":"27" as String,
+                "deviceToken":(deviceFcmToken ?? "") as String,
+                "deviceData":"\(UIDevice.modelName)"
+            ]
+        ]
+        print(params)
+        showLoading()
+        APIHelper.registerUser(params: params) { (success,response)  in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                self.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                self.isSignIn = true
+                self.signInUIManage()
+                self.view.makeToast(response.message)
+            }
+        }
+
+    }
+}
+
+//MARK: Image Picker Delegate Methods
 extension LoginViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage{
 //            userImageView.image = image
@@ -479,8 +533,10 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
     }
 }
 
-
+//MARK: UI Tap Gesture SetUp For Label
 extension UITapGestureRecognizer {
+    
+    // Set tap Gesture To Attributed Text Label
     func didTapAttributedTextInLabel(label: UILabel, targetText: String) -> Bool {
         guard let attributedString = label.attributedText, let lblText = label.text else { return false }
         let targetRange = (lblText as NSString).range(of: targetText)
@@ -519,7 +575,9 @@ extension UITapGestureRecognizer {
     }
 }
 
-extension LoginViewController: CountriesViewControllerDelegate, UITextFieldDelegate {
+// Country Code Picker Delegate Methods
+extension LoginViewController: CountriesViewControllerDelegate {
+    
     func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country) {
         print("✳️ Did select country: \(country.countryCode)")
         UserDefaults.standard.set(country.countryCode, forKey: "countryCode")
@@ -531,6 +589,11 @@ extension LoginViewController: CountriesViewControllerDelegate, UITextFieldDeleg
     func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
         print("😕")
     }
+    
+}
+
+//MARK: Text Field Delegate Methods
+extension LoginViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -554,6 +617,5 @@ extension LoginViewController: CountriesViewControllerDelegate, UITextFieldDeleg
             return true
         }
     }
-   
     
 }

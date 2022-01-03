@@ -142,6 +142,7 @@
 		8836A251275DEAF10099C5E0 /* WalletStatementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletStatementTableViewCell.swift; sourceTree = "<group>"; };
 		8836A25A275DEF400099C5E0 /* RewardPointsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardPointsTableViewCell.swift; sourceTree = "<group>"; };
 		8836A25F275DEF510099C5E0 /* RewardPointsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardPointsViewController.swift; sourceTree = "<group>"; };
+		88387049277ACD80005EFF77 /* Actorpay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Actorpay.entitlements; sourceTree = "<group>"; };
 		883A0B932771CA8E00C90875 /* OrderDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetails.swift; sourceTree = "<group>"; };
 		883A0B9D2771CAF600C90875 /* OrderItemDtos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemDtos.swift; sourceTree = "<group>"; };
 		883A0BA62771E17800C90875 /* MyCartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCartViewController.swift; sourceTree = "<group>"; };
@@ -393,6 +394,7 @@
 		88B596F327574C71008F64EE /* Actorpay */ = {
 			isa = PBXGroup;
 			children = (
+				88387049277ACD80005EFF77 /* Actorpay.entitlements */,
 				88B596F427574C71008F64EE /* AppDelegate.swift */,
 				88B596F627574C71008F64EE /* SceneDelegate.swift */,
 				88B596FA27574C71008F64EE /* Main.storyboard */,
@@ -1117,8 +1119,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Actorpay/Actorpay.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8J7PVH2BF5;
+				DEVELOPMENT_TEAM = W8NLTEFLJ2;
 				INFOPLIST_FILE = Actorpay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1127,6 +1131,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Actorpay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1138,8 +1143,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Actorpay/Actorpay.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8J7PVH2BF5;
+				DEVELOPMENT_TEAM = W8NLTEFLJ2;
 				INFOPLIST_FILE = Actorpay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1148,6 +1155,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Actorpay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -8,15 +8,24 @@
 import UIKit
 import IQKeyboardManagerSwift
 import AKSideMenu
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true
+        let settings: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: settings) { (accepted, error) in
+            print(error)
+            print(accepted)
+        }
+        UNUserNotificationCenter.current().delegate = self
+        application.registerForRemoteNotifications()
         return true
     }
 
@@ -36,6 +45,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
+    
+    
+}
+
+//MARK: - Extensions -
+
+extension AppDelegate {
+    // SetUp Navigation Flow
     func setupNavigation(){
         if (AppManager.shared.token.count > 0){
             let newVC = self.storyBoard.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
@@ -45,6 +62,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             myApp.window?.rootViewController = newVC
         }
     }
+}
+
+//MARK: User Notification Center Delegate Methods
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        deviceFcmToken = tokenParts.joined()
+        print("deviceToken:-\(deviceFcmToken ?? "")")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print(error.localizedDescription)
+    }
     
 }
+
+
 
