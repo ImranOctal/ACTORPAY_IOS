@@ -42,9 +42,9 @@ class TabBarRootViewController: UIViewController {
         if selectedTabTag == 0 {
             titleLabel.isHidden = true
             titleLabelStackView.isHidden = false
-            rightSideButton.setImage(#imageLiteral(resourceName: "notification"), for: .normal)
+            rightSideButton.setImage(#imageLiteral(resourceName: "shopping-cart"), for: .normal)
         }else if selectedTabTag == 1 {
-            rightSideButton.setImage(#imageLiteral(resourceName: "filters"), for: .normal)
+            rightSideButton.setImage(#imageLiteral(resourceName: "shopping-cart"), for: .normal)
             titleLabel.isHidden = false
             titleLabelStackView.isHidden = true
             titleLabel.text = "Transaction History"
@@ -68,12 +68,7 @@ class TabBarRootViewController: UIViewController {
     }
     
     @IBAction func notificationButtonAction(_ sender: UIButton){
-        self.view.endEditing(true)
-//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
-//        self.navigationController?.pushViewController(newVC, animated: true)
-//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RemittanceViewController") as! RemittanceViewController
-//        self.navigationController?.pushViewController(newVC, animated: true)
-        
+        self.view.endEditing(true)        
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
         self.navigationController?.pushViewController(newVC, animated: true)
     }

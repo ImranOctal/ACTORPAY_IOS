@@ -17,11 +17,13 @@ class WalletStatementViewController: UIViewController {
     //MARK: - Life Cycle Functions -
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
         topCorner(bgView: mainView, maskToBounds: true)
 //        tableView.register(UINib(nibName: "MyOrdersTableViewCell", bundle: nil), forCellReuseIdentifier: "MyOrdersTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,14 +33,18 @@ class WalletStatementViewController: UIViewController {
 
     //MARK: - Selectors -
     
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        self.view.endEditing(true)
-        self.sideMenuViewController?.hideMenuViewController()
-        self.navigationController?.popViewController(animated: true)
+    // Menu Button Action
+    @IBAction func menuButtonAction(_ sender: UIButton) {
+        self.sideMenuViewController?.presentLeftMenuViewController()
     }
     
     @IBAction func filterButtonAction(_ sender: UIButton) {
-        self.view.endEditing(true)
+        let popOverConfirmVC = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController") as! FilterViewController
+        self.addChild(popOverConfirmVC)
+        popOverConfirmVC.view.frame = self.view.frame
+        self.view.center = popOverConfirmVC.view.center
+        self.view.addSubview(popOverConfirmVC.view)
+        popOverConfirmVC.didMove(toParent: self)
     }
     
     //MARK: - Helper Functions -

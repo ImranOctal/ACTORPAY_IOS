@@ -23,11 +23,13 @@ class MyCartViewController: UIViewController {
             topCorner(bgView: mainView, maskToBounds: true)
         }
     }
+    
+    @IBOutlet weak var priceView: UIView!
+    @IBOutlet weak var emptyMessageView: UIView!
     @IBOutlet weak var subTotalLbl: UILabel!
     @IBOutlet weak var igstLbl: UILabel!
     @IBOutlet weak var totalLbl: UILabel!
     
-//    var count = 1
     var cartList: CartList?
     
     //MARK: - Life Cycles -
@@ -50,6 +52,7 @@ class MyCartViewController: UIViewController {
     @IBAction func checkOutButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
+        newVC.cartList = self.cartList
         self.navigationController?.pushViewController(newVC, animated: true)
     }
     
@@ -78,11 +81,18 @@ extension MyCartViewController {
             if !success {
                 dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+                print(message)
             }else {
                 dissmissLoader()
                 let data = response.response["data"]
                 self.cartList = CartList.init(json: data)
+                if self.cartList?.cartItemDTOList?.count == 0 {
+                    self.priceView.isHidden = true
+                    self.emptyMessageView.isHidden = false
+                }else{
+                    self.emptyMessageView.isHidden = true
+                    self.priceView.isHidden = false
+                }
                 self.setCartData()
                 self.tableView.reloadData()
             }
@@ -96,7 +106,7 @@ extension MyCartViewController {
             if !success {
                 dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+                print(message)
             }else {
                 dissmissLoader()
                 self.cartItemList()
@@ -115,7 +125,7 @@ extension MyCartViewController {
             if !success {
                 dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+                print(message)
             }else {
                 dissmissLoader()
                 self.cartItemList()
@@ -138,6 +148,7 @@ extension MyCartViewController: UITableViewDelegate, UITableViewDataSource {
         cell.productTitleLabel.text = cartList?.cartItemDTOList?[indexPath.row].productName
         cell.productPriceLabel.text = "Price ₹\(cartList?.cartItemDTOList?[indexPath.row].productPrice ?? 0) (Including 18.0% gst)"
         var count = self.cartList?.cartItemDTOList?[indexPath.row].productQty ?? 0
+        cell.productQuntityLabel.text = "\(count)"
         let cartItemId = self.cartList?.cartItemDTOList?[indexPath.row].cartItemId ?? ""
         cell.addButtonHandler = {
             count += 1
@@ -156,7 +167,7 @@ extension MyCartViewController: UITableViewDelegate, UITableViewDataSource {
         cell.deleteButtonHandler = {
             let alert = UIAlertController(title: "Delete Item", message: "Are You Sure", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .default) { (action) in
-                self.removeCartItem(id: self.cartList?.cartItemDTOList?[indexPath.row].productId ?? "")
+                self.removeCartItem(id: self.cartList?.cartItemDTOList?[indexPath.row].cartItemId ?? "")
             }
             let cancel = UIAlertAction(title: "Cancel", style: .default) { (action) in
                 self.dismiss(animated: true, completion: nil)

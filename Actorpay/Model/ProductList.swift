@@ -12,7 +12,7 @@ import SwiftyJSON
 public class ProductList {
     public var totalPages : Int?
     public var totalItems : Int?
-    public var items : Array<Items>?
+    public var items : [Items]?
     public var pageNumber : Int?
     public var pageSize : Int?
 

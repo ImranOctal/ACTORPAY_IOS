@@ -16,7 +16,12 @@ target 'Actorpay' do
   pod 'AKSideMenu'
   pod 'MBProgressHUD', '~> 1.1.0'
 #  pod 'SwiftQRScanner'
+  pod 'PopupDialog'
   pod 'Toast-Swift', '~> 5.0.1'
+  pod 'GoogleSignIn'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
+  pod 'FBSDKShareKit'
 
 
   target 'ActorpayTests' do

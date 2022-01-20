@@ -10,6 +10,9 @@ import NKVPhonePicker
 import DropDown
 import SwiftyJSON
 import Alamofire
+//import GoogleSignIn
+//import FBSDKLoginKit
+//import FBSDKCoreKit
 
 class LoginViewController: UIViewController {
     
@@ -23,27 +26,100 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signUpView:UIView!
     
     // Login
-    @IBOutlet weak var userNameTextField:UITextField!
-    @IBOutlet weak var loginPasswordTextField:UITextField!
+    @IBOutlet weak var loginEmailLabel:UILabel!
+    @IBOutlet weak var loginPasswordLabel:UILabel!
+    
+    @IBOutlet weak var loginEmailTextField:UITextField! {
+        didSet {
+            loginEmailTextField.delegate = self
+            loginEmailTextField.keyboardType = .emailAddress
+        }
+    }
+    @IBOutlet weak var loginPasswordTextField:UITextField! {
+        didSet {
+            loginPasswordTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var remberMeBtn: UIButton!
     
     //sign up
-    @IBOutlet weak var userTypeTextField:UITextField!
-    @IBOutlet weak var phoneCodeTextField: NKVPhonePickerTextField!
-    @IBOutlet weak var phoneNumberTextField:UITextField!
-    @IBOutlet weak var firstNameTextField:UITextField!
-    @IBOutlet weak var lastNameTextField:UITextField!
-    @IBOutlet weak var genderTextField:UITextField!
-    @IBOutlet weak var dateOfBirthTextField: UITextField!
-    @IBOutlet weak var emailAddressTextField:UITextField!
-    @IBOutlet weak var signUpPasswordTextField:UITextField!
-    @IBOutlet weak var pancardOrAdharCardNumberTextField:UITextField!
+    //// Validation label
+    @IBOutlet weak var phoneNumberLabel:UILabel!
+    @IBOutlet weak var firstNameLabel:UILabel!
+    @IBOutlet weak var lastNameLabel:UILabel!
+    @IBOutlet weak var emailLabel:UILabel!
+    @IBOutlet weak var passwordLabel:UILabel!
+    @IBOutlet weak var genderLabel:UILabel!
+    @IBOutlet weak var dateOFBirthLabel:UILabel!
+    @IBOutlet weak var panLabel:UILabel!
+    @IBOutlet weak var adharLabel:UILabel!
+    @IBOutlet weak var termsLabel:UILabel!
+ 
+    @IBOutlet weak var countryImage: UIImageView! {
+        didSet {
+            countryImage.image = UIImage(named: AppManager.shared.countryFlag)
+        }
+    }
+    @IBOutlet weak var phoneCodeTextField: UILabel! {
+        didSet {
+            phoneCodeTextField.text = AppManager.shared.countryCode
+        }
+    }
+    @IBOutlet weak var phoneNumberTextField:UITextField!{
+        didSet {
+            phoneNumberTextField.delegate = self
+            phoneNumberTextField.keyboardType = .numberPad
+        }
+    }
+    @IBOutlet weak var firstNameTextField:UITextField!{
+        didSet {
+            firstNameTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var lastNameTextField:UITextField!{
+        didSet {
+            lastNameTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var genderTextField:UITextField!{
+        didSet {
+            genderTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var dateOfBirthTextField: UITextField!{
+        didSet {
+            dateOfBirthTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var emailAddressTextField:UITextField!{
+        didSet {
+            emailAddressTextField.delegate = self
+            emailAddressTextField.keyboardType = .emailAddress
+        }
+    }
+    @IBOutlet weak var signUpPasswordTextField:UITextField!{
+        didSet {
+            signUpPasswordTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var panNumberTextField:UITextField!{
+        didSet {
+            panNumberTextField.delegate = self
+        }
+    }
+    @IBOutlet weak var adharNumberTextField:UITextField!{
+        didSet {
+            adharNumberTextField.delegate = self
+            adharNumberTextField.keyboardType = .numberPad
+        }
+    }
     @IBOutlet weak var termsAndPrivacyLabel: UILabel!
-    @IBOutlet weak var phoneCodeButton: UIButton!
+    @IBOutlet weak var termsAcceptBtn: UIButton!
     
     var isSignIn = true
     var isPassTap = false
     var isRememberMeTap = false
-    var mobileCode: String?
+    var isTermAccepted = false
     let dropDown = DropDown()
     var datePicker = UIDatePicker()
     var datePickerConstraints = [NSLayoutConstraint]()
@@ -54,36 +130,111 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if AppManager.shared.rememberMeEmail != "" {
+            loginEmailTextField.text = AppManager.shared.rememberMeEmail
+            loginPasswordTextField.text = AppManager.shared.rememberMePassword
+            isRememberMeTap = true
+            if #available(iOS 13.0, *) {
+                remberMeBtn.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            }
+            remberMeBtn.tintColor = .white
+            remberMeBtn.backgroundColor = UIColor(named: "BlueColor")
+            remberMeBtn.borderColor = UIColor(named: "BlueColor")
+        } else {
+            if #available(iOS 13.0, *) {
+                remberMeBtn.setImage(UIImage(systemName:""), for: .normal)
+                remberMeBtn.tintColor = .systemGray5
+                remberMeBtn.backgroundColor = .none
+                remberMeBtn.borderColor = .systemGray5
+            }
+        }
         signUpLineView.isHidden = true
         signUpView.isHidden = true
-        phoneCodeTextField.delegate = self
         dateOfBirthTextField.delegate = self
         setupDropDown()
         signInUIManage()
         setSwipeGestureToView()
         setupMultipleTapLabel()
-        numberPickerSetup()
+                
+//        GIDSignIn.sharedInstance().delegate = self
+//        GIDSignIn.sharedInstance().presentingViewController = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         selectedTabIndex = self.tabBarController?.selectedIndex ?? 0
+        
+        if !isRememberMeTap {
+            loginEmailTextField.text = ""
+            loginPasswordTextField.text = ""
+        }
     }
     
+    //MARK: - Selectors -
     
-    //    MARK: - Selectors -
-
     // Login and SignUp Button Action
     @IBAction func loginAndSignupButton(_ sender: UIButton){
         if sender.tag == 1001 {
             isSignIn = true
+            loginEmailTextField.becomeFirstResponder()
             signInUIManage()
         }else{
+            phoneNumberTextField.becomeFirstResponder()
             isSignIn = false
             signInUIManage()
         }
     }
+    
+//    // Google Sigin Button Action
+//    @IBAction func googleLoginButtonAction(_ sender: UIButton) {
+//        GIDSignIn.sharedInstance()?.signIn()
+//    }
+//
+//    // FaceBook Login Button Action
+//    @IBAction func facebookLoginButtonAction(_ sender: UIButton) {
+//        //Fb login process
+//        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+//        fbLoginManager.loginBehavior = .native
+//
+//        fbLoginManager.logOut()
+//        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
+//            if (error == nil){
+//                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+//                if fbloginresult.isCancelled {
+//
+//                }
+//                else if (fbloginresult.declinedPermissions != nil){
+//                    if(fbloginresult.grantedPermissions.contains("email")) {
+//                        self.getFBUserData()
+//                    }
+//                }
+//
+//            }
+//        }
+//    }
+//
+//    func getFBUserData(){
+//        if((FBSDKAccessToken.current()) != nil){
+//            FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"first_name, last_name,email, picture.type(large),gender"]).start(completionHandler: { (connection, result, error) -> Void in
+//                if (error == nil){
+//                    let newResult = result as AnyObject
+//                    let email = newResult["email"] as? String ?? ""
+//                    print("Your Email = \(email)")
+//                    let firstName = newResult["first_name"] as? String ?? ""
+//                    let lastName  = newResult["last_name"] as? String ?? ""
+//                    print(FBSDKAccessToken.current())
+//                    let gender = newResult["gender"] as? String ?? ""
+//                    let id = newResult["id"] as? String ?? ""
+//                    print("the access token is \(FBSDKAccessToken.current().tokenString)")
+//
+//                    let accessToken = FBSDKAccessToken.current().tokenString
+//                    //self.signInUser()
+//
+//                }
+//            })
+//        }
+//    }
     
     // Show Calender Button Action
     @IBAction func showCalender(_ sender: UIButton) {
@@ -111,13 +262,28 @@ class LoginViewController: UIViewController {
     // Remember Me Button Action
     @IBAction func rememberMeButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        // remember Me
-        isRememberMeTap = !isRememberMeTap
-        if #available(iOS 13.0, *) {
-            sender.setImage(UIImage(systemName: isRememberMeTap ? "checkmark" : ""), for: .normal)
-            sender.tintColor = isRememberMeTap ? .white : .systemGray5
-            sender.backgroundColor = isRememberMeTap ? UIColor(named: "BlueColor") : .none
-            sender.borderColor = isRememberMeTap ? UIColor(named: "BlueColor") : .systemGray5
+        if sender.tag == 1001 {
+            isRememberMeTap = !isRememberMeTap
+            if #available(iOS 13.0, *) {
+                sender.setImage(UIImage(systemName: isRememberMeTap ? "checkmark" : ""), for: .normal)
+                sender.tintColor = isRememberMeTap ? .white : .systemGray5
+                sender.backgroundColor = isRememberMeTap ? UIColor(named: "BlueColor") : .none
+                sender.borderColor = isRememberMeTap ? UIColor(named: "BlueColor") : .systemGray5
+            }
+        }else{
+            isTermAccepted = !isTermAccepted
+            if #available(iOS 13.0, *) {
+                sender.setImage(UIImage(systemName: isTermAccepted ? "checkmark" : ""), for: .normal)
+                sender.tintColor = isTermAccepted ? .white : .systemGray5
+                sender.backgroundColor = isTermAccepted ? UIColor(named: "BlueColor") : .none
+                sender.borderColor = isTermAccepted ? UIColor(named: "BlueColor") : .systemGray5
+                if !isTermAccepted {
+                    termsLabel.isHidden = false
+                    termsLabel.text =  ValidationManager.shared.sTermAccepted
+                }else {
+                    termsLabel.isHidden = true
+                }
+            }
         }
     }
     
@@ -161,14 +327,19 @@ class LoginViewController: UIViewController {
     
     // Phone Code Button Action
     @IBAction func phoneCodeBtnAction(_ sender: UIButton) {
-        self.view.endEditing(true)
-        print("Tap")
-        if let delegate = phoneCodeTextField.phonePickerDelegate {
-            let countriesVC = CountriesViewController.standardController()
-            countriesVC.delegate = self as CountriesViewControllerDelegate
-            let navC = UINavigationController.init(rootViewController: countriesVC)
-            delegate.present(navC, animated: true, completion: nil)
+        self.view.endEditing(true)        
+        let countriesVC = self.storyboard?.instantiateViewController(withIdentifier: "CountryViewController") as! CountryViewController
+        countriesVC.onCompletion = {(code,flag,country) in
+            AppManager.shared.countryCode = ""
+            AppManager.shared.countryFlag = ""
+            if let url = URL(string: flag) {
+                self.countryImage.sd_setImage(with: url, completed: nil)
+            }
+            self.phoneCodeTextField.text = code
+            
         }
+        let navC = UINavigationController.init(rootViewController: countriesVC)
+        self.present(navC, animated: true, completion: nil)
         
     }
     
@@ -181,77 +352,20 @@ class LoginViewController: UIViewController {
     
     // Login Button Action
     @IBAction func loginButtonAction(_ sender: UIButton) {
-        //  Login Validation 
-        if userNameTextField.text?.trimmingCharacters(in: .whitespaces).count == 0
-        {
-            self.view.makeToast( "Please Enter an username.")
-            return
+        if isRememberMeTap {
+            AppManager.shared.rememberMeEmail = loginEmailTextField.text ?? ""
+            AppManager.shared.rememberMePassword = loginPasswordTextField.text ?? ""
         }
-        
-        if loginPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0
-        {
-            self.view.makeToast( "Please Enter an Password.")
-            return
-        }
-        
-        self.loginApi()
-        
+        if loginValidation() {
+            self.loginApi()
+        }        
     }
     
+    // SignUp Button Action
     @IBAction func signupButtonAction(_ sender: UIButton) {
-        //  Signin Validation
-        
-//        if userTypeTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-//            self.view.makeToast( "Please select an user type.")
-//            return
-//        }
-        if firstNameTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.view.makeToast("Please Enter a first name.")
-            return
+        if signupValidation() {
+            self.signUpApi()
         }
-        if lastNameTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.view.makeToast( "Please Enter a last name.")
-            return
-        }
-        if emailAddressTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.view.makeToast( "Please Enter an email.")
-            return
-        }
-        if !isValidEmail(emailAddressTextField.text?.trimmingCharacters(in: .whitespaces) ?? ""){
-            self.view.makeToast( "Please enter a valid Email ID.")
-            return
-        }
-        if phoneCodeTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.view.makeToast( "Please Select Country Code.")
-            return
-        }
-        if phoneNumberTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.view.makeToast( "Please Enter a phone number.")
-            return
-        }
-        if signUpPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.view.makeToast( "Please Enter a Password.")
-            return
-        }
-        if genderTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.view.makeToast( "Please select a gender.")
-            return
-        }
-        if dateOfBirthTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.view.makeToast( "Please select a Date of Birth.")
-            return
-        }
-        if dateOfBirthTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.view.makeToast( "Please select a Date of Birth.")
-            return
-        }
-        if pancardOrAdharCardNumberTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
-            self.view.makeToast( "Please Enter a Pan Cardb Number or Adhar Card Number .")
-            return
-        }
-        
-        self.signUpApi()
-
     }
     
     // Swipe Gesture  Action
@@ -272,16 +386,20 @@ class LoginViewController: UIViewController {
     @objc func tapLabel(gesture: UITapGestureRecognizer) {
         if gesture.didTapAttributedTextInLabel(label: termsAndPrivacyLabel, targetText: "Terms of Use") {
             print("Terms of Use")
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "StaticContentViewController") as! StaticContentViewController
+            newVC.titleLabel = "TERM & CONDITIONS"
+            newVC.type = 3
             self.navigationController?.pushViewController(newVC, animated: true)
         } else if gesture.didTapAttributedTextInLabel(label: termsAndPrivacyLabel, targetText: "Privacy Policy") {
             print("Privacy Policy")
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "StaticContentViewController") as! StaticContentViewController
+            newVC.titleLabel = "PRIVACY POLICY"
+            newVC.type = 2
             self.navigationController?.pushViewController(newVC, animated: true)
         }
     }
     
-    //    MARK: - helper Functions -
+    //    MARK: - Helper Functions -
     
     // SetUp Drop Down
     func setupDropDown()  {
@@ -300,7 +418,6 @@ class LoginViewController: UIViewController {
     
     // Sign In UI Manage
     func signInUIManage(){
-        
         // login and Signup Manage
         signUpView.isHidden = isSignIn
         loginView.isHidden = !isSignIn
@@ -309,12 +426,11 @@ class LoginViewController: UIViewController {
         loginButton.setTitleColor((isSignIn) ? UIColor.init(hexFromString: "#2878B6") : UIColor.darkGray, for: .normal)
         signUpButton.setTitleColor((!isSignIn) ? UIColor.init(hexFromString: "#2878B6") : UIColor.darkGray, for: .normal)
         
-        // login
-        userNameTextField.text = nil
-        loginPasswordTextField.text = nil
+//        // login
+//        userNameTextField.text = nil
+//        loginPasswordTextField.text = nil
         
         // Signup
-        userTypeTextField.text = nil
         phoneNumberTextField.text = nil
         firstNameTextField.text = nil
         lastNameTextField.text = nil
@@ -322,7 +438,9 @@ class LoginViewController: UIViewController {
         signUpPasswordTextField.text = nil
         dateOfBirthTextField.text = nil
         genderTextField.text = nil
-        pancardOrAdharCardNumberTextField.text = nil
+        panNumberTextField.text = nil
+        adharNumberTextField.text = nil
+//        pancardOrAdharCardNumberTextField.text = nil
     }
     
     func setSwipeGestureToView() {
@@ -335,36 +453,7 @@ class LoginViewController: UIViewController {
         //        view.addGestureRecognizer(leftSwipe)
         //        view.addGestureRecognizer(rightSwipe)
     }
-    
-    // Country Code Picker Setup
-    func numberPickerSetup() {
-        phoneCodeTextField.phonePickerDelegate = self
-        phoneCodeTextField.countryPickerDelegate = self
-        phoneCodeTextField.flagSize = CGSize(width: 20, height: 10)
-        phoneCodeTextField.flagInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        phoneCodeTextField.shouldScrollToSelectedCountry = false
-        phoneCodeTextField.enablePlusPrefix = false
         
-        if ((UserDefaults.standard.string(forKey: "countryCode")) != nil) {
-            let code = (UserDefaults.standard.string(forKey: "countryCode") ?? Locale.current.regionCode) ?? ""
-            let country = Country.country(for: NKVSource(countryCode: code))
-            phoneCodeTextField.country = country
-            phoneCodeTextField.text = country?.phoneExtension
-            //            phoneCodeButton.setAttributedTitle(attributedString(countryCode: "+\(country?.phoneExtension ?? "")", arrow: " ▾"), for: .normal)
-            phoneCodeTextField.setCode(source: NKVSource(country: country!))
-            mobileCode = country?.phoneExtension ?? ""
-            UserDefaults.standard.synchronize()
-        } else {
-            let code = "it"
-            let country = Country.country(for: NKVSource(countryCode: code))
-            phoneCodeTextField.country = country
-            phoneCodeTextField.text = country?.phoneExtension
-            //            phoneCodeButton.setAttributedTitle(attributedString(countryCode: "+\(country?.phoneExtension ?? "")", arrow: " ▾"), for: .normal)
-            phoneCodeTextField.setCode(source: NKVSource(country: country!))
-            mobileCode = country?.phoneExtension ?? ""
-        }
-    }
-    
     // Tap Label SetUp
     func setupMultipleTapLabel() {
         termsAndPrivacyLabel.text = "By Signing up you are agreeing to our \n Terms of Use and Privacy Policy"
@@ -387,8 +476,6 @@ class LoginViewController: UIViewController {
         datePicker.locale = .current
         if #available(iOS 14.0, *) {
             datePicker.preferredDatePickerStyle = .inline
-        } else {
-//            datePicker.preferredDatePickerStyle = .inline
         }
         datePicker.addTarget(self, action: #selector(dateSet), for: .valueChanged)
         addDatePickerToSubview()
@@ -396,9 +483,8 @@ class LoginViewController: UIViewController {
         datePicker.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
 
-    // Add Date Picker To SubView
+    // Add Date Picker To SubView and Give the background Blur Effect
     func addDatePickerToSubview() {
-        // Give the background Blur Effect
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.regular)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.view.bounds
@@ -409,9 +495,8 @@ class LoginViewController: UIViewController {
         view.bringSubviewToFront(datePicker)
     }
     
-    // Date Picker Date Set
+    // Date Picker Date Set in a Text Field
     @objc func dateSet() {
-        // Get the date from the Date Picker and put it in a Text Field
         dateOfBirthTextField.text = datePicker.date.formatted
         blurEffectView.removeFromSuperview()
         datePicker.removeFromSuperview()
@@ -419,7 +504,6 @@ class LoginViewController: UIViewController {
     
     // Open Camera
     func openCamera(){
-        /// Open Camera
         if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
             imagePicker.sourceType = UIImagePickerController.SourceType.camera
             imagePicker.allowsEditing = false
@@ -433,11 +517,138 @@ class LoginViewController: UIViewController {
     
     // Open Photo Gallary
     func openPhotos(){
-        ///Open Photo Gallary
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
         imagePicker.allowsEditing = false
         self.present(imagePicker, animated: true, completion: nil)
     }
+    
+    // Login Validation
+    func loginValidation() -> Bool {
+        var isValidate = true
+        if loginEmailTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+            loginEmailLabel.isHidden = false
+            loginEmailLabel.text =  ValidationManager.shared.lEmail
+            isValidate = false
+        } else if !isValidEmail(loginEmailTextField.text ?? "") {
+            loginEmailLabel.isHidden = false
+            loginEmailLabel.text =  ValidationManager.shared.sEmailInvalid
+            isValidate = false
+        } else {
+            loginEmailLabel.isHidden = true
+        }
+        
+        if loginPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+            loginPasswordLabel.isHidden = false
+            loginPasswordLabel.text =  ValidationManager.shared.sPassword
+            isValidate = false
+        } else {
+            loginPasswordLabel.isHidden = true
+        }
+        return isValidate
+    }
+    
+    // Sign Up Validation
+    func signupValidation() -> Bool {
+        var isValidate = true
+        if phoneNumberTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+            phoneNumberLabel.isHidden = false
+            phoneNumberLabel.text =  ValidationManager.shared.sPhoneNumber
+            isValidate = false
+        } else if !isValidMobileNumber(mobileNumber: phoneNumberTextField.text ?? "") {
+            phoneNumberLabel.isHidden = false
+            phoneNumberLabel.text =  ValidationManager.shared.sPhoneNumber
+            isValidate = false
+        }
+        else {
+            phoneNumberLabel.isHidden = true
+        }
+        
+        if firstNameTextField.text?.trimmingCharacters(in: .whitespaces).count ?? 0 < 3 {
+            firstNameLabel.isHidden = false
+            firstNameLabel.text =  ValidationManager.shared.sFirstName
+            isValidate = false
+        } else {
+            firstNameLabel.isHidden = true
+        }
+    
+        if lastNameTextField.text?.trimmingCharacters(in: .whitespaces).count ?? 0 < 3 {
+            lastNameLabel.isHidden = false
+            lastNameLabel.text =  ValidationManager.shared.sLastName
+            isValidate = false
+        } else {
+            lastNameLabel.isHidden = true
+        }
+        
+        if emailAddressTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+            emailLabel.isHidden = false
+            emailLabel.text =  ValidationManager.shared.sEmail
+            isValidate = false
+        } else if !isValidEmail(emailAddressTextField.text ?? "") {
+            emailLabel.isHidden = false
+            emailLabel.text =  ValidationManager.shared.sEmailInvalid
+            isValidate = false
+        }
+        else {
+            emailLabel.isHidden = true
+        }
+
+        if signUpPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+            passwordLabel.isHidden = false
+            passwordLabel.text =  ValidationManager.shared.sPassword
+            isValidate = false
+        } else if !isValidPassword(mypassword: signUpPasswordTextField.text ?? "") {
+            passwordLabel.isHidden = false
+            passwordLabel.text =  ValidationManager.shared.sPassword
+            isValidate = false
+        }
+        else {
+            passwordLabel.isHidden = true
+        }
+        
+        if genderTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+            genderLabel.isHidden = false
+            genderLabel.text =  ValidationManager.shared.sGender
+            isValidate = false
+        } else {
+            genderLabel.isHidden = true
+        }
+        
+        if dateOfBirthTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+            dateOFBirthLabel.isHidden = false
+            dateOFBirthLabel.text =  ValidationManager.shared.sDateOfBirth
+            isValidate = false
+        } else {
+            dateOFBirthLabel.isHidden = true
+        }
+      
+        if panNumberTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+            panLabel.isHidden = false
+            panLabel.text =  ValidationManager.shared.sPanCard
+            isValidate = false
+        } else {
+            panLabel.isHidden = true
+        }
+        
+        if adharNumberTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+            adharLabel.isHidden = false
+            adharLabel.text =  ValidationManager.shared.sAdharCard
+            isValidate = false
+        } else {
+            adharLabel.isHidden = true
+        }
+        
+        if !isTermAccepted {
+            termsLabel.isHidden = false
+            termsLabel.text =  ValidationManager.shared.sTermAccepted
+            isValidate = false
+        }else {
+            termsLabel.isHidden = true
+        }
+        
+        
+        return isValidate
+    }
+    
 }
 
 
@@ -449,7 +660,7 @@ extension LoginViewController {
     //LogIn Api
     func loginApi() {
         let params: Parameters = [
-            "email": "\(userNameTextField.text ?? "")",
+            "email": "\(loginEmailTextField.text ?? "")",
             "password": "\(loginPasswordTextField.text ?? "")",
             "deviceInfo": [
                 "deviceType":"mobile" as String,
@@ -463,7 +674,7 @@ extension LoginViewController {
             if !success {
                 dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+                print(message)
             }else {
                 dissmissLoader()
                 let data = response.response["data"]
@@ -473,7 +684,8 @@ extension LoginViewController {
                 //                AppUserDefaults.saveObject(self.user?.access_token, forKey: .userAuthToken)
                 let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
                 myApp.window?.rootViewController = newVC
-                myApp.window?.rootViewController?.view.makeToast(response.message)
+                let message = response.message
+                print(message)
             }
         }
     }
@@ -489,8 +701,8 @@ extension LoginViewController {
             "firstName":"\(firstNameTextField.text ?? "")",
             "lastName":"\(lastNameTextField.text ?? "")",
             "dateOfBirth":"\(dateOfBirthTextField.text ?? "")",
-            "panNumber": "\(pancardOrAdharCardNumberTextField.text ?? "")",
-            "aadharNumber": "359845627963",
+            "panNumber": "\(panNumberTextField.text ?? "")",
+            "aadharNumber": "\(adharNumberTextField.text ?? "")",
             "deviceInfo": [
                 "deviceType":"mobile" as String,
                 "appVersion":"27" as String,
@@ -504,15 +716,15 @@ extension LoginViewController {
             if !success {
                 dissmissLoader()
                 let message = response.message
-                self.view.makeToast(message)
+                print(message)
             }else {
                 dissmissLoader()
                 self.isSignIn = true
                 self.signInUIManage()
-                self.view.makeToast(response.message)
+                let message = response.message
+                print(message)
             }
         }
-
     }
 }
 
@@ -575,25 +787,122 @@ extension UITapGestureRecognizer {
     }
 }
 
-// Country Code Picker Delegate Methods
-extension LoginViewController: CountriesViewControllerDelegate {
-    
-    func countriesViewController(_ sender: CountriesViewController, didSelectCountry country: Country) {
-        print("✳️ Did select country: \(country.countryCode)")
-        UserDefaults.standard.set(country.countryCode, forKey: "countryCode")
-        mobileCode = country.phoneExtension
-        //        phoneCodeButton.setAttributedTitle(attributedString(countryCode: "+\(country.phoneExtension)", arrow: " ▾"), for: .normal)
-        phoneCodeTextField.country = country
-    }
-    
-    func countriesViewControllerDidCancel(_ sender: CountriesViewController) {
-        print("😕")
-    }
-    
-}
-
 //MARK: Text Field Delegate Methods
 extension LoginViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        switch textField {
+        case loginEmailTextField:
+            if loginEmailTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+                loginEmailLabel.isHidden = false
+                loginEmailLabel.text =  ValidationManager.shared.lEmail
+            } else if !isValidEmail(loginEmailTextField.text ?? "") {
+                loginEmailLabel.isHidden = false
+                loginEmailLabel.text =  ValidationManager.shared.sEmailInvalid
+            } else {
+                loginEmailLabel.isHidden = true
+            }
+        case loginPasswordTextField :
+            if loginPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+                loginPasswordLabel.isHidden = false
+                loginPasswordLabel.text =  ValidationManager.shared.sPassword
+//                isValidate = false
+            } else {
+                loginPasswordLabel.isHidden = true
+            }
+        case phoneNumberTextField:
+            if phoneNumberTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+                phoneNumberLabel.isHidden = false
+                phoneNumberLabel.text =  ValidationManager.shared.sPhoneNumber
+                
+            } else if !isValidMobileNumber(mobileNumber: phoneNumberTextField.text ?? "") {
+                phoneNumberLabel.isHidden = false
+                phoneNumberLabel.text =  ValidationManager.shared.sPhoneNumber
+                //                isValidate = false
+            }
+            else {
+                phoneNumberLabel.isHidden = true
+            }
+        case firstNameTextField:
+            if firstNameTextField.text?.trimmingCharacters(in: .whitespaces).count ?? 0 < 3 {
+                firstNameLabel.isHidden = false
+                firstNameLabel.text =  ValidationManager.shared.sFirstName
+                //                isValidate = false
+            } else {
+                firstNameLabel.isHidden = true
+            }
+        case lastNameTextField:
+            if lastNameTextField.text?.trimmingCharacters(in: .whitespaces).count ?? 0 < 3 {
+                lastNameLabel.isHidden = false
+                lastNameLabel.text =  ValidationManager.shared.sLastName
+                //                isValidate = false
+            } else {
+                lastNameLabel.isHidden = true
+            }
+            
+        case emailAddressTextField:
+            if emailAddressTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+                emailLabel.isHidden = false
+                emailLabel.text =  ValidationManager.shared.sEmail
+                //                isValidate = false
+            } else if !isValidEmail(emailAddressTextField.text ?? "") {
+                emailLabel.isHidden = false
+                emailLabel.text =  ValidationManager.shared.sEmailInvalid
+                //                isValidate = false
+            }
+            else {
+                emailLabel.isHidden = true
+            }
+            
+        case signUpPasswordTextField:
+            if signUpPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+                passwordLabel.isHidden = false
+                passwordLabel.text =  ValidationManager.shared.emptyPassword
+                //                isValidate = false
+            } else if !isValidPassword(mypassword: signUpPasswordTextField.text ?? "") {
+                passwordLabel.isHidden = false
+                passwordLabel.text =  ValidationManager.shared.sPassword
+                //                isValidate = false
+            }
+            else {
+                passwordLabel.isHidden = true
+            }
+            
+        case genderTextField:
+            if genderTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+                genderLabel.isHidden = false
+                genderLabel.text =  ValidationManager.shared.sGender
+                //                isValidate = false
+            } else {
+                genderLabel.isHidden = true
+            }
+            
+        case dateOfBirthTextField:
+            if dateOfBirthTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+                dateOFBirthLabel.isHidden = false
+                dateOFBirthLabel.text =  ValidationManager.shared.sDateOfBirth
+                //                isValidate = false
+            } else {
+                dateOFBirthLabel.isHidden = true
+            }            
+        case panNumberTextField:
+            if !isValidPanNumber(adhar: panNumberTextField.text ?? ""){
+                panLabel.isHidden = false
+                panLabel.text =  ValidationManager.shared.sPanCard
+            } else {
+                panLabel.isHidden = true
+            }
+        case adharNumberTextField:
+           if !isValidAdharNumber(adhar: adharNumberTextField.text ?? "") {
+                adharLabel.isHidden = false
+                adharLabel.text =  ValidationManager.shared.sAdharCard
+            }
+            else {
+                adharLabel.isHidden = true
+            }
+        default:
+            break
+        }
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -617,5 +926,63 @@ extension LoginViewController: UITextFieldDelegate {
             return true
         }
     }
-    
 }
+
+//extension LoginViewController :GIDSignInDelegate {
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+//
+//        if let error = error {
+//            DispatchQueue.main.async {
+//                dissmissLoader()
+//            }
+//            alertOk(title: "Google Signin", message: error.localizedDescription, cancelButton: "OK", vc: self, cancelHandler: nil)
+//            return
+//        }
+//
+//        let email = user.profile?.email ?? ""
+//        let firstName = user.profile?.givenName ?? " "
+//        let lastName = user.profile?.familyName ?? " "
+//        let picture = user.profile?.imageURL(withDimension: 400)?.absoluteString
+//
+//        print("email   ",email,"firstName   ",firstName,"lastName   ",lastName,"picture   ",picture )
+//        /*UserDefaults.standard.set(firstName, forKey: "firstName")
+//         UserDefaults.standard.set(lastName, forKey: "lastName")
+//         UserDefaults.standard.set(picture, forKey: "picture")*/
+//        showLoading()
+//        self.continueGoogleSignIn(user:user, email: email, firstName: firstName, lastName: lastName, photoURL: picture ?? "")
+//    }
+//
+//    func continueGoogleSignIn(user: GIDGoogleUser, email: String, firstName: String, lastName: String, photoURL: String) {
+//        guard let authentication = user.authentication else { return }
+//        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+//                                                       accessToken: authentication.accessToken)
+//        showLoading()
+//        Auth.auth().signIn(with: credential) { (authResult, error) in
+//
+//            if let error = error {
+//                DispatchQueue.main.async {
+//                    dissmissLoader()
+//                }
+//                if let errorCode = AuthErrorCode(rawValue: error._code) {
+//                    if errorCode == AuthErrorCode.accountExistsWithDifferentCredential {
+//                        //self.alertForOtherCredential(email: email)
+//                        alertOk(title: "Google Signin", message: error.localizedDescription, cancelButton: "OK",vc: self, cancelHandler: nil)
+//                    } else {
+//                        alertOk(title: "Google Signin", message: error.localizedDescription, cancelButton: "OK", vc: self, cancelHandler: nil)
+//                    }
+//                    return
+//                }
+//            }
+//            self.socialType = "Google"
+//            self.socialId = ""
+//            self.doSignIn(user: authResult?.user, firstName: firstName, lastName: lastName, photoURL: photoURL)
+//        }
+//    }
+//
+//    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+//        // Perform any operations when the user disconnects from app here.
+//        DispatchQueue.main.async {
+//            dissmissLoader()
+//        }
+//    }
+//}

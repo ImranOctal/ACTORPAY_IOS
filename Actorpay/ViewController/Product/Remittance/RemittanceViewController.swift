@@ -9,6 +9,7 @@ import UIKit
 import DropDown
 
 class RemittanceViewController: UIViewController {
+    
     //MARK:- Properties -
     
     // main View
@@ -36,7 +37,6 @@ class RemittanceViewController: UIViewController {
     @IBOutlet weak var uniqueCodeTextField: UITextField!
     @IBOutlet weak var selectBranchTextField: UITextField!
     
-    
     var isFirst = true
     var isSecond = false
     var isThird = false
@@ -46,22 +46,37 @@ class RemittanceViewController: UIViewController {
     let branchDropDown = DropDown()
     
     //MARK:- Life Cycle Function -
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
         topCorner(bgView: mainView, maskToBounds: true)
         setupPageControlview()
-        // Do any additional setup after loading the view.
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     //MARK:- Selectors -
     
+    // Back Button Action
     @IBAction func backButtonAction(_ sender: UIButton) {
-        //Back Button Action
         self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)
     }
     
+    // Cart Button Action
+    @IBAction func cartButtonAction(_ sender: UIButton) {
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
+    }
+    
+    //Next Button Action
     @IBAction func nextButtonAction(_ sender: UIButton) {
-        //Next Button Action
         self.view.endEditing(true)
         if sender.tag == 1001 {
             if !chooseCountryValidationView() {
@@ -82,6 +97,7 @@ class RemittanceViewController: UIViewController {
         }
     }
     
+    // Pay Now Button Action
     @IBAction func payNowButtonAction(_ sender: UIButton) {
         //Pay Now Button Action
         self.view.endEditing(true)
@@ -90,22 +106,27 @@ class RemittanceViewController: UIViewController {
         }
     }
     
+    // Choose Country Drop Down Button Action
     @IBAction func chooseCountryDropDown(_ sender: UIButton) {
         self.view.endEditing(true)
         countryDropDown.show()
     }
     
+    // Name Drop Down Button Action
     @IBAction func nameDropDown(_ sender: UIButton) {
         self.view.endEditing(true)
         nameDropDown.show()
     }
     
+    // Select Branch Drop Down Button Action
     @IBAction func selectBranchDropDown(_ sender: UIButton) {
         self.view.endEditing(true)
         branchDropDown.show()
     }
+    
     //MARK:- Helper Functions -
     
+    // SetUp Page Control View
     func setupPageControlview(){
         firstCircleView.layer.borderWidth = isFirst ? 5 : 0
         firstCircleView.layer.borderColor = isFirst ? UIColor(named: "BlueColor")?.cgColor : UIColor.white.cgColor
@@ -124,6 +145,7 @@ class RemittanceViewController: UIViewController {
         selectBranchDropDown()
     }
     
+    // SetUp Country Drop Down
     func chooseCountryDropDown()  {
         countryDropDown.anchorView = chooseCountryTextField
         countryDropDown.dataSource = ["Africa","America","Canada","Germany","India"]
@@ -132,11 +154,11 @@ class RemittanceViewController: UIViewController {
             self.view.endEditing(true)
             self.countryDropDown.hide()
         }
-        
         countryDropDown.bottomOffset = CGPoint(x: 0, y: 50)
         countryDropDown.direction = .bottom
     }
     
+    // SetUp Baneficiary Name Drop Down
     func baneficiaryNameDropDown()  {
         nameDropDown.anchorView = nameTextField
         nameDropDown.dataSource = ["Jonh","Smith"]
@@ -145,11 +167,11 @@ class RemittanceViewController: UIViewController {
             self.view.endEditing(true)
             self.nameDropDown.hide()
         }
-        
         nameDropDown.bottomOffset = CGPoint(x: 0, y: 50)
         nameDropDown.direction = .bottom
     }
-    
+
+    // Select Branch Drop Down
     func selectBranchDropDown()  {
         branchDropDown.anchorView = selectBranchTextField
         branchDropDown.dataSource = ["Sarathana","Hirabag","Vesu","Kamrej"]
@@ -162,8 +184,8 @@ class RemittanceViewController: UIViewController {
         branchDropDown.direction = .bottom
     }
     
+    // Choose Country Validation Fields
     func chooseCountryValidationView() -> Bool{
-        // Choose Country Validation Fields
         if chooseCountryTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
             self.alertViewController(message: "Please choose a country name.")
             return false
@@ -175,8 +197,8 @@ class RemittanceViewController: UIViewController {
         return true
     }
     
-    func amountValidationView() -> Bool{
-        // Amount Validation Fields
+    // Amount Validation Fields
+    func amountValidationView() -> Bool {
         if amountTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
             self.alertViewController(message: "Please enter an amount.")
             return false
@@ -184,8 +206,8 @@ class RemittanceViewController: UIViewController {
         return true
     }
     
-    func baneficiaryValidationView() -> Bool{
-        // Amount Validation Fields
+    // Baneficiary Validation
+    func baneficiaryValidationView() -> Bool {
         if nameTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
             self.alertViewController(message: "Please enter a name.")
             return false

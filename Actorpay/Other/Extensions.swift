@@ -431,6 +431,14 @@ extension UITableView {
         self.backgroundView = messageLabel
     }
     
+    func setEmptyMessageImageView(_ message: String) {
+        let messageLabel = UIImageView(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width-50, height: self.bounds.size.height-50))
+        messageLabel.image = UIImage(named: message)
+//        messageLabel.sizeToFit()
+        messageLabel.center = self.center
+        self.backgroundView = messageLabel
+    }
+    
     func restore() {
         self.backgroundView = nil
     }
@@ -667,6 +675,12 @@ extension UITextField{
 }
 
 extension String {
+    
+    var isNumeric: Bool {
+        guard self.count > 0 else { return false }
+        let nums: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        return Set(self).isSubset(of: nums)
+    }
     
     var url:URL?{
         return URL(string: self)

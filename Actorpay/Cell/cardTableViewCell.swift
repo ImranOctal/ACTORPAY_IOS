@@ -9,6 +9,14 @@ import UIKit
 
 class cardTableViewCell: UITableViewCell {
 
+    
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var selectedButton: UIButton!
+    @IBOutlet weak var removeButton: UIButton!
+    
+    var deleteButtonHandler: (() -> ())!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -18,6 +26,10 @@ class cardTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+
+    @IBAction func removeButtonAction(_ sender: UIButton) {
+//        deleteButtonHandler()
     }
 
 }

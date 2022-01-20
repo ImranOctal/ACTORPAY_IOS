@@ -102,3 +102,28 @@ struct ScreenSize
    static let SCREEN_MIN_LENGTH    = min(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
 }
 
+func isValidPassword(mypassword : String) -> Bool
+{
+    let passwordreg =  ("(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[@#$%^&*]).{8,}")
+    let passwordtesting = NSPredicate(format: "SELF MATCHES %@", passwordreg)
+    return passwordtesting.evaluate(with: mypassword)
+}
+
+func isValidMobileNumber(mobileNumber: String) -> Bool {
+    let mobileregex = ("^[0-9]{10}$")
+    let mobilePred = NSPredicate(format: "SELF MATCHES %@", mobileregex)
+    return mobilePred.evaluate(with: mobileNumber)
+}
+
+func isValidPanNumber(adhar:String) -> Bool {
+    let adharRegex = ("[A-Z]{5}[0-9]{4}[A-Z]{1}")
+    let mobilePred = NSPredicate(format: "SELF MATCHES %@", adharRegex)
+    return mobilePred.evaluate(with: adhar)
+}
+
+func isValidAdharNumber(adhar:String) -> Bool {
+    let adharRegex = ("^[0-9]{4}[0-9]{4}[0-9]{4}$")
+    let mobilePred = NSPredicate(format: "SELF MATCHES %@", adharRegex)
+    return mobilePred.evaluate(with: adhar)
+}
+//"[A-Z]{5}[0-9]{4}[A-Z]{1}"

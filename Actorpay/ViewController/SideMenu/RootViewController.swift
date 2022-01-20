@@ -18,7 +18,6 @@ final class RootViewController: AKSideMenu, AKSideMenuDelegate {
         self.contentViewShadowOpacity = 0.6
         self.contentViewShadowRadius = 12
         self.contentViewShadowEnabled = true
-//        self.backgroundImage = UIImage(named: "Stars")
         self.delegate = self
 
         if let storyboard = self.storyboard {

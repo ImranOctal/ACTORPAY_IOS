@@ -80,15 +80,15 @@ class ProductDetailsViewController: UIViewController {
         APIHelper.getProductDetails(id: productId) { (success, response) in
             if !success {
                 dissmissLoader()
-                let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+                _ = response.message
+//                myApp.window?.rootViewController?.view.makeToast(message)
             }else {
                 dissmissLoader()
                 let data = response.response["data"]
                 self.item = Items.init(json: data)
-                let message = response.message
+                _ = response.message
                 self.setupProductData()
-                myApp.window?.rootViewController?.view.makeToast(message)
+//                myApp.window?.rootViewController?.view.makeToast(message)
                 self.tableView.reloadData()
             }
         }
@@ -96,13 +96,14 @@ class ProductDetailsViewController: UIViewController {
     
     func setupProductData(){
         if let item = self.item {
+            let totalGst = (item.cgst ?? 0) + (item.sgst ?? 0)
             if let url = URL(string: item.image ?? "") {
-                productImageView.sd_setImage(with: url, completed: nil)
+                productImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "logo"), completed: nil)
             }
             productTitleLabel.text = item.name ?? ""
             descriptionLabel.text = item.description ?? ""
-            actualPriceLabel.text = "\(item.actualPrice ?? 0)"
-            dealPriceLabel.text = "\(item.dealPrice ?? 0)"            
+            actualPriceLabel.text = "\((item.actualPrice ?? 0))"
+            dealPriceLabel.text = "\(item.dealPrice ?? 0 + totalGst)"            
         }
         
     }
@@ -117,12 +118,9 @@ extension ProductDetailsViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTableViewCell", for: indexPath) as! ProductTableViewCell
-        
-        
         cell.likeButtonHandler = {
             cell.likeButton.isSelected = !cell.likeButton.isSelected
         }
-        
         return cell
     }
     

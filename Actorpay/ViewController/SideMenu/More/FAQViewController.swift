@@ -13,6 +13,7 @@ class FAQViewController: UIViewController {
     //MARK: - Properties -
 
     @IBOutlet weak var tblView: UITableView!
+    @IBOutlet weak var bgView: UIView!
     
     var faqList: [FAQ] = []
     private let numberOfActualRowsForSection = 1
@@ -24,15 +25,22 @@ class FAQViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        topCorner(bgView: bgView, maskToBounds: true)
         self.setUpTableView()
         self.getFAQData()
     }
     
     //MARK: - Selectors -
     
+    // Cart Button Action
     @IBAction func cartButtonAction(_ sender : UIButton) {
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
         self.navigationController?.pushViewController(newVC, animated: true)
+    }
+    
+    // Back Button Action
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Helper function
@@ -59,7 +67,7 @@ extension FAQViewController {
             if !success {
                 dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+//                myApp.window?.rootViewController?.view.makeToast(message)
             }else {
                 dissmissLoader()
                 let data = response.response.data

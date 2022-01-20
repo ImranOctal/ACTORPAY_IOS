@@ -67,13 +67,22 @@ class HomeViewController: UIViewController {
             if !success {
                 dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+                print(message)
+                let newVC = (self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as? CustomAlertViewController)!
+                newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+                newVC.setUpCustomAlert(titleStr: "Logout", descriptionStr: "Session Expire", isShowCancelBtn: true)
+                newVC.customAlertDelegate = self
+                self.definesPresentationContext = true
+                self.providesPresentationContextTransitionStyle = true
+                newVC.modalPresentationStyle = .overCurrentContext
+                self.navigationController?.present(newVC, animated: true, completion: nil)
             }else {
                 dissmissLoader()
                 let data = response.response["data"]
                 user = User.init(json: data)
-//                let message = response.message
-//                myApp.window?.rootViewController?.view.makeToast(message)
+                NotificationCenter.default.post(name:  Notification.Name("setupUserData"), object: self)
+                NotificationCenter.default.post(name:  Notification.Name("setProfileData"), object: self)
+                
             }
         }
     }
@@ -147,5 +156,20 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         view.addSubview(label)
 
         return view
+    }
+}
+
+
+//MARK: - CustomAlert Delegate Methods -
+extension HomeViewController: CustomAlertDelegate {
+    func okButtonclick() {
+        AppManager.shared.token = ""
+        AppManager.shared.userId = ""
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as! UINavigationController
+        myApp.window?.rootViewController = newVC
+    }
+    
+    func cancelButtonClick() {
+        self.dismiss(animated: true, completion: nil)
     }
 }

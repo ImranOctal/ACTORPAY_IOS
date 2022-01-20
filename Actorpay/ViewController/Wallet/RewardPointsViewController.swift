@@ -15,13 +15,14 @@ class RewardPointsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     //MARK: - Life Cycle Functions -
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
         topCorner(bgView: mainView, maskToBounds: true)
-//        tableView.register(UINib(nibName: "MyOrdersTableViewCell", bundle: nil), forCellReuseIdentifier: "MyOrdersTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,14 +32,20 @@ class RewardPointsViewController: UIViewController {
 
     //MARK: - Selectors -
     
-    @IBAction func backButtonAction(_ sender: UIButton) {
+    // Menu Button Action
+    @IBAction func menuButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        self.navigationController?.popViewController(animated: true)
-        
+        self.sideMenuViewController?.presentLeftMenuViewController()
     }
     
+    //Filter Button Action
     @IBAction func filterButtonAction(_ sender: UIButton) {
-        self.view.endEditing(true)
+        let popOverConfirmVC = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController") as! FilterViewController
+        self.addChild(popOverConfirmVC)
+        popOverConfirmVC.view.frame = self.view.frame
+        self.view.center = popOverConfirmVC.view.center
+        self.view.addSubview(popOverConfirmVC.view)
+        popOverConfirmVC.didMove(toParent: self)
     }
     
     //MARK: - Helper Functions -
@@ -47,7 +54,9 @@ class RewardPointsViewController: UIViewController {
 
 //MARK: - Extension -
 
+//MARK: Table View SetUp
 extension RewardPointsViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }

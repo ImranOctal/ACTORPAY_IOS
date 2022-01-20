@@ -21,11 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         let settings: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: settings) { (accepted, error) in
-            print(error)
+            print(error?.localizedDescription ?? "")
             print(accepted)
         }
         UNUserNotificationCenter.current().delegate = self
         application.registerForRemoteNotifications()
+        AppManager.shared.countryName = "India"
+        AppManager.shared.countryCode = "+ 91"
+        AppManager.shared.countryFlag = "IN"
         return true
     }
 
@@ -55,11 +58,20 @@ extension AppDelegate {
     // SetUp Navigation Flow
     func setupNavigation(){
         if (AppManager.shared.token.count > 0){
+            print(AppManager.shared.token)
             let newVC = self.storyBoard.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
             myApp.window?.rootViewController = newVC
         }else{
-            let newVC = self.storyBoard.instantiateViewController(withIdentifier: "loginVC") as! UINavigationController
-            myApp.window?.rootViewController = newVC
+            if !UserDefaults.standard.bool(forKey: "introShow"){
+                UserDefaults.standard.setValue(true, forKey: "introShow")
+                UserDefaults.standard.synchronize()
+                let newVC = self.storyBoard.instantiateViewController(withIdentifier: "introNav") as! UINavigationController
+                myApp.window?.rootViewController = newVC
+            } else {
+                let newVC = self.storyBoard.instantiateViewController(withIdentifier: "loginVC") as! UINavigationController
+                myApp.window?.rootViewController = newVC
+            }
+            
         }
     }
 }

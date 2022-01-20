@@ -28,7 +28,7 @@ class ProductTableViewCell: UITableViewCell {
                 descriptionLabel.text = item.description
                 if let url = URL(string: item.image ?? "") {
 //                    print(url)
-                    iconImage.sd_setImage(with: url, completed: nil)
+                    iconImage.sd_setImage(with: url,placeholderImage: UIImage(named: "logo"), completed: nil)
                 }
 //                dealPriceLabel.text = "\(item.dealPrice ?? 0)"
                 dealPriceLabel.text = "$\(totalPrice)"
@@ -36,6 +36,7 @@ class ProductTableViewCell: UITableViewCell {
             }
         }
     }
+    var cartItemDtoList: CartItemDTOList?
 
     var buyNowButtonHandler: (() -> ())!
     var addToCartButtonHandler: (() -> ())!

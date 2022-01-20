@@ -9,6 +9,8 @@ import UIKit
 import AKSideMenu
 
 final class SideMenuViewController: UIViewController {
+    
+    //MARK: - Properties -
         
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -18,15 +20,13 @@ final class SideMenuViewController: UIViewController {
          }
     }
     @IBOutlet weak var userImageView: UIImageView!
-    
     @IBOutlet weak var userNameLabel: UILabel!
-    
     @IBOutlet weak var userEmailLabel: UILabel!
     
     var sidemenuArray = [typeAliasStringDictionary]()
     var selectedObject = typeAliasStringDictionary()
 
-    // MARK: - Life Cycle Function
+    // MARK: - Life Cycle Function -
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -37,24 +37,62 @@ final class SideMenuViewController: UIViewController {
         let rewardsPoints: typeAliasStringDictionary = [VAL_TITLE :"My Loyalty/Rewards Points", VAL_IMAGE : "my_profile"]
         let referral: typeAliasStringDictionary = [VAL_TITLE :"Referral", VAL_IMAGE : "my_orders"]
         let availabelMoney: typeAliasStringDictionary = [VAL_TITLE :"View Available Money in Wallet", VAL_IMAGE : "my_orders"]
-        let my_profile: typeAliasStringDictionary = [VAL_TITLE :"My Profile", VAL_IMAGE : "my_profile"]
-        let changePassword: typeAliasStringDictionary = [VAL_TITLE :"Change Password", VAL_IMAGE : "my_profile"]
         let promo_offers: typeAliasStringDictionary = [VAL_TITLE :"Promo & Offers", VAL_IMAGE : "my_profile"]
-        let changePaymentOption: typeAliasStringDictionary = [VAL_TITLE :"Change Payment Option", VAL_IMAGE : "change_payment_option"]
+        let my_profile: typeAliasStringDictionary = [VAL_TITLE :"My Profile", VAL_IMAGE : "my_profile"]
         let settings: typeAliasStringDictionary = [VAL_TITLE :"Settings", VAL_IMAGE : "settings"]
         let more: typeAliasStringDictionary = [VAL_TITLE :"More", VAL_IMAGE : "more"]
         
-        let logout: typeAliasStringDictionary = [VAL_TITLE :"Logout", VAL_IMAGE : "logout"]
         //TODO: CHANGE ORDER OF SIDE MENU CHANGE HERE
-        sidemenuArray = [myOrders,walletStatement,rewardsPoints,referral,availabelMoney,my_profile,changePassword,promo_offers,changePaymentOption,settings,more,logout]
+        sidemenuArray = [
+            myOrders,
+            walletStatement,
+            rewardsPoints,
+            referral,
+            availabelMoney,
+            promo_offers,
+            my_profile,
+            settings,
+            more
+        ]
+        
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("setProfileData"), object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(self.setProfileData),name:Notification.Name("setProfileData"), object: nil)
+        self.setProfileData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }
+    
+    //MARK: - Selectors -
+    
+    @IBAction func logOutButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        let newVC = (self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as? CustomAlertViewController)!
+        newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        newVC.setUpCustomAlert(titleStr: "Logout", descriptionStr: "Are you sure you want to Logout?", isShowCancelBtn: false)
+        newVC.customAlertDelegate = self
+        self.definesPresentationContext = true
+        self.providesPresentationContextTransitionStyle = true
+        newVC.modalPresentationStyle = .overCurrentContext
+        self.navigationController?.present(newVC, animated: true, completion: nil)
+    }
+    
+    //MARK: - Helper Functions -
+    
+    // Set Profile Data
+    @objc func setProfileData() {
+//        userImageView.sd_setImage(with: URL(string: user?.profilePicture ?? ""), placeholderImage: UIImage(named: "profile"), options: SDWebImageOptions.allowInvalidSSLCertificates, completed: nil)
+        userImageView.image = UIImage(named: "profile")
+        userNameLabel.text = (user?.firstName ?? "") + (user?.lastName ?? "")
+        userEmailLabel.text = user?.email ?? ""
+    }
 }
 
+//MARK: - Extensions -
+
+//MARK: TableView Delegate Methods
 extension SideMenuViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -63,14 +101,26 @@ extension SideMenuViewController: UITableViewDelegate {
         self.sideMenuViewController?.hideMenuViewController()
         switch indexPath.row {
         case 0:
-            let secondVC = storyboard?.instantiateViewController(withIdentifier: "MyOrdersViewController") as! MyOrdersViewController
-            self.navigationController?.pushViewController(secondVC, animated: true)
+            // My Orders
+            if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "MyOrdersViewController") {
+                let contentViewController = UINavigationController(rootViewController: myOrderVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
+            }
         case 1:
-            let secondVC = storyboard?.instantiateViewController(withIdentifier: "WalletStatementViewController") as! WalletStatementViewController
-            self.navigationController?.pushViewController(secondVC, animated: true)
+            // Wallet Statement
+            if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "WalletStatementViewController") {
+                let contentViewController = UINavigationController(rootViewController: myOrderVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
+            }
         case 2:
-            let secondVC = storyboard?.instantiateViewController(withIdentifier: "RewardPointsViewController") as! RewardPointsViewController
-            self.navigationController?.pushViewController(secondVC, animated: true)
+            // My Loyalty/Reward Points
+            if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "RewardPointsViewController") {
+                let contentViewController = UINavigationController(rootViewController: myOrderVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
+            }
         case 3:
             //Referral
             obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
@@ -80,63 +130,43 @@ extension SideMenuViewController: UITableViewDelegate {
             obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
             break
         case 5:
+            //Promo and Offers
+//            self.
+            if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "OfferViewController") {
+                let contentViewController = UINavigationController(rootViewController: myOrderVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
+            }
+        case 6:
             //My Profile
             isProfileView = true
             let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
             myApp.window?.rootViewController = newVC
-            
-//            obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
-            
-        case 6:
-            //Change Password
-            if let opo = obj_AppDelegate.window?.rootViewController {
-            let popOverConfirmVC = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
-            obj_AppDelegate.window?.rootViewController?.addChild(popOverConfirmVC)
-            popOverConfirmVC.view.frame = opo.view.frame
-            opo.view.center = popOverConfirmVC.view.center
-            opo.view.addSubview(popOverConfirmVC.view)
-            popOverConfirmVC.didMove(toParent: self)
-            }
         case 7:
-            //Promo and Offers
-            obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
-            break
-        case 8:
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RemittanceViewController") as! RemittanceViewController
-            self.navigationController?.pushViewController(newVC, animated: true)
-        case 9:
             //Settings
-            obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
-            break
-        case 10:
-            let secondVC = storyboard?.instantiateViewController(withIdentifier: "MoreViewController") as! MoreViewController
-            self.navigationController?.pushViewController(secondVC, animated: true)
-        case 11:
-            // Logout
-            let alert = UIAlertController(title: "Logout", message: "Are you sure you want to Logout??", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "ok", style: .default) { (action) in
-                AppManager.shared.token = ""
-                AppManager.shared.userId = ""
-                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as! UINavigationController
-                myApp.window?.rootViewController = newVC
+            if let moreVC = storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") {
+                let contentViewController = UINavigationController(rootViewController: moreVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
             }
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-                self.dismiss(animated: true, completion: nil)
+        case 8:
+            // More
+            if let moreVC = storyboard?.instantiateViewController(withIdentifier: "MoreViewController") {
+                let contentViewController = UINavigationController(rootViewController: moreVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
             }
-            alert.addAction(ok)
-            alert.addAction(cancel)
-            obj_AppDelegate.window?.rootViewController?.present(alert, animated: true, completion: nil)
-//            break
         default:
             break
         }
     }
 }
 
+//MARK: TableView DataSource Methods
 extension SideMenuViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+        return 50
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection sectionIndex: Int) -> Int {
@@ -150,15 +180,20 @@ extension SideMenuViewController: UITableViewDataSource {
         cell.imgSideBar.image = UIImage(named: dict[VAL_IMAGE]!)
         cell.lblSideBarName.text = NSLocalizedString(dict[VAL_TITLE]!, comment: "")
         cell.viewWithTag(1001)?.isHidden = indexPath.row == 10 ? false : true
-       /* if dict == selectedObject {
-            cell.imgSideBar.tintColor = primaryColor
-            cell.lblSideBarName.textColor = primaryColor
-        } else{
-            cell.imgSideBar.tintColor = .black
-            cell.lblSideBarName.textColor = .black
-        }*/
-        
-        return cell
-        
+        return cell        
+    }
+}
+
+//MARK: CustomAlert Delegate Methods
+extension SideMenuViewController: CustomAlertDelegate {
+    func okButtonclick() {
+        AppManager.shared.token = ""
+        AppManager.shared.userId = ""
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as! UINavigationController
+        myApp.window?.rootViewController = newVC
+    }
+    
+    func cancelButtonClick() {
+        self.dismiss(animated: true, completion: nil)
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class WalletViewController: UIViewController {
 
@@ -16,36 +17,69 @@ class WalletViewController: UIViewController {
     @IBOutlet weak var tableViewHeightConstaint: NSLayoutConstraint!
     
     var productArray = [1,2,3,4,5,6,7]
+    var walletData : Wallet?
     
     //MARK: - Life Cycle Function -
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
         
         topCorner(bgView: mainView, maskToBounds: true)
         tableView.delegate = self
         tableView.dataSource = self
         tableViewHeightManage()
-        // Do any additional setup after loading the view.
+        self.getUserWalletDetailsApi()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         selectedTabIndex = self.tabBarController?.selectedIndex ?? 0
     }
     
-    //MARK: - Selectors -
     
     //MARK:- Helper Functions -
+    
+    //tableView Height Manage
     func tableViewHeightManage() {
-        //tableView Height Manage
         tableViewHeightConstaint.constant = (productArray.count == 0 ? 125.0 : CGFloat( 120 * productArray.count))
     }
+    
 }
 
 //MARK: - Extensions -
 
+//MARK: Api Call
+extension WalletViewController {
+    
+    // Get User Wallet Details Api
+    func getUserWalletDetailsApi() {
+        let params: Parameters = [
+            "userId": AppManager.shared.userId
+        ]
+        showLoading()
+        APIHelper.getUserWalletDetailsApi(params: params) { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+//                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let data = response.response["data"]
+                self.walletData = Wallet.init(json: data)
+                let message = response.message
+//                myApp.window?.rootViewController?.view.makeToast(message)
+                self.tableView.reloadData()
+            }
+        }
+    }
+}
+
+
+//MARK: TableView SetUp
 extension WalletViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return productArray.count
     }

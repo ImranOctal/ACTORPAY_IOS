@@ -20,10 +20,11 @@ class ProductListViewController: UIViewController {
     @IBOutlet weak var mainView: UIView!
     
     var productList: ProductList?
-    var itemsList:[Items] = []
     var cartList: CartList?
+    var selctedCartIndex:[Int] = []
     var page = 0
     var totalCount = 10
+    var buyNow = false
     
     //MARK: - Life Cycle Function -
     
@@ -34,7 +35,6 @@ class ProductListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.cartItemList()
         getProductListAPI()
         self.navigationController?.navigationBar.isHidden = true
     }
@@ -47,6 +47,21 @@ class ProductListViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    // Cart Button Action
+    @IBAction func cartButtonAction(_ sender: UIButton) {
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
+    }
+    
+    @IBAction func sortButtonAction(_ sender: UIButton) {
+        let newVC = (self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController") as! FilterViewController)
+        newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        self.definesPresentationContext = true
+        self.providesPresentationContextTransitionStyle = true
+        newVC.modalPresentationStyle = .overCurrentContext
+        self.navigationController?.present(newVC, animated: true, completion: nil)
+    }
+    
     //MARK: - Helper Function -
     
     // Product List Api
@@ -57,7 +72,7 @@ class ProductListViewController: UIViewController {
         ]
         print(params)
         showLoading()
-        APIHelper.getProductList(parameters: params) { (success, response) in
+        APIHelper.productListApi(params: [:]) { (success, response) in
             if !success {
                 dissmissLoader()
                 let message = response.message
@@ -67,16 +82,13 @@ class ProductListViewController: UIViewController {
                 let data = response.response["data"]
                 self.productList = ProductList.init(json: data)
                 self.totalCount = self.productList?.totalItems ?? 0
-                for item in self.productList?.items ?? [] {
-                    self.itemsList.append(item)
-                }
-                let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+//                let message = response.message
+//                myApp.window?.rootViewController?.view.makeToast(message)
+                self.cartItemList()
                 self.tableView.reloadData()
             }
         }
     }
-    
     // Add to Cart Api
     func addToCart(productId: String, productPrice: Float) {
         let params: Parameters = [
@@ -90,12 +102,18 @@ class ProductListViewController: UIViewController {
             if !success {
                 dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+//                myApp.window?.rootViewController?.view.makeToast(message)
             }else {
                 dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+//                myApp.window?.rootViewController?.view.makeToast(message)
+                self.cartItemList()
                 self.tableView.reloadData()
+                if self.buyNow == true {
+                    self.buyNow = false
+                    let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
+                    self.navigationController?.pushViewController(newVC, animated: true)
+                }
             }
         }
     }
@@ -105,15 +123,23 @@ class ProductListViewController: UIViewController {
         let params: Parameters = [:]
         print(params)
         showLoading()
-        APIHelper.getProductList(parameters: params) { (success, response) in
+        APIHelper.getCartItemsList(parameters: params) { (success, response) in
             if !success {
                 dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
+//                myApp.window?.rootViewController?.view.makeToast(message)
             }else {
                 dissmissLoader()
                 let data = response.response["data"]
                 self.cartList = CartList.init(json: data)
+                
+                for (i, val) in (self.productList?.items ?? []).enumerated() {
+                    for (_, value) in (self.cartList?.cartItemDTOList ?? []).enumerated() {
+                        if val.productId == value.productId {
+                            self.selctedCartIndex.append(i)
+                        }
+                    }
+                }
                 self.tableView.reloadData()
             }
         }
@@ -127,14 +153,19 @@ class ProductListViewController: UIViewController {
 extension ProductListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.itemsList.count
+        if self.productList?.items?.count == 0 {
+            tableView.setEmptyMessage("No Found Data")
+        }else{
+            tableView.restore()
+        }
+        return self.productList?.items?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTableViewCell", for: indexPath) as! ProductTableViewCell
-        let item = self.itemsList[indexPath.row]
+        let item = self.productList?.items?[indexPath.row]
         cell.item = item
-        if cell.item?.productId == cartList?.cartItemDTOList?[indexPath.row].productId
+        if self.selctedCartIndex.contains(indexPath.row)
         {
             cell.addToCartButton.setTitle("Go To Cart", for: .normal)
             cell.addToCartButtonHandler = {
@@ -145,12 +176,16 @@ extension ProductListViewController: UITableViewDelegate, UITableViewDataSource 
         } else {
             cell.addToCartButton.setTitle("Add To Cart", for: .normal)
             cell.addToCartButtonHandler = {
-                self.addToCart(productId: item.productId ?? "", productPrice: item.dealPrice ?? 0.0)
-                self.cartItemList()
+                self.addToCart(productId: item?.productId ?? "", productPrice: item?.dealPrice ?? 0.0)
             }
         }
         cell.likeButtonHandler = {
             cell.likeButton.isSelected = !cell.likeButton.isSelected
+        }
+        
+        cell.buyNowButtonHandler = {
+            self.buyNow = true
+            self.addToCart(productId: item?.productId ?? "", productPrice: item?.dealPrice ?? 0.0)
         }
         
         let clearView = UIView()
@@ -161,9 +196,9 @@ extension ProductListViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = self.itemsList[indexPath.row]
+        let item = self.productList?.items?[indexPath.row]
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
-        vc.productId = item.productId ?? ""
+        vc.productId = item?.productId ?? ""
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -175,7 +210,7 @@ extension ProductListViewController: UIScrollViewDelegate{
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        let totalRecords = self.itemsList.count
+        let totalRecords = self.productList?.items?.count ?? 0
         // Change 10.0 to adjust the distance from bottom
         if maximumOffset - currentOffset <= 10.0 && totalRecords < totalCount {
             page += 1

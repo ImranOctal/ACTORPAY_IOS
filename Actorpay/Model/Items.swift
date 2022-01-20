@@ -9,6 +9,7 @@ import Foundation
 import SwiftyJSON
 
 public class Items {
+    
     public var productId : String?
     public var name : String?
     public var description : String?
@@ -27,6 +28,20 @@ public class Items {
     public var productTaxId : String?
     public var createdAt : String?
     public var updatedAt : String?
+    
+    public var offerId : String?
+    public var offerTitle : String?
+    public var offerDescription : String?
+    public var offerInPercentage : Double?
+    public var promoCode : String?
+//    public var categoryId : String?
+    public var offerType : String?
+//    public var createdAt : String?
+//    public var updatedAt : String?
+    public var numberOfUsage : Int?
+    public var ordersPerDay : Int?
+    public var visibilityLevel : String?
+    public var active : Bool?
     
     init(json: JSON) {
         productId = json["productId"].string
@@ -47,5 +62,18 @@ public class Items {
         productTaxId = json["productTaxId"].string
         createdAt = json["createdAt"].string
         updatedAt = json["updatedAt"].string        
+        
+        offerId = json["offerId"].string
+        offerTitle = json["offerTitle"].string
+        offerDescription = json["offerDescription"].string
+        offerInPercentage = json["offerInPercentage"].double
+        promoCode = json["promoCode"].string
+        offerType = json["offerType"].string
+        numberOfUsage = json["numberOfUsage"].int
+        ordersPerDay = json["ordersPerDay"].int
+        active = json["active"].bool
+        visibilityLevel = json["visibilityLevel"].string
+        
+        
     }
 }

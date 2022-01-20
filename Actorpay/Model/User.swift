@@ -25,11 +25,15 @@ struct User {
     var contactNumber : String?
     var userType : String?
     var invalidLoginAttempts : Int?
+    var phoneVerified : Bool?
+    var emailVerified : Bool?
     var createdAt : String?
     var updatedAt : String?
     var roles : Array<String>?
     var active : Bool?
     var kycDone : Bool?
+    let panNumber : String?
+    let aadharNumber : String?
     
     init(json: JSON) {
         id = json["id"].string
@@ -49,7 +53,11 @@ struct User {
         updatedAt = json["updatedAt"].string
         roles = json["roles"].arrayObject as? [String]
         active = json["active"].bool
+        phoneVerified = json["phoneVerified"].bool
+        emailVerified = json["emailVerified"].bool
         kycDone = json["kycDone"].bool
+        panNumber = json["panNumber"].string
+        aadharNumber = json["aadharNumber"].string
     }
     
 }
