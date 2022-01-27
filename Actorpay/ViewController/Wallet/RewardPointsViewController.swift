@@ -40,6 +40,7 @@ class RewardPointsViewController: UIViewController {
     
     //Filter Button Action
     @IBAction func filterButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         let popOverConfirmVC = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController") as! FilterViewController
         self.addChild(popOverConfirmVC)
         popOverConfirmVC.view.frame = self.view.frame

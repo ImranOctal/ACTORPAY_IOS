@@ -29,6 +29,12 @@ class MyOrdersViewController: UIViewController {
         topCorner(bgView: mainView, maskToBounds: true)
         setUpTblView()
         self.getOrderListApi()
+        tableView.addPullToRefresh(actionHandler: {
+            self.page = 0
+            self.getOrderListApi()
+        })
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("reloadOrderListApi"), object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(self.reloadOrderListApi),name:Notification.Name("reloadOrderListApi"), object: nil)
         
     }
     
@@ -48,6 +54,7 @@ class MyOrdersViewController: UIViewController {
     
     // Filter Button Action
     @IBAction func filterButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         let newVC = (self.storyboard?.instantiateViewController(withIdentifier: "FilterOrderViewController") as? FilterOrderViewController)!
         newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
         self.definesPresentationContext = true
@@ -69,6 +76,11 @@ class MyOrdersViewController: UIViewController {
     func setUpTblView() {
         self.tableView.delegate = self
         self.tableView.dataSource = self
+    }
+    
+    // Reload Order List Api
+    @objc func reloadOrderListApi() {
+        self.getOrderListApi()
     }
     
 }
@@ -96,6 +108,7 @@ extension MyOrdersViewController {
         }
         showLoading()
         APIHelper.getAllOrders(parameters: parameters) { (success, response) in
+            self.tableView.pullToRefreshView?.stopAnimating()
             if !success {
                 dissmissLoader()
                 let message = response.message
@@ -137,19 +150,17 @@ extension MyOrdersViewController {
 extension MyOrdersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.myOrders?.items?.count == 0 {
+            tableView.setEmptyMessage("No Data Found.")
+        }else {
+            tableView.restore()
+        }
         return myOrders?.items?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyOrderCell", for: indexPath) as! MyOrderCell
-        cell.orderNoLbl.text = myOrders?.items?[indexPath.row].orderNo
-        cell.totalPriceLbl.text = "₹\(myOrders?.items?[indexPath.row].totalPrice ?? 0.0)"
-        cell.statusBtn.setTitle(myOrders?.items?[indexPath.row].orderStatus, for: .normal)
-        cell.orderDateLbl.text = "\(myOrders?.items?[indexPath.row].createdAt ?? "")"
-        cell.orderItemDtos = myOrders?.items?[indexPath.row].orderItemDtos ?? []
-        cell.businessNameLbl.text = myOrders?.items?[indexPath.row].merchantDTO?.businessName
-        cell.emailLbl.text = myOrders?.items?[indexPath.row].merchantDTO?.email
-        cell.phoneLbl.text = myOrders?.items?[indexPath.row].merchantDTO?.contactNumber
+        cell.item = myOrders?.items?[indexPath.row]
         return cell
     }
     
@@ -157,14 +168,11 @@ extension MyOrdersViewController: UITableViewDelegate, UITableViewDataSource {
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "OrderSummaryViewController") as! OrderSummaryViewController
         newVC.orderNo = myOrders?.items?[indexPath.row].orderNo ?? ""
         self.navigationController?.pushViewController(newVC, animated: true)
-//        updateOrderStatusApi(orderNo: myOrders?.items?[indexPath.row].orderNo ?? "")
     }
-    
 }
 
 // MARK: ScrollView Setup
-extension MyOrdersViewController: UIScrollViewDelegate{
-    
+extension MyOrdersViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
@@ -177,5 +185,4 @@ extension MyOrdersViewController: UIScrollViewDelegate{
             }
         }
     }
-    
 }

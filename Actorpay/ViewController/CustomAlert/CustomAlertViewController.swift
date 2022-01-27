@@ -43,11 +43,13 @@ class CustomAlertViewController: UIViewController {
     
     // OK Button Action
     @IBAction func okButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         customAlertDelegate?.okButtonclick()
     }
     
     // Cancel Button Action
     @IBAction func cancelButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         customAlertDelegate?.cancelButtonClick()
     }
     
@@ -77,6 +79,7 @@ class CustomAlertViewController: UIViewController {
             self.view.alpha = 0.0;
         }, completion:{(finished : Bool)  in
             if (finished){
+                self.view.endEditing(true)
                 self.view.removeFromSuperview()
             }
         });

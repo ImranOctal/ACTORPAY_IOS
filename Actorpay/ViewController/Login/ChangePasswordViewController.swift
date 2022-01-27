@@ -56,6 +56,7 @@ class ChangePasswordViewController: UIViewController {
     
     // Cancel Button Action
     @IBAction func cancelButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         removeAnimate()
         self.dismiss(animated: true, completion: nil)
     }
@@ -80,6 +81,7 @@ class ChangePasswordViewController: UIViewController {
     
     // OK Button Action
     @IBAction func okButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if self.changePasswordValidation() {
             self.manageErrorView()
             self.changePasswordApi()

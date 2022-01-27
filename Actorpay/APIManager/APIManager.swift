@@ -173,6 +173,43 @@ class APIManager {
             })
     }
     
+    func requestWithParameters(method : HTTPMethod, url:String, parameters:Parameters, bodyParameter: Parameters ,success:@escaping APICompletionBlock){
+        absoluteUrl = APIBaseUrlPoint.localHostBaseURL.rawValue + url
+        let headers: HTTPHeaders = [.authorization(bearerToken: AppManager.shared.token)]
+        var param:Parameters? = parameters
+//        if method == .post {
+            if let urlParameters = param {
+                if !(urlParameters.isEmpty) {
+                    absoluteUrl.append("?")
+                    var array:[String] = []
+                    let _ = urlParameters.map { (key, value) -> Bool in
+                        let str = key + "=" +  String(describing: value)
+                        array.append(str)
+                        return true
+                    }
+                    absoluteUrl.append(array.joined(separator: "&"))
+                }
+            }
+            param = nil
+//        }
+        print(absoluteUrl)
+        manager.request(absoluteUrl, method: method,parameters: bodyParameter , encoding: JSONEncoding.default, headers: headers)
+            .responseJSON(completionHandler: { (response) in
+                switch response.result {
+                case .success(let retrivedResult):
+                    let responseJSON = JSON(retrivedResult)
+                    let message = responseJSON["message"].stringValue
+                    success(APIResponse.createSuccessAPIResponse(message, responseJSON))
+                    break
+                case .failure(let errorGiven):
+                    dissmissLoader()
+                    let message = errorGiven.errorDescription ?? ""
+                    success(APIResponse.createFailureAPIResponse(message))
+                    break
+                }
+            })
+    }
+    
     func putRequest(method : HTTPMethod = .put, url:String, parameters:Parameters, success:@escaping APICompletionBlock){
         absoluteUrl = APIBaseUrlPoint.localHostBaseURL.rawValue + url
         print(absoluteUrl)
@@ -255,17 +292,16 @@ class APIManager {
         AF.upload(multipartFormData: { (multipartFormData) in
             
             for (key, value) in parameters {
-//                var jsonString: String?
-//                if let theJSONData = try? JSONSerialization.data(
-//                    withJSONObject: value,
-//                    options: []) {
-//                    let theJSONText = String(data: theJSONData,
-//                                             encoding: .ascii)
-//                    print("JSON string = \(theJSONText!)")
-//                    jsonString = theJSONText!
-//                }
-//                multipartFormData.append(((jsonString ?? "") as String).data(using: String.Encoding.utf8)!, withName: key as String, mimeType: "application/json")
-                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String, mimeType: "application/json")
+                var jsonString: String?
+                if let theJSONData = try? JSONSerialization.data(
+                    withJSONObject: value,
+                    options: []) {
+                    let theJSONText = String(data: theJSONData,
+                                             encoding: .ascii)
+                    print("JSON string = \(theJSONText!)")
+                    jsonString = theJSONText!
+                }
+                multipartFormData.append(((jsonString ?? "") as String).data(using: String.Encoding.utf8)!, withName: key as String, mimeType: "application/json")
             }
             if let data = imgData {
                 multipartFormData.append(data, withName: imageKey, fileName: "file.jpg", mimeType: "image/jpg")

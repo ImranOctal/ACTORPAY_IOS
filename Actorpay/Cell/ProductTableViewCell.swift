@@ -14,7 +14,6 @@ class ProductTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var buyNowButton: UIButton!
     @IBOutlet weak var addToCartButton: UIButton!
-    @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var dealPriceLabel: UILabel!
     @IBOutlet weak var actualPriceLabel: UILabel!
@@ -28,33 +27,25 @@ class ProductTableViewCell: UITableViewCell {
                 descriptionLabel.text = item.description
                 if let url = URL(string: item.image ?? "") {
 //                    print(url)
-                    iconImage.sd_setImage(with: url,placeholderImage: UIImage(named: "logo"), completed: nil)
+                    iconImage.sd_setImage(with: url,placeholderImage: UIImage(named: "placeholder_img"), completed: nil)
+                } else{
+                    iconImage.image = UIImage(named: "placeholder_img")
                 }
-//                dealPriceLabel.text = "\(item.dealPrice ?? 0)"
-                dealPriceLabel.text = "$\(totalPrice)"
-                actualPriceLabel.text = "\(item.actualPrice ?? 0)"
+                dealPriceLabel.text = "$\(totalPrice.doubleToStringWithComma())"
+                actualPriceLabel.text = (item.actualPrice ?? 0).doubleToStringWithComma()
+            } else{
+                iconImage.image = UIImage(named: "placeholder_img")
             }
         }
     }
+    
     var cartItemDtoList: CartItemDTOList?
-
     var buyNowButtonHandler: (() -> ())!
     var addToCartButtonHandler: (() -> ())!
-    var likeButtonHandler: (() -> ())!
         
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        likeButton.setImage( UIImage(named: "like_small"), for: .normal)
-        likeButton.setImage( UIImage(named: "liked_small"), for: .selected)
-    }
-    
-    @IBAction func likeButtonAction(_ sender: UIButton){
-        likeButtonHandler()
     }
     
     @IBAction func buyNowButtonAction(_ sender: UIButton){

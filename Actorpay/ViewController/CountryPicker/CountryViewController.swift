@@ -51,7 +51,6 @@ class CountryViewController: UIViewController {
                 dissmissLoader()
                 let message = response.message
                 print(message)
-                //                myApp.window?.rootViewController?.view.makeToast(message)
             }else {
                 dissmissLoader()
                 let data = response.response.data
@@ -71,8 +70,8 @@ class CountryViewController: UIViewController {
             return "".first!
         }
         .map { (key: Character, value: [CountryList]) -> (letter: Character, countries: [CountryList]) in
-            sections.removeAll()
             sections.append("\(key)")
+            self.sections = sections.removeDuplicates()
             return (letter: key, countries: value)
         }
         .sorted { (left, right) -> Bool in

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class VerifyOTPViewController: UIViewController {
     
@@ -45,7 +46,8 @@ class VerifyOTPViewController: UIViewController {
     @IBOutlet weak var verifyOtpAlertView: UIView!
     @IBOutlet weak var verifyOtpView: UIView!
     @IBOutlet weak var verifyOTPButtonView: UIView!
- 
+    typealias CompletionBlock = (_ success: Bool) -> Void
+    var onCompletion:CompletionBlock?
     var isEmail = false
     
     //MARK: - Life Cycles -
@@ -65,14 +67,51 @@ class VerifyOTPViewController: UIViewController {
     
     // OK Button Action
     @IBAction func okButtonAction(_ sender: UIButton) {
-        removeAnimate()
-        self.dismiss(animated: true, completion: nil)
+        self.view.endEditing(true)
+        let first = firstCodeTxtField.text?.trimmingCharacters(in: .whitespaces).count ?? 0
+        let second = secondCodeTxtField.text?.trimmingCharacters(in: .whitespaces).count ?? 0
+        let third = thirdCodeTxtField.text?.trimmingCharacters(in: .whitespaces).count ?? 0
+        let four = fourthCodeTxtField.text?.trimmingCharacters(in: .whitespaces).count ?? 0
+        let fifth = fifthCodeTxtField.text?.trimmingCharacters(in: .whitespaces).count ?? 0
+        let sixth = sixthCodeTxtField.text?.trimmingCharacters(in: .whitespaces).count ?? 0
+        if (first == 0 || second == 0 || third == 0 || four == 0 || fifth == 0 || sixth == 0){
+            self.view.makeToast("Please enter an OTP code", duration: 3.0, position: .bottom)
+            return
+        }
+        let otp = (firstCodeTxtField.text ?? "")+(secondCodeTxtField.text ?? "")+(thirdCodeTxtField.text ?? "")
+        let otp2 = (fourthCodeTxtField.text ?? "")+(fifthCodeTxtField.text ?? "")+(sixthCodeTxtField.text ?? "")
+        let finalOTP = otp + otp2
+        let params: Parameters = [
+            "otp": "\(finalOTP)"
+        ]
+        print(finalOTP)
+        showLoading()
+        APIHelper.verifyOTPAPI(params: params) { (success,response)  in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                print(message)
+            }else {
+                dissmissLoader()
+                let message = response.message
+                print(message)
+                if let codeCompletion = self.onCompletion {
+                    codeCompletion(true)
+                    self.removeAnimate()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     // Cancel Button Action
     @IBAction func cancelButtonAction(_ sender: UIButton) {
-        removeAnimate()
-        self.dismiss(animated: true, completion: nil)
+        self.view.endEditing(true)
+        if let codeCompletion = onCompletion {
+            codeCompletion(false)
+            removeAnimate()
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     //MARK: - Helper Functions -

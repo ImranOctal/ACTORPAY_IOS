@@ -20,6 +20,7 @@ var selectedTabTag = 1001
 let VAL_TITLE                               = "Val_TITLE"
 let VAL_IMAGE                               = "VAL_IMAGE"
 var primaryColor = UIColor.init(hexFromString: "#183967")
+var isNotificationEnabled: Bool?
 
 func showLoading() {
     DispatchQueue.main.async {
@@ -67,14 +68,23 @@ func attributedString(countryCode: String, arrow : String) -> NSMutableAttribute
     return mutableAttributedString
 }
 
-func topCorner(bgView:UIView, maskToBounds: Bool) {
+func topCorner(bgView:UIView, maskToBounds: Bool, cornerRadius: CGFloat = 40) {
     bgView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
     bgView.layer.shadowOffset = CGSize(width: -1, height: -2)
     bgView.layer.shadowRadius = 2
     bgView.layer.shadowOpacity = 0.1
-    bgView.layer.cornerRadius = 40
+    bgView.layer.cornerRadius = cornerRadius
     bgView.layer.masksToBounds = maskToBounds
  }
+
+func topCornerWithShadow(bgView:UIView, maskToBounds: Bool) {
+      bgView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
+      bgView.layer.shadowOffset = CGSize(width: 0, height: 0);
+      bgView.layer.shadowOpacity = 0.5;
+      bgView.layer.shadowColor = UIColor.darkGray.cgColor
+      bgView.layer.cornerRadius =  25
+      bgView.layer.masksToBounds = maskToBounds
+  }
 
 func topCorners(bgView:UIView, cornerRadius: CGFloat ,maskToBounds: Bool) {
     bgView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
@@ -127,3 +137,50 @@ func isValidAdharNumber(adhar:String) -> Bool {
     return mobilePred.evaluate(with: adhar)
 }
 //"[A-Z]{5}[0-9]{4}[A-Z]{1}"
+extension Array where Element:Equatable {
+    func removeDuplicates() -> [Element] {
+        var result = [Element]()
+
+        for value in self {
+            if result.contains(value) == false {
+                result.append(value)
+            }
+        }
+        return result
+    }
+}
+
+// Function For Get Status From Api
+func getStatus(stausString: String) -> (UIColor) {
+    switch stausString {
+    case "SUCCESS":
+        return UIColor.systemGreen
+    case "READY":
+        return UIColor.systemGreen
+    case "CANCELLED":
+        return UIColor.red
+    case "PARTIALLY CANCELLED":
+        return UIColor.red
+    case "DISPATCHED":
+        return UIColor.systemGreen
+    case "RETURNING":
+        return UIColor.blue
+    case "PARTIALLY RETURNING":
+        return UIColor.blue
+    case "RETURNED":
+        return UIColor.blue
+    case "PARTIALLY RETURNED":
+        return UIColor.blue
+    case "DELIVERED":
+        return  UIColor.systemGreen
+    case "PENDING":
+        return  UIColor.blue
+    case "FAILURE":
+        return UIColor.red
+    case "FAILED":
+        return UIColor.red
+    default :
+        break
+    }
+    return UIColor.black
+}

@@ -7,10 +7,15 @@
 
 import UIKit
 import Alamofire
+import GoogleMaps
 
 class AddAddressViewController: UIViewController {
     
     //MARK: - Properties -
+    
+    @IBOutlet weak var googleMapView: GMSMapView!
+    @IBOutlet weak var mapCenterPinImage: UIImageView!
+    @IBOutlet private weak var pinImageVerticalConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var bgView: UIView! {
         didSet {
@@ -105,15 +110,20 @@ class AddAddressViewController: UIViewController {
     @IBOutlet weak var primaryContactLabel: UILabel!
     @IBOutlet weak var secondaryContactLabel: UILabel!
     
+    
     var isEditAddress = false
     var addressItem: AddressItems?
+    
+    private let locationManager = CLLocationManager()
+    var latitude: Double?
+    var longitude: Double?
     
     //MARK: - Life Cycles -
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        setupGoogleMap()
         if isEditAddress == true {
             self.setEditAddressData()
         }
@@ -150,6 +160,7 @@ class AddAddressViewController: UIViewController {
     
     //Save Button Action
     @IBAction func saveButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if addressValidation() {
             if isEditAddress == false {
                 addAddressApi()
@@ -161,6 +172,50 @@ class AddAddressViewController: UIViewController {
     
     // MARK: - Helper Functions -
     
+    func setupGoogleMap(){
+        locationManager.delegate = self
+        if CLLocationManager.locationServicesEnabled() {
+          locationManager.requestLocation()
+            googleMapView.isMyLocationEnabled = true
+            googleMapView.settings.myLocationButton = true
+        } else {
+          locationManager.requestWhenInUseAuthorization()
+        }
+        
+        googleMapView.delegate = self
+    }
+    
+    func reverseGeocode(coordinate: CLLocationCoordinate2D) {
+      let geocoder = GMSGeocoder()
+      showLoading()
+      geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
+        dissmissLoader()
+        self.addressLine1TextField.unlock()
+        
+        guard let address = response?.firstResult() else { return }
+        
+        self.latitude = address.coordinate.latitude
+        self.longitude = address.coordinate.longitude
+        self.addressLine1TextField.text = address.lines?.joined()
+        self.landMarkTextField.text = address.subLocality
+        self.cityTextField.text = address.locality
+        self.stateTextField.text = address.administrativeArea
+        self.zipcodeTextField.text = address.postalCode
+        
+        let labelHeight = self.addressLine1TextField.intrinsicContentSize.height
+        let topInset = self.view.safeAreaInsets.top
+        self.googleMapView.padding = UIEdgeInsets(
+          top: topInset,
+          left: 0,
+          bottom: labelHeight,
+          right: 0)
+        
+        UIView.animate(withDuration: 0.25) {
+          self.pinImageVerticalConstraint.constant = (labelHeight - topInset) * 0.5
+          self.view.layoutIfNeeded()
+        }
+      }
+    }
     // Address Validation
     func addressValidation() -> Bool {
         var isValidate = true
@@ -283,9 +338,9 @@ extension AddAddressViewController {
             "zipCode":"\(zipcodeTextField.text ?? "")",
             "city":"\(cityTextField.text ?? "")",
             "state":"\(stateTextField.text ?? "")",
-            "country":"\(countryTextField.text ?? "")"
-            //                "latitude":"23234343",
-            //                "longitude":"3333333"
+            "country":"\(countryTextField.text ?? "")",
+            "latitude":self.latitude ?? 0,
+            "longitude":self.longitude ?? 0
         ]
         showLoading()
         APIHelper.addAddressAPI(params: params) { (success,response)  in
@@ -320,9 +375,9 @@ extension AddAddressViewController {
             "zipCode":"\(zipcodeTextField.text ?? "")",
             "city":"\(cityTextField.text ?? "")",
             "state":"\(stateTextField.text ?? "")",
-            "country":"\(countryTextField.text ?? "")"
-//            "latitude":"23234343",
-//            "longitude":"3333333"
+            "country":"\(countryTextField.text ?? "")",
+            "latitude":self.latitude ?? 0,
+            "longitude":self.longitude ?? 0
         ]
         showLoading()
         APIHelper.updateShippingAddressApi(params: params) { (success,response)  in
@@ -422,5 +477,73 @@ extension AddAddressViewController: UITextFieldDelegate {
         default:
             break
         }
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+extension AddAddressViewController: CLLocationManagerDelegate {
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    guard status == .authorizedWhenInUse else {
+      return
+    }    
+    locationManager.requestLocation()
+    googleMapView.isMyLocationEnabled = true
+    googleMapView.settings.myLocationButton = true
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    guard let location = locations.first else {
+      return
+    }
+    
+    googleMapView.camera = GMSCameraPosition(
+      target: location.coordinate,
+      zoom: 15,
+      bearing: 0,
+      viewingAngle: 0)
+//    fetchPlaces(near: location.coordinate)
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    print(error)
+  }
+}
+
+// MARK: - GMSMapViewDelegate
+extension AddAddressViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        reverseGeocode(coordinate: position.target)
+    }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        if gesture {
+            mapCenterPinImage.fadeIn(0.25)
+            mapView.selectedMarker = nil
+        }
+    }
+    
+    //  func googleMapView(_ googleMapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+    ////    guard let placeMarker = marker as? PlaceMarker else {
+    ////      return nil
+    ////    }
+    ////    guard let infoView = UIView.viewFromNibName("MarkerInfoView") as? MarkerInfoView else {
+    ////      return nil
+    ////    }
+    //
+    ////    infoView.nameLabel.text = marker.place.name
+    ////    addressLine1TextField.text = marker.
+    //
+    //    return infoView
+    //  }
+    
+    func googleMapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        mapCenterPinImage.fadeOut(0.25)
+        return false
+    }
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        mapCenterPinImage.fadeIn(0.25)
+        mapView.selectedMarker = nil
+        return false
     }
 }

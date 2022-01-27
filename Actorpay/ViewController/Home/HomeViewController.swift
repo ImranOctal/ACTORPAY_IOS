@@ -7,9 +7,12 @@
 
 import UIKit
 import AKSideMenu
+import Alamofire
 //import SwiftQRScanner
 
 class HomeViewController: UIViewController {
+    
+    //MARK: - Properties -
 
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var transactionView: UIView!
@@ -29,6 +32,8 @@ class HomeViewController: UIViewController {
     let contactHeaderHeight: CGFloat = 32
     var transactionArray:[Int] = [1,2,3]
     
+    //MARK: - Life Cycles -
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         topCorner(bgView: transactionView, maskToBounds: true)
@@ -42,6 +47,7 @@ class HomeViewController: UIViewController {
         getUserDetailsApi()
         NotificationCenter.default.removeObserver(self, name: Notification.Name("getUserDetail"), object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(self.getUserDetailsApi),name:Notification.Name("getUserDetail"), object: nil)
+        getAllCategories(pageSize: 10)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,18 +55,30 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         selectedTabIndex = self.tabBarController?.selectedIndex ?? 0
     }
+    
+    //MARK: - Selectors-
 
+    // Menu Button Action
     @IBAction func menuButtonAction(_ sender: UIButton){
         self.view.endEditing(true)
         self.sideMenuViewController?.presentLeftMenuViewController()
     }
     
+    // Notification Button Action
     @IBAction func notificationButtonAction(_ sender: UIButton){
         self.view.endEditing(true)
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
         self.navigationController?.pushViewController(newVC, animated: true)
     }
     
+}
+
+//MARK: - Extensions -
+
+//MARK: Api Call
+extension HomeViewController {
+    
+    // Get User Detail Api
     @objc func getUserDetailsApi(){
         showLoading()
         APIHelper.getUserDetailsById(id: AppManager.shared.userId) { (success, response) in
@@ -86,9 +104,36 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    
+    // Get All Category Api
+    func getAllCategories(pageSize: Int) {
+        showLoading()
+        let params: Parameters = [
+            "pageSize":pageSize,
+            "filterByIsActive":true,
+            "sortBy":"name",
+            "asc":true
+            
+        ]
+        APIHelper.getAllCategoriesAPI(parameters: params) { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                self.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let data = response.response["data"]
+                categoryList = CategoryList.init(json: data)
+                let message = response.message
+                print(message)
+            }
+        }
+    }
 }
 
+//MARK: Collection View SetUp
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return category.count
     }
@@ -99,6 +144,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.titleLabel.text = category[indexPath.row].title
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         switch indexPath.row {
@@ -111,7 +157,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
+//MARK: Tableview Setup
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return transactionArray.count
     }
@@ -162,6 +210,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
 
 //MARK: - CustomAlert Delegate Methods -
 extension HomeViewController: CustomAlertDelegate {
+    
     func okButtonclick() {
         AppManager.shared.token = ""
         AppManager.shared.userId = ""

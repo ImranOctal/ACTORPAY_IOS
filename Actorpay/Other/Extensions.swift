@@ -419,6 +419,29 @@ extension UITextView :UITextViewDelegate
     }
 }
 
+extension Double {
+    func doubleToStringWithComma() -> String{
+        let numberFormatter = NumberFormatter()
+        numberFormatter.groupingSeparator = ","
+        numberFormatter.groupingSize = 3
+        numberFormatter.usesGroupingSeparator = true
+        numberFormatter.decimalSeparator = "."
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 2
+        return numberFormatter.string(from: self as NSNumber)!
+    }
+
+}
+
+extension UITableViewCell {
+    func clearSelectedBackGround(){
+        let view = UIView()
+        view.backgroundColor = .clear
+        self.selectedBackgroundView = view
+    }
+}
+
+
 extension UITableView {
     
     func setEmptyMessage(_ message: String) {
@@ -641,7 +664,6 @@ extension UIFont {
 }
 
 extension UITextField{
-    
 //    @IBInspectable var doneAccessory: Bool{
 //        get{
 //            return self.doneAccessory
@@ -675,6 +697,17 @@ extension UITextField{
 }
 
 extension String {
+    
+    func toFormatedDate(from: String, to:String) -> String?{
+        let dateFormatter = DateFormatter()
+        //        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)!
+        //        dateFormatter.locale = Locale.current
+        //        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        dateFormatter.dateFormat = from
+        let date = dateFormatter.date(from: self)
+        return date?.getFormattedDate(format: to)
+        
+    }
     
     var isNumeric: Bool {
         guard self.count > 0 else { return false }
@@ -883,4 +916,76 @@ extension UIDevice {
         
         return mapToDevice(identifier: identifier)
     }()
+}
+
+extension UIView {
+//  func lock() {
+//    if let _ = viewWithTag(10) {
+//      //View is already locked
+//    }
+//    else {
+//      let lockView = UIView(frame: bounds)
+//      lockView.backgroundColor = UIColor(white: 0.0, alpha: 0.75)
+//      lockView.tag = 10
+//      lockView.alpha = 0.0
+//        if #available(iOS 13.0, *) {
+//            let activity = UIActivityIndicatorView(style: .medium)
+//            activity.color = .white
+//            activity.hidesWhenStopped = true
+//            activity.center = lockView.center
+//            lockView.addSubview(activity)
+//            activity.startAnimating()
+//        }
+//      addSubview(lockView)
+//      
+//      UIView.animate(withDuration: 0.2) {
+//        lockView.alpha = 1.0
+//      }
+//    }
+//  }
+  
+  func unlock() {
+    if let lockView = viewWithTag(10) {
+      UIView.animate(withDuration: 0.2, animations: {
+        lockView.alpha = 0.0
+      }, completion: { finished in
+        lockView.removeFromSuperview()
+      })
+    }
+  }
+  
+  func fadeOut(_ duration: TimeInterval) {
+    UIView.animate(withDuration: duration) {
+      self.alpha = 0.0
+    }
+  }
+  
+  func fadeIn(_ duration: TimeInterval) {
+    UIView.animate(withDuration: duration) {
+      self.alpha = 1.0
+    }
+  }
+  
+  class func viewFromNibName(_ name: String) -> UIView? {
+    let views = Bundle.main.loadNibNamed(name, owner: nil, options: nil)
+    return views?.first as? UIView
+  }
+}
+
+@IBDesignable class ProShadowView: UIView {
+    @IBInspectable var cornerradius: CGFloat = 2
+    @IBInspectable var shadowOffsetWidth: CGFloat = 0
+    @IBInspectable var shadowOffsetHight: CGFloat = 5
+    @IBInspectable var shadowColor: UIColor = UIColor.lightGray
+    @IBInspectable var shadowOpicity: CGFloat = 0.5
+    override func layoutSubviews() {
+        layer.cornerRadius = cornerradius
+        layer.shadowColor = shadowColor.cgColor
+        layer.shadowOpacity = Float(shadowOpicity)
+        // layer.borderColor = borderColor.cgColor
+        
+        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHight)
+        let shadowpath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerradius)
+        layer.shadowPath = shadowpath.cgPath
+    }
 }

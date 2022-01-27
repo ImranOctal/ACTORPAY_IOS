@@ -32,6 +32,7 @@ extension UIViewController {
     // MARK: - IBAction Helper methods
 
     @IBAction public func presentLeftMenuViewController(_ sender: AnyObject) {
+        self.view.endEditing(true)
         self.sideMenuViewController?.presentLeftMenuViewController()
     }
 

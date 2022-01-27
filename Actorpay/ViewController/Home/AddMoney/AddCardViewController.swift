@@ -31,6 +31,11 @@ class AddCardViewController: UIViewController {
     }
     //MARK:- Selectors -
     
+    @IBAction func backButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func saveCardCheckBocAction(_ sender: UIButton) {
         self.view.endEditing(true)
         // remember Me

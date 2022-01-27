@@ -16,6 +16,7 @@ class ValidationManager {
     // signup
     let sPhoneNumber = "Oops! Your Phone is Not Correct or Empty"
     let emptyPhone = "Oops! Your Phone is Empty"
+    let emptyPhoneCode = "Oops! Your Phone Code is Empty"
     let validPhone = "Oops! Your Phone is Invalid"
     let sFirstName = "Oops! Your Name's Length is Less than 3"
     let sLastName = "Oops! Your Last Name's Length is Less than 3"
@@ -49,5 +50,7 @@ class ValidationManager {
     let city = "Please Enter City"
     let state = "Please Enter State"
     let contact = "Please Enter Valid Contact"
+    
+    let emptyCancelOrderDescription = "Oops! Your Cancel Reason is Empty"
     
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import SVPullToRefresh
 
 class OfferViewController: UIViewController {
     
@@ -18,6 +19,7 @@ class OfferViewController: UIViewController {
             tblView.dataSource = self
         }
     }
+    
     @IBOutlet weak var bgView: UIView!
     
     var page = 0
@@ -31,6 +33,10 @@ class OfferViewController: UIViewController {
         super.viewDidLoad()
         self.getCouponList()
         topCorner(bgView: bgView, maskToBounds: true)
+        tblView.addPullToRefresh {
+            self.page = 0
+            self.getCouponList()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +54,7 @@ class OfferViewController: UIViewController {
     
     // Cart Button Action
     @IBAction func cartButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
         self.navigationController?.pushViewController(newVC, animated: true)
     }
@@ -65,6 +72,7 @@ class OfferViewController: UIViewController {
         print(params)
         showLoading()
         APIHelper.getAvailableOfferForCustomer(params: params) { (success, response) in
+            self.tblView.pullToRefreshView?.stopAnimating()
             if !success {
                 dissmissLoader()
                 let message = response.message
@@ -87,6 +95,11 @@ class OfferViewController: UIViewController {
 extension OfferViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.couponList.count == 0 {
+            tableView.setEmptyMessage("No Data Found.")
+        }else {
+            tableView.restore()
+        }
         return self.couponList.count
     }
     

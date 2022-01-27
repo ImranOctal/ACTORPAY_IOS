@@ -31,6 +31,12 @@ class CheckoutViewController: UIViewController {
             topCorner(bgView: mainView, maskToBounds: true)
         }
     }
+    
+    @IBOutlet weak var priceView: UIView! {
+        didSet{
+            topCornerWithShadow(bgView: priceView, maskToBounds: false)
+        }
+    }
     @IBOutlet weak var subTotalLbl: UILabel!
     @IBOutlet weak var gstLbl: UILabel!
     @IBOutlet weak var totalLbl: UILabel!
@@ -117,9 +123,9 @@ class CheckoutViewController: UIViewController {
         }
         print(shippingCharge)
         shippingChargesLbl.text = "\(shippingCharge)"
-        subTotalLbl.text = "\(cartList?.totalTaxableValue ?? 0.0)"
-        gstLbl.text = "\((cartList?.totalCgst ?? 0.0) + (cartList?.totalSgst ?? 0.0))"
-        totalLbl.text = "\(cartList?.totalPrice ?? 0.0)"
+        subTotalLbl.text = cartList?.totalTaxableValue?.doubleToStringWithComma()
+        gstLbl.text = ((cartList?.totalCgst ?? 0.0) + (cartList?.totalSgst ?? 0.0)).doubleToStringWithComma()
+        totalLbl.text = cartList?.totalPrice?.doubleToStringWithComma()
     }
     // Get All Shipping Address List Api
     func getAllShippingAddressListApi() {
@@ -201,6 +207,13 @@ extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.selectedButton.isHidden = true
                 cell.mainView.layer.borderWidth = 0
                 cell.mainView.layer.borderColor = UIColor.clear.cgColor
+            }
+            cell.editButtonHandler = { sender in
+                sender.tag = indexPath.row
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
+                newVC.isEditAddress = true
+                newVC.addressItem = item
+                self.navigationController?.pushViewController(newVC, animated: true)
             }            
             cell.deleteButtonHandler = { sender in
                 sender.tag = indexPath.row

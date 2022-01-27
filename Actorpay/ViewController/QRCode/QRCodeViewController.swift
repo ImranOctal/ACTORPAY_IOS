@@ -87,6 +87,7 @@ class QRCodeViewController: UIViewController {
     //    MARK: - Selectors -
     
     @IBAction func walletToWalletOrBankButtonAction(_ sender: UIButton){
+        self.view.endEditing(true)
         if sender.tag == 1001 {
             isWalletToBank = false
             wallletUiManage()
@@ -102,10 +103,9 @@ class QRCodeViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func openContactBookButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         let peoplePicker = CNContactPickerViewController()
-
         peoplePicker.delegate = self
-
         self.present(peoplePicker, animated: true, completion: nil)
     }
     

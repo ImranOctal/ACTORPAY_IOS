@@ -32,18 +32,20 @@ final class SideMenuViewController: UIViewController {
         super.viewDidLoad()
         
         //MARK: Create Data Dic for Side menu
+        let home: typeAliasStringDictionary = [VAL_TITLE :"Home", VAL_IMAGE : "home"]
         let myOrders: typeAliasStringDictionary = [VAL_TITLE :"My Orders", VAL_IMAGE : "my_orders"]
         let walletStatement: typeAliasStringDictionary = [VAL_TITLE :"Wallet Statement", VAL_IMAGE : "wallet_statement"]
         let rewardsPoints: typeAliasStringDictionary = [VAL_TITLE :"My Loyalty/Rewards Points", VAL_IMAGE : "my_profile"]
-        let referral: typeAliasStringDictionary = [VAL_TITLE :"Referral", VAL_IMAGE : "my_orders"]
-        let availabelMoney: typeAliasStringDictionary = [VAL_TITLE :"View Available Money in Wallet", VAL_IMAGE : "my_orders"]
-        let promo_offers: typeAliasStringDictionary = [VAL_TITLE :"Promo & Offers", VAL_IMAGE : "my_profile"]
-        let my_profile: typeAliasStringDictionary = [VAL_TITLE :"My Profile", VAL_IMAGE : "my_profile"]
+        let referral: typeAliasStringDictionary = [VAL_TITLE :"Referral", VAL_IMAGE : "refferal"]
+        let availabelMoney: typeAliasStringDictionary = [VAL_TITLE :"View Available Money in Wallet", VAL_IMAGE : "walletMoney"]
+        let promo_offers: typeAliasStringDictionary = [VAL_TITLE :"Promo & Offers", VAL_IMAGE : "discount"]
+        let my_profile: typeAliasStringDictionary = [VAL_TITLE :"My Profile", VAL_IMAGE : "user"]
         let settings: typeAliasStringDictionary = [VAL_TITLE :"Settings", VAL_IMAGE : "settings"]
         let more: typeAliasStringDictionary = [VAL_TITLE :"More", VAL_IMAGE : "more"]
         
         //TODO: CHANGE ORDER OF SIDE MENU CHANGE HERE
         sidemenuArray = [
+            home,
             myOrders,
             walletStatement,
             rewardsPoints,
@@ -101,55 +103,59 @@ extension SideMenuViewController: UITableViewDelegate {
         self.sideMenuViewController?.hideMenuViewController()
         switch indexPath.row {
         case 0:
+            // Home
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
+            myApp.window?.rootViewController = newVC
+        case 1:
             // My Orders
             if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "MyOrdersViewController") {
                 let contentViewController = UINavigationController(rootViewController: myOrderVC)
                 sideMenuViewController?.setContentViewController(contentViewController, animated: true)
                 sideMenuViewController?.hideMenuViewController()
             }
-        case 1:
+        case 2:
             // Wallet Statement
             if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "WalletStatementViewController") {
                 let contentViewController = UINavigationController(rootViewController: myOrderVC)
                 sideMenuViewController?.setContentViewController(contentViewController, animated: true)
                 sideMenuViewController?.hideMenuViewController()
             }
-        case 2:
+        case 3:
             // My Loyalty/Reward Points
             if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "RewardPointsViewController") {
                 let contentViewController = UINavigationController(rootViewController: myOrderVC)
                 sideMenuViewController?.setContentViewController(contentViewController, animated: true)
                 sideMenuViewController?.hideMenuViewController()
             }
-        case 3:
+        case 4:
             //Referral
             obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
             break
-        case 4:
+        case 5:
             //Available Money
             obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
             break
-        case 5:
+        case 6:
             //Promo and Offers
-//            self.
+            self.view.endEditing(true)
             if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "OfferViewController") {
                 let contentViewController = UINavigationController(rootViewController: myOrderVC)
                 sideMenuViewController?.setContentViewController(contentViewController, animated: true)
                 sideMenuViewController?.hideMenuViewController()
             }
-        case 6:
+        case 7:
             //My Profile
             isProfileView = true
             let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
             myApp.window?.rootViewController = newVC
-        case 7:
+        case 8:
             //Settings
             if let moreVC = storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") {
                 let contentViewController = UINavigationController(rootViewController: moreVC)
                 sideMenuViewController?.setContentViewController(contentViewController, animated: true)
                 sideMenuViewController?.hideMenuViewController()
             }
-        case 8:
+        case 9:
             // More
             if let moreVC = storyboard?.instantiateViewController(withIdentifier: "MoreViewController") {
                 let contentViewController = UINavigationController(rootViewController: moreVC)

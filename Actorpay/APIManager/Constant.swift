@@ -13,12 +13,14 @@ enum APIBaseUrlPoint: String {
 
 enum APIEndPoint: String {
     case login = "user-service/users/login"
+    case socialLogin = "user-service/users/social/signup"
     case register = "user-service/users/signup"
     case userUpdate = "user-service/users/update"
     case changePassword = "user-service/users/change/password"
     case forgetPassword = "user-service/users/forget/password"
     case resetPassword = "user-service/users/reset/password"
     case get_user_details_by_id = "user-service/users/by/id/"
+    case getAllCategories = "user-service/get/all/categories/paged"
     case productList = "user-service/products"
     case orderList = "user-service/orders/list/paged"
     case allOrders = "user-service/orders"
@@ -38,7 +40,8 @@ enum APIEndPoint: String {
     case addAddress = "user-service/add/new/shipping/address"
     case deleteAddress = "user-service/delete/saved/shipping/address/ids"
     case updateAddress = "user-service/update/shipping/address"
-//    case placeOrder = "user-service/orders"
+    case sendOTP = "user-service/users/phone/otp/request"
+    case verifyOTP = "user-service/users/phone/verify"
 }
 
 struct MessageConstant {

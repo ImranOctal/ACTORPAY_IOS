@@ -41,7 +41,7 @@ class addressTableViewCell: UITableViewCell {
     }
     
     @IBAction func editButtonAction(_ sender: UIButton) {
-//        editButtonHandler()
+        editButtonHandler(sender)
     }
     @IBAction func deleteButtonAction(_ sender: UIButton) {
         deleteButtonHandler(sender)

@@ -10,9 +10,9 @@ import NKVPhonePicker
 import DropDown
 import SwiftyJSON
 import Alamofire
-//import GoogleSignIn
-//import FBSDKLoginKit
-//import FBSDKCoreKit
+import GoogleSignIn
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class LoginViewController: UIViewController {
     
@@ -155,9 +155,6 @@ class LoginViewController: UIViewController {
         signInUIManage()
         setSwipeGestureToView()
         setupMultipleTapLabel()
-                
-//        GIDSignIn.sharedInstance().delegate = self
-//        GIDSignIn.sharedInstance().presentingViewController = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -175,6 +172,7 @@ class LoginViewController: UIViewController {
     
     // Login and SignUp Button Action
     @IBAction func loginAndSignupButton(_ sender: UIButton){
+        self.view.endEditing(true)
         if sender.tag == 1001 {
             isSignIn = true
             loginEmailTextField.becomeFirstResponder()
@@ -186,56 +184,105 @@ class LoginViewController: UIViewController {
         }
     }
     
-//    // Google Sigin Button Action
-//    @IBAction func googleLoginButtonAction(_ sender: UIButton) {
-//        GIDSignIn.sharedInstance()?.signIn()
-//    }
-//
-//    // FaceBook Login Button Action
-//    @IBAction func facebookLoginButtonAction(_ sender: UIButton) {
-//        //Fb login process
-//        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
-//        fbLoginManager.loginBehavior = .native
-//
-//        fbLoginManager.logOut()
-//        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) -> Void in
-//            if (error == nil){
-//                let fbloginresult : FBSDKLoginManagerLoginResult = result!
-//                if fbloginresult.isCancelled {
-//
-//                }
-//                else if (fbloginresult.declinedPermissions != nil){
-//                    if(fbloginresult.grantedPermissions.contains("email")) {
-//                        self.getFBUserData()
-//                    }
-//                }
-//
-//            }
-//        }
-//    }
-//
-//    func getFBUserData(){
-//        if((FBSDKAccessToken.current()) != nil){
-//            FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"first_name, last_name,email, picture.type(large),gender"]).start(completionHandler: { (connection, result, error) -> Void in
-//                if (error == nil){
-//                    let newResult = result as AnyObject
-//                    let email = newResult["email"] as? String ?? ""
-//                    print("Your Email = \(email)")
-//                    let firstName = newResult["first_name"] as? String ?? ""
-//                    let lastName  = newResult["last_name"] as? String ?? ""
-//                    print(FBSDKAccessToken.current())
-//                    let gender = newResult["gender"] as? String ?? ""
-//                    let id = newResult["id"] as? String ?? ""
-//                    print("the access token is \(FBSDKAccessToken.current().tokenString)")
-//
-//                    let accessToken = FBSDKAccessToken.current().tokenString
-//                    //self.signInUser()
-//
-//                }
-//            })
-//        }
-//    }
-    
+    // Google Sigin Button Action
+    @IBAction func googleLoginButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        GIDSignIn.sharedInstance.signIn(with: GIDConfiguration.init(clientID: myApp.googleClientId), presenting: self) { (userDetail, error) in
+            guard error == nil else { return }
+            guard let userDetails = userDetail else { return }
+            let params: Parameters = [
+                "firstName": userDetails.profile?.givenName ?? "",
+                "lastName": userDetails.profile?.familyName ?? "",
+                "email": userDetails.profile?.email ?? "",
+                "googleId": userDetail?.userID ?? "",
+                "imageUrl": "\(userDetails.profile?.imageURL(withDimension: 320)?.absoluteString ?? "")",
+                "deviceInfo": [
+                    "deviceType": "mobile",
+                    "appVersion": "27",
+                    "deviceToken": (deviceFcmToken ?? "") as String,
+                    "deviceData": "\(UIDevice.modelName)"
+                ]
+            ]
+            showLoading()
+            APIHelper.socialLoginApi(params: params) { (success,response)  in
+                if !success {
+                    dissmissLoader()
+                    let message = response.message
+                    print(message)
+                }else {
+                    dissmissLoader()
+                    let data = response.response["data"]
+                    user = User.init(json: data)
+                    AppManager.shared.token = user?.access_token ?? ""
+                    AppManager.shared.userId = user?.id ?? ""
+                    //                AppUserDefaults.saveObject(self.user?.access_token, forKey: .userAuthToken)
+                    let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
+                    myApp.window?.rootViewController = newVC
+                    let message = response.message
+                    print(message)
+                    GIDSignIn.sharedInstance.signOut()
+                }
+            }
+            
+        }
+    }
+
+    // FaceBook Login Button Action
+    @IBAction func facebookLoginButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        //Fb login process
+        // 1
+        let loginManager = LoginManager()
+//        loginManager.logOut()
+        loginManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
+            guard error == nil else {
+                // Error occurred
+                print(error!.localizedDescription)
+                return
+            }
+            guard let result = result, !result.isCancelled else {
+                print("User cancelled login")
+                return
+            }
+            Profile.loadCurrentProfile { (profile, error) in
+                guard let profile = profile else{return}
+                let params: Parameters = [
+                    "firstName": profile.firstName ?? "",
+                    "lastName": profile.lastName ?? "",
+                    "email": profile.email ?? "",
+                    "googleId": profile.userID,
+                    "imageUrl": profile.imageURL?.absoluteString ?? "",
+                    "deviceInfo": [
+                        "deviceType": "mobile",
+                        "appVersion": "27",
+                        "deviceToken": (deviceFcmToken ?? "") as String,
+                        "deviceData": "\(UIDevice.modelName)"
+                    ]
+                ]
+                showLoading()
+                APIHelper.socialLoginApi(params: params) { (success,response)  in
+                    if !success {
+                        dissmissLoader()
+                        let message = response.message
+                        print(message)
+                    }else {
+                        dissmissLoader()
+                        let data = response.response["data"]
+                        user = User.init(json: data)
+                        AppManager.shared.token = user?.access_token ?? ""
+                        AppManager.shared.userId = user?.id ?? ""
+                        //                AppUserDefaults.saveObject(self.user?.access_token, forKey: .userAuthToken)
+                        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
+                        myApp.window?.rootViewController = newVC
+                        let message = response.message
+                        print(message)
+                        loginManager.logOut()
+                    }
+                }
+            }
+        }
+    }
+
     // Show Calender Button Action
     @IBAction func showCalender(_ sender: UIButton) {
         self.view.endEditing(true)
@@ -289,12 +336,14 @@ class LoginViewController: UIViewController {
     
     // New Register Button Action
     @IBAction func newRegisterButton(_ sender: UIButton) {
+        self.view.endEditing(true)
         isSignIn = false
         signInUIManage()
     }
     
     // Forgot Password Button Action
     @IBAction func forgotPasswordButton(_ sender: UIButton) {
+        self.view.endEditing(true)
         let popOverConfirmVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
         self.addChild(popOverConfirmVC)
         popOverConfirmVC.view.frame = self.view.frame
@@ -305,6 +354,7 @@ class LoginViewController: UIViewController {
     
     // Alerady Login Button Action
     @IBAction func alreadyLoginButton(_ sender: UIButton) {
+        self.view.endEditing(true)
         isSignIn = true
         signInUIManage()
     }
@@ -352,6 +402,7 @@ class LoginViewController: UIViewController {
     
     // Login Button Action
     @IBAction func loginButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if isRememberMeTap {
             AppManager.shared.rememberMeEmail = loginEmailTextField.text ?? ""
             AppManager.shared.rememberMePassword = loginPasswordTextField.text ?? ""
@@ -363,6 +414,7 @@ class LoginViewController: UIViewController {
     
     // SignUp Button Action
     @IBAction func signupButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if signupValidation() {
             self.signUpApi()
         }
@@ -384,6 +436,7 @@ class LoginViewController: UIViewController {
     
     // Label Action
     @objc func tapLabel(gesture: UITapGestureRecognizer) {
+        self.view.endEditing(true)
         if gesture.didTapAttributedTextInLabel(label: termsAndPrivacyLabel, targetText: "Terms of Use") {
             print("Terms of Use")
             let newVC = self.storyboard?.instantiateViewController(withIdentifier: "StaticContentViewController") as! StaticContentViewController
@@ -805,7 +858,6 @@ extension LoginViewController: UITextFieldDelegate {
             if loginPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
                 loginPasswordLabel.isHidden = false
                 loginPasswordLabel.text =  ValidationManager.shared.sPassword
-//                isValidate = false
             } else {
                 loginPasswordLabel.isHidden = true
             }
@@ -817,7 +869,6 @@ extension LoginViewController: UITextFieldDelegate {
             } else if !isValidMobileNumber(mobileNumber: phoneNumberTextField.text ?? "") {
                 phoneNumberLabel.isHidden = false
                 phoneNumberLabel.text =  ValidationManager.shared.sPhoneNumber
-                //                isValidate = false
             }
             else {
                 phoneNumberLabel.isHidden = true
@@ -826,7 +877,6 @@ extension LoginViewController: UITextFieldDelegate {
             if firstNameTextField.text?.trimmingCharacters(in: .whitespaces).count ?? 0 < 3 {
                 firstNameLabel.isHidden = false
                 firstNameLabel.text =  ValidationManager.shared.sFirstName
-                //                isValidate = false
             } else {
                 firstNameLabel.isHidden = true
             }
@@ -834,7 +884,6 @@ extension LoginViewController: UITextFieldDelegate {
             if lastNameTextField.text?.trimmingCharacters(in: .whitespaces).count ?? 0 < 3 {
                 lastNameLabel.isHidden = false
                 lastNameLabel.text =  ValidationManager.shared.sLastName
-                //                isValidate = false
             } else {
                 lastNameLabel.isHidden = true
             }
@@ -843,11 +892,9 @@ extension LoginViewController: UITextFieldDelegate {
             if emailAddressTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
                 emailLabel.isHidden = false
                 emailLabel.text =  ValidationManager.shared.sEmail
-                //                isValidate = false
             } else if !isValidEmail(emailAddressTextField.text ?? "") {
                 emailLabel.isHidden = false
                 emailLabel.text =  ValidationManager.shared.sEmailInvalid
-                //                isValidate = false
             }
             else {
                 emailLabel.isHidden = true
@@ -857,11 +904,9 @@ extension LoginViewController: UITextFieldDelegate {
             if signUpPasswordTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
                 passwordLabel.isHidden = false
                 passwordLabel.text =  ValidationManager.shared.emptyPassword
-                //                isValidate = false
             } else if !isValidPassword(mypassword: signUpPasswordTextField.text ?? "") {
                 passwordLabel.isHidden = false
                 passwordLabel.text =  ValidationManager.shared.sPassword
-                //                isValidate = false
             }
             else {
                 passwordLabel.isHidden = true
@@ -871,7 +916,6 @@ extension LoginViewController: UITextFieldDelegate {
             if genderTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
                 genderLabel.isHidden = false
                 genderLabel.text =  ValidationManager.shared.sGender
-                //                isValidate = false
             } else {
                 genderLabel.isHidden = true
             }
@@ -880,7 +924,6 @@ extension LoginViewController: UITextFieldDelegate {
             if dateOfBirthTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
                 dateOFBirthLabel.isHidden = false
                 dateOFBirthLabel.text =  ValidationManager.shared.sDateOfBirth
-                //                isValidate = false
             } else {
                 dateOFBirthLabel.isHidden = true
             }            
@@ -927,62 +970,3 @@ extension LoginViewController: UITextFieldDelegate {
         }
     }
 }
-
-//extension LoginViewController :GIDSignInDelegate {
-//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-//
-//        if let error = error {
-//            DispatchQueue.main.async {
-//                dissmissLoader()
-//            }
-//            alertOk(title: "Google Signin", message: error.localizedDescription, cancelButton: "OK", vc: self, cancelHandler: nil)
-//            return
-//        }
-//
-//        let email = user.profile?.email ?? ""
-//        let firstName = user.profile?.givenName ?? " "
-//        let lastName = user.profile?.familyName ?? " "
-//        let picture = user.profile?.imageURL(withDimension: 400)?.absoluteString
-//
-//        print("email   ",email,"firstName   ",firstName,"lastName   ",lastName,"picture   ",picture )
-//        /*UserDefaults.standard.set(firstName, forKey: "firstName")
-//         UserDefaults.standard.set(lastName, forKey: "lastName")
-//         UserDefaults.standard.set(picture, forKey: "picture")*/
-//        showLoading()
-//        self.continueGoogleSignIn(user:user, email: email, firstName: firstName, lastName: lastName, photoURL: picture ?? "")
-//    }
-//
-//    func continueGoogleSignIn(user: GIDGoogleUser, email: String, firstName: String, lastName: String, photoURL: String) {
-//        guard let authentication = user.authentication else { return }
-//        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-//                                                       accessToken: authentication.accessToken)
-//        showLoading()
-//        Auth.auth().signIn(with: credential) { (authResult, error) in
-//
-//            if let error = error {
-//                DispatchQueue.main.async {
-//                    dissmissLoader()
-//                }
-//                if let errorCode = AuthErrorCode(rawValue: error._code) {
-//                    if errorCode == AuthErrorCode.accountExistsWithDifferentCredential {
-//                        //self.alertForOtherCredential(email: email)
-//                        alertOk(title: "Google Signin", message: error.localizedDescription, cancelButton: "OK",vc: self, cancelHandler: nil)
-//                    } else {
-//                        alertOk(title: "Google Signin", message: error.localizedDescription, cancelButton: "OK", vc: self, cancelHandler: nil)
-//                    }
-//                    return
-//                }
-//            }
-//            self.socialType = "Google"
-//            self.socialId = ""
-//            self.doSignIn(user: authResult?.user, firstName: firstName, lastName: lastName, photoURL: photoURL)
-//        }
-//    }
-//
-//    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-//        // Perform any operations when the user disconnects from app here.
-//        DispatchQueue.main.async {
-//            dissmissLoader()
-//        }
-//    }
-//}

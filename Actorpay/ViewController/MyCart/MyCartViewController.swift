@@ -24,7 +24,11 @@ class MyCartViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var priceView: UIView!
+    @IBOutlet weak var priceView: UIView! {
+        didSet{
+            topCornerWithShadow(bgView: priceView, maskToBounds: false)
+        }
+    }
     @IBOutlet weak var emptyMessageView: UIView!
     @IBOutlet weak var subTotalLbl: UILabel!
     @IBOutlet weak var igstLbl: UILabel!
@@ -60,9 +64,9 @@ class MyCartViewController: UIViewController {
     
     // Set Cart Data
     func setCartData() {
-        subTotalLbl.text = "\(cartList?.totalTaxableValue ?? 0.0)"
-        igstLbl.text = "\((cartList?.totalCgst ?? 0.0) + (cartList?.totalSgst ?? 0.0))"
-        totalLbl.text = "\(cartList?.totalPrice ?? 0.0)"
+        subTotalLbl.text = cartList?.totalTaxableValue?.doubleToStringWithComma()
+        igstLbl.text = ((cartList?.totalCgst ?? 0.0) + (cartList?.totalSgst ?? 0.0)).doubleToStringWithComma()
+        totalLbl.text = cartList?.totalPrice?.doubleToStringWithComma()
     }
     
 }
@@ -146,7 +150,8 @@ extension MyCartViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCartTableViewCell", for: indexPath) as! MyCartTableViewCell
         cell.productTitleLabel.text = cartList?.cartItemDTOList?[indexPath.row].productName
-        cell.productPriceLabel.text = "Price ₹\(cartList?.cartItemDTOList?[indexPath.row].productPrice ?? 0) (Including 18.0% gst)"
+        cell.productPriceLabel.text = "Price ₹\(cartList?.cartItemDTOList?[indexPath.row].productPrice?.doubleToStringWithComma() ?? "") (Including \(cartList?.cartItemDTOList?[indexPath.row].taxPercentage ?? 0)% gst)"
+        cell.productImageView.sd_setImage(with: URL(string: cartList?.cartItemDTOList?[indexPath.row].image ?? ""),placeholderImage: UIImage(named: "NewLogo"), completed: nil)
         var count = self.cartList?.cartItemDTOList?[indexPath.row].productQty ?? 0
         cell.productQuntityLabel.text = "\(count)"
         let cartItemId = self.cartList?.cartItemDTOList?[indexPath.row].cartItemId ?? ""

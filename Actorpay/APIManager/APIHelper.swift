@@ -23,6 +23,18 @@ final class APIHelper {
         }
     }
     
+    //MARK: Social Login Api
+    static func socialLoginApi(params: Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ){
+        APIManager.shared.request(method: .post, url: APIEndPoint.socialLogin.rawValue, parameters: params) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
+    
     //MARK: SignUp Api
     static func registerUser(params: Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ){
         APIManager.shared.request(method: .post, url: APIEndPoint.register.rawValue, parameters: params) { (response) in
@@ -95,9 +107,21 @@ final class APIHelper {
         }
     }
     
+    //MARK: Get All Category Api
+    static func getAllCategoriesAPI(parameters: Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){
+        APIManager.shared.getMethod(url: APIEndPoint.getAllCategories.rawValue, parameters: parameters) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
+    
     //MARK: Product List Api
-    static func productListApi(params: Parameters , success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){
-        APIManager.shared.request2(method: .post, url: APIEndPoint.productListApi.rawValue, parameters: params) { (response) in
+    static func productListApi(params: Parameters, bodyParameter:Parameters, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){
+        APIManager.shared.requestWithParameters(method: .post,url: APIEndPoint.productListApi.rawValue, parameters: params, bodyParameter: bodyParameter) { (response) in
             let status = response.response["status"]
             if status == "200" {
                 success(true, response)
@@ -179,7 +203,7 @@ final class APIHelper {
         }
     }
     
-    //MARK: SignUp Api
+    //MARK: - SignUp Api -
     static func addAddressAPI(params: Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ){
         APIManager.shared.request2(method: .post, url: APIEndPoint.addAddress.rawValue, parameters: params) { (response) in
             let status = response.response["status"]
@@ -191,6 +215,17 @@ final class APIHelper {
         }
     }
     
+    //MARK: - Verify OTP Api -
+    static func verifyOTPAPI(params: Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ){
+        APIManager.shared.requestWithParameters(method: .post, url: APIEndPoint.verifyOTP.rawValue, parameters: params, bodyParameter: [:]) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
     
     
     //MARK: Get All Order List Api
@@ -216,18 +251,17 @@ final class APIHelper {
             }
         }
     }
-    
-    //MARK: Cancel Or Return Order Api
-//    static func cancelOrReturnOrderApi(params: Parameters, orderNo: String, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){
-//        APIManager.shared.request2(method: .post, url: APIEndPoint.cancelOrReturnOrder.rawValue+"\(orderNo)", parameters: params) { (response) in
-//            let status = response.response["status"]
-//            if status == "200" {
-//                success(true, response)
-//            }else {
-//                success(false, response)
-//            }
-//        }
-//    }
+    //MARK: - Cancel Or Return Order Api -
+    static func getOTPRequestAPI(success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){
+        APIManager.shared.getMethod(url: APIEndPoint.sendOTP.rawValue) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
     
     //MARK: Cancel Or Return Order Api
     static func cancelOrReturnOrderApi(params: Parameters, imgData: Data?, imageKey: String,orderNo: String, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){

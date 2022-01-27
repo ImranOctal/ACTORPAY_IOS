@@ -27,10 +27,8 @@ class AddMoneyViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }
-    
-    
+        
     //MARK:- Selectors -
-    
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)

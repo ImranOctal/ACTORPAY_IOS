@@ -33,6 +33,7 @@ class DTHRechageViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func rechageNowButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
     }
 }
 

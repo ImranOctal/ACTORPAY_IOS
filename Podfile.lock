@@ -18,6 +18,12 @@ PODS:
     - FBSDKCoreKit (= 12.2.1)
   - FBSDKShareKit (12.2.1):
     - FBSDKCoreKit (= 12.2.1)
+  - GoogleMaps (5.2.0):
+    - GoogleMaps/Maps (= 5.2.0)
+  - GoogleMaps/Base (5.2.0)
+  - GoogleMaps/Maps (5.2.0):
+    - GoogleMaps/Base
+  - GooglePlaces (5.1.0)
   - GoogleSignIn (6.1.0):
     - AppAuth (~> 1.4)
     - GTMAppAuth (~> 1.0)
@@ -34,6 +40,7 @@ PODS:
   - SDWebImage (5.12.1):
     - SDWebImage/Core (= 5.12.1)
   - SDWebImage/Core (5.12.1)
+  - SVPullToRefresh (0.4.1)
   - SwiftyJSON (5.0.1)
   - Toast-Swift (5.0.1)
 
@@ -44,12 +51,15 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - GoogleMaps
+  - GooglePlaces
   - GoogleSignIn
   - IQKeyboardManagerSwift
   - MBProgressHUD (~> 1.1.0)
   - NKVPhonePicker
   - PopupDialog
   - SDWebImage (~> 5.0)
+  - SVPullToRefresh
   - SwiftyJSON
   - Toast-Swift (~> 5.0.1)
 
@@ -65,6 +75,8 @@ SPEC REPOS:
     - FBSDKCoreKit_Basics
     - FBSDKLoginKit
     - FBSDKShareKit
+    - GoogleMaps
+    - GooglePlaces
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
@@ -73,6 +85,7 @@ SPEC REPOS:
     - NKVPhonePicker
     - PopupDialog
     - SDWebImage
+    - SVPullToRefresh
     - SwiftyJSON
     - Toast-Swift
 
@@ -87,6 +100,8 @@ SPEC CHECKSUMS:
   FBSDKCoreKit_Basics: a6a92ca628e05f86f458a4721574c5ddfb058ba3
   FBSDKLoginKit: 7467b7f988ca4fdf48f12a839bcfce4264752429
   FBSDKShareKit: 25fe0e2cd0811918e5b5b1603cb3fc580154cc48
+  GoogleMaps: 025272d5876d3b32604e5c080dc25eaf68764693
+  GooglePlaces: c57cd5aa7e91d10fa5106c792de74f3bd6436260
   GoogleSignIn: c90b5bec45e780f54c6a8e1e3c182a86e3dda69d
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
@@ -95,9 +110,10 @@ SPEC CHECKSUMS:
   NKVPhonePicker: c71b3e8e53ce74e0b4e4d5c5adf54cbb3dd16fd8
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 380d8df7175e3ea0752f778be168eab5bd75ead4
+PODFILE CHECKSUM: 7b1c57bfdfeedb2075960855c539d4deae09cb1b
 
 COCOAPODS: 1.11.2

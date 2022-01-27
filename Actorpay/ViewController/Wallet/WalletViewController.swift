@@ -30,6 +30,9 @@ class WalletViewController: UIViewController {
         tableView.dataSource = self
         tableViewHeightManage()
         self.getUserWalletDetailsApi()
+        tableView.addPullToRefresh {
+            self.getUserWalletDetailsApi()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +41,11 @@ class WalletViewController: UIViewController {
         selectedTabIndex = self.tabBarController?.selectedIndex ?? 0
     }
     
+    @IBAction func addMoneyButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddMoneyViewController") as! AddMoneyViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     //MARK:- Helper Functions -
     
@@ -60,15 +68,18 @@ extension WalletViewController {
         ]
         showLoading()
         APIHelper.getUserWalletDetailsApi(params: params) { (success, response) in
+            self.tableView.pullToRefreshView.stopAnimating()
             if !success {
                 dissmissLoader()
                 let message = response.message
+                print(message)
 //                myApp.window?.rootViewController?.view.makeToast(message)
             }else {
                 dissmissLoader()
                 let data = response.response["data"]
                 self.walletData = Wallet.init(json: data)
                 let message = response.message
+                print(message)
 //                myApp.window?.rootViewController?.view.makeToast(message)
                 self.tableView.reloadData()
             }
@@ -86,6 +97,7 @@ extension WalletViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WalletStatementTableViewCell", for: indexPath) as! WalletStatementTableViewCell
+        cell.clearSelectedBackGround()
         return cell
     }    
 }

@@ -35,7 +35,7 @@ class FilterOrderViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        statusData = ["Success","Failed","Pending","Cancelled"]
+        statusData = ["SUCCESS","READY","CANCELLED","PARTIALLY CANCELLED","DISPATCHED","RETURNING","PARTIALLY RETURNING","RETURNED","PARTIALLY RETURNED","DELIVERED","PENDING","FAILURE"]
         topCorner(bgView: filterView, maskToBounds: true)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         self.showAnimate()
@@ -49,6 +49,7 @@ class FilterOrderViewController: UIViewController {
     
     // Close Button Action
     @IBAction func closeButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         removeAnimate()
         if let codeCompletion = completion {
             codeCompletion(filterOrderParm)
@@ -58,6 +59,7 @@ class FilterOrderViewController: UIViewController {
     
     // Reset Button Action
     @IBAction func resetButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         orderNoTextField.text = ""
         merchantNameTextField.text = ""
         totalAmountTextField.text = ""
@@ -69,6 +71,7 @@ class FilterOrderViewController: UIViewController {
     
     // Apply Button Action
     @IBAction func applyButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         let param : Parameters = [
             "totalPrice":totalAmountTextField.text ?? "",
             "merchantName": merchantNameTextField.text ?? "",
@@ -91,6 +94,7 @@ class FilterOrderViewController: UIViewController {
     
     // Status Button Acction
     @IBAction func statusButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         orderStatusDropDown.show()
     }
     
@@ -156,6 +160,7 @@ class FilterOrderViewController: UIViewController {
     
     // FromTextField DatePicker Done Button Action
     @objc func fromTxtFieldDoneDatePicker(){
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         startDateTextField.text = formatter.string(from: startDatePicker.date)
@@ -192,6 +197,7 @@ class FilterOrderViewController: UIViewController {
             self.view.alpha = 0.0;
         }, completion:{(finished : Bool)  in
             if (finished){
+                self.view.endEditing(true)
                 self.view.removeFromSuperview()
             }
         });

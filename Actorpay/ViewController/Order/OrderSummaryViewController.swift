@@ -21,15 +21,23 @@ class OrderSummaryViewController: UIViewController {
     @IBOutlet weak var orderDateAndTimeLbl: UILabel!
     @IBOutlet weak var orderAmountLbl: UILabel!
     @IBOutlet weak var orderNumberLbl: UILabel!
-    @IBOutlet weak var deliveryAddressLbl: UILabel!
-    @IBOutlet weak var shopNameLbl: UILabel!
+    @IBOutlet weak var addressLine1Lbl: UILabel!
+    @IBOutlet weak var addressLine2Lbl: UILabel!
+    @IBOutlet weak var countryAndCityLbl: UILabel!
+    @IBOutlet weak var licenceNoLbl: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var contactNoLbl: UILabel!
+    @IBOutlet weak var note1Lbl: UILabel!
+    @IBOutlet weak var note2Lbl:UILabel!
+    @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var buttonAction: UIButton!
-    
+    @IBOutlet weak var statusLbl: UILabel!
+    @IBOutlet weak var orderStatusView: UIView!
     
     var orderNo = ""
     var orderItems: OrderItems?
-    var productImage = UIImage(named:"")
     var isPlaceOrder = false
+    
     //MARK: - Life Cycles -
 
     override func viewDidLoad() {
@@ -40,12 +48,15 @@ class OrderSummaryViewController: UIViewController {
         topCorner(bgView: bgView, maskToBounds: true)
         self.setUpTableView()
         self.getOrderDetailsApi()
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("getOrderDetailsApi"), object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(self.getOrderDetailsApi),name:Notification.Name("getOrderDetailsApi"), object: nil)
     }
     
     //MARK: - Selectors -
     
     //Back Button Action
     @IBAction func backBtnAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -77,10 +88,18 @@ class OrderSummaryViewController: UIViewController {
     // Set Order Details Data
     func setUpOrderDetailsData() {
         orderAmountLbl.text = "₹\(orderItems?.totalPrice ?? 0.0)"
-        orderNumberLbl.text = "Order Number: \(orderItems?.orderNo ?? "")"
-        orderDateAndTimeLbl.text = "Order Date & Time: \(orderItems?.createdAt ?? "")"
-        shopNameLbl.text = "\(orderItems?.customer?.firstName ?? "") \(orderItems?.customer?.lastName ?? "")"
-        deliveryAddressLbl.text = "\(orderItems?.shippingAddressDTO?.addressLine1 ?? "")\n\(orderItems?.shippingAddressDTO?.addressLine2 ?? "")\n\(orderItems?.shippingAddressDTO?.city ?? "")\n\(orderItems?.shippingAddressDTO?.country ?? "")"
+        orderNumberLbl.text = orderItems?.orderNo ?? ""
+        orderDateAndTimeLbl.text = "Order Date & Time: \(orderItems?.createdAt?.toFormatedDate(from: "yyyy-MM-dd hh:mm", to: "dd MMM yyyy HH:MM") ?? "")"
+        addressLine1Lbl.text = orderItems?.shippingAddressDTO?.addressLine1 ?? ""
+        addressLine2Lbl.text = orderItems?.shippingAddressDTO?.addressLine2 ?? ""
+        countryAndCityLbl.text = "\(orderItems?.shippingAddressDTO?.city ?? "")\n\(orderItems?.shippingAddressDTO?.country ?? "")"
+        emailLabel.text = orderItems?.merchantDTO?.email ?? ""
+        licenceNoLbl.text = orderItems?.merchantDTO?.licenceNumber ?? ""
+        contactNoLbl.text = orderItems?.merchantDTO?.contactNumber ?? ""
+        businessNameLabel.text = orderItems?.merchantDTO?.businessName
+        statusLbl.text = orderItems?.orderStatus ?? ""
+        orderStatusView.layer.borderColor = getStatus(stausString: orderItems?.orderStatus ?? "").cgColor
+        statusLbl.textColor = getStatus(stausString: orderItems?.orderStatus ?? "")
     }
     
 }
@@ -91,7 +110,7 @@ class OrderSummaryViewController: UIViewController {
 extension OrderSummaryViewController {
     
     // get Order Details Api
-    func getOrderDetailsApi() {
+    @objc func getOrderDetailsApi() {
         showLoading()
         APIHelper.getOrderDetailsApi(orderNo: orderNo) { (success, response) in
             if !success {
@@ -105,36 +124,13 @@ extension OrderSummaryViewController {
                 let message = response.message
 //                myApp.window?.rootViewController?.view.makeToast(message)
                 print(message)
-                self.tblViewHeightConst.constant = CGFloat(103 * (self.orderItems?.orderItemDtos?.count ?? 0))
+                self.tblViewHeightConst.constant = CGFloat(120 * (self.orderItems?.orderItemDtos?.count ?? 0))
                 self.setUpOrderDetailsData()
                 self.tblView.reloadData()
             }
         }
     }
     
-    // Cancel Or Return Order Api
-    func cancelOrReturnOrderApi(orderNo: String) {
-        var imgData: Data?
-        let params: Parameters = [
-                "cancellationType":"RETURNING",
-                "cancelReason":"Damaged Product"
-        ]
-        if productImage != nil {
-            imgData = self.productImage?.jpegData(compressionQuality: 0.1)
-        }
-        showLoading()
-        APIHelper.cancelOrReturnOrderApi(params:params, imgData: imgData, imageKey: "file", orderNo: orderNo) { (success, response) in
-            if !success {
-                dissmissLoader()
-                let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
-            }else {
-                dissmissLoader()
-                let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
-            }
-        }
-    }
 }
 
 //MARK: Table View SetUp
@@ -147,13 +143,18 @@ extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItemTableViewCell", for: indexPath) as! OrderItemTableViewCell
         let item = orderItems?.orderItemDtos?[indexPath.row]
-        cell.titleLbl.text = item?.productName
-        cell.qtyLbl.text = "Quantity: \(item?.productQty ?? 0)"
-        cell.priceLbl.text = "Price: ₹\(item?.totalPrice ?? 0.0)"
-        cell.imgView.sd_setImage(with: URL(string: item?.image ?? ""), placeholderImage: UIImage(named: "logo"), options: SDWebImageOptions.allowInvalidSSLCertificates, completed: nil)
+        cell.item = item
+        cell.menuButtonHandler = {
+            cell.cancelOrderDropDown.show()
+        }
+        cell.cancelOrderHandler = {
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "CancelOrderViewController") as! CancelOrderViewController
+            newVC.orderItems = self.orderItems
+            newVC.orderItemDtos = item
+            self.navigationController?.pushViewController(newVC, animated: true)
+        }
         return cell
     }
-    
     
 }
 
@@ -161,7 +162,7 @@ extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource
 extension OrderSummaryViewController: CustomAlertDelegate {
     
     func okButtonclick() {
-        cancelOrReturnOrderApi(orderNo: orderItems?.orderNo ?? "")
+        "Print Cancel Order Button Tapped"
     }
     
     func cancelButtonClick() {

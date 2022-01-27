@@ -44,6 +44,7 @@ class RemittanceViewController: UIViewController {
     let countryDropDown = DropDown()
     let nameDropDown = DropDown()
     let branchDropDown = DropDown()
+    var selectedIndex = 0
     
     //MARK:- Life Cycle Function -
     
@@ -66,11 +67,28 @@ class RemittanceViewController: UIViewController {
     // Back Button Action
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        self.navigationController?.popViewController(animated: true)
+        if selectedIndex == 1 {
+            print("Last")
+            selectedIndex = 0
+            isFirst = true
+            isSecond = false
+            isThird = false
+            setupPageControlview()
+        }else if selectedIndex == 2 {
+            print("Middle")
+            selectedIndex = 1
+            isFirst = false
+            isSecond = true
+            isThird = false
+            setupPageControlview()
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     // Cart Button Action
     @IBAction func cartButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
         self.navigationController?.pushViewController(newVC, animated: true)
     }
@@ -79,17 +97,20 @@ class RemittanceViewController: UIViewController {
     @IBAction func nextButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         if sender.tag == 1001 {
-            if !chooseCountryValidationView() {
-                return
-            }
+//            if !chooseCountryValidationView() {
+//                return
+//            }
+            selectedIndex = 1
             isFirst = false
             isSecond = true
             isThird = false
             setupPageControlview()
+            
         }else {
-            if !amountValidationView() {
-                return
-            }
+//            if !amountValidationView() {
+//                return
+//            }
+            selectedIndex = 2
             isFirst = false
             isSecond = false
             isThird = true
@@ -101,9 +122,9 @@ class RemittanceViewController: UIViewController {
     @IBAction func payNowButtonAction(_ sender: UIButton) {
         //Pay Now Button Action
         self.view.endEditing(true)
-        if !baneficiaryValidationView() {
-            return
-        }
+//        if !baneficiaryValidationView() {
+//            return
+//        }
     }
     
     // Choose Country Drop Down Button Action

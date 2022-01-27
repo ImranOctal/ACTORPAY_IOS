@@ -41,12 +41,14 @@ class ForgotPasswordViewController: UIViewController {
     
     // CAncel Button Action
     @IBAction func cancelButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         removeAnimate()
         self.dismiss(animated: true, completion: nil)
     }
     
     // Ok Button Action
     @IBAction func okButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if forgotPasswordValidation() {
             emailErrorView.isHidden = true
             self.forgotPasswordApi()

@@ -42,22 +42,18 @@ class TabBarRootViewController: UIViewController {
         if selectedTabTag == 0 {
             titleLabel.isHidden = true
             titleLabelStackView.isHidden = false
-            rightSideButton.setImage(#imageLiteral(resourceName: "shopping-cart"), for: .normal)
         }else if selectedTabTag == 1 {
-            rightSideButton.setImage(#imageLiteral(resourceName: "shopping-cart"), for: .normal)
             titleLabel.isHidden = false
             titleLabelStackView.isHidden = true
             titleLabel.text = "Transaction History"
         }else if selectedTabTag == 3 {
             titleLabel.text = "Wallet"
             titleLabelStackView.isHidden = true
-            rightSideButton.isHidden = true
             titleLabel.isHidden = false
         }else if selectedTabTag == 4{
             titleLabel.text = "My Profile"
             titleLabelStackView.isHidden = true
             titleLabel.isHidden = false
-            rightSideButton.isHidden = true
         }
     }
     
@@ -75,6 +71,7 @@ class TabBarRootViewController: UIViewController {
     
     @objc private func menuButtonAction(sender: UIButton) {
 //        selectedIndex = 2
+        self.view.endEditing(true)
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -113,6 +110,7 @@ extension TabBarRootViewController: UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.view.endEditing(true)
         collectionView.deselectItem(at: indexPath, animated: true)
         switch indexPath.row {
         case 0:

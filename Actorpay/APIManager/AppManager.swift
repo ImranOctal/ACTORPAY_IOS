@@ -82,6 +82,16 @@ class AppManager {
         }
     }
     
+    var selectedSortIndex: Int {
+        get {
+            let selectedSortIndex =  AppUserDefaults.getSavedObject(forKey: .selectedSortIndex) as? Int
+            return selectedSortIndex ?? 0
+        }
+        set(selectedSortIndex) {
+            AppUserDefaults.saveObject(selectedSortIndex, forKey: .selectedSortIndex)
+        }
+    }
+    
 }
 
 class AppUserDefaults {
@@ -105,4 +115,5 @@ enum UserDefaultsConstant: String {
     case countryCode = "countryCode"
     case countryName = "countryName"
     case countryFlag = "countryFlag"
+    case selectedSortIndex = "selectedSortIndex"
 }

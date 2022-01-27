@@ -12,14 +12,25 @@ class MyOrderCell: UITableViewCell {
     
     @IBOutlet weak var orderNoLbl: UILabel!
     @IBOutlet weak var totalPriceLbl: UILabel!
-    @IBOutlet weak var statusBtn: UIButton!
+    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var orderDateLbl: UILabel!
-    @IBOutlet weak var businessNameLbl: UILabel!
-    @IBOutlet weak var emailLbl: UILabel!
-    @IBOutlet weak var phoneLbl: UILabel!
     @IBOutlet weak var imgCollectionView: UICollectionView!
+    @IBOutlet weak var orderStatusView: UIView!
     
     var orderItemDtos: [OrderItemDtos]?
+    var item: OrderItems? {
+        didSet {
+            if let item = self.item {
+                orderNoLbl.text = item.orderNo
+                totalPriceLbl.text = "Price: ₹\((item.totalPrice ?? 0.0).doubleToStringWithComma())"
+                statusLabel.text = item.orderStatus ?? ""
+                orderDateLbl.text = "Order Date:\(item.createdAt?.toFormatedDate(from: "yyyy-MM-dd hh:mm", to: "dd MMM yyyy HH:MM") ?? "")"
+                orderItemDtos = item.orderItemDtos
+                orderStatusView.layer.borderColor = getStatus(stausString: item.orderStatus ?? "").cgColor
+                statusLabel.textColor = getStatus(stausString: item.orderStatus ?? "")
+            }
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,7 +59,7 @@ extension MyOrderCell: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "orderImgCollectionViewCell", for: indexPath) as! orderImgCollectionViewCell
-        cell.imgView.sd_setImage(with: URL(string: orderItemDtos?[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "logo"), options: SDWebImageOptions.allowInvalidSSLCertificates, completed: nil)
+        cell.imgView.sd_setImage(with: URL(string: orderItemDtos?[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "NewLogo"), options: SDWebImageOptions.allowInvalidSSLCertificates, completed: nil)
         return cell
     }
     
@@ -58,12 +69,16 @@ extension MyOrderCell: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         }
         else if orderItemDtos?.count == 2 {
             return CGSize(width: (collectionView.frame.size.width-2.5) / 2, height: (collectionView.frame.size.width))
-        } else {
+        }
+        else if orderItemDtos?.count == 3 {
             if indexPath.row == 2 {
                 return CGSize(width: (collectionView.frame.size.width) , height: (collectionView.frame.size.width-2.5) / 2)
             }else {
                 return CGSize(width: (collectionView.frame.size.width - 2.5) / 2 , height: (collectionView.frame.size.width-2.5) / 2)
             }
+        }
+        else {
+            return CGSize(width: (collectionView.frame.size.width-2.5) / 2, height: (collectionView.frame.size.width-2.5)/2)
         }
         
     }

@@ -35,10 +35,12 @@ class WalletStatementViewController: UIViewController {
     
     // Menu Button Action
     @IBAction func menuButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         self.sideMenuViewController?.presentLeftMenuViewController()
     }
     
     @IBAction func filterButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         let popOverConfirmVC = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController") as! FilterViewController
         self.addChild(popOverConfirmVC)
         popOverConfirmVC.view.frame = self.view.frame

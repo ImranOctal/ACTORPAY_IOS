@@ -25,7 +25,10 @@ class ManageAddressViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        tblView.addPullToRefresh {
+            self.page = 0
+            self.getAllShippingAddressListApi()
+        }
         self.tblView.dataSource = self
         self.tblView.delegate = self
         self.getAllShippingAddressListApi()        
@@ -37,11 +40,13 @@ class ManageAddressViewController: UIViewController {
     
     //Back Button Action
     @IBAction func backBtnAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)
     }
     
     // Add Address Button ACtion
     @IBAction func addAddresssButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -59,6 +64,7 @@ class ManageAddressViewController: UIViewController {
         print(params)
         showLoading()
         APIHelper.getAllShippingAddressApi(parameters: params) { (success, response) in
+            self.tblView.pullToRefreshView?.stopAnimating()
             if !success {
                 dissmissLoader()
                 let message = response.message
@@ -106,6 +112,11 @@ class ManageAddressViewController: UIViewController {
 //MARK: Table View Setup
 extension ManageAddressViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.addressListItems.count == 0 {
+            tableView.setEmptyMessage("No Found Data")
+        }else{
+            tableView.restore()
+        }
         return self.addressListItems.count
     }
     

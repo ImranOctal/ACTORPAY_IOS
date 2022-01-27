@@ -44,6 +44,7 @@ class IntroScreenViewController: UIViewController {
     
     // Next Button Action
     @IBAction func nextBtnAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if(selectedindex >= 4) {
             print("")
         } else {
@@ -54,6 +55,7 @@ class IntroScreenViewController: UIViewController {
     
     // Previous Button Action
     @IBAction func previousBtnAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if(selectedindex <= 0) {
             print("")
         } else {
@@ -64,12 +66,14 @@ class IntroScreenViewController: UIViewController {
     
     // Skip Button Action
     @IBAction func skipBtnAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as! UINavigationController
         myApp.window?.rootViewController = newVC
     }
     
     // Get Started Button Action
     @IBAction func getStartedButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as! UINavigationController
         myApp.window?.rootViewController = newVC
     }

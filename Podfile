@@ -15,13 +15,15 @@ target 'Actorpay' do
   pod 'DropDown'
   pod 'AKSideMenu'
   pod 'MBProgressHUD', '~> 1.1.0'
-#  pod 'SwiftQRScanner'
+  pod 'SVPullToRefresh'
   pod 'PopupDialog'
   pod 'Toast-Swift', '~> 5.0.1'
   pod 'GoogleSignIn'
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 
 
   target 'ActorpayTests' do

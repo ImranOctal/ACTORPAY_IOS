@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class FilterViewController: UIViewController {
     
@@ -17,17 +18,19 @@ class FilterViewController: UIViewController {
     @IBOutlet weak var mainViewHeightConst: NSLayoutConstraint!
     
     var sortByArr: [String] = []
+    var selectedIndex: Int = 0
+    typealias comp = ((_ params: Parameters?) -> ())
+    var completion:comp?
+    var filterparm: Parameters?
     
     //MARK: - Life Cycles -
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         topCorner(bgView: filterView, maskToBounds: true)
         sortByArr = ["Price Low to High","Price High To Low","Discount Low to High","Discount High To Low"]
-        tblViewHeightConst.constant = CGFloat(sortByArr.count * 50)
-        mainViewHeightConst.constant = CGFloat(sortByArr.count * 60)+100
+        tblViewHeightConst.constant = CGFloat(sortByArr.count * 60)
+        mainViewHeightConst.constant = CGFloat(sortByArr.count * 60)+50
         self.setUpTblView()
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         self.showAnimate()
@@ -37,6 +40,7 @@ class FilterViewController: UIViewController {
     
     // Close Button Action
     @IBAction func closeBtnAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         removeAnimate()
         self.dismiss(animated: true, completion: nil)
     }
@@ -66,10 +70,19 @@ class FilterViewController: UIViewController {
             self.view.alpha = 0.0;
         }, completion:{(finished : Bool)  in
             if (finished){
+                self.view.endEditing(true)
                 self.view.removeFromSuperview()
             }
         });
     }
+//    func getSortParam(index: Int) -> String{
+//        switch index {
+//        case 0:
+//            return ""
+//        default:
+//            break
+//        }
+//    }
     
     // View End Editing
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -92,11 +105,27 @@ extension FilterViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SortByTableViewCell", for: indexPath) as! SortByTableViewCell
         cell.titleLbl.text = sortByArr[indexPath.row]
+        if (AppManager.shared.selectedSortIndex == indexPath.row) {
+            cell.tickBtn.isHidden = false
+        } else {
+            cell.tickBtn.isHidden = true
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-    
+        tableView.deselectRow(at: indexPath, animated: true)
+        selectedIndex = indexPath.row
+        let param : Parameters = [
+            "sortBy":"dealPrice",
+            "asc": indexPath.row == 0 ? true : false
+        ]
+        AppManager.shared.selectedSortIndex = indexPath.row
+        if let codeCompletion = completion {
+            codeCompletion(param)
+            removeAnimate()
+            self.dismiss(animated: true, completion: nil)
+        }        
+        tableView.reloadData()
+    }    
 }

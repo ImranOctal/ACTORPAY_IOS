@@ -30,11 +30,13 @@ class MoreViewController: UIViewController {
     
     // Menu Button Action
     @IBAction func menuButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         self.sideMenuViewController?.presentLeftMenuViewController()
     }
     
     // Cart Button Action
     @IBAction func cartButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
         self.navigationController?.pushViewController(newVC, animated: true)
     }

@@ -34,16 +34,18 @@ class FAQViewController: UIViewController {
     
     // Cart Button Action
     @IBAction func cartButtonAction(_ sender : UIButton) {
+        self.view.endEditing(true)
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
         self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     // Back Button Action
     @IBAction func backButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)
     }
     
-    //MARK: - Helper function
+    //MARK: - Helper function -
     
     // setTableview
     func setUpTableView() {
@@ -67,6 +69,7 @@ extension FAQViewController {
             if !success {
                 dissmissLoader()
                 let message = response.message
+                print(message)
 //                myApp.window?.rootViewController?.view.makeToast(message)
             }else {
                 dissmissLoader()
@@ -95,10 +98,16 @@ extension FAQViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FaqCollapseTableViewCell", for: indexPath) as! FaqCollapseTableViewCell
             cell.titleLbl.text = faqList[indexPath.section].question
             faqList[indexPath.section].sectionIsExpended ? cell.setExpented() : cell.setCollpased()
+            let view = UIView()
+            view.backgroundColor = .clear
+            cell.selectedBackgroundView = view
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FaqExpandTableViewCell", for: indexPath) as! FaqExpandTableViewCell
             cell.descLbl.text = faqList[indexPath.section].answer?.replacingOccurrences(of: "<[^>]+>", with: "", options: String.CompareOptions.regularExpression, range: nil)
+            let view = UIView()
+            view.backgroundColor = .clear
+            cell.selectedBackgroundView = view
             return cell
         }
         

@@ -113,12 +113,22 @@ class ProfileViewController: UIViewController {
     
     // Verify Email Button Action
     @IBAction func verifyEmailButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if sender.currentTitle == "UPDATE" {
-            emailTextField.isUserInteractionEnabled = true
-            emailTextField.textColor = UIColor.black
-            emailValidationLbl.textColor = UIColor.orange
-            emailValidationLbl.text = "Verification Pending"
-            emailVerifyButton.setTitle("Verify", for: .normal)
+//            emailTextField.isUserInteractionEnabled = true
+//            emailTextField.textColor = UIColor.black
+//            emailValidationLbl.textColor = UIColor.orange
+//            emailValidationLbl.text = "Verification Pending"
+//            emailVerifyButton.setTitle("Verify", for: .normal)
+            if let obj = myApp.window?.rootViewController {
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyViewController") as! VerifyViewController
+                newVC.isEmailVerify = true
+                obj.addChild(newVC)
+                newVC.view.frame = obj.view.frame
+                obj.view.center = newVC.view.center
+                obj.view.addSubview(newVC.view)
+                newVC.didMove(toParent: obj)
+            }
         } else {
             let newVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyOTPViewController") as! VerifyOTPViewController
             newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
@@ -132,19 +142,34 @@ class ProfileViewController: UIViewController {
     
     // Verify Phone Number Button Action
     @IBAction func verifyPhoneButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if sender.currentTitle == "UPDATE" {
-            phoneNumberTextField.isUserInteractionEnabled = true
-            phoneNumberTextField.textColor = UIColor .black
-            phoneNoValidationLbl.text = "Verification Pending"
-            phoneNoValidationLbl.textColor = UIColor.orange
-            phoneVerifyButton.setTitle("Verify", for: .normal)
+//            phoneNumberTextField.isUserInteractionEnabled = true
+//            phoneNumberTextField.textColor = UIColor .black
+//            phoneNoValidationLbl.text = "Verification Pending"
+//            phoneNoValidationLbl.textColor = UIColor.orange
+//            phoneVerifyButton.setTitle("Verify", for: .normal)
+            if let obj = myApp.window?.rootViewController {
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyViewController") as! VerifyViewController
+                newVC.isEmailVerify = false
+                obj.addChild(newVC)
+                newVC.view.frame = obj.view.frame
+                obj.view.center = newVC.view.center
+                obj.view.addSubview(newVC.view)
+                newVC.didMove(toParent: obj)
+            }
         } else {
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyOTPViewController") as! VerifyOTPViewController
-            newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-            self.definesPresentationContext = true
-            self.providesPresentationContextTransitionStyle = true
-            newVC.modalPresentationStyle = .overCurrentContext
-            self.navigationController?.present(newVC, animated: true, completion: nil)
+            if !(user?.phoneVerified ?? false){
+                sendOTPRequestAPI()
+            }else{
+                self.view.makeToast("Phone Number Already Verified!.")
+            }
+//            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyOTPViewController") as! VerifyOTPViewController
+//            newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+//            self.definesPresentationContext = true
+//            self.providesPresentationContextTransitionStyle = true
+//            newVC.modalPresentationStyle = .overCurrentContext
+//            self.navigationController?.present(newVC, animated: true, completion: nil)
         }
         self.setupUserData()
     }
@@ -167,6 +192,7 @@ class ProfileViewController: UIViewController {
     
     // Save Button Action
     @IBAction func saveButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if profileValidation() {
             self.manageValidationLbl()
             self.updateUserProfileApi()
@@ -271,7 +297,7 @@ class ProfileViewController: UIViewController {
     @objc func setupUserData() {
         nameTextField.text = (user?.firstName ?? "") + " " + (user?.lastName ?? "")
         genderTextField.text = user?.gender ?? ""
-        dobTextField.text = user?.dateOfBirth ?? ""
+        dobTextField.text = user?.dateOfBirth?.toFormatedDate(from: "yyyy-MM-dd", to: "dd/MM/yyyy")
         emailTextField.text = user?.email ?? ""
         phoneNumberTextField.text = (user?.contactNumber ?? "")
         phoneCodeTextField.text = (user?.extensionNumber ?? "")
@@ -340,16 +366,36 @@ class ProfileViewController: UIViewController {
         }
     }
     // Date Picker SetUp
-//    func openDatePicker(){
-//        datePicker = UIDatePicker(frame:CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216))
-//        datePicker.backgroundColor = UIColor.white
-//        datePicker.datePickerMode = .date
-//        if #available(iOS 14.0, *) {
-//            datePicker.preferredDatePickerStyle = .wheels
-//        }
-//        datePicker.addTarget(self, action: #selector(self.dateChanged(_:)), for: .valueChanged)
-//        dobTextField.inputView = self.datePicker
-//    }
+    // get Order Details Api
+    func sendOTPRequestAPI() {
+        APIHelper.getOTPRequestAPI { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let data = response.response["data"]
+                if let otp = data.rawValue as? String {
+                    print(otp)
+                    self.view.makeToast(otp)
+                    let newVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyOTPViewController") as! VerifyOTPViewController
+                    newVC.onCompletion = {(success) in
+                        if success {
+                            NotificationCenter.default.post(name:  Notification.Name("getUserDetail"), object: self)
+                            self.emailVarifyFlow()
+                            self.mobileVerifyButtonFlow()
+                        }
+                    }
+                    newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+                    self.definesPresentationContext = true
+                    self.providesPresentationContextTransitionStyle = true
+                    newVC.modalPresentationStyle = .overCurrentContext
+                    self.navigationController?.present(newVC, animated: true, completion: nil)
+                }
+            }
+        }
+    }
     
     func setDatePicker() {
         datePicker.datePickerMode = .date
@@ -368,7 +414,7 @@ class ProfileViewController: UIViewController {
     // FromTextField DatePicker Done Button Action
     @objc func fromTxtFieldDatePicker(){
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.dateFormat = "dd/MM/yyyy"
         dobTextField.text = formatter.string(from: datePicker.date)
         self.view.endEditing(true)
     }
@@ -404,6 +450,7 @@ extension ProfileViewController {
             "panNumber": "\(panNoTextField.text ?? "")",
             "aadharNumber": "\(aadharNoTextField.text ?? "")"
         ]
+        print(params)
         showLoading()
         APIHelper.updateUser(params: params) { (success,response)  in
             if !success {
@@ -415,6 +462,8 @@ extension ProfileViewController {
                 let message = response.message
                 myApp.window?.rootViewController?.view.makeToast(message)
                 NotificationCenter.default.post(name:  Notification.Name("getUserDetail"), object: self)
+                self.emailVarifyFlow()
+                self.mobileVerifyButtonFlow()
             }
         }
     }

@@ -9,21 +9,21 @@ import Foundation
 import SwiftyJSON
 
 struct MerchantDTO {
-    public var active : Bool?
-    public var extensionNumber : String?
-    public var licenceNumber : String?
-    public var updatedAt : String?
-    public var resourceType : String?
-    public var createdAt : String?
-    public var profilePicture : String?
-    public var id : String?
-    public var merchantId : String?
-    public var shopAddress : String?
-    public var businessName : String?
-    public var fullAddress : String?
-    public var contactNumber : String?
-    public var email : String?
-    public var password : String?
+    let createdAt : String?
+    let updatedAt : String?
+    let id : String?
+    let email : String?
+    let merchantId : String?
+    let extensionNumber : String?
+    let contactNumber : String?
+    let profilePicture : String?
+    let password : String?
+    let resourceType : String?
+    let businessName : String?
+    let fullAddress : String?
+    let shopAddress : String?
+    let licenceNumber : String?
+    let active : Bool?
     
     init(json: JSON) {
         createdAt = json["createdAt"].string
