@@ -1,0 +1,2891 @@
+{
+	"info": {
+		"_postman_id": "d9e88850-31e8-4349-9456-ab855b454af6",
+		"name": "actor_pay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "User Management",
+					"item": [
+						{
+							"name": "delete users by admin",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXZlZW4iLCJzY29wZXMiOlsiUm9sZXtuYW1lPVVTRVJ9Il0sImlzcyI6Im5hdmVlbiIsImlhdCI6MTYzMTczNTU0NiwiZXhwIjoxNjMxNzk1NTQ2fQ.YFjq4Q_DQPPTcFm-AvWB_0Dpi3lGR6OR6WRlShWEbAL-YLF6nLFAfm20HZICADoMw6mqWm81GWjP2GCqzYpEVg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userIds\": [\r\n        \"95ffae6d-c277-4edd-9606-facd3f415cae\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8765/api/admin-service/user/delete/by/ids",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"user",
+										"delete",
+										"by",
+										"ids"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user detail by id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM3MTI4NjQ5LCJleHAiOjE2MzcxODg2NDl9.207basb8iHt6uM6IwznzxnYcuiI06f2E4TUZbILxpWtGzia1ZyJkYqhKVRgF0aA2U_PXvb0qAx8JPsWU0GqtFw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"admin\",\r\n    \"lastName\": \"admin\",\r\n    \"email\": \"admin@gmail.com\",\r\n    \"extensionNumber\": \"+93\",\r\n    \"contactNumber\": \"555555555\",\r\n    \"isActive\": false,\r\n    \"userType\": \"1\",\r\n    \"id\": \"8ec96349-2569-4a4c-b69a-135f7614b754\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_url}}/api/admin-service/users/get/details/by/id/8ec96349-2569-4a4c-b69a-135f7614b754",
+									"host": [
+										"{{local_url}}"
+									],
+									"path": [
+										"api",
+										"admin-service",
+										"users",
+										"get",
+										"details",
+										"by",
+										"id",
+										"8ec96349-2569-4a4c-b69a-135f7614b754"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sub-Admin",
+					"item": [
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/subadmin/get/all/paged?pageNo=0&pageSize=10&sortBy=createdAt&asc=true",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM2NzA5NDE3LCJleHAiOjE2MzY3Njk0MTd9.nhTNsPBlEOsMvgPOr6J8zJsCVWlhyA2ICiz2QaiIYgNOCwJddahikSb8oBSpPPmsFWmQepmBaxMVxyOzkaBnKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/subadmin/get/all/paged?pageNo=0&pageSize=10&sortBy=createdAt&asc=true",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"subadmin",
+										"get",
+										"all",
+										"paged"
+									],
+									"query": [
+										{
+											"key": "pageNo",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
+										},
+										{
+											"key": "sortBy",
+											"value": "createdAt"
+										},
+										{
+											"key": "asc",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Role Manager",
+					"item": [
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/role/get/all?pageNo=0&pageSize=10&sortBy=updatedAt&asc=false",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM2NzA5NDE3LCJleHAiOjE2MzY3Njk0MTd9.nhTNsPBlEOsMvgPOr6J8zJsCVWlhyA2ICiz2QaiIYgNOCwJddahikSb8oBSpPPmsFWmQepmBaxMVxyOzkaBnKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/role/get/all?pageNo=0&pageSize=10&sortBy=updatedAt&asc=false",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"role",
+										"get",
+										"all"
+									],
+									"query": [
+										{
+											"key": "pageNo",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
+										},
+										{
+											"key": "sortBy",
+											"value": "updatedAt"
+										},
+										{
+											"key": "asc",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/role/by/id?id=2ed49a4b-6d72-4de5-80bc-41b23ebfa0b7",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM2NzA5NDE3LCJleHAiOjE2MzY3Njk0MTd9.nhTNsPBlEOsMvgPOr6J8zJsCVWlhyA2ICiz2QaiIYgNOCwJddahikSb8oBSpPPmsFWmQepmBaxMVxyOzkaBnKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/role/by/id?id=2ed49a4b-6d72-4de5-80bc-41b23ebfa0b7",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"role",
+										"by",
+										"id"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "2ed49a4b-6d72-4de5-80bc-41b23ebfa0b7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/role/update",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM2NzA5NDE3LCJleHAiOjE2MzY3Njk0MTd9.nhTNsPBlEOsMvgPOr6J8zJsCVWlhyA2ICiz2QaiIYgNOCwJddahikSb8oBSpPPmsFWmQepmBaxMVxyOzkaBnKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"2ed49a4b-6d72-4de5-80bc-41b23ebfa0b7\",\r\n    \"role\": \"Developer\",\r\n    \"modules\": [\r\n        {\r\n            \"id\": \"1e49112c-6837-4535-9cca-fe8c990dd2bb\",\r\n            \"name\": \"Product Manager\",\r\n            \"permission\": {\r\n                \"read\": true,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"2f0aabef-ce8c-4250-8816-92d4cfda0580\",\r\n            \"name\": \"FAQ Management\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"343107f6-ef30-4015-a46e-f7507f664f74\",\r\n            \"name\": \"Global Setting\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"43c9c513-3e1e-468f-a01f-ddd9a73e2b0d\",\r\n            \"name\": \"Money Transfer limit\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"4ac7e629-69cb-4e30-8a7f-783864598fb5\",\r\n            \"name\": \"Earning  Manager\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"5ec20940-6b05-44ae-9247-ba111f0ae34a\",\r\n            \"name\": \"Email Template\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"7d367a35-65af-4f8c-9506-0d553b50110c\",\r\n            \"name\": \"User Management\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": true\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"89ec03fa-f5c1-4e98-810e-632d2058b415\",\r\n            \"name\": \"Loyalty Reward Pointsv\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"99dcbf92-f9d8-4360-acef-0b5c6949dd80\",\r\n            \"name\": \"Content Management\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"db516520-8227-4fd2-8c64-574b36dc96ac\",\r\n            \"name\": \"Sub-Category Management\",\r\n            \"permission\": {\r\n                \"read\": true,\r\n                \"write\": true\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"e1de28b7-e818-458b-aa60-18ec0f2bddd7\",\r\n            \"name\": \"Category Management\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"e3ba64b9-bbe7-4e72-8423-2a05339ee6dd\",\r\n            \"name\": \"Transaction\",\r\n            \"permission\": {\r\n                \"read\": true,\r\n                \"write\": true\r\n            }\r\n        }\r\n    ],\r\n    \"active\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/role/update",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"role",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/role/delete/by/ids",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM2NzA5NDE3LCJleHAiOjE2MzY3Njk0MTd9.nhTNsPBlEOsMvgPOr6J8zJsCVWlhyA2ICiz2QaiIYgNOCwJddahikSb8oBSpPPmsFWmQepmBaxMVxyOzkaBnKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"roleIds\": [\r\n        \"2\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/role/delete/by/ids",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"role",
+										"delete",
+										"by",
+										"ids"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/all/modules?pageNo=0&pageSize=12&sortBy=name&asc=false",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM2NzA5NDE3LCJleHAiOjE2MzY3Njk0MTd9.nhTNsPBlEOsMvgPOr6J8zJsCVWlhyA2ICiz2QaiIYgNOCwJddahikSb8oBSpPPmsFWmQepmBaxMVxyOzkaBnKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/all/modules?pageNo=0&pageSize=12&sortBy=name&asc=false",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"all",
+										"modules"
+									],
+									"query": [
+										{
+											"key": "pageNo",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "12"
+										},
+										{
+											"key": "sortBy",
+											"value": "name"
+										},
+										{
+											"key": "asc",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/role/create",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM2NzA5NDE3LCJleHAiOjE2MzY3Njk0MTd9.nhTNsPBlEOsMvgPOr6J8zJsCVWlhyA2ICiz2QaiIYgNOCwJddahikSb8oBSpPPmsFWmQepmBaxMVxyOzkaBnKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"\",\r\n    \"role\": \"Tech Lead\",\r\n    \"modules\": [\r\n        {\r\n            \"id\": \"0973ba20-92f9-48aa-a28d-f87524755871\",\r\n            \"name\": \"User Management\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"4faac33c-53e0-4bc5-9307-945b697401a3\",\r\n            \"name\": \"Transaction\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"beb2de23-a80c-4aa8-83ca-fca68cc3f9fd\",\r\n            \"name\": \"Sub-Category Management\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"a33e3039-8d68-4f6b-9de4-90daf49ab29a\",\r\n            \"name\": \"Product Manager\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"cbff0f98-7d76-4813-aa0f-f0940f00e913\",\r\n            \"name\": \"Money Transfer limit\",\r\n            \"permission\": {\r\n                \"read\": true,\r\n                \"write\": true\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"e4e58200-1c7c-46da-8232-d8d7a87aa5c2\",\r\n            \"name\": \"Loyalty Reward Pointsv\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": true\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"9f6dfc1d-dd46-4d43-a1e1-403e7f647e27\",\r\n            \"name\": \"Global Setting\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"603db216-cf50-415e-bfeb-306326c16fd0\",\r\n            \"name\": \"FAQ Management\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"0ed79932-9d4b-493d-af8b-d2131ed9066c\",\r\n            \"name\": \"Email Template\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"ca55e175-e616-4923-9d7b-70bdd7311760\",\r\n            \"name\": \"Earning  Manager\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"b61a1e75-194a-4ff6-b0c0-564126b013c5\",\r\n            \"name\": \"Content Management\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"09b92359-5d4e-417a-8904-fe323a27e7c6\",\r\n            \"name\": \"Category Management\",\r\n            \"permission\": {\r\n                \"read\": false,\r\n                \"write\": false\r\n            }\r\n        }\r\n    ],\r\n    \"active\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/role/create",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"role",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/role/change/status?id=310f4e70-9dae-4787-8558-b8275032f6c1&status=false",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM2NzA5NDE3LCJleHAiOjE2MzY3Njk0MTd9.nhTNsPBlEOsMvgPOr6J8zJsCVWlhyA2ICiz2QaiIYgNOCwJddahikSb8oBSpPPmsFWmQepmBaxMVxyOzkaBnKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/role/change/status?id=310f4e70-9dae-4787-8558-b8275032f6c1&status=false",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"role",
+										"change",
+										"status"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "310f4e70-9dae-4787-8558-b8275032f6c1"
+										},
+										{
+											"key": "status",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Money Transfer Limit",
+					"item": [
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/v1/money/transfer/get/money/limit",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM4ODYwMDExLCJleHAiOjE2Mzg5MjAwMTF9.QyLuT2_79oAKNCAqHKOx5FjUOmvYYSjnS2lVe9uc2AWB2gsmLPb0dJzHdPC3TwEc8-bxFGkpJBV-1CBmRINiaw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customerAddMoney\": 1000.00,\r\n    \"customerWithdrawMoneyToBank\": 142.00,\r\n    \"customerTransactionLimit\": 133.00,\r\n    \"merchantAddMoney\": 10.00,\r\n    \"merchantWithdrawMoneyToBank\": 13.00,\r\n    \"merchantTransactionLimit\": 14.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/v1/money/transfer/get/money/limit",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"v1",
+										"money",
+										"transfer",
+										"get",
+										"money",
+										"limit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/v1/money/transfer/create/or/update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM4ODYwMDExLCJleHAiOjE2Mzg5MjAwMTF9.QyLuT2_79oAKNCAqHKOx5FjUOmvYYSjnS2lVe9uc2AWB2gsmLPb0dJzHdPC3TwEc8-bxFGkpJBV-1CBmRINiaw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customerAddMoney\": 1000.00,\r\n    \"customerWithdrawMoneyToBank\": 142.00,\r\n    \"customerTransactionLimit\": 133.00,\r\n    \"merchantAddMoney\": 10.00,\r\n    \"merchantWithdrawMoneyToBank\": 13.00,\r\n    \"merchantTransactionLimit\": 14.00,\r\n    \"id\": \"4b567993-b61d-491c-b44a-f345adfeaede\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/v1/money/transfer/create/or/update",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"v1",
+										"money",
+										"transfer",
+										"create",
+										"or",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/get/all/categories/paged/?pageNo=0&pageSize=10&sortBy=createdAt&asc=true&filterByName=&filterByIsActive=",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM4NzcyNTA1LCJleHAiOjE2Mzg4MzI1MDV9.chHajeovHqes7l9cOcWZXOJsRNuJw6gA8ABqHterDPgg04cX8wOzesHNvkW8ysMf5SojjnKE9mMPxwUUkE26JQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/get/all/categories/paged/?pageNo=0&pageSize=10&sortBy=createdAt&asc=true&filterByName=&filterByIsActive=",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"get",
+										"all",
+										"categories",
+										"paged",
+										""
+									],
+									"query": [
+										{
+											"key": "pageNo",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
+										},
+										{
+											"key": "sortBy",
+											"value": "createdAt"
+										},
+										{
+											"key": "asc",
+											"value": "true"
+										},
+										{
+											"key": "filterByName",
+											"value": ""
+										},
+										{
+											"key": "filterByIsActive",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/add/new/category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM4ODc5ODM1LCJleHAiOjE2Mzg5Mzk4MzV9.EtzeX0x5SG5FYwoQFDVgbC-FEs0tz7QKVMhvRyNer3srEQwWVJV0-r-6m1tLZyR1RkXeu8_qdzhGHf8PvbdKnQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/vikass/Downloads/image_2021_11_23T05_45_37_324Z.png"
+										},
+										{
+											"key": "Metadata",
+											"value": "{\"name\":\"Category2\", \"isActive\":true,\"description\":\"test descriptions\"}",
+											"contentType": "application/json",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/add/new/category",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"add",
+										"new",
+										"category"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sub-Category",
+					"item": [
+						{
+							"name": "http://192.168.1.171:8765/api/admin-service/get/all/subcategories/paged/?pageNo=0&pageSize=10&sortBy=createdAt&asc=true",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM4NzcyNTA1LCJleHAiOjE2Mzg4MzI1MDV9.chHajeovHqes7l9cOcWZXOJsRNuJw6gA8ABqHterDPgg04cX8wOzesHNvkW8ysMf5SojjnKE9mMPxwUUkE26JQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/vikass/Pictures/download.jpg",
+											"disabled": true
+										},
+										{
+											"key": "Metadata",
+											"value": "{\n\"name\":\"Category\",\n\"status\":true,\n\"description\":\"shirttfdfdtest\"\n}",
+											"contentType": "application/json",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/admin-service/get/all/subcategories/paged/?pageNo=0&pageSize=10&sortBy=createdAt&asc=true",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"admin-service",
+										"get",
+										"all",
+										"subcategories",
+										"paged",
+										""
+									],
+									"query": [
+										{
+											"key": "pageNo",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
+										},
+										{
+											"key": "sortBy",
+											"value": "createdAt"
+										},
+										{
+											"key": "asc",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/admin-service/auth/login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB5b3BtYWlsLmNvbSIsInNjb3BlcyI6WyJBRE1JTiJdLCJpZCI6Ijc2ZGEzMDUyLWM4M2YtNGUxYy05MTI5LTRjYTA0OThkNGNlMSIsImVtYWlsSWQiOiJhZG1pbkB5b3BtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJBbWluIiwicm9sZSI6IkFETUlOIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImFkbWluQHlvcG1haWwuY29tIiwiaWF0IjoxNjM2NzA5NDE3LCJleHAiOjE2MzY3Njk0MTd9.nhTNsPBlEOsMvgPOr6J8zJsCVWlhyA2ICiz2QaiIYgNOCwJddahikSb8oBSpPPmsFWmQepmBaxMVxyOzkaBnKA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@yopmail.com\",\r\n    \"password\": \"naveen908\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/admin-service/auth/login",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"admin-service",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Wallet",
+					"item": [
+						{
+							"name": "http://192.168.1.171:8765/api/user-service/users/get/wallet/details",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMjIyQHlvcG1haWwuY29tIiwic2NvcGVzIjpbIlVTRVIiXSwiaXNzIjoidXNlcjIyMkB5b3BtYWlsLmNvbSIsImlhdCI6MTYzODg3MTU1NSwiZXhwIjoxNjM4OTMxNTU1fQ.0QvndCss5-xwZqa9PRw_p0IQUME3FI8LXUc6D_cLUhnzCDYtt52MH8iBrfVm8IUyp0CPLkfUCKBNwXCyHY5Wug",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userId\": \"5e86b500-f041-4caa-b308-c7fed1bb4538\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/user-service/users/get/wallet/details",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"user-service",
+										"users",
+										"get",
+										"wallet",
+										"details"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/user-service/users/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user222@yopmail.com\",\r\n    \"password\": \"Octal@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/user-service/users/login",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"user-service",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/user-service/users/update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyNTVAeW9wbWFpbC5jb20iLCJzY29wZXMiOlsiVVNFUiJdLCJpc3MiOiJ1c2VyNTVAeW9wbWFpbC5jb20iLCJpYXQiOjE2MzY3MTExMDYsImV4cCI6MTYzNjc3MTEwNn0.XBybSwZa4Nix0oGsxeIY5eYrPMSOuAW4sv87GJNestBhYH6VGRemIlOrOIOZoBhINzdOztqf6x12aroNvPm3yw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user55@yopmail.com\",\r\n    \"extensionNumber\": \"+91\",\r\n    \"contactNumber\": \"3549846548\",\r\n    \"id\": \"5e27f37e-5ca6-4925-b423-ae307c0a978e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/user-service/users/update",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"user-service",
+								"users",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/user-service/users/change/password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyNTVAeW9wbWFpbC5jb20iLCJzY29wZXMiOlsiVVNFUiJdLCJpc3MiOiJ1c2VyNTVAeW9wbWFpbC5jb20iLCJpYXQiOjE2MzY3MTExMDYsImV4cCI6MTYzNjc3MTEwNn0.XBybSwZa4Nix0oGsxeIY5eYrPMSOuAW4sv87GJNestBhYH6VGRemIlOrOIOZoBhINzdOztqf6x12aroNvPm3yw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"Octal@123\",\r\n    \"newPassword\": \"Octal@123\",\r\n    \"confirmPassword\": \"Octal@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/user-service/users/change/password",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"user-service",
+								"users",
+								"change",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/user-service/users/forget/password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailId\": \"user55@yopmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/user-service/users/forget/password",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"user-service",
+								"users",
+								"forget",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/user-service/users/reset/password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyNTVAeW9wbWFpbC5jb20iLCJzY29wZXMiOlsiVVNFUiJdLCJpc3MiOiJ1c2VyNTVAeW9wbWFpbC5jb20iLCJpYXQiOjE2MzY3MTExMDYsImV4cCI6MTYzNjc3MTEwNn0.XBybSwZa4Nix0oGsxeIY5eYrPMSOuAW4sv87GJNestBhYH6VGRemIlOrOIOZoBhINzdOztqf6x12aroNvPm3yw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\": \"Octal@123\",\r\n    \"confirmPassword\": \"Octal@123\",\r\n    \"token\": \"12eadd7b-9f35-4e95-ad17-1b7a7a4e2bf7\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/user-service/users/reset/password",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"user-service",
+								"users",
+								"reset",
+								"password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Merchant",
+			"item": [
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "add new product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vQHlvcG1haWwuY29tIiwic2NvcGVzIjpbIk1FUkNIQU5UIl0sImlkIjoiZjUwZDgyOWItNTk2NC00NzdjLWEyYTAtYjY2YTdmMTEyYzc2IiwiZW1haWxJZCI6ImRlbW9AeW9wbWFpbC5jb20iLCJidXNpbmVzc05hbWUiOiJjaGFuY2hhbGEiLCJyb2xlIjoiTUVSQ0hBTlQiLCJwcm9maWxlSW1hZ2UiOiJodHRwOi8vMTMuMjM1LjcyLjExODo3MzAwL2FkbWlucy9hdmF0YXItMTYyNTc5OTc2MDg1MS5wbmciLCJwZXJtaXNzaW9uIjoiIiwiaXNzIjoiZGVtb0B5b3BtYWlsLmNvbSIsImlhdCI6MTYzODk1NTM5MCwiZXhwIjoxNjM5MDE1MzkwfQ.qRLykynUwYCrEsVBOYPXmJo6ibIZryCC6w8txWLirXkH1jh4IGWECsJZOxA7YZ6u0mRG59jVrVZFwvtx_8hsqA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/vikass/Pictures/download.jpg"
+										},
+										{
+											"key": "product",
+											"value": "{\n    \"name\": \"Electricity111111111111\",\n    \"description\": \"testeterterter\",\n    \"categoryId\": \"c9122ca5-a761-4c24-b47f-0784d016995a\",\n    \"subCategoryId\": \"4ea78a2c-2655-4d52-a557-dc2f5021cff9\",\n    \"actualPrice\": \"200\",\n    \"dealPrice\": \"300\",\n    \"merchantId\": \"f50d829b-5964-477c-a2a0-b66a7f112c76\",\n    \"quantity\":2\n}",
+											"contentType": "application/json",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/merchant-service/products",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"merchant-service",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/merchant-service/products/08fa8a04-ce94-417b-b083-33a985820822",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vQHlvcG1haWwuY29tIiwic2NvcGVzIjpbIk1FUkNIQU5UIl0sImlkIjoiZjUwZDgyOWItNTk2NC00NzdjLWEyYTAtYjY2YTdmMTEyYzc2IiwiZW1haWxJZCI6ImRlbW9AeW9wbWFpbC5jb20iLCJidXNpbmVzc05hbWUiOiJjaGFuY2hhbGEiLCJyb2xlIjoiTUVSQ0hBTlQiLCJwcm9maWxlSW1hZ2UiOiJodHRwOi8vMTMuMjM1LjcyLjExODo3MzAwL2FkbWlucy9hdmF0YXItMTYyNTc5OTc2MDg1MS5wbmciLCJwZXJtaXNzaW9uIjoiIiwiaXNzIjoiZGVtb0B5b3BtYWlsLmNvbSIsImlhdCI6MTYzODk1NTM5MCwiZXhwIjoxNjM5MDE1MzkwfQ.qRLykynUwYCrEsVBOYPXmJo6ibIZryCC6w8txWLirXkH1jh4IGWECsJZOxA7YZ6u0mRG59jVrVZFwvtx_8hsqA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/merchant-service/products/5d432fe3-dc55-4438-b998-6e12a1a1071a",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"merchant-service",
+										"products",
+										"5d432fe3-dc55-4438-b998-6e12a1a1071a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/merchant-service/products/08fa8a04-ce94-417b-b083-33a985820822",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vQHlvcG1haWwuY29tIiwic2NvcGVzIjpbIk1FUkNIQU5UIl0sImlkIjoiZjUwZDgyOWItNTk2NC00NzdjLWEyYTAtYjY2YTdmMTEyYzc2IiwiZW1haWxJZCI6ImRlbW9AeW9wbWFpbC5jb20iLCJidXNpbmVzc05hbWUiOiJjaGFuY2hhbGEiLCJyb2xlIjoiTUVSQ0hBTlQiLCJwcm9maWxlSW1hZ2UiOiJodHRwOi8vMTMuMjM1LjcyLjExODo3MzAwL2FkbWlucy9hdmF0YXItMTYyNTc5OTc2MDg1MS5wbmciLCJwZXJtaXNzaW9uIjoiIiwiaXNzIjoiZGVtb0B5b3BtYWlsLmNvbSIsImlhdCI6MTYzODk1NTM5MCwiZXhwIjoxNjM5MDE1MzkwfQ.qRLykynUwYCrEsVBOYPXmJo6ibIZryCC6w8txWLirXkH1jh4IGWECsJZOxA7YZ6u0mRG59jVrVZFwvtx_8hsqA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/merchant-service/products/remove?productId=371a5143-5ab1-4aa0-8890-15d6f787f361",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"merchant-service",
+										"products",
+										"remove"
+									],
+									"query": [
+										{
+											"key": "productId",
+											"value": "371a5143-5ab1-4aa0-8890-15d6f787f361"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/merchant-service/products/08fa8a04-ce94-417b-b083-33a985820822",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vQHlvcG1haWwuY29tIiwic2NvcGVzIjpbIk1FUkNIQU5UIl0sImlkIjoiZjUwZDgyOWItNTk2NC00NzdjLWEyYTAtYjY2YTdmMTEyYzc2IiwiZW1haWxJZCI6ImRlbW9AeW9wbWFpbC5jb20iLCJidXNpbmVzc05hbWUiOiJjaGFuY2hhbGEiLCJyb2xlIjoiTUVSQ0hBTlQiLCJwcm9maWxlSW1hZ2UiOiJodHRwOi8vMTMuMjM1LjcyLjExODo3MzAwL2FkbWlucy9hdmF0YXItMTYyNTc5OTc2MDg1MS5wbmciLCJwZXJtaXNzaW9uIjoiIiwiaXNzIjoiZGVtb0B5b3BtYWlsLmNvbSIsImlhdCI6MTYzODI1Mjg3OCwiZXhwIjoxNjM4MzEyODc4fQ.M_3tAYzlJoZ3JmwyPxLRPqE4e-KEntMqhG8eRqPt1HCSvWjh7mRBNuxqkDKShW1xtUA9gtx6cv1904-9z9iNEQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "product",
+											"value": "{\"productId\":\"\",\"name\":\"test\",\"description\":\"test\",\"categoryId\":\"1\",\"subCategoryId\":\"2\",\"actualPrice\":\"5\",\"dealPrice\":\"1\",\"productPictureUrl\":\"string\",\"merchantId\":0}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/merchant-service/products/08fa8a04-ce94-417b-b083-33a985820822",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"merchant-service",
+										"products",
+										"08fa8a04-ce94-417b-b083-33a985820822"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://192.168.1.171:8765/api/merchant-service/products?pageNo=0&pageSize=100&sortBy=createdAt&asc=true",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vQHlvcG1haWwuY29tIiwic2NvcGVzIjpbIk1FUkNIQU5UIl0sImlkIjoiZjUwZDgyOWItNTk2NC00NzdjLWEyYTAtYjY2YTdmMTEyYzc2IiwiZW1haWxJZCI6ImRlbW9AeW9wbWFpbC5jb20iLCJidXNpbmVzc05hbWUiOiJjaGFuY2hhbGEiLCJyb2xlIjoiTUVSQ0hBTlQiLCJwcm9maWxlSW1hZ2UiOiJodHRwOi8vMTMuMjM1LjcyLjExODo3MzAwL2FkbWlucy9hdmF0YXItMTYyNTc5OTc2MDg1MS5wbmciLCJwZXJtaXNzaW9uIjoiIiwiaXNzIjoiZGVtb0B5b3BtYWlsLmNvbSIsImlhdCI6MTYzODk1NTM5MCwiZXhwIjoxNjM5MDE1MzkwfQ.qRLykynUwYCrEsVBOYPXmJo6ibIZryCC6w8txWLirXkH1jh4IGWECsJZOxA7YZ6u0mRG59jVrVZFwvtx_8hsqA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.171:8765/api/merchant-service/products?pageNo=0&pageSize=100&sortBy=createdAt&asc=true",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"171"
+									],
+									"port": "8765",
+									"path": [
+										"api",
+										"merchant-service",
+										"products"
+									],
+									"query": [
+										{
+											"key": "pageNo",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "100"
+										},
+										{
+											"key": "sortBy",
+											"value": "createdAt"
+										},
+										{
+											"key": "asc",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/merchant-service/merchant/signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"extensionNumber\": \"+93\",\r\n    \"contactNumber\": \"6898798\",\r\n    \"password\": \"Admin@123\",\r\n    \"shopAddress\": \"test\",\r\n    \"fullAddress\": \"test\",\r\n    \"businessName\": \"tert\",\r\n    \"licenceNumber\": \"tetrer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/merchant-service/merchant/signup",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"merchant-service",
+								"merchant",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/merchant-service/auth/login",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"merchant33@yopmail.com\",\r\n    \"password\": \"Octal@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/merchant-service/auth/login",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"merchant-service",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/merchant-service/merchant/user/change/password",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"naveen908\",\r\n    \"newPassword\": \"naveen908\",\r\n    \"confirmPassword\": \"naveen908\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/merchant-service/merchant/user/change/password",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"merchant-service",
+								"merchant",
+								"user",
+								"change",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/merchant-service/merchant/by/id/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/merchant-service/merchant/by/id/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"merchant-service",
+								"merchant",
+								"by",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/merchant-service/merchant/update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"3f282ebd-799b-42b7-9b70-14c9e74f0bff\",\r\n    \"email\":\"naveendambiwal@gmail.com\",\r\n    \"extensionNumber\":\"+91\",\r\n    \"contactNumber\":\"182355556\",\r\n    \"password\":\"naveen908\",\r\n    \"shopAddress\":\"jaipur\",\r\n    \"fullAddress\":\"jaipur\",\r\n    \"businessName\":\"xyz software\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/merchant-service/merchant/update",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"merchant-service",
+								"merchant",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/merchant-service/merchant/forget/password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailId\":\"admin@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/merchant-service/merchant/forget/password",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"merchant-service",
+								"merchant",
+								"forget",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/merchant-service/merchant/reset/password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\": \"admi@123\",\r\n    \"confirmPassword\": \"admi@123\",\r\n    \"token\": \"er454tertrdfg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/merchant-service/merchant/reset/password",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"merchant-service",
+								"merchant",
+								"reset",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://192.168.1.171:8765/api/merchant-service/user/activate?token=tretregt565rgrgd",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/merchant-service/user/activate?token=tretregt565rgrgd",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"merchant-service",
+								"user",
+								"activate"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "tretregt565rgrgd"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "http://192.168.1.171:8765/api/user-service/users/social/signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"resp.profileObj.givenName\",\r\n    \"lastName\": \"resp.profileObj.familyName\",\r\n    \"email\": \"resp.profileObj.email\",\r\n    \"googleId\": \"260356460451-h9flm8s4u1235rrrpakkuoc3khqusv9f.apps.googleusercontent.com\",\r\n    \"imageUrl\": \"resp.profileObj.imageUrl\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.171:8765/api/user-service/users/social/signup",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"171"
+							],
+							"port": "8765",
+							"path": [
+								"api",
+								"user-service",
+								"users",
+								"social",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user-signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"naveendambiwal@gmail.com\",\r\n    \"extensionNumber\":\"+91\",\r\n    \"contactNumber\":\"182355556\",\r\n    \"password\":\"naveen908\",\r\n    \"gender\":\"Male\",\r\n    \"firstName\":\"test\",\r\n    \"lastName\":\"tetst\",\r\n    \"dateOfBirth\":\"21-09-2021\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/user-service/users/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"user-service",
+						"users",
+						"signup"
+					]
+				},
+				"description": "http://localhost:8084/user/signUp"
+			},
+			"response": []
+		},
+		{
+			"name": "get user by username",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXZlZW5rbXd0Iiwic2NvcGVzIjpbIlJvbGV7bmFtZT1VU0VSfSJdLCJpc3MiOiJuYXZlZW5rbXd0IiwiaWF0IjoxNjI3NDk3NDQ2LCJleHAiOjE2Mjc1MDc0NDZ9.jUcdErpw3Rp0aV41gYalijs81Mgg1gGtHM1z8lZlMkfwM703V2ByHsq3Pd2pmt7Q8NAhFXIWZDfRyLgyshwcQQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8765/api/user-service/users/by/name/naveenkmwt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"user-service",
+						"users",
+						"by",
+						"name",
+						"naveenkmwt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user-login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"naveen@gmail.com\",\r\n    \"password\":\"naveen908\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/user-service/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"user-service",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all paged users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInNjb3BlcyI6WyJSb2xle25hbWU9QURNSU59Il0sImlzcyI6ImFkbWluIiwiaWF0IjoxNjMwNjk3ODQ1LCJleHAiOjE2MzA3MDc4NDV9.l1eS5XqmzR4qN6TX9Wz4x9KGk4acYXimZluLdkYrCnw8Ref1Hji5Z2X_4xv4kEAdM_X3hu_822Q5s1RDQDshUg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/user-service/users/get/all/user/paged?pageNo=0&pageSize=5&sortBy=createdAt&asc=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"user-service",
+						"users",
+						"get",
+						"all",
+						"user",
+						"paged"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "5"
+						},
+						{
+							"key": "sortBy",
+							"value": "createdAt"
+						},
+						{
+							"key": "asc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user details by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJOYXZlZW5LdW1hd2F0Iiwic2NvcGVzIjpbIlJvbGV7bmFtZT1VU0VSfSJdLCJpc3MiOiJOYXZlZW5LdW1hd2F0IiwiaWF0IjoxNjMwMzI0NDMyLCJleHAiOjE2MzAzMzQ0MzJ9.xIFdxCrr80yPcCrqQiBMWp5ffgdFHZpNjlo_u5VdmEMUU12D3NoZrv_8pkwCwRP5SbCaH8Rs6bFvfJKFIxPK_A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"testing@gmail.com\",\r\n    \"password\":\"naveen908\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/user-service/users/by/id/e869ef91-1bb2-46bc-b79b-99e9822e3d5b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"user-service",
+						"users",
+						"by",
+						"id",
+						"e869ef91-1bb2-46bc-b79b-99e9822e3d5b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user profile",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInNjb3BlcyI6WyJSb2xle25hbWU9QURNSU59Il0sImlzcyI6ImFkbWluIiwiaWF0IjoxNjMwNDY0OTg3LCJleHAiOjE2MzA0NzQ5ODd9.ybfeMj40TcGATUVDsNkqT-peG_CkcMuWj-qP1Jk3vPvmvipF4lwVU8qzgNCnfCUf52dHyO-MNQcEeJ97ilV2AQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"vickyTesting\",\r\n    \"extensionNumber\":\"+91\",\r\n    \"contactNumber\":\"1111111111\",\r\n    \"id\":\"7ea905c6-0629-4390-a297-bddc1fb35546\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/user-service/users/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"user-service",
+						"users",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate-access-token-by-refresh-token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"naveen908\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/user-service/auth/token/refresh?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJzY29wZXMiOlsiUkVGUkVTSF9UT0tFTiJdLCJpc3MiOiJhZG1pbiIsImlhdCI6MTYzMDc0Mzg1MCwiZXhwIjoxNjMwNzYzODUwfQ.uYHm6bFpmFh2jwxDZHkUeuDLD3eiGRpfNMJ9Vde5nHi_rDQbu_LyXar7HgEqXVpOzjRfbPQQ4e7uTzdNZpyeOg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"user-service",
+						"auth",
+						"token",
+						"refresh"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJzY29wZXMiOlsiUkVGUkVTSF9UT0tFTiJdLCJpc3MiOiJhZG1pbiIsImlhdCI6MTYzMDc0Mzg1MCwiZXhwIjoxNjMwNzYzODUwfQ.uYHm6bFpmFh2jwxDZHkUeuDLD3eiGRpfNMJ9Vde5nHi_rDQbu_LyXar7HgEqXVpOzjRfbPQQ4e7uTzdNZpyeOg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user by admin",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXZlZW5rdW1hd2F0MTIiLCJzY29wZXMiOlsiUm9sZXtuYW1lPVVTRVJ9Il0sImlzcyI6Im5hdmVlbmt1bWF3YXQxMiIsImlhdCI6MTYzMTU1MzIzMSwiZXhwIjoxNjMxNjEzMjMxfQ.UtxWkOSoc0_WHp3zAKMhbnptHPo2Yb1RGGMk_JCNqNIZObdYf-hVIW60uY7v2hK64tQ2lNZPQtRznXLKuwxn-Q",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"naveenkumawat12\",\r\n    \"extensionNumber\":\"+91\",\r\n    \"contactNumber\":\"1111111111\",\r\n    \"id\":\"8d5909d9-a00b-4706-9b84-7bb049618f51\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/admin-service/users/update/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"admin-service",
+						"users",
+						"update",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "forget user password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXZlZW5rdW1hd2F0MTIiLCJzY29wZXMiOlsiUm9sZXtuYW1lPVVTRVJ9Il0sImlzcyI6Im5hdmVlbmt1bWF3YXQxMiIsImlhdCI6MTYzMTU1MzIzMSwiZXhwIjoxNjMxNjEzMjMxfQ.UtxWkOSoc0_WHp3zAKMhbnptHPo2Yb1RGGMk_JCNqNIZObdYf-hVIW60uY7v2hK64tQ2lNZPQtRznXLKuwxn-Q",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"naveenkumawat12\",\r\n    \"extensionNumber\":\"+91\",\r\n    \"contactNumber\":\"1111111111\",\r\n    \"id\":\"8d5909d9-a00b-4706-9b84-7bb049618f51\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/user-service/users/forget/password?email=naveen.kumawat92@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"user-service",
+						"users",
+						"forget",
+						"password"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "naveen.kumawat92@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "active user account by activation link token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXZlZW5rdW1hd2F0MTIiLCJzY29wZXMiOlsiUm9sZXtuYW1lPVVTRVJ9Il0sImlzcyI6Im5hdmVlbmt1bWF3YXQxMiIsImlhdCI6MTYzMTU1MzIzMSwiZXhwIjoxNjMxNjEzMjMxfQ.UtxWkOSoc0_WHp3zAKMhbnptHPo2Yb1RGGMk_JCNqNIZObdYf-hVIW60uY7v2hK64tQ2lNZPQtRznXLKuwxn-Q",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8765/api/user-service/user/activate?token=d496f2c1-d5a6-4564-9333-dc12114da9ef",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"user-service",
+						"user",
+						"activate"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "d496f2c1-d5a6-4564-9333-dc12114da9ef"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add new user by admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"naveendambiwal@gmail.com\",\r\n    \"extensionNumber\":\"+91\",\r\n    \"contactNumber\":\"182355556\",\r\n    \"gender\":\"Male\",\r\n    \"firstName\":\"test\",\r\n    \"lastName\":\"tetst\",\r\n    \"dateOfBirth\":\"21-09-2021\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/admin-service/users/add/new/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"admin-service",
+						"users",
+						"add",
+						"new",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all paged users by admin",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInNjb3BlcyI6WyJSb2xle25hbWU9QURNSU59Il0sImlzcyI6ImFkbWluIiwiaWF0IjoxNjMxNzMyMTE3LCJleHAiOjE2MzE3OTIxMTd9.OuWYQ65tAkFIbc5hZPFYpvwhpI7yD00z-n_tVmlTZCGT1VrxL9Oq_Gfeeuiy4RPrmXHBqG9IQZcAtq8S_r3ERw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/admin-service/users/get/all/?pageNo=0&pageSize=5&sortBy=createdAt&asc=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"admin-service",
+						"users",
+						"get",
+						"all",
+						""
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "5"
+						},
+						{
+							"key": "sortBy",
+							"value": "createdAt"
+						},
+						{
+							"key": "asc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change user profile password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXZlZW4iLCJzY29wZXMiOlsiUm9sZXtuYW1lPVVTRVJ9Il0sImlzcyI6Im5hdmVlbiIsImlhdCI6MTYzMTczNTU0NiwiZXhwIjoxNjMxNzk1NTQ2fQ.YFjq4Q_DQPPTcFm-AvWB_0Dpi3lGR6OR6WRlShWEbAL-YLF6nLFAfm20HZICADoMw6mqWm81GWjP2GCqzYpEVg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"currentPassword\":\"naveen908\",\r\n\t\"newPassword\":\"naveen908\",\r\n\t\"confirmPassword\":\"naveen908\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/user-service/users/change/password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"user-service",
+						"users",
+						"change",
+						"password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create category",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra0BnbWFpbC5jb20iLCJzY29wZXMiOlsiUm9sZXtuYW1lPVVTRVJ9Il0sImlzcyI6ImtrQGdtYWlsLmNvbSIsImlhdCI6MTYzMjgyMzE0NSwiZXhwIjoxNjMyODgzMTQ1fQ.0KWd9Zs7ffgs1N8_Fyf2BQWzhyQdRnaNMyyXIyOEBRsjk44j1yXpd3t20_FPoqjN1DTVrKg80K2SJmKU73josA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Electric\",\r\n    \"isActive\":true,\r\n    \"description\":\"this category contains all the electric items\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/global-service/add/new/category",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"global-service",
+						"add",
+						"new",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create subcategory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra0BnbWFpbC5jb20iLCJzY29wZXMiOlsiUm9sZXtuYW1lPVVTRVJ9Il0sImlzcyI6ImtrQGdtYWlsLmNvbSIsImlhdCI6MTYzMjgyMzE0NSwiZXhwIjoxNjMyODgzMTQ1fQ.0KWd9Zs7ffgs1N8_Fyf2BQWzhyQdRnaNMyyXIyOEBRsjk44j1yXpd3t20_FPoqjN1DTVrKg80K2SJmKU73josA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryId\":\"be6478fd-7119-4397-a300-1409fd03a60f\",\r\n    \"name\":\"Fan\",\r\n    \"isActive\":true,\r\n    \"description\":\"optional \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/global-service/add/new/subcategory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"global-service",
+						"add",
+						"new",
+						"subcategory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all categories",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra0BnbWFpbC5jb20iLCJzY29wZXMiOlsiUm9sZXtuYW1lPVVTRVJ9Il0sImlzcyI6ImtrQGdtYWlsLmNvbSIsImlhdCI6MTYzMjgyMzkyMiwiZXhwIjoxNjMyODgzOTIyfQ.Gj1Jh4c1IQEG_7XX3x1jPyRVCIEjeRPApO-LvlC1XM1JUjCPAmPYCuZ7Z8mfoPxk3NotfIgGMbgAGT5LnrxR2g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/global-service/get/all/categories/paged?pageNo=0&pageSize=5&sortBy=createdAt&asc=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"global-service",
+						"get",
+						"all",
+						"categories",
+						"paged"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "5"
+						},
+						{
+							"key": "sortBy",
+							"value": "createdAt"
+						},
+						{
+							"key": "asc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all subcategories",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra0BnbWFpbC5jb20iLCJzY29wZXMiOlsiUm9sZXtuYW1lPVVTRVJ9Il0sImlzcyI6ImtrQGdtYWlsLmNvbSIsImlhdCI6MTYzMjgyMzkyMiwiZXhwIjoxNjMyODgzOTIyfQ.Gj1Jh4c1IQEG_7XX3x1jPyRVCIEjeRPApO-LvlC1XM1JUjCPAmPYCuZ7Z8mfoPxk3NotfIgGMbgAGT5LnrxR2g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/global-service/get/all/subcategories/paged?pageNo=0&pageSize=5&sortBy=createdAt&asc=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"global-service",
+						"get",
+						"all",
+						"subcategories",
+						"paged"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "5"
+						},
+						{
+							"key": "sortBy",
+							"value": "createdAt"
+						},
+						{
+							"key": "asc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all active categories without pagination",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra0BnbWFpbC5jb20iLCJzY29wZXMiOlsiUm9sZXtuYW1lPVVTRVJ9Il0sImlzcyI6ImtrQGdtYWlsLmNvbSIsImlhdCI6MTYzMjgyMzkyMiwiZXhwIjoxNjMyODgzOTIyfQ.Gj1Jh4c1IQEG_7XX3x1jPyRVCIEjeRPApO-LvlC1XM1JUjCPAmPYCuZ7Z8mfoPxk3NotfIgGMbgAGT5LnrxR2g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/global-service/get/all/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"global-service",
+						"get",
+						"all",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get category details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra0BnbWFpbC5jb20iLCJzY29wZXMiOlsiVVNFUiJdLCJpZCI6IjlmZTk1OGU4LTFjNmMtNDQxOC05ODA5LTE0MGY1NTdmNTVjMSIsImVtYWlsSWQiOiJra0BnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ0ZXRzdCIsInJvbGUiOiJVU0VSIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImtrQGdtYWlsLmNvbSIsImlhdCI6MTYzMjg5NjA5OCwiZXhwIjoxNjMyOTU2MDk4fQ.n3ubKgrCGzvujHrX8u8nQZkjj00gUTfxDWYFSOM0oe7u3yBwzdXzhfwBA5UQ-LyTT6ivVl3B-Y0jxu5U-1P2Jg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userIds\": [\r\n        \"95ffae6d-c277-4edd-9606-facd3f415cae\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/global-service/get/category/details?id=be6478fd-7119-4397-a300-1409fd03a60f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"global-service",
+						"get",
+						"category",
+						"details"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "be6478fd-7119-4397-a300-1409fd03a60f"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get subcategory details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra0BnbWFpbC5jb20iLCJzY29wZXMiOlsiVVNFUiJdLCJpZCI6IjlmZTk1OGU4LTFjNmMtNDQxOC05ODA5LTE0MGY1NTdmNTVjMSIsImVtYWlsSWQiOiJra0BnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ0ZXRzdCIsInJvbGUiOiJVU0VSIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImtrQGdtYWlsLmNvbSIsImlhdCI6MTYzMjg5NjA5OCwiZXhwIjoxNjMyOTU2MDk4fQ.n3ubKgrCGzvujHrX8u8nQZkjj00gUTfxDWYFSOM0oe7u3yBwzdXzhfwBA5UQ-LyTT6ivVl3B-Y0jxu5U-1P2Jg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userIds\": [\r\n        \"95ffae6d-c277-4edd-9606-facd3f415cae\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/global-service/get/subcategory/details?id=46c5cb97-c9be-40d4-868f-7c39fa3c7b56",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"global-service",
+						"get",
+						"subcategory",
+						"details"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "46c5cb97-c9be-40d4-868f-7c39fa3c7b56"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update category",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra0BnbWFpbC5jb20iLCJzY29wZXMiOlsiVVNFUiJdLCJpZCI6IjlmZTk1OGU4LTFjNmMtNDQxOC05ODA5LTE0MGY1NTdmNTVjMSIsImVtYWlsSWQiOiJra0BnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ0ZXRzdCIsInJvbGUiOiJVU0VSIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImtrQGdtYWlsLmNvbSIsImlhdCI6MTYzMjg5NjA5OCwiZXhwIjoxNjMyOTU2MDk4fQ.n3ubKgrCGzvujHrX8u8nQZkjj00gUTfxDWYFSOM0oe7u3yBwzdXzhfwBA5UQ-LyTT6ivVl3B-Y0jxu5U-1P2Jg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \"id\":\"be6478fd-7119-4397-a300-1409fd03a60f\",   \r\n    \"name\":\"Electric\",\r\n    \"isActive\":true,\r\n    \"description\":\"testing this category contains all the electric items\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/global-service/update/category",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"global-service",
+						"update",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update subcategory",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra0BnbWFpbC5jb20iLCJzY29wZXMiOlsiVVNFUiJdLCJpZCI6IjlmZTk1OGU4LTFjNmMtNDQxOC05ODA5LTE0MGY1NTdmNTVjMSIsImVtYWlsSWQiOiJra0BnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ0ZXRzdCIsInJvbGUiOiJVU0VSIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImtrQGdtYWlsLmNvbSIsImlhdCI6MTYzMjg5NjA5OCwiZXhwIjoxNjMyOTU2MDk4fQ.n3ubKgrCGzvujHrX8u8nQZkjj00gUTfxDWYFSOM0oe7u3yBwzdXzhfwBA5UQ-LyTT6ivVl3B-Y0jxu5U-1P2Jg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \"id\":\"46c5cb97-c9be-40d4-868f-7c39fa3c7b56\",   \r\n    \"categoryId\":\"be6478fd-7119-4397-a300-1409fd03a60f\",\r\n    \"name\":\"Fan Test\",\r\n    \"isActive\":true,\r\n    \"description\":\"optional \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/global-service/update/subcategory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"global-service",
+						"update",
+						"subcategory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete category by ids",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra0BnbWFpbC5jb20iLCJzY29wZXMiOlsiVVNFUiJdLCJpZCI6IjlmZTk1OGU4LTFjNmMtNDQxOC05ODA5LTE0MGY1NTdmNTVjMSIsImVtYWlsSWQiOiJra0BnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ0ZXRzdCIsInJvbGUiOiJVU0VSIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImtrQGdtYWlsLmNvbSIsImlhdCI6MTYzMjg5OTc5NSwiZXhwIjoxNjMyOTU5Nzk1fQ.nVVjm0PHx5H2ZOBEweZmTMgObHb1-FYyo_sbB4Yb_-lHvWW2yddw8qgj_DQWU1PrEdP43oCrKuOIfjuubYK_ow",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryIds\": [\r\n        \"bb06f902-2a8a-4ccb-b229-b4ce78a86fab\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/global-service/delete/categories/by/ids",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"global-service",
+						"delete",
+						"categories",
+						"by",
+						"ids"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete subcategory by ids",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJra0BnbWFpbC5jb20iLCJzY29wZXMiOlsiVVNFUiJdLCJpZCI6IjlmZTk1OGU4LTFjNmMtNDQxOC05ODA5LTE0MGY1NTdmNTVjMSIsImVtYWlsSWQiOiJra0BnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ0ZXRzdCIsInJvbGUiOiJVU0VSIiwicHJvZmlsZUltYWdlIjoiaHR0cDovLzEzLjIzNS43Mi4xMTg6NzMwMC9hZG1pbnMvYXZhdGFyLTE2MjU3OTk3NjA4NTEucG5nIiwicGVybWlzc2lvbiI6IiIsImlzcyI6ImtrQGdtYWlsLmNvbSIsImlhdCI6MTYzMjg5OTc5NSwiZXhwIjoxNjMyOTU5Nzk1fQ.nVVjm0PHx5H2ZOBEweZmTMgObHb1-FYyo_sbB4Yb_-lHvWW2yddw8qgj_DQWU1PrEdP43oCrKuOIfjuubYK_ow",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"subcategoryIds\": [\r\n        \"f0363e2e-a527-45ed-855f-f1209b95f8ac\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/global-service/delete/subcategories/by/ids",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"global-service",
+						"delete",
+						"subcategories",
+						"by",
+						"ids"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CMS get content",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXZlZW5AZ21haWwuY29tIiwic2NvcGVzIjpbIlJvbGV7bmFtZT1VU0VSfSJdLCJpc3MiOiJuYXZlZW5AZ21haWwuY29tIiwiaWF0IjoxNjMyODI4OTYzLCJleHAiOjE2MzI4ODg5NjN9.SrJIKMbM7Up_dK_356EfKMdWmH8TmAOf0e0FRZdvDGdKyrX6zXO81MC5B_xyJHTjPV87a1hau6jql0EXO8SQIA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/cms-service/cms/contents/?pageNo=0&pageSize=5&sortBy=updatedAt&asc=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"cms-service",
+						"cms",
+						"contents",
+						""
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "5"
+						},
+						{
+							"key": "sortBy",
+							"value": "updatedAt"
+						},
+						{
+							"key": "asc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CMS update content",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXZlZW5AZ21haWwuY29tIiwic2NvcGVzIjpbIlJvbGV7bmFtZT1VU0VSfSJdLCJpc3MiOiJuYXZlZW5AZ21haWwuY29tIiwiaWF0IjoxNjMyODQ0MDQyLCJleHAiOjE2MzI5MDQwNDJ9.XXPZ75zIYLU5V_cbBcwBvPnuKJTS4oLr7yymTV5rJC6X2I-D8q0WUhPLxNlXZyNLMt3Tzs-jXWi_pSMp6Ar_GQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\n        \"id\": 9,\n        \"cmsType\":4,\n        \"title\":\"private policy\",\n        \"contents\": \"yes This is private policy data....\",\n        \"metaTitle\":\"pol\",\n        \"metaKeyword\":\"policy\",\n        \"metaData\":\"pol\",\n        \"emailSubject\":\"\"\n    }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/cms-service/cms/update/email-template",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"cms-service",
+						"cms",
+						"update",
+						"email-template"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CMS get email template",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXZlZW5AZ21haWwuY29tIiwic2NvcGVzIjpbIlJvbGV7bmFtZT1VU0VSfSJdLCJpc3MiOiJuYXZlZW5AZ21haWwuY29tIiwiaWF0IjoxNjMyODQwNDgxLCJleHAiOjE2MzI5MDA0ODF9.KBQ3xDbPDwqgwOtJQQuoxwpIrl3wucXf3uR2ezPkAiM78iwyjYSS8Yv2jXSUHmgSts8NrAj3iKuSU1m4F_9xlw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/cms-service/cms/email-templates/?pageNo=0&pageSize=5&sortBy=updatedAt&asc=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"cms-service",
+						"cms",
+						"email-templates",
+						""
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "5"
+						},
+						{
+							"key": "sortBy",
+							"value": "updatedAt"
+						},
+						{
+							"key": "asc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CMS update email template",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXZlZW5AZ21haWwuY29tIiwic2NvcGVzIjpbIlJvbGV7bmFtZT1VU0VSfSJdLCJpc3MiOiJuYXZlZW5AZ21haWwuY29tIiwiaWF0IjoxNjMyNzYyMDE3LCJleHAiOjE2MzI4MjIwMTd9.56xutSt7BoqjQ1GJLfTHuoI4eklwA4TQSA-khOVJ4ukrVyvCQ7g_LBr2hhZTSMnaDW-YwmUCXGQb3EimwENJow",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\n        \"id\": \"5489dda9-7682-4c52-8a99-73660afe19a7\",\n        \"cmsType\": 1,\n        \"title\": \"about_us\",\n        \"contents\": \"uuuuu This is abt us data....\",\n        \"metaTitle\": \"abouthsdhjsfjs\",\n        \"metaKeyword\": \"abt\",\n        \"metaData\": \"uuu abt\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/api/cms-service/cms/update/contents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"api",
+						"cms-service",
+						"cms",
+						"update",
+						"contents"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
