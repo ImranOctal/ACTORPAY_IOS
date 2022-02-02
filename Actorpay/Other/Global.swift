@@ -159,17 +159,17 @@ func getStatus(stausString: String) -> (UIColor) {
         return UIColor.systemGreen
     case "CANCELLED":
         return UIColor.red
-    case "PARTIALLY CANCELLED":
+    case "PARTIALLY_CANCELLED":
         return UIColor.red
     case "DISPATCHED":
         return UIColor.systemGreen
     case "RETURNING":
         return UIColor.blue
-    case "PARTIALLY RETURNING":
+    case "PARTIALLY_RETURNING":
         return UIColor.blue
     case "RETURNED":
         return UIColor.blue
-    case "PARTIALLY RETURNED":
+    case "PARTIALLY_RETURNED":
         return UIColor.blue
     case "DELIVERED":
         return  UIColor.systemGreen

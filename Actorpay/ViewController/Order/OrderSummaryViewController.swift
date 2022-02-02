@@ -145,10 +145,11 @@ extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource
         let item = orderItems?.orderItemDtos?[indexPath.row]
         cell.item = item
         cell.menuButtonHandler = {
-            cell.cancelOrderDropDown.show()
+            cell.setUpCancelOrderDropDown()
         }
-        cell.cancelOrderHandler = {
+        cell.cancelOrderHandler = { status in
             let newVC = self.storyboard?.instantiateViewController(withIdentifier: "CancelOrderViewController") as! CancelOrderViewController
+            newVC.status = status
             newVC.orderItems = self.orderItems
             newVC.orderItemDtos = item
             self.navigationController?.pushViewController(newVC, animated: true)
@@ -162,7 +163,7 @@ extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource
 extension OrderSummaryViewController: CustomAlertDelegate {
     
     func okButtonclick() {
-        "Print Cancel Order Button Tapped"
+        print("Cancel Order Button Tapped")
     }
     
     func cancelButtonClick() {

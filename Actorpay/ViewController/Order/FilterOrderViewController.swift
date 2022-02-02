@@ -35,7 +35,7 @@ class FilterOrderViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        statusData = ["SUCCESS","READY","CANCELLED","PARTIALLY CANCELLED","DISPATCHED","RETURNING","PARTIALLY RETURNING","RETURNED","PARTIALLY RETURNED","DELIVERED","PENDING","FAILURE"]
+        statusData = ["SUCCESS","READY","CANCELLED","PARTIALLY_CANCELLED","DISPATCHED","RETURNING","PARTIALLY_RETURNING","RETURNED","PARTIALLY_RETURNED","DELIVERED","PENDING","FAILURE"]
         topCorner(bgView: filterView, maskToBounds: true)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         self.showAnimate()

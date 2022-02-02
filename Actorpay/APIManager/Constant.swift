@@ -26,6 +26,7 @@ enum APIEndPoint: String {
     case allOrders = "user-service/orders"
     case addToCart = "user-service/cartitems/add"
     case cartItemList = "user-service/cartitems/view"
+    case clearCartItemApi = "user-service/cartitems/clear"
     case faqAll = "cms-service/faq/all"
     case removeCartItem = "user-service/cartitems/remove"
     case updateCartItem = "user-service/cartitems/update"

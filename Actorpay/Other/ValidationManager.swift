@@ -51,6 +51,6 @@ class ValidationManager {
     let state = "Please Enter State"
     let contact = "Please Enter Valid Contact"
     
-    let emptyCancelOrderDescription = "Oops! Your Cancel Reason is Empty"
+    let emptyCancelOrderDescription = "Please write reason"
     
 }

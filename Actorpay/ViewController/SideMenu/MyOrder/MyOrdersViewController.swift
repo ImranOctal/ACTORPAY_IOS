@@ -16,6 +16,7 @@ class MyOrdersViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var myOrders: OrderList?
+    var orderList: [OrderItems] = []
     var filterOrderParm: Parameters?
     var page = 0
     var totalCount = 10
@@ -64,6 +65,7 @@ class MyOrdersViewController: UIViewController {
         newVC.setFilterData()
         newVC.completion = { param in
             print(param ?? [:])
+            self.page = 0
             self.filterOrderParm = param
             self.getOrderListApi()
         }
@@ -90,12 +92,9 @@ class MyOrdersViewController: UIViewController {
 //MARK: Api Call
 extension MyOrdersViewController {
     // Get All Order APi
-    func getOrderListApi(parameter: Parameters? = nil) {
+    func getOrderListApi(parameter: Parameters? = nil, bodyParameter:Parameters? = nil) {
         var parameters = Parameters()
         if parameter == nil {
-            if let parameter = filterOrderParm {
-                parameters = parameter
-            }
             parameters["pageNo"] = page
             parameters["pageSize"] = 10
         } else{
@@ -106,8 +105,19 @@ extension MyOrdersViewController {
             parameters["pageNo"] = page
             parameters["pageSize"] = 10
         }
+        
+        var bodyParam = Parameters()
+        if bodyParameter == nil {
+            if let bodyParameter = filterOrderParm {
+                bodyParam = bodyParameter
+            }
+        } else {
+            if let bodyParameter = bodyParameter {
+                bodyParam = bodyParameter
+            }
+        }
         showLoading()
-        APIHelper.getAllOrders(parameters: parameters) { (success, response) in
+        APIHelper.getAllOrders(parameters: parameters,bodyParameter: bodyParam) { (success, response) in
             self.tableView.pullToRefreshView?.stopAnimating()
             if !success {
                 dissmissLoader()
@@ -117,10 +127,15 @@ extension MyOrdersViewController {
                 dissmissLoader()
                 let data = response.response["data"]
                 self.myOrders = OrderList.init(json: data)
+                if self.page == 0 {
+                    self.orderList = OrderList.init(json: data).items ?? []
+                } else{
+                    self.orderList.append(contentsOf: OrderList.init(json: data).items ?? [])
+                }
+                self.totalCount = self.myOrders?.totalItems ?? 0
                 let message = response.message
                 print(message)
 //                myApp.window?.rootViewController?.view.makeToast(message)
-                self.totalCount = self.myOrders?.totalItems ?? 0
                 self.tableView.reloadData()
             }
         }
@@ -150,23 +165,25 @@ extension MyOrdersViewController {
 extension MyOrdersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.myOrders?.items?.count == 0 {
+        if self.orderList.count == 0 {
             tableView.setEmptyMessage("No Data Found.")
         }else {
             tableView.restore()
         }
-        return myOrders?.items?.count ?? 0
+        return self.orderList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyOrderCell", for: indexPath) as! MyOrderCell
-        cell.item = myOrders?.items?[indexPath.row]
+        cell.orderItemDtos = orderList[indexPath.row].orderItemDtos
+        cell.imgCollectionView.reloadData()
+        cell.item = orderList[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "OrderSummaryViewController") as! OrderSummaryViewController
-        newVC.orderNo = myOrders?.items?[indexPath.row].orderNo ?? ""
+        newVC.orderNo = orderList[indexPath.row].orderNo ?? ""
         self.navigationController?.pushViewController(newVC, animated: true)
     }
 }
@@ -176,10 +193,10 @@ extension MyOrdersViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        let totalRecords = self.myOrders?.items?.count ?? 0
+        let totalRecords = orderList.count 
         // Change 10.0 to adjust the distance from bottom
-        if maximumOffset - currentOffset <= 10.0 && totalRecords >= 10 {
-            if page < self.myOrders?.totalPages ?? 0 {
+        if maximumOffset - currentOffset <= 10.0 && totalRecords < totalCount {
+            if page < ((self.myOrders?.totalPages ?? 0)-1) {
                 page += 1
                 self.getOrderListApi()
             }

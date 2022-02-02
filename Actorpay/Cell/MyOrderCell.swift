@@ -25,7 +25,6 @@ class MyOrderCell: UITableViewCell {
                 totalPriceLbl.text = "Price: ₹\((item.totalPrice ?? 0.0).doubleToStringWithComma())"
                 statusLabel.text = item.orderStatus ?? ""
                 orderDateLbl.text = "Order Date:\(item.createdAt?.toFormatedDate(from: "yyyy-MM-dd hh:mm", to: "dd MMM yyyy HH:MM") ?? "")"
-                orderItemDtos = item.orderItemDtos
                 orderStatusView.layer.borderColor = getStatus(stausString: item.orderStatus ?? "").cgColor
                 statusLabel.textColor = getStatus(stausString: item.orderStatus ?? "")
             }
@@ -58,7 +57,7 @@ extension MyOrderCell: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "orderImgCollectionViewCell", for: indexPath) as! orderImgCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OrderImgCollectionViewCell", for: indexPath) as! OrderImgCollectionViewCell
         cell.imgView.sd_setImage(with: URL(string: orderItemDtos?[indexPath.row].image ?? ""), placeholderImage: UIImage(named: "NewLogo"), options: SDWebImageOptions.allowInvalidSSLCertificates, completed: nil)
         return cell
     }

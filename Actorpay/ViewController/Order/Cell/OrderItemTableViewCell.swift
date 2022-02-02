@@ -20,7 +20,7 @@ class OrderItemTableViewCell: UITableViewCell {
     
     var menuButtonHandler: (() -> ())!
     var cancelOrderDropDown = DropDown()
-    var cancelOrderHandler: (() -> ())!
+    var cancelOrderHandler: ((_ status:String) -> ())!
     
     var item: OrderItemDtos? {
         didSet {
@@ -30,7 +30,8 @@ class OrderItemTableViewCell: UITableViewCell {
                 priceLbl.text = "Price: ₹\((item.totalPrice ?? 0.0).doubleToStringWithComma())"
                 imgView.sd_setImage(with: URL(string: item.image ?? ""), placeholderImage: UIImage(named: "NewLogo"), options: SDWebImageOptions.allowInvalidSSLCertificates, completed: nil)
                 statusLbl.text = "Status: \(item.orderItemStatus ?? "")"
-                menuButton.isHidden = item.orderItemStatus == "CANCELLED" ? true : false
+                menuButton.isHidden = item.orderItemStatus == "CANCELLED" || item.orderItemStatus == "RETURNING" || item.orderItemStatus == "RETURNED" ? true : false
+                
             }
         }
     }
@@ -51,7 +52,6 @@ class OrderItemTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        setUpCancelOrderDropDown()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -67,12 +67,17 @@ class OrderItemTableViewCell: UITableViewCell {
     
     // Cancel Order DropDown SetUp
     func setUpCancelOrderDropDown() {
+        cancelOrderDropDown.show()
         cancelOrderDropDown.anchorView = menuButton
         cancelOrderDropDown.layer.borderWidth = 1
         cancelOrderDropDown.layer.borderColor = UIColor.black.cgColor
-        cancelOrderDropDown.dataSource = ["Cancel Order"]
+        if item?.orderItemStatus == "SUCCESS" || item?.orderItemStatus == "READY" {
+            cancelOrderDropDown.dataSource = ["Cancel Order"]
+        } else if item?.orderItemStatus == "DISPATCHED" || item?.orderItemStatus == "DELIVERED" {
+            cancelOrderDropDown.dataSource = ["Return Order"]
+        }
         cancelOrderDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            cancelOrderHandler()
+            cancelOrderHandler(item)
             self.cancelOrderDropDown.hide()
         }
         cancelOrderDropDown.bottomOffset = CGPoint(x: -60, y: 25)

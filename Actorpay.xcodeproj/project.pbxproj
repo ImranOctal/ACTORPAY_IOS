@@ -53,7 +53,7 @@
 		88439DE82782CEFA002A0212 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88439DE72782CEFA002A0212 /* Wallet.swift */; };
 		8851FD3A27846F1700103CF5 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8851FD3927846F1700103CF5 /* CustomAlertViewController.swift */; };
 		8853DED5278C493100C728C1 /* ShippingAddressDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8853DED4278C493100C728C1 /* ShippingAddressDTO.swift */; };
-		8853DEDA278C4FD700C728C1 /* orderImgCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8853DED9278C4FD700C728C1 /* orderImgCollectionViewCell.swift */; };
+		8853DEDA278C4FD700C728C1 /* OrderImgCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8853DED9278C4FD700C728C1 /* OrderImgCollectionViewCell.swift */; };
 		8856C5E3277D81800097DFFC /* MyOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8856C5E2277D81800097DFFC /* MyOrderCell.swift */; };
 		886254EA275E3A49001D09F1 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886254E9275E3A49001D09F1 /* ProductTableViewCell.swift */; };
 		88689B8A277C267700663712 /* OrderSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88689B89277C267700663712 /* OrderSummaryViewController.swift */; };
@@ -200,7 +200,7 @@
 		88439DE72782CEFA002A0212 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		8851FD3927846F1700103CF5 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		8853DED4278C493100C728C1 /* ShippingAddressDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingAddressDTO.swift; sourceTree = "<group>"; };
-		8853DED9278C4FD700C728C1 /* orderImgCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = orderImgCollectionViewCell.swift; sourceTree = "<group>"; };
+		8853DED9278C4FD700C728C1 /* OrderImgCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderImgCollectionViewCell.swift; sourceTree = "<group>"; };
 		8856C5E2277D81800097DFFC /* MyOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderCell.swift; sourceTree = "<group>"; };
 		886254E9275E3A49001D09F1 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 		88689B89277C267700663712 /* OrderSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryViewController.swift; sourceTree = "<group>"; };
@@ -520,7 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				88689B93277C2BAB00663712 /* OrderItemTableViewCell.swift */,
-				8853DED9278C4FD700C728C1 /* orderImgCollectionViewCell.swift */,
+				8853DED9278C4FD700C728C1 /* OrderImgCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1211,7 +1211,7 @@
 				88B7AA2927798174000AAEDF /* UserDTO.swift in Sources */,
 				8836A252275DEAF10099C5E0 /* WalletStatementTableViewCell.swift in Sources */,
 				88DE024D277D8D5900AD1529 /* OrderList.swift in Sources */,
-				8853DEDA278C4FD700C728C1 /* orderImgCollectionViewCell.swift in Sources */,
+				8853DEDA278C4FD700C728C1 /* OrderImgCollectionViewCell.swift in Sources */,
 				88EF91122758F83E00FEA684 /* RootViewController.swift in Sources */,
 				88DBC7312772042E006E9693 /* cardTableViewCell.swift in Sources */,
 				8851FD3A27846F1700103CF5 /* CustomAlertViewController.swift in Sources */,

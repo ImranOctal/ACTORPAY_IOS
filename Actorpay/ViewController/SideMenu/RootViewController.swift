@@ -19,6 +19,7 @@ final class RootViewController: AKSideMenu, AKSideMenuDelegate {
         self.contentViewShadowRadius = 12
         self.contentViewShadowEnabled = true
         self.delegate = self
+        self.panGestureRightEnabled = false
 
         if let storyboard = self.storyboard {
             self.contentViewController = storyboard.instantiateViewController(withIdentifier: "contentViewController")

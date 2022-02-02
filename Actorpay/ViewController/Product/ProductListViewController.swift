@@ -42,6 +42,8 @@ class ProductListViewController: UIViewController {
     var filterparm: Parameters?
     var selectedrow = Int()
     var categoryFilter : Parameters?
+    var addToCartProductId : String?
+    var addToCartProductPrice : Double?
     
     //MARK: - Life Cycle Function -
     
@@ -64,7 +66,6 @@ class ProductListViewController: UIViewController {
     
     // Back Button Action
     @IBAction func backButtonAction(_ sender: UIButton) {
-        //Back Button Action
         self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)
     }
@@ -93,6 +94,25 @@ class ProductListViewController: UIViewController {
     }
     
     //MARK: - Helper Function -
+    
+    // Replace Cart Item Alert
+    func replaceCartItemAler() {
+        let newVC = (self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as? CustomAlertViewController)!
+        newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        newVC.setUpCustomAlert(titleStr: "Replace Cart Item", descriptionStr: "Your cart contains products from different Merchant, Do you want to discard the selection and add this product?", isShowCancelBtn: false)
+        newVC.customAlertDelegate = self
+        self.definesPresentationContext = true
+        self.providesPresentationContextTransitionStyle = true
+        newVC.modalPresentationStyle = .overCurrentContext
+        self.navigationController?.present(newVC, animated: true, completion: nil)
+    }
+    
+}
+
+//MARK: - Extensions -
+
+//MARK: Api Call
+extension ProductListViewController {
     
     // Product List Api
     func getProductListAPI(parameter: Parameters? = nil, bodyParameter:Parameters? = nil) {
@@ -145,11 +165,12 @@ class ProductListViewController: UIViewController {
             }
         }
     }
+    
     // Add to Cart Api
-    func addToCart(productId: String, productPrice: Double) {
+    func addToCart() {
         let params: Parameters = [
-            "productId":"\(productId)",
-            "productPrice":productPrice,
+            "productId":"\(addToCartProductId ?? "")",
+            "productPrice":addToCartProductPrice ?? 0.0,
             "productQty":1
         ]
         print(params)
@@ -191,7 +212,7 @@ class ProductListViewController: UIViewController {
                 dissmissLoader()
                 let data = response.response["data"]
                 self.cartList = CartList.init(json: data)
-                
+                self.selctedCartIndex.removeAll()
                 for (i, val) in (self.productList).enumerated() {
                     for (_, value) in (self.cartList?.cartItemDTOList ?? []).enumerated() {
                         if val.productId == value.productId {
@@ -203,9 +224,26 @@ class ProductListViewController: UIViewController {
             }
         }
     }
+    
+    // Clear Cart Item Api
+    func clearCartItemApi() {
+        showLoading()
+        APIHelper.clearCartItemApi(params: [:], bodyParameter: [:]) { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                self.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let message = response.message
+                print(message)
+//                self.view.makeToast(message)
+                self.cartItemList()
+                self.addToCart()
+            }
+        }
+    }
 }
-
-//MARK: - Extensions -
 
 //MARK: Tableview Setup
 extension ProductListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -233,12 +271,33 @@ extension ProductListViewController: UITableViewDelegate, UITableViewDataSource 
         } else {
             cell.addToCartButton.setTitle("Add To Cart", for: .normal)
             cell.addToCartButtonHandler = {
-                self.addToCart(productId: item.productId ?? "", productPrice: item.dealPrice ?? 0.0)
+                if self.cartList?.merchantId != item.merchantId && self.cartList?.merchantId != nil {
+                    self.replaceCartItemAler()
+                    self.addToCartProductId = item.productId ?? ""
+                    self.addToCartProductPrice = item.dealPrice ?? 0.0
+                } else {
+                    self.addToCartProductId = item.productId ?? ""
+                    self.addToCartProductPrice = item.dealPrice ?? 0.0
+                    self.addToCart()
+                }
             }
         }
         cell.buyNowButtonHandler = {
-            self.buyNow = true
-            self.addToCart(productId: item.productId ?? "", productPrice: item.dealPrice ?? 0.0)
+            if (self.cartList?.cartItemDTOList ?? []).contains(where:{($0.productId  == item.productId )}) {
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
+                self.navigationController?.pushViewController(newVC, animated: true)
+            }
+            if self.cartList?.merchantId != item.merchantId && self.cartList?.merchantId != nil {
+                self.replaceCartItemAler()
+                self.buyNow = true
+                self.addToCartProductId = item.productId ?? ""
+                self.addToCartProductPrice = item.dealPrice ?? 0.0
+            } else {
+                self.buyNow = true
+                self.addToCartProductId = item.productId ?? ""
+                self.addToCartProductPrice = item.dealPrice ?? 0.0
+                self.addToCart()
+            }
         }
         
         let clearView = UIView()
@@ -349,5 +408,18 @@ extension ProductListViewController: UICollectionViewDelegate, UICollectionViewD
         
     }
     
+}
+
+//MARK: CustomAlert Delegate Methods
+extension ProductListViewController: CustomAlertDelegate {
+    
+    func okButtonclick() {
+        self.clearCartItemApi()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonClick() {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
