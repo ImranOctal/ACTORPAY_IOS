@@ -77,11 +77,16 @@ class OfferViewController: UIViewController {
                 dissmissLoader()
                 let message = response.message
                 print(message)
+                self.view.makeToast(message)
             }else {
                 dissmissLoader()
                 let data = response.response["data"]
                 self.couponData = ProductList.init(json: data)
-                self.couponList = self.couponData?.items ?? []
+                if (self.page == 0) {
+                    self.couponList = self.couponData?.items ?? []
+                } else{
+                    self.couponList.append(contentsOf: self.couponData?.items ?? [])
+                }                
                 self.totalCount = self.couponData?.totalItems ?? 0
                 print(self.couponList.count)
                 self.tblView.reloadData()
@@ -130,12 +135,12 @@ extension OfferViewController: UIScrollViewDelegate {
                 self.getCouponList()
             }
         }else{
-            if page <= 0 {
-                return
-            }else {
-                page -= 1
-                self.getCouponList()
-            }
+//            if page <= 0 {
+//                return
+//            }else {
+//                page -= 1
+//                self.getCouponList()
+//            }
         }
     }
 }

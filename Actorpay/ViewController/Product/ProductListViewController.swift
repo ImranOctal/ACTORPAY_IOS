@@ -179,7 +179,7 @@ extension ProductListViewController {
             if !success {
                 dissmissLoader()
                 let message = response.message
-//                myApp.window?.rootViewController?.view.makeToast(message)
+                myApp.window?.rootViewController?.view.makeToast(message)
                 print(message)
             }else {
                 dissmissLoader()
@@ -206,7 +206,7 @@ extension ProductListViewController {
             if !success {
                 dissmissLoader()
                 let message = response.message
-//                myApp.window?.rootViewController?.view.makeToast(message)
+                myApp.window?.rootViewController?.view.makeToast(message)
                 print(message)
             }else {
                 dissmissLoader()

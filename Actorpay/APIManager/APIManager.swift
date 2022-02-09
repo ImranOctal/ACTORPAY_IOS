@@ -12,6 +12,7 @@ import SwiftyJSON
 typealias APICompletionBlock = (_ respone:APIResponse) -> Void
 //
 struct APIResponse {
+    
     var success = false
     var message = ""
     var response:JSON
@@ -27,6 +28,7 @@ struct APIResponse {
     static func createFailureAPIResponse(_ message:String = "", _ response:JSON = JSON.null) -> APIResponse {
         return  APIResponse.init(success: false, message: message, response: response)
     }
+    
 }
 
 

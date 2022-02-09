@@ -8,6 +8,13 @@ extension StringProtocol {
     var firstCapitalized: String { prefix(1).capitalized + dropFirst() }
 }
 
+extension UIScrollView {
+    func scrollToTop() {
+        let desiredOffset = CGPoint(x: 0, y: -contentInset.bottom)
+        setContentOffset(desiredOffset, animated: true)
+    }
+}
+
 extension UIViewController {
 
     func alertViewController(message: String) {

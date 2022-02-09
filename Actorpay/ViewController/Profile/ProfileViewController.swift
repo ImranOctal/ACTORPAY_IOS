@@ -297,7 +297,7 @@ class ProfileViewController: UIViewController {
     @objc func setupUserData() {
         nameTextField.text = (user?.firstName ?? "") + " " + (user?.lastName ?? "")
         genderTextField.text = user?.gender ?? ""
-        dobTextField.text = user?.dateOfBirth?.toFormatedDate(from: "yyyy-MM-dd", to: "dd/MM/yyyy")
+        dobTextField.text = user?.dateOfBirth?.toFormatedDate(from: "yyyy-MM-dd", to: "dd-MM-yyyy")
         emailTextField.text = user?.email ?? ""
         phoneNumberTextField.text = (user?.contactNumber ?? "")
         phoneCodeTextField.text = (user?.extensionNumber ?? "")
@@ -365,8 +365,8 @@ class ProfileViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
     }
-    // Date Picker SetUp
-    // get Order Details Api
+    
+    // Send Otp Request Api
     func sendOTPRequestAPI() {
         APIHelper.getOTPRequestAPI { (success, response) in
             if !success {
@@ -414,7 +414,7 @@ class ProfileViewController: UIViewController {
     // FromTextField DatePicker Done Button Action
     @objc func fromTxtFieldDatePicker(){
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
+        formatter.dateFormat = "dd-MM-yyyy"
         dobTextField.text = formatter.string(from: datePicker.date)
         self.view.endEditing(true)
     }

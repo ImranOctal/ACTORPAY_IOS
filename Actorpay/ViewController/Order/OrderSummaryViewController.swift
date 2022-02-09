@@ -27,12 +27,17 @@ class OrderSummaryViewController: UIViewController {
     @IBOutlet weak var licenceNoLbl: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var contactNoLbl: UILabel!
-    @IBOutlet weak var note1Lbl: UILabel!
-    @IBOutlet weak var note2Lbl:UILabel!
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var buttonAction: UIButton!
     @IBOutlet weak var statusLbl: UILabel!
     @IBOutlet weak var orderStatusView: UIView!
+    @IBOutlet weak var notesTblView: UITableView! {
+        didSet {
+            self.notesTblView.delegate = self
+            self.notesTblView.dataSource = self
+        }
+    }
+    @IBOutlet weak var notesTblViewHeightConst: NSLayoutConstraint!
     
     var orderNo = ""
     var orderItems: OrderItems?
@@ -57,7 +62,7 @@ class OrderSummaryViewController: UIViewController {
     //Back Button Action
     @IBAction func backBtnAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     // Cancel Order Button Action
@@ -75,6 +80,17 @@ class OrderSummaryViewController: UIViewController {
         }else{
             self.navigationController?.popToRootViewController(animated: true)
         }        
+    }
+    
+    // Add Order Note Button Action
+    @IBAction func addNoteBtnAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        let newVC = (self.storyboard?.instantiateViewController(withIdentifier: "AddNoteViewController") as? AddNoteViewController)!
+        newVC.orderItems = self.orderItems
+        self.definesPresentationContext = true
+        self.providesPresentationContextTransitionStyle = true
+        newVC.modalPresentationStyle = .overCurrentContext
+        self.navigationController?.present(newVC, animated: true, completion: nil)
     }
     
     //MARK: - Helper Functions -
@@ -126,6 +142,8 @@ extension OrderSummaryViewController {
                 print(message)
                 self.tblViewHeightConst.constant = CGFloat(120 * (self.orderItems?.orderItemDtos?.count ?? 0))
                 self.setUpOrderDetailsData()
+                self.notesTblView.reloadData()
+                self.notesTblViewHeightConst.constant = CGFloat((self.orderItems?.orderNotesDtos?.count ?? 0) * 83)
                 self.tblView.reloadData()
             }
         }
@@ -137,25 +155,58 @@ extension OrderSummaryViewController {
 extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return orderItems?.orderItemDtos?.count ?? 0
+        switch tableView {
+        case tblView:
+            return orderItems?.orderItemDtos?.count ?? 0
+        case notesTblView:
+            if self.orderItems?.orderNotesDtos?.count == 0 {
+                notesTblView.setEmptyMessage("No Data Found.")
+            }else {
+                notesTblView.restore()
+            }
+            return self.orderItems?.orderNotesDtos?.count ?? 0
+        default:
+            return 0
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItemTableViewCell", for: indexPath) as! OrderItemTableViewCell
-        let item = orderItems?.orderItemDtos?[indexPath.row]
-        cell.item = item
-        cell.menuButtonHandler = {
-            cell.setUpCancelOrderDropDown()
+        switch tableView {
+        case tblView:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItemTableViewCell", for: indexPath) as! OrderItemTableViewCell
+            let item = orderItems?.orderItemDtos?[indexPath.row]
+            cell.item = item
+            cell.menuButtonHandler = {
+                cell.setUpCancelOrderDropDown()
+            }
+            cell.cancelOrderHandler = { status in
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "CancelOrderViewController") as! CancelOrderViewController
+                newVC.status = status
+                newVC.orderItems = self.orderItems
+                newVC.orderItemDtos = item
+                self.navigationController?.pushViewController(newVC, animated: true)
+            }
+            return cell
+        case notesTblView:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OrderNoteTableViewCell", for: indexPath) as! OrderNoteTableViewCell
+            let item = orderItems?.orderNotesDtos?[indexPath.row]
+            cell.item = item
+            return cell
+        default:
+            return UITableViewCell()
         }
-        cell.cancelOrderHandler = { status in
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "CancelOrderViewController") as! CancelOrderViewController
-            newVC.status = status
-            newVC.orderItems = self.orderItems
-            newVC.orderItemDtos = item
-            self.navigationController?.pushViewController(newVC, animated: true)
-        }
-        return cell
+        
     }
+    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        switch tableView {
+//        case notesTblView:
+//            notesTblViewHeightConst.constant = cell.contentView.frame.height * CGFloat(orderItems?.orderNotesDtos?.count ?? 0)
+//        default:
+//            break
+//        }
+//    }
     
 }
 

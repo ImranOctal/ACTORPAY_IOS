@@ -52,5 +52,15 @@ class ValidationManager {
     let contact = "Please Enter Valid Contact"
     
     let emptyCancelOrderDescription = "Please write reason"
+    let emptyNotesDesc = "Add Note Description"
     
+    // Add Money In Wallet
+    let emptyAmount = "Please Enter Amount"
+    
+    // Transfer Money
+    let emptyMobileDesc = "Please Enter Send Money Reason"
+    let emptyBaneficiaryName = "Please Enter Baneficiary Name"
+    let emptyBaneficiaryAccountNo = "Please Enter Baneficiary Account Number"
+    let emptyBaneficiaryIFSCCode = "Please Enter Baneficiary IFSC Code"
+    let emptyBaneficiaryBranchName = "Please Enter Baneficiary Branch Name"
 }

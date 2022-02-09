@@ -114,10 +114,10 @@ extension TabBarRootViewController: UICollectionViewDelegate, UICollectionViewDa
         collectionView.deselectItem(at: indexPath, animated: true)
         switch indexPath.row {
         case 0:
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddMoneyViewController") as! AddMoneyViewController
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddMoneyInWalletViewController") as! AddMoneyInWalletViewController
             self.navigationController?.pushViewController(vc, animated: true)
         case 1:
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
             self.navigationController?.pushViewController(vc, animated: true)
         case 2:
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "DTHRechageViewController") as! DTHRechageViewController

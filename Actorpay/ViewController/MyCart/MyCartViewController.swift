@@ -86,6 +86,7 @@ extension MyCartViewController {
                 dissmissLoader()
                 let message = response.message
                 print(message)
+                self.view.makeToast(message)
             }else {
                 dissmissLoader()
                 let data = response.response["data"]
@@ -111,6 +112,7 @@ extension MyCartViewController {
                 dissmissLoader()
                 let message = response.message
                 print(message)
+                self.view.makeToast(message)
             }else {
                 dissmissLoader()
                 self.cartItemList()
@@ -130,6 +132,7 @@ extension MyCartViewController {
                 dissmissLoader()
                 let message = response.message
                 print(message)
+                self.view.makeToast(message)
             }else {
                 dissmissLoader()
                 self.cartItemList()
@@ -170,7 +173,7 @@ extension MyCartViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.deleteButtonHandler = {
-            let alert = UIAlertController(title: "Delete Item", message: "Are You Sure", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Delete Item", message: "Are you sure you want to remove product?", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .default) { (action) in
                 self.removeCartItem(id: self.cartList?.cartItemDTOList?[indexPath.row].cartItemId ?? "")
             }

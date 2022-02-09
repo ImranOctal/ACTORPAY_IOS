@@ -131,7 +131,7 @@ final class APIHelper {
         }
     }
     
-    //MARK: - Place Order API -
+    //MARK: Place Order API
     static func placeOrderAPI(params: Parameters , success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){
         APIManager.shared.request2(method: .post, url: APIEndPoint.allOrders.rawValue, parameters: params) { (response) in
             let status = response.response["status"]
@@ -203,7 +203,7 @@ final class APIHelper {
         }
     }
     
-    //MARK: - SignUp Api -
+    //MARK: SignUp Api
     static func addAddressAPI(params: Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ){
         APIManager.shared.request2(method: .post, url: APIEndPoint.addAddress.rawValue, parameters: params) { (response) in
             let status = response.response["status"]
@@ -215,7 +215,7 @@ final class APIHelper {
         }
     }
     
-    //MARK:  Verify OTP Api -
+    //MARK:  Verify OTP Api
     static func verifyOTPAPI(params: Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ){
         APIManager.shared.requestWithParameters(method: .post, url: APIEndPoint.verifyOTP.rawValue, parameters: params, bodyParameter: [:]) { (response) in
             let status = response.response["status"]
@@ -251,7 +251,7 @@ final class APIHelper {
             }
         }
     }
-    //MARK: - Cancel Or Return Order Api -
+    //MARK: Cancel Or Return Order Api
     static func getOTPRequestAPI(success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){
         APIManager.shared.getMethod(url: APIEndPoint.sendOTP.rawValue) { (response) in
             let status = response.response["status"]
@@ -387,6 +387,18 @@ final class APIHelper {
     //MARK: Clear Cart Item Api
     static func clearCartItemApi(params: Parameters, bodyParameter:Parameters, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ){
         APIManager.shared.requestWithParameters(method: .delete, url: APIEndPoint.clearCartItemApi.rawValue, parameters: params, bodyParameter: bodyParameter) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
+    
+    //MARK: Post Order Notes Api
+    static func postOrderNoteApi(params: Parameters, bodyParameter:Parameters, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ) {
+        APIManager.shared.requestWithParameters(method: .post, url: APIEndPoint.postOrderNoteApi.rawValue, parameters: params, bodyParameter: bodyParameter) { (response) in
             let status = response.response["status"]
             if status == "200" {
                 success(true, response)

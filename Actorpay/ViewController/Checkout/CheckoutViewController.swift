@@ -96,6 +96,7 @@ class CheckoutViewController: UIViewController {
                     dissmissLoader()
                     let message = response.message
                     print(message)
+                    self.view.makeToast(message)
                 }else {
                     dissmissLoader()
                     let data = response.response["data"]
@@ -146,7 +147,11 @@ class CheckoutViewController: UIViewController {
                 dissmissLoader()
                 let data = response.response["data"]
                 self.shippingAddressList = AddressList.init(json: data)
-                self.addressListItems = self.shippingAddressList?.items ?? []
+                if (self.page == 0) {
+                    self.addressListItems = self.shippingAddressList?.items ?? []
+                } else{
+                    self.addressListItems.append(contentsOf: self.shippingAddressList?.items ?? [])
+                }
                 self.selectedAddress = self.addressListItems.first
                 self.totalCount = self.shippingAddressList?.totalItems ?? 0
                 self.addressTableView.reloadData()
@@ -286,12 +291,12 @@ extension CheckoutViewController: UIScrollViewDelegate{
                 self.getAllShippingAddressListApi()
             }
         }else{
-            if page <= 0 {
-                return
-            }else {
-                page -= 1
-                self.getAllShippingAddressListApi()
-            }
+//            if page <= 0 {
+//                return
+//            }else {
+//                page -= 1
+//                self.getAllShippingAddressListApi()
+//            }
         }
     }
 }

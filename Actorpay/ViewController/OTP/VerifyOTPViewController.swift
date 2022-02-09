@@ -91,6 +91,7 @@ class VerifyOTPViewController: UIViewController {
                 dissmissLoader()
                 let message = response.message
                 print(message)
+                self.view.makeToast(message)
             }else {
                 dissmissLoader()
                 let message = response.message

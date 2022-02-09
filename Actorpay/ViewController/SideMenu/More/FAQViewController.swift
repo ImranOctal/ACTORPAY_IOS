@@ -70,7 +70,7 @@ extension FAQViewController {
                 dissmissLoader()
                 let message = response.message
                 print(message)
-//                myApp.window?.rootViewController?.view.makeToast(message)
+                myApp.window?.rootViewController?.view.makeToast(message)
             }else {
                 dissmissLoader()
                 let data = response.response.data

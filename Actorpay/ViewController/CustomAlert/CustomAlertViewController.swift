@@ -23,6 +23,7 @@ class CustomAlertViewController: UIViewController {
     @IBOutlet weak var customAlertView: UIView!
     @IBOutlet weak var alertTitleView: UIView!
     @IBOutlet weak var alertButtonView: UIView!
+    @IBOutlet weak var mainView: UIView!
     
     var customAlertDelegate: CustomAlertDelegate?
     
@@ -88,7 +89,8 @@ class CustomAlertViewController: UIViewController {
     // View End Editing
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            let currentPoint = touch.location(in: self.view)
+            let currentPoint = touch.location(in: self.mainView)
+            print(currentPoint)
             if !(customAlertView.frame.contains(currentPoint)) {
                 removeAnimate()
                 self.dismiss(animated: true, completion: nil)

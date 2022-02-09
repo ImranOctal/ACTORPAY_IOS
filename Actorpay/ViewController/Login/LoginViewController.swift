@@ -13,6 +13,8 @@ import Alamofire
 import GoogleSignIn
 import FBSDKLoginKit
 import FBSDKCoreKit
+import IQKeyboardManagerSwift
+import AuthenticationServices
 
 class LoginViewController: UIViewController {
     
@@ -115,6 +117,7 @@ class LoginViewController: UIViewController {
     }
     @IBOutlet weak var termsAndPrivacyLabel: UILabel!
     @IBOutlet weak var termsAcceptBtn: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var isSignIn = true
     var isPassTap = false
@@ -151,10 +154,13 @@ class LoginViewController: UIViewController {
         signUpLineView.isHidden = true
         signUpView.isHidden = true
         dateOfBirthTextField.delegate = self
-        setupDropDown()
-        signInUIManage()
-        setSwipeGestureToView()
+        self.setDatePicker()
+        self.setupDropDown()
+        self.signInUIManage()
+        self.setSwipeGestureToView()
         setupMultipleTapLabel()
+        self.setupAppleLoginCreditional()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -175,12 +181,21 @@ class LoginViewController: UIViewController {
         self.view.endEditing(true)
         if sender.tag == 1001 {
             isSignIn = true
-            loginEmailTextField.becomeFirstResponder()
             signInUIManage()
         }else{
             phoneNumberTextField.becomeFirstResponder()
             isSignIn = false
             signInUIManage()
+        }
+    }
+    
+    // Apple Login Button Action
+    @IBAction func appleLoginBtnAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        if #available(iOS 13, *) {
+            startSignInWithAppleFlow()
+        } else {
+            self.view.makeToast("You need to update iOS 13")
         }
     }
     
@@ -209,6 +224,7 @@ class LoginViewController: UIViewController {
                     dissmissLoader()
                     let message = response.message
                     print(message)
+                    self.view.makeToast(message)
                 }else {
                     dissmissLoader()
                     let data = response.response["data"]
@@ -265,6 +281,7 @@ class LoginViewController: UIViewController {
                         dissmissLoader()
                         let message = response.message
                         print(message)
+                        self.view.makeToast(message)
                     }else {
                         dissmissLoader()
                         let data = response.response["data"]
@@ -281,12 +298,6 @@ class LoginViewController: UIViewController {
                 }
             }
         }
-    }
-
-    // Show Calender Button Action
-    @IBAction func showCalender(_ sender: UIButton) {
-        self.view.endEditing(true)
-        showDatePicker()
     }
     
     // Upload Document Button Action
@@ -454,6 +465,41 @@ class LoginViewController: UIViewController {
     
     //    MARK: - Helper Functions -
     
+    // Sign In With Apple Flow
+    @available(iOS 13, *)
+    func startSignInWithAppleFlow() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+    
+    func setupAppleLoginCreditional() {
+        if #available(iOS 13.0, *) {
+            if let userIdentifier = UserDefaults.standard.object(forKey: "userIdentifier1") as? String {
+                let appleIDProvider = ASAuthorizationAppleIDProvider()
+                appleIDProvider.getCredentialState(forUserID: userIdentifier) {  (credentialState, error) in
+                    switch credentialState {
+                    case .authorized:
+                        print("The Apple ID credential is valid.")
+                        break
+                    case .revoked:
+                        print("The Apple ID credential is revoked.")
+                        break
+                    case .notFound:
+                        print("No credential was found, so show the sign-in UI.")
+                    default:
+                        break
+                    }
+                }
+            }
+        }
+    }
+    
     // SetUp Drop Down
     func setupDropDown()  {
         dropDown.anchorView = genderTextField
@@ -472,6 +518,7 @@ class LoginViewController: UIViewController {
     // Sign In UI Manage
     func signInUIManage(){
         // login and Signup Manage
+        self.view.endEditing(true)
         signUpView.isHidden = isSignIn
         loginView.isHidden = !isSignIn
         signUpLineView.isHidden = isSignIn
@@ -493,18 +540,17 @@ class LoginViewController: UIViewController {
         genderTextField.text = nil
         panNumberTextField.text = nil
         adharNumberTextField.text = nil
-//        pancardOrAdharCardNumberTextField.text = nil
     }
     
     func setSwipeGestureToView() {
-        //        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        //        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         
-        //        leftSwipe.direction = .left
-        //        rightSwipe.direction = .right
-        //
-        //        view.addGestureRecognizer(leftSwipe)
-        //        view.addGestureRecognizer(rightSwipe)
+        leftSwipe.direction = .left
+        rightSwipe.direction = .right
+        
+        view.addGestureRecognizer(leftSwipe)
+        view.addGestureRecognizer(rightSwipe)
     }
         
     // Tap Label SetUp
@@ -522,37 +568,31 @@ class LoginViewController: UIViewController {
         termsAndPrivacyLabel.addGestureRecognizer(tapAction)
     }
     
-    // Date Picker SetUp
-    func showDatePicker() {
-        datePicker = UIDatePicker()
-        datePicker.date = Date()
-        datePicker.locale = .current
-        if #available(iOS 14.0, *) {
-            datePicker.preferredDatePickerStyle = .inline
+    func setDatePicker() {
+        datePicker.datePickerMode = .date
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
         }
-        datePicker.addTarget(self, action: #selector(dateSet), for: .valueChanged)
-        addDatePickerToSubview()
-        datePicker.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        datePicker.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Ok", style: .plain, target: self, action: #selector(dobTxtFieldDoneDatePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker))
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        dateOfBirthTextField.inputAccessoryView = toolbar
+        dateOfBirthTextField.inputView = datePicker
     }
-
-    // Add Date Picker To SubView and Give the background Blur Effect
-    func addDatePickerToSubview() {
-        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.regular)
-        blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = self.view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.view.addSubview(blurEffectView)
-        self.view.addSubview(datePicker)
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        view.bringSubviewToFront(datePicker)
+    // DOBTextField DatePicker Done Button Action
+    @objc func dobTxtFieldDoneDatePicker(){
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        dateOfBirthTextField.text = formatter.string(from: datePicker.date)
+        self.view.endEditing(true)
     }
     
-    // Date Picker Date Set in a Text Field
-    @objc func dateSet() {
-        dateOfBirthTextField.text = datePicker.date.formatted
-        blurEffectView.removeFromSuperview()
-        datePicker.removeFromSuperview()
+    // Date Picker Cancel Button Action
+    @objc func cancelDatePicker(){
+        self.view.endEditing(true)
     }
     
     // Open Camera
@@ -697,8 +737,6 @@ class LoginViewController: UIViewController {
         }else {
             termsLabel.isHidden = true
         }
-        
-        
         return isValidate
     }
     
@@ -728,6 +766,7 @@ extension LoginViewController {
                 dissmissLoader()
                 let message = response.message
                 print(message)
+                self.view.makeToast(message)
             }else {
                 dissmissLoader()
                 let data = response.response["data"]
@@ -739,6 +778,7 @@ extension LoginViewController {
                 myApp.window?.rootViewController = newVC
                 let message = response.message
                 print(message)
+                myApp.window?.rootViewController?.view.makeToast(message)
             }
         }
     }
@@ -747,7 +787,7 @@ extension LoginViewController {
     func signUpApi() {
         let params: Parameters = [
             "email":"\(emailAddressTextField.text ?? "")",
-            "extensionNumber":"+\(phoneCodeTextField.text ?? "")",
+            "extensionNumber":"\(phoneCodeTextField.text ?? "")",
             "contactNumber":"\(phoneNumberTextField.text ?? "")",
             "password":"\(signUpPasswordTextField.text ?? "")",
             "gender":"\(genderTextField.text ?? "")",
@@ -770,12 +810,14 @@ extension LoginViewController {
                 dissmissLoader()
                 let message = response.message
                 print(message)
+                self.view.makeToast(message)
             }else {
                 dissmissLoader()
                 self.isSignIn = true
                 self.signInUIManage()
                 let message = response.message
                 print(message)
+                self.view.makeToast(message)
             }
         }
     }
@@ -968,5 +1010,38 @@ extension LoginViewController: UITextFieldDelegate {
         } else {
             return true
         }
+    }
+}
+
+//MARK: - ASAuthorizationControllerDelegate Methods -
+@available(iOS 13.0, *)
+extension LoginViewController: ASAuthorizationControllerDelegate {
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+            print("User Id: \(userIdentifier), Full Name: \(fullName), Email: \(email)")
+            let defaults = UserDefaults.standard
+            defaults.set(userIdentifier, forKey: "userIdentifier")
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // Handle error.
+        print("Sign in with Apple errored: \(error)")
+        DispatchQueue.main.async {
+            dissmissLoader()
+            self.view.makeToast("Something wrong with your profile information. \(error.localizedDescription)")
+        }
+    }
+    
+}
+
+@available(iOS 13.0, *)
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
 }

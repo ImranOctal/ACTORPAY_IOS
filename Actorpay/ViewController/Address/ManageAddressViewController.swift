@@ -73,7 +73,12 @@ class ManageAddressViewController: UIViewController {
                 dissmissLoader()
                 let data = response.response["data"]
                 self.shippingAddressList = AddressList.init(json: data)
-                self.addressListItems = self.shippingAddressList?.items ?? []
+                if (self.page == 0) {
+                    self.addressListItems = self.shippingAddressList?.items ?? []
+                } else{
+                    self.addressListItems.append(contentsOf: self.shippingAddressList?.items ?? [])
+                }
+                
 //                for item in self.shippingAddressList?.items ?? [] {
 //                    self.addressListItems.append(item)
 //                }
@@ -156,12 +161,12 @@ extension ManageAddressViewController: UIScrollViewDelegate{
                 self.getAllShippingAddressListApi()
             }
         }else{
-            if page <= 0 {
-                return
-            }else {
-                page -= 1
-                self.getAllShippingAddressListApi()
-            }
+//            if page <= 0 {
+//                return
+//            }else {
+//                page -= 1
+//                self.getAllShippingAddressListApi()
+//            }
         }
     }
 }

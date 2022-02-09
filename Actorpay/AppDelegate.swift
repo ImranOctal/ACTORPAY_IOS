@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         self.registerForPushNotifications()
         AppManager.shared.countryName = "India"
-        AppManager.shared.countryCode = "+ 91"
+        AppManager.shared.countryCode = "+91"
         AppManager.shared.countryFlag = "IN"
 
         GMSPlacesClient.provideAPIKey(google_map_key)
