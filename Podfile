@@ -24,6 +24,7 @@ target 'Actorpay' do
   pod 'FBSDKShareKit'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'KeychainSwift'
 
 
   target 'ActorpayTests' do

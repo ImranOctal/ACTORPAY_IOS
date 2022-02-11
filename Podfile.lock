@@ -33,6 +33,7 @@ PODS:
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.7.0)
   - IQKeyboardManagerSwift (6.5.9)
+  - KeychainSwift (20.0.0)
   - MBProgressHUD (1.1.0)
   - NKVPhonePicker (2.1.1)
   - PopupDialog (1.1.1):
@@ -55,6 +56,7 @@ DEPENDENCIES:
   - GooglePlaces
   - GoogleSignIn
   - IQKeyboardManagerSwift
+  - KeychainSwift
   - MBProgressHUD (~> 1.1.0)
   - NKVPhonePicker
   - PopupDialog
@@ -81,6 +83,7 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - IQKeyboardManagerSwift
+    - KeychainSwift
     - MBProgressHUD
     - NKVPhonePicker
     - PopupDialog
@@ -106,6 +109,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  KeychainSwift: 0ce6a4d13f7228054d1a71bb1b500448fb2ab837
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   NKVPhonePicker: c71b3e8e53ce74e0b4e4d5c5adf54cbb3dd16fd8
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
@@ -114,6 +118,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 7b1c57bfdfeedb2075960855c539d4deae09cb1b
+PODFILE CHECKSUM: aaab3d63aa3bb91aa9f1f5827ec47896e0cf9ceb
 
 COCOAPODS: 1.11.2

@@ -26,6 +26,7 @@ class FilterOrderViewController: UIViewController {
     typealias comp = (_ params: Parameters?) -> Void
     var completion:comp?
     var orderStatusDropDown =  DropDown()
+    var orderStatus: String = ""
     var statusData: [String] = []
     var filterOrderParm: Parameters?
 
@@ -41,7 +42,7 @@ class FilterOrderViewController: UIViewController {
         self.showAnimate()
         setStartDatePicker()
         setEndDatePicker()
-        setupCategoryDropDown()
+        setupOrderStatusDropDown()
         self.setFilterData()
     }
     
@@ -84,7 +85,8 @@ class FilterOrderViewController: UIViewController {
             "priceRangeTo": "",
             "orderNo":orderNoTextField.text ?? "",
             "orderId":"",
-            "orderStatus":statusTextField.text ?? ""
+            "orderStatus":orderStatus
+//            "orderStatus":statusTextField.text ?? ""
         ]
         if let codeCompletion = completion {
             codeCompletion(param)
@@ -105,24 +107,26 @@ class FilterOrderViewController: UIViewController {
         orderNoTextField.text = filterOrderParm?["orderNo"] as? String
         startDateTextField.text = filterOrderParm?["startDate"] as? String
         endDateTextField.text = filterOrderParm?["endData"] as? String
-        statusTextField.text = filterOrderParm?["orderStatus"] as? String
+        orderStatus = (filterOrderParm?["orderStatus"] as? String) ?? ""
+        statusTextField.text = orderStatus.replacingOccurrences(of: "_", with: " ", options: .literal, range: nil)
         merchantNameTextField.text = filterOrderParm?["merchantName"] as? String
         totalAmountTextField.text = filterOrderParm?["totalPrice"] as? String
     }
     
-    // SetUp Category Drop Down
-    func setupCategoryDropDown() {
+    // SetUp Order Status Drop Down
+    func setupOrderStatusDropDown() {
         orderStatusDropDown.anchorView = statusTextField
-        orderStatusDropDown.dataSource = statusData
+        orderStatusDropDown.dataSource = statusData.map({$0.replacingOccurrences(of: "_", with: " ", options: .literal, range: nil)})
         orderStatusDropDown.backgroundColor = .white
         orderStatusDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.statusTextField.text = item
+            self.orderStatus = statusData[index]
             self.view.endEditing(true)
             self.orderStatusDropDown.hide()
-            orderStatusDropDown.bottomOffset = CGPoint(x: -10, y: 50)
-            orderStatusDropDown.width = statusTextField.frame.width + 60
-            orderStatusDropDown.direction = .bottom
         }
+        orderStatusDropDown.topOffset = CGPoint(x: -10, y: -50)
+        orderStatusDropDown.width = statusTextField.frame.width + 60
+        orderStatusDropDown.direction = .top
     }
 
     

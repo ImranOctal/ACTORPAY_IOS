@@ -15,6 +15,7 @@ import FBSDKLoginKit
 import FBSDKCoreKit
 import IQKeyboardManagerSwift
 import AuthenticationServices
+import KeychainSwift
 
 class LoginViewController: UIViewController {
     
@@ -128,6 +129,7 @@ class LoginViewController: UIViewController {
     var datePickerConstraints = [NSLayoutConstraint]()
     var blurEffectView = UIView()
     var imagePicker = UIImagePickerController()
+    var dictSocial = NSDictionary()
     
     // MARK: - Life cycle Functions -
     
@@ -159,7 +161,6 @@ class LoginViewController: UIViewController {
         self.signInUIManage()
         self.setSwipeGestureToView()
         setupMultipleTapLabel()
-        self.setupAppleLoginCreditional()
         
     }
     
@@ -192,11 +193,7 @@ class LoginViewController: UIViewController {
     // Apple Login Button Action
     @IBAction func appleLoginBtnAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        if #available(iOS 13, *) {
-            startSignInWithAppleFlow()
-        } else {
-            self.view.makeToast("You need to update iOS 13")
-        }
+        self.startSignInWithAppleFlow()
     }
     
     // Google Sigin Button Action
@@ -218,28 +215,7 @@ class LoginViewController: UIViewController {
                     "deviceData": "\(UIDevice.modelName)"
                 ]
             ]
-            showLoading()
-            APIHelper.socialLoginApi(params: params) { (success,response)  in
-                if !success {
-                    dissmissLoader()
-                    let message = response.message
-                    print(message)
-                    self.view.makeToast(message)
-                }else {
-                    dissmissLoader()
-                    let data = response.response["data"]
-                    user = User.init(json: data)
-                    AppManager.shared.token = user?.access_token ?? ""
-                    AppManager.shared.userId = user?.id ?? ""
-                    //                AppUserDefaults.saveObject(self.user?.access_token, forKey: .userAuthToken)
-                    let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
-                    myApp.window?.rootViewController = newVC
-                    let message = response.message
-                    print(message)
-                    GIDSignIn.sharedInstance.signOut()
-                }
-            }
-            
+            self.socialLoginApi(params: params)
         }
     }
 
@@ -275,27 +251,8 @@ class LoginViewController: UIViewController {
                         "deviceData": "\(UIDevice.modelName)"
                     ]
                 ]
-                showLoading()
-                APIHelper.socialLoginApi(params: params) { (success,response)  in
-                    if !success {
-                        dissmissLoader()
-                        let message = response.message
-                        print(message)
-                        self.view.makeToast(message)
-                    }else {
-                        dissmissLoader()
-                        let data = response.response["data"]
-                        user = User.init(json: data)
-                        AppManager.shared.token = user?.access_token ?? ""
-                        AppManager.shared.userId = user?.id ?? ""
-                        //                AppUserDefaults.saveObject(self.user?.access_token, forKey: .userAuthToken)
-                        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
-                        myApp.window?.rootViewController = newVC
-                        let message = response.message
-                        print(message)
-                        loginManager.logOut()
-                    }
-                }
+                self.socialLoginApi(params: params)
+                loginManager.logOut()
             }
         }
     }
@@ -466,37 +423,17 @@ class LoginViewController: UIViewController {
     //    MARK: - Helper Functions -
     
     // Sign In With Apple Flow
-    @available(iOS 13, *)
     func startSignInWithAppleFlow() {
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
-    }
-    
-    func setupAppleLoginCreditional() {
         if #available(iOS 13.0, *) {
-            if let userIdentifier = UserDefaults.standard.object(forKey: "userIdentifier1") as? String {
-                let appleIDProvider = ASAuthorizationAppleIDProvider()
-                appleIDProvider.getCredentialState(forUserID: userIdentifier) {  (credentialState, error) in
-                    switch credentialState {
-                    case .authorized:
-                        print("The Apple ID credential is valid.")
-                        break
-                    case .revoked:
-                        print("The Apple ID credential is revoked.")
-                        break
-                    case .notFound:
-                        print("No credential was found, so show the sign-in UI.")
-                    default:
-                        break
-                    }
-                }
-            }
+            let provider = ASAuthorizationAppleIDProvider()
+            let request = provider.createRequest()
+            request.requestedScopes = [.fullName,.email]
+            let controller = ASAuthorizationController(authorizationRequests: [request])
+            controller.delegate = self
+            controller.presentationContextProvider = self
+            controller.performRequests()
+        } else {
+            // Fallback on earlier versions
         }
     }
     
@@ -821,6 +758,32 @@ extension LoginViewController {
             }
         }
     }
+    
+    // Social Login Api
+    func socialLoginApi(params: Parameters) {
+        showLoading()
+        APIHelper.socialLoginApi(params: params) { (success,response)  in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                print(message)
+                self.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let data = response.response["data"]
+                user = User.init(json: data)
+                AppManager.shared.token = user?.access_token ?? ""
+                AppManager.shared.userId = user?.id ?? ""
+                //                AppUserDefaults.saveObject(self.user?.access_token, forKey: .userAuthToken)
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
+                myApp.window?.rootViewController = newVC
+                let message = response.message
+                print(message)
+                GIDSignIn.sharedInstance.signOut()
+                
+            }
+        }
+    }
 }
 
 //MARK: Image Picker Delegate Methods
@@ -1013,34 +976,83 @@ extension LoginViewController: UITextFieldDelegate {
     }
 }
 
-//MARK: - ASAuthorizationControllerDelegate Methods -
+//MARK: ASAuthorizationControllerDelegate Methods
 @available(iOS 13.0, *)
 extension LoginViewController: ASAuthorizationControllerDelegate {
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            let keychain = KeychainSwift()
+            // Create an account in your system.
             let userIdentifier = appleIDCredential.user
             let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
-            print("User Id: \(userIdentifier), Full Name: \(fullName), Email: \(email)")
-            let defaults = UserDefaults.standard
-            defaults.set(userIdentifier, forKey: "userIdentifier")
+            var firstName = ""
+            var lastName = ""
+            var strEmail = ""
+            if let fName = fullName?.givenName {
+                firstName = fName
+                keychain.set(fName, forKey: "applFName")
+            } else {
+                if let fName = keychain.get("applFName") {
+                    firstName = fName
+                }
+            }
+            if let lName = fullName?.familyName {
+                lastName = lName
+                keychain.set(lName, forKey: "applLName")
+            } else {
+                if let lName = keychain.get("applLName") {
+                    lastName = lName
+                }
+            }
+            if let email = appleIDCredential.email {
+                strEmail = email
+                keychain.set(email, forKey: "applEmail")
+            } else {
+                if let email = keychain.get("applEmail") {
+                    strEmail = email
+                }
+            }
+            if let email = appleIDCredential.email {
+                strEmail = email
+                self.dictSocial = NSDictionary.init(dictionary: ["id": userIdentifier,"email":email,"first_name":firstName,"last_name":lastName])
+            } else {
+                self.dictSocial = NSDictionary.init(dictionary: ["id": userIdentifier,"first_name":firstName,"last_name":lastName])
+            }
+            let params: Parameters = [
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": strEmail,
+                "googleId": userIdentifier,
+                "imageUrl": "",
+                "deviceInfo": [
+                    "deviceType": "mobile",
+                    "appVersion": "27",
+                    "deviceToken": (deviceFcmToken ?? "") as String,
+                    "deviceData": "\(UIDevice.modelName)"
+                ]
+            ]
+            self.socialLoginApi(params: params)
+            
+        case let passwordCredential as ASPasswordCredential:
+            // Sign in using an existing iCloud Keychain credential.
+            _ = passwordCredential.user
+            _ = passwordCredential.password
+        default:
+            break
         }
     }
     
+    @available(iOS 13.0, *)
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        // Handle error.
-        print("Sign in with Apple errored: \(error)")
-        DispatchQueue.main.async {
-            dissmissLoader()
-            self.view.makeToast("Something wrong with your profile information. \(error.localizedDescription)")
-        }
+        print(error.localizedDescription)
     }
     
 }
 
-@available(iOS 13.0, *)
 extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    @available(iOS 13.0, *)
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }

@@ -9,11 +9,13 @@ import UIKit
 import SDWebImage
 import Alamofire
 import PopupDialog
+import SVPullToRefresh
 
 class OrderSummaryViewController: UIViewController {
     
     //MARK: - Properties -
     
+    @IBOutlet weak var orderSummaryScrollView: UIScrollView!
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var statusView: UIView!
@@ -41,6 +43,7 @@ class OrderSummaryViewController: UIViewController {
     
     var orderNo = ""
     var orderItems: OrderItems?
+    var filterNoteArr: [OrderNotesDtos] = []
     var isPlaceOrder = false
     
     //MARK: - Life Cycles -
@@ -51,10 +54,20 @@ class OrderSummaryViewController: UIViewController {
         let name = isPlaceOrder ? "EXPLORE MORE" : "CANCEL ORDER"
         buttonAction.setTitle(name, for: .normal)
         topCorner(bgView: bgView, maskToBounds: true)
-        self.setUpTableView()
         self.getOrderDetailsApi()
+        self.orderSummaryScrollView.addPullToRefresh {
+            self.getOrderDetailsApi()
+        }
+        self.setUpTableView()
         NotificationCenter.default.removeObserver(self, name: Notification.Name("getOrderDetailsApi"), object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(self.getOrderDetailsApi),name:Notification.Name("getOrderDetailsApi"), object: nil)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.updateViewConstraints()
+        DispatchQueue.main.async {
+            self.notesTblViewHeightConst.constant = self.notesTblView.contentSize.height
+        }
     }
     
     //MARK: - Selectors -
@@ -113,7 +126,7 @@ class OrderSummaryViewController: UIViewController {
         licenceNoLbl.text = orderItems?.merchantDTO?.licenceNumber ?? ""
         contactNoLbl.text = orderItems?.merchantDTO?.contactNumber ?? ""
         businessNameLabel.text = orderItems?.merchantDTO?.businessName
-        statusLbl.text = orderItems?.orderStatus ?? ""
+        statusLbl.text = (orderItems?.orderStatus ?? "").replacingOccurrences(of: "_", with: " ", options: .literal, range: nil)
         orderStatusView.layer.borderColor = getStatus(stausString: orderItems?.orderStatus ?? "").cgColor
         statusLbl.textColor = getStatus(stausString: orderItems?.orderStatus ?? "")
     }
@@ -129,6 +142,7 @@ extension OrderSummaryViewController {
     @objc func getOrderDetailsApi() {
         showLoading()
         APIHelper.getOrderDetailsApi(orderNo: orderNo) { (success, response) in
+            self.orderSummaryScrollView.pullToRefreshView?.stopAnimating()
             if !success {
                 dissmissLoader()
                 let message = response.message
@@ -142,8 +156,10 @@ extension OrderSummaryViewController {
                 print(message)
                 self.tblViewHeightConst.constant = CGFloat(120 * (self.orderItems?.orderItemDtos?.count ?? 0))
                 self.setUpOrderDetailsData()
+                self.filterNoteArr = (self.orderItems?.orderNotesDtos ?? []).filter({$0.orderNoteDescription != nil})
                 self.notesTblView.reloadData()
-                self.notesTblViewHeightConst.constant = CGFloat((self.orderItems?.orderNotesDtos?.count ?? 0) * 83)
+//                self.notesTblViewHeightConst.constant = CGFloat((self.orderItems?.orderNotesDtos?.count ?? 0) * 83)
+//                self.notesTblViewHeightConst.constant = CGFloat((self.filterNoteArr.count) * 83)
                 self.tblView.reloadData()
             }
         }
@@ -159,12 +175,18 @@ extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource
         case tblView:
             return orderItems?.orderItemDtos?.count ?? 0
         case notesTblView:
-            if self.orderItems?.orderNotesDtos?.count == 0 {
+//            if self.orderItems?.orderNotesDtos?.count == 0 {
+//                notesTblView.setEmptyMessage("No Data Found.")
+//            }else {
+//                notesTblView.restore()
+//            }
+//            return self.orderItems?.orderNotesDtos?.count ?? 0
+            if self.filterNoteArr.count == 0 {
                 notesTblView.setEmptyMessage("No Data Found.")
-            }else {
+            } else {
                 notesTblView.restore()
             }
-            return self.orderItems?.orderNotesDtos?.count ?? 0
+            return self.filterNoteArr.count
         default:
             return 0
         }
@@ -190,7 +212,8 @@ extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource
             return cell
         case notesTblView:
             let cell = tableView.dequeueReusableCell(withIdentifier: "OrderNoteTableViewCell", for: indexPath) as! OrderNoteTableViewCell
-            let item = orderItems?.orderNotesDtos?[indexPath.row]
+//            let item = orderItems?.orderNotesDtos?[indexPath.row]
+            let item = filterNoteArr[indexPath.row]
             cell.item = item
             return cell
         default:
@@ -199,14 +222,16 @@ extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource
         
     }
     
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        switch tableView {
-//        case notesTblView:
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        switch tableView {
+        case notesTblView:
 //            notesTblViewHeightConst.constant = cell.contentView.frame.height * CGFloat(orderItems?.orderNotesDtos?.count ?? 0)
-//        default:
-//            break
-//        }
-//    }
+//            notesTblViewHeightConst.constant = cell.contentView.frame.height * CGFloat(filterNoteArr.count)
+            self.viewWillLayoutSubviews()
+        default:
+            break
+        }
+    }
     
 }
 
