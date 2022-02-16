@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class SettingsViewController: UIViewController {
     
@@ -51,12 +52,9 @@ class SettingsViewController: UIViewController {
     // Change Password Button Action
     @IBAction func changePasswordButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        let newVC = (self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordViewController") as? ChangePasswordViewController)!
-        newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        self.definesPresentationContext = true
-        self.providesPresentationContextTransitionStyle = true
-        newVC.modalPresentationStyle = .overCurrentContext
-        self.navigationController?.present(newVC, animated: true, completion: nil)
+        let customV = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
+        let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+        self.present(popup, animated: true, completion: nil)
     }
     
     // Change Payment Option Button Action

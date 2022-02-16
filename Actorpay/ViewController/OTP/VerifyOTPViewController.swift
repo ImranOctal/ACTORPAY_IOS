@@ -43,9 +43,6 @@ class VerifyOTPViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var verifyOtpAlertView: UIView!
-    @IBOutlet weak var verifyOtpView: UIView!
-    @IBOutlet weak var verifyOTPButtonView: UIView!
     typealias CompletionBlock = (_ success: Bool) -> Void
     var onCompletion:CompletionBlock?
     var isEmail = false
@@ -54,13 +51,9 @@ class VerifyOTPViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(isEmail)
         // Do any additional setup after loading the view.
-        topCorners(bgView: verifyOtpView, cornerRadius: 10, maskToBounds: true)
-        bottomCorner(bgView: verifyOTPButtonView, cornerRadius: 10, maskToBounds: true)
-        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        self.showAnimate()
-        self.navigationController?.navigationBar.isHidden = true
+        
+        print(isEmail)
     }
     
     //MARK: - Selectors -
@@ -98,7 +91,6 @@ class VerifyOTPViewController: UIViewController {
                 print(message)
                 if let codeCompletion = self.onCompletion {
                     codeCompletion(true)
-                    self.removeAnimate()
                     self.dismiss(animated: true, completion: nil)
                 }
             }
@@ -110,45 +102,15 @@ class VerifyOTPViewController: UIViewController {
         self.view.endEditing(true)
         if let codeCompletion = onCompletion {
             codeCompletion(false)
-            removeAnimate()
             self.dismiss(animated: true, completion: nil)
         }
     }
     
-    //MARK: - Helper Functions -
-    
-    // Present View With Animation
-    func showAnimate(){
-        self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-        self.view.alpha = 0.0;
-        UIView.animate(withDuration: 0.25, animations: {
-            self.view.alpha = 1.0
-            self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-        });
-    }
-    
-    // Remove View With Animation
-    func removeAnimate(){
-        UIView.animate(withDuration: 0.25, animations: {
-            self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-            self.view.alpha = 0.0;
-        }, completion:{(finished : Bool)  in
-            if (finished){
-                self.view.removeFromSuperview()
-            }
-        });
-    }
-    
-    // View End Editing
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if(touches.first?.view != verifyOtpAlertView) {
-            removeAnimate()
-        }
-    }
-
 }
 
+//MARK: - Extensions -
 
+//MARK: UITextField Delegate Methods
 extension VerifyOTPViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {

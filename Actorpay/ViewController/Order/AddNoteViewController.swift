@@ -35,6 +35,7 @@ class AddNoteViewController: UIViewController {
     
     // Cancel Button Action
     @IBAction func cancelBtnAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         removeAnimate()
         self.dismiss(animated: true, completion: nil)
     }

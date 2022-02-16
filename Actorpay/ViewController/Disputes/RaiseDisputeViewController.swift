@@ -1,35 +1,35 @@
 //
-//  CancelOrderViewController.swift
+//  RaiseDisputeViewController.swift
 //  Actorpay
 //
-//  Created by iMac on 25/01/22.
+//  Created by iMac on 15/02/22.
 //
 
 import UIKit
-import Alamofire
 
-class CancelOrderViewController: UIViewController {
+class RaiseDisputeViewController: UIViewController {
     
     //MARK: - Properties -
-
+    
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var headerTitleLbl: UILabel!
     @IBOutlet weak var orderNoLbl: UILabel!
     @IBOutlet weak var orderDateLbl: UILabel!
     @IBOutlet weak var orderPriceLbl: UILabel!
-    @IBOutlet weak var orderTextView: UITextView!
-    @IBOutlet weak var cancelOrderTextViewValidationLbl: UILabel!
-    @IBOutlet weak var cancelOrderValidationView: UIView!
+    @IBOutlet weak var disputeReasonDetailTextView: UITextView!
+    @IBOutlet weak var disputeReasonDetailValidationLbl: UILabel!
+    @IBOutlet weak var disputeReasonDetailValidationView: UIView!
     @IBOutlet weak var orderTblView: UITableView! {
         didSet {
             orderTblView.delegate = self
             orderTblView.dataSource = self
         }
     }
-    @IBOutlet weak var cancelOrderBtn: UIButton!
     @IBOutlet weak var uploadImageView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var uploadImageBtn: UIButton!
+    @IBOutlet weak var disputeReasonTextField: UITextField!
+    @IBOutlet weak var disputeReasonValidationLbl: UILabel!
     
     var imagePicker = UIImagePickerController()
     var status:String = ""
@@ -37,7 +37,7 @@ class CancelOrderViewController: UIViewController {
     var orderItemDtos: OrderItemDtos?
     var placeHolder = ""
     var productImage: UIImage?
-    
+
     //MARK: - Life Cycles -
     
     override func viewDidLoad() {
@@ -47,7 +47,7 @@ class CancelOrderViewController: UIViewController {
         imagePicker.delegate = self
         self.setUpTextView()
         topCorner(bgView: bgView, maskToBounds: true)
-        self.setOrderData()
+        disputeReasonValidationLbl.isHidden = true
     }
     
     //MARK: - Selectors -
@@ -62,8 +62,8 @@ class CancelOrderViewController: UIViewController {
     @IBAction func cancelOrderBtnAction(_ sender: UIButton) {
         self.view.endEditing(true)
         if cancelOrderValidation() {
-            cancelOrderValidationView.isHidden = true
-            cancelOrReturnOrderApi()
+            disputeReasonDetailValidationView.isHidden = true
+//            cancelOrReturnOrderApi()
         }
     }
     
@@ -88,14 +88,14 @@ class CancelOrderViewController: UIViewController {
     
     // SetUp Text View
     func setUpTextView() {
-        cancelOrderValidationView.isHidden = true
-        placeHolder = "Enter Cancel Reason"
-        orderTextView.delegate = self
-        orderTextView.text = placeHolder
-        if orderTextView.text == placeHolder {
-            orderTextView.textColor = .lightGray
+        disputeReasonDetailValidationView.isHidden = true
+        placeHolder = "Enter reason in details"
+        disputeReasonDetailTextView.delegate = self
+        disputeReasonDetailTextView.text = placeHolder
+        if disputeReasonDetailTextView.text == placeHolder {
+            disputeReasonDetailTextView.textColor = .lightGray
         } else {
-            orderTextView.textColor = .black
+            disputeReasonDetailTextView.textColor = .black
         }
     }
     
@@ -103,12 +103,12 @@ class CancelOrderViewController: UIViewController {
     func cancelOrderValidation() -> Bool {
         var isValidate = true
         
-        if orderTextView.text?.trimmingCharacters(in: .whitespaces).count == 0 || orderTextView.text == placeHolder {
-            cancelOrderValidationView.isHidden = false
-            cancelOrderTextViewValidationLbl.text = ValidationManager.shared.emptyCancelOrderDescription
+        if disputeReasonDetailTextView.text?.trimmingCharacters(in: .whitespaces).count == 0 || disputeReasonDetailTextView.text == placeHolder {
+            disputeReasonDetailValidationView.isHidden = false
+            disputeReasonDetailValidationLbl.text = ValidationManager.shared.emptyCancelOrderDescription
             isValidate = false
         } else {
-            cancelOrderValidationView.isHidden = true
+            disputeReasonDetailValidationView.isHidden = true
         }
         
         return isValidate
@@ -117,9 +117,6 @@ class CancelOrderViewController: UIViewController {
     
     // Set Order Data
     func setOrderData() {
-        uploadImageView.isHidden = status == "Cancel Order" ? true : false
-        headerTitleLbl.text = status == "Cancel Order" ? "Cancel Order" : "Return Order"
-        cancelOrderBtn.setTitle(status == "Cancel Order" ? "CANCEL ORDER" : "RETURN ORDER", for: .normal)
         orderNoLbl.text = orderItems?.orderNo
         orderDateLbl.text = "Order Date: \(orderItems?.createdAt?.toFormatedDate(from: "yyyy-MM-dd hh:mm", to: "dd MMM yyyy HH:MM") ?? "")"
         orderPriceLbl.text = "₹\((orderItems?.totalPrice ?? 0.0).doubleToStringWithComma())"
@@ -144,49 +141,17 @@ class CancelOrderViewController: UIViewController {
         imagePicker.allowsEditing = false
         self.present(imagePicker, animated: true, completion: nil)
     }
-        
 }
 
 //MARK: - Extensions -
 
 //MARK: Api Call
-extension CancelOrderViewController {
-    
-    // Cancel Or Return Order Api
-    func cancelOrReturnOrderApi() {
-        var imgData: Data?
-        
-        let params: Parameters = [
-            "cancelOrder": [
-                "cancellationRequest": status == "Cancel Order" ? "CANCELLED" : "RETURNING",
-                "cancelReason": orderTextView.text ?? "",
-                "orderItemIds":[orderItemDtos?.orderItemId ?? ""]
-            ]
-        ]
-        if productImage != nil {
-            imgData = self.productImage?.jpegData(compressionQuality: 0.1)
-        }
-        showLoading()
-        APIHelper.cancelOrReturnOrderApi(params:params, imgData: imgData, imageKey: "file", orderNo: orderItems?.orderNo ?? "") { (success, response) in
-            if !success {
-                dissmissLoader()
-                let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
-            }else {
-                dissmissLoader()
-                let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
-                self.navigationController?.popViewController(animated: true)
-                NotificationCenter.default.post(name:  Notification.Name("getOrderDetailsApi"), object: self)
-                NotificationCenter.default.post(name:  Notification.Name("reloadOrderListApi"), object: self)
-            }
-        }
-    }
+extension RaiseDisputeViewController {
     
 }
 
 //MARK: TableView Setup
-extension CancelOrderViewController: UITableViewDelegate, UITableViewDataSource {
+extension RaiseDisputeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -201,7 +166,7 @@ extension CancelOrderViewController: UITableViewDelegate, UITableViewDataSource 
 }
 
 //MARK: Image Picker Delegate Methods
-extension CancelOrderViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension RaiseDisputeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
@@ -219,7 +184,7 @@ extension CancelOrderViewController: UIImagePickerControllerDelegate, UINavigati
 }
 
 // MARK: Text View Delegate Methods
-extension CancelOrderViewController : UITextViewDelegate{
+extension RaiseDisputeViewController : UITextViewDelegate{
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if textView.text == placeHolder {
@@ -274,11 +239,11 @@ extension CancelOrderViewController : UITextViewDelegate{
         
         if textView.text == placeHolder {
             textView.isSelectable = false
-            cancelOrderValidationView.isHidden = false
-            cancelOrderTextViewValidationLbl.text = ValidationManager.shared.emptyCancelOrderDescription
+            disputeReasonDetailValidationView.isHidden = false
+            disputeReasonDetailValidationLbl.text = ValidationManager.shared.emptyCancelOrderDescription
         } else {
             textView.isSelectable = true
-            cancelOrderValidationView.isHidden = true
+            disputeReasonDetailValidationView.isHidden = true
         }
     }
     

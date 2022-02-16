@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 import SDWebImage
 import DropDown
+import PopupDialog
 
 var isProfileView = false
 
@@ -120,22 +121,14 @@ class ProfileViewController: UIViewController {
 //            emailValidationLbl.textColor = UIColor.orange
 //            emailValidationLbl.text = "Verification Pending"
 //            emailVerifyButton.setTitle("Verify", for: .normal)
-            if let obj = myApp.window?.rootViewController {
-                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyViewController") as! VerifyViewController
-                newVC.isEmailVerify = true
-                obj.addChild(newVC)
-                newVC.view.frame = obj.view.frame
-                obj.view.center = newVC.view.center
-                obj.view.addSubview(newVC.view)
-                newVC.didMove(toParent: obj)
-            }
+            let customV = self.storyboard?.instantiateViewController(withIdentifier: "VerifyViewController") as! VerifyViewController
+            let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+            customV.isEmailVerify = true
+            self.present(popup, animated: true, completion: nil)
         } else {
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyOTPViewController") as! VerifyOTPViewController
-            newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-            self.definesPresentationContext = true
-            self.providesPresentationContextTransitionStyle = true
-            newVC.modalPresentationStyle = .overCurrentContext
-            self.navigationController?.present(newVC, animated: true, completion: nil)
+            let customV = self.storyboard?.instantiateViewController(withIdentifier: "VerifyOTPViewController") as! VerifyOTPViewController
+            let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+            self.present(popup, animated: true, completion: nil)
         }
         self.setupUserData()
     }
@@ -149,15 +142,10 @@ class ProfileViewController: UIViewController {
 //            phoneNoValidationLbl.text = "Verification Pending"
 //            phoneNoValidationLbl.textColor = UIColor.orange
 //            phoneVerifyButton.setTitle("Verify", for: .normal)
-            if let obj = myApp.window?.rootViewController {
-                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyViewController") as! VerifyViewController
-                newVC.isEmailVerify = false
-                obj.addChild(newVC)
-                newVC.view.frame = obj.view.frame
-                obj.view.center = newVC.view.center
-                obj.view.addSubview(newVC.view)
-                newVC.didMove(toParent: obj)
-            }
+            let customV = self.storyboard?.instantiateViewController(withIdentifier: "VerifyViewController") as! VerifyViewController
+            let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+            customV.isEmailVerify = false
+            self.present(popup, animated: true, completion: nil)
         } else {
             if !(user?.phoneVerified ?? false){
                 sendOTPRequestAPI()
@@ -379,19 +367,16 @@ class ProfileViewController: UIViewController {
                 if let otp = data.rawValue as? String {
                     print(otp)
                     self.view.makeToast(otp)
-                    let newVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyOTPViewController") as! VerifyOTPViewController
-                    newVC.onCompletion = {(success) in
+                    let customV = self.storyboard?.instantiateViewController(withIdentifier: "VerifyOTPViewController") as! VerifyOTPViewController
+                    let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+                    customV.onCompletion = {(success) in
                         if success {
                             NotificationCenter.default.post(name:  Notification.Name("getUserDetail"), object: self)
                             self.emailVarifyFlow()
                             self.mobileVerifyButtonFlow()
                         }
                     }
-                    newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-                    self.definesPresentationContext = true
-                    self.providesPresentationContextTransitionStyle = true
-                    newVC.modalPresentationStyle = .overCurrentContext
-                    self.navigationController?.present(newVC, animated: true, completion: nil)
+                    self.present(popup, animated: true, completion: nil)
                 }
             }
         }

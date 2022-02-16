@@ -71,6 +71,12 @@
 		887DAA4B27886BCD0056C415 /* AddressItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887DAA4827886BCC0056C415 /* AddressItems.swift */; };
 		8884E8E927AC00F600E725A4 /* AddNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8884E8E827AC00F600E725A4 /* AddNoteViewController.swift */; };
 		8884E8EE27AC02C500E725A4 /* OrderNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8884E8ED27AC02C500E725A4 /* OrderNoteTableViewCell.swift */; };
+		8892CB0A27BBB49200BF2794 /* DisputesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892CB0927BBB49200BF2794 /* DisputesViewController.swift */; };
+		8892CB1327BBB83900BF2794 /* DisputeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892CB1227BBB83900BF2794 /* DisputeTableViewCell.swift */; };
+		8892CB1D27BBBF9B00BF2794 /* DisputeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892CB1B27BBBF9A00BF2794 /* DisputeList.swift */; };
+		8892CB1E27BBBF9B00BF2794 /* DisputeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892CB1C27BBBF9B00BF2794 /* DisputeItem.swift */; };
+		8892CB2627BBC78C00BF2794 /* FilterDisputesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892CB2527BBC78C00BF2794 /* FilterDisputesViewController.swift */; };
+		8892CB2B27BBD09400BF2794 /* RaiseDisputeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892CB2A27BBD09400BF2794 /* RaiseDisputeViewController.swift */; };
 		8898D02227967DEA00BC9F80 /* MerchantDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8898D02127967DEA00BC9F80 /* MerchantDTO.swift */; };
 		88A572A32757A29300F2FC66 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A572A22757A29300F2FC66 /* Global.swift */; };
 		88A993E427B3827B005A379A /* AddMoneyInWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A993E327B3827B005A379A /* AddMoneyInWalletViewController.swift */; };
@@ -225,6 +231,12 @@
 		887DAA4827886BCC0056C415 /* AddressItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressItems.swift; sourceTree = "<group>"; };
 		8884E8E827AC00F600E725A4 /* AddNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteViewController.swift; sourceTree = "<group>"; };
 		8884E8ED27AC02C500E725A4 /* OrderNoteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderNoteTableViewCell.swift; sourceTree = "<group>"; };
+		8892CB0927BBB49200BF2794 /* DisputesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisputesViewController.swift; sourceTree = "<group>"; };
+		8892CB1227BBB83900BF2794 /* DisputeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisputeTableViewCell.swift; sourceTree = "<group>"; };
+		8892CB1B27BBBF9A00BF2794 /* DisputeList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisputeList.swift; sourceTree = "<group>"; };
+		8892CB1C27BBBF9B00BF2794 /* DisputeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisputeItem.swift; sourceTree = "<group>"; };
+		8892CB2527BBC78C00BF2794 /* FilterDisputesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDisputesViewController.swift; sourceTree = "<group>"; };
+		8892CB2A27BBD09400BF2794 /* RaiseDisputeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaiseDisputeViewController.swift; sourceTree = "<group>"; };
 		8898D02127967DEA00BC9F80 /* MerchantDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MerchantDTO.swift; sourceTree = "<group>"; };
 		88A572A22757A29300F2FC66 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		88A993E327B3827B005A379A /* AddMoneyInWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoneyInWalletViewController.swift; sourceTree = "<group>"; };
@@ -587,6 +599,34 @@
 			path = Address;
 			sourceTree = "<group>";
 		};
+		8892CB0827BBB47900BF2794 /* Disputes */ = {
+			isa = PBXGroup;
+			children = (
+				8892CB1127BBB82200BF2794 /* Cell */,
+				8892CB0927BBB49200BF2794 /* DisputesViewController.swift */,
+				8892CB2527BBC78C00BF2794 /* FilterDisputesViewController.swift */,
+				8892CB2A27BBD09400BF2794 /* RaiseDisputeViewController.swift */,
+			);
+			path = Disputes;
+			sourceTree = "<group>";
+		};
+		8892CB1127BBB82200BF2794 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8892CB1227BBB83900BF2794 /* DisputeTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		8892CB1A27BBBF8600BF2794 /* Disputes */ = {
+			isa = PBXGroup;
+			children = (
+				8892CB1B27BBBF9A00BF2794 /* DisputeList.swift */,
+				8892CB1C27BBBF9B00BF2794 /* DisputeItem.swift */,
+			);
+			path = Disputes;
+			sourceTree = "<group>";
+		};
 		88A993E827B385D4005A379A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -677,6 +717,7 @@
 		88B5972727574FF1008F64EE /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				8892CB0827BBB47900BF2794 /* Disputes */,
 				8829DD9B2797CA30001206FF /* IntroScreen */,
 				88FBD70927953F69009BF5C4 /* Settings */,
 				887229E027902CBE00C3B2E7 /* StaticContent */,
@@ -815,6 +856,7 @@
 		88EF90772758A9B900FEA684 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8892CB1A27BBBF8600BF2794 /* Disputes */,
 				887C2532279A8A0000100196 /* Category */,
 				887229E627902CE300C3B2E7 /* StaticContent */,
 				887DAA4627886BC40056C415 /* Address */,
@@ -1236,6 +1278,7 @@
 				88B596F527574C71008F64EE /* AppDelegate.swift in Sources */,
 				88BBF7DE275DD9240090C449 /* MyOrdersTableViewCell.swift in Sources */,
 				88EF90D62758D94500FEA684 /* SideMenuViewController.swift in Sources */,
+				8892CB2B27BBD09400BF2794 /* RaiseDisputeViewController.swift in Sources */,
 				88EF906127588B4E00FEA684 /* CustomTabBar.swift in Sources */,
 				88B7AA5427799DD4000AAEDF /* FAQ.swift in Sources */,
 				88BCE7852760DEBB00471BB3 /* QRCodePayNowViewController.swift in Sources */,
@@ -1249,6 +1292,7 @@
 				882FC377278411C500B3566B /* OfferTableViewCell.swift in Sources */,
 				88B7AA2927798174000AAEDF /* UserDTO.swift in Sources */,
 				8836A252275DEAF10099C5E0 /* WalletStatementTableViewCell.swift in Sources */,
+				8892CB1D27BBBF9B00BF2794 /* DisputeList.swift in Sources */,
 				88DE024D277D8D5900AD1529 /* OrderList.swift in Sources */,
 				8853DEDA278C4FD700C728C1 /* OrderImgCollectionViewCell.swift in Sources */,
 				88EF91122758F83E00FEA684 /* RootViewController.swift in Sources */,
@@ -1259,10 +1303,13 @@
 				883DC439276AF74300B9E4C2 /* QRScannerView.swift in Sources */,
 				881A922D275A2DE400825572 /* WalletViewController.swift in Sources */,
 				88DBC73627720441006E9693 /* CheckoutViewController.swift in Sources */,
+				8892CB1E27BBBF9B00BF2794 /* DisputeItem.swift in Sources */,
+				8892CB0A27BBB49200BF2794 /* DisputesViewController.swift in Sources */,
 				88A993EA27B385F0005A379A /* AddMoneyAmountCollectionViewCell.swift in Sources */,
 				887C2536279A8A0000100196 /* CategoryList.swift in Sources */,
 				882FEF1D275E09A0003E8812 /* NotificationViewController.swift in Sources */,
 				88E40B1B2771A0CC002B8452 /* ProductList.swift in Sources */,
+				8892CB1327BBB83900BF2794 /* DisputeTableViewCell.swift in Sources */,
 				883A0B9E2771CAF600C90875 /* OrderItemDtos.swift in Sources */,
 				883DC434276AF70200B9E4C2 /* QRSquareView.swift in Sources */,
 				88B596F727574C71008F64EE /* SceneDelegate.swift in Sources */,
@@ -1303,6 +1350,7 @@
 				882AEA80275F23EA0085EA23 /* RemittanceViewController.swift in Sources */,
 				882E39B3277DD3D600F29DD5 /* OrderItems.swift in Sources */,
 				88138B532770630000F5F6A8 /* AppManager.swift in Sources */,
+				8892CB2627BBC78C00BF2794 /* FilterDisputesViewController.swift in Sources */,
 				886CC6C12779B6B900682D27 /* FaqExpandTableViewCell.swift in Sources */,
 				88A993E427B3827B005A379A /* AddMoneyInWalletViewController.swift in Sources */,
 				88138B3C2770581900F5F6A8 /* APIManager.swift in Sources */,

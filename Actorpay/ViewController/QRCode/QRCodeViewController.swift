@@ -488,6 +488,7 @@ class QRCodeViewController: UIViewController {
         emailAddressView.isHidden = true
         phoneNumberView.isHidden = true
         payNowView.isHidden = true
+        baneficiaryAccountView.isHidden = false
     }
     
     // Add View To Sub View
@@ -894,7 +895,11 @@ extension QRCodeViewController: CNContactPickerDelegate {
                         //Do what you need to do with your new contact information here!
                         //Get the string value of the phone number like this:
                         self.numeroADiscar = actualNumber.stringValue
-                        self.phoneOrEmailTextField.text = actualNumber.stringValue
+                        self.phoneOrEmailTextField.text = (actualNumber.stringValue).replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
+                        self.emailAddressView.isHidden = true
+                        self.payNowView.isHidden = true
+                        self.phoneNumberView.isHidden = false
+                        self.baneficiaryAccountView.isHidden = true
                     })
                     //Add the action to the AlertController
                     multiplePhoneNumbersAlert.addAction(numberAction)
@@ -941,7 +946,11 @@ extension QRCodeViewController: CNContactPickerDelegate {
                     }
                     //Do what you need to do with your new contact information here!
                     //Get the string value of the phone number like this:
-                    self.phoneOrEmailTextField.text = actualNumber.stringValue
+                    self.phoneOrEmailTextField.text = (actualNumber.stringValue).replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
+                    self.emailAddressView.isHidden = true
+                    self.payNowView.isHidden = true
+                    self.phoneNumberView.isHidden = false
+                    self.baneficiaryAccountView.isHidden = true
                 } else {
                     //If there are no phone numbers associated with the contact I call a custom funciton I wrote that lets me display an alert Controller to the user
                     let alert = UIAlertController(title: "Missing info", message: "You have no phone numbers associated with this contact", preferredStyle: .alert)

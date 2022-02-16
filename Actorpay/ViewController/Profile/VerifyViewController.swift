@@ -12,9 +12,7 @@ class VerifyViewController: UIViewController {
     //MARK: - Properties -
 
     @IBOutlet weak var emailView: UIView!
-    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerLbl: UILabel!
-    @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var emailTextField: UITextField! {
         didSet {
             emailTextField.delegate = self
@@ -56,11 +54,6 @@ class VerifyViewController: UIViewController {
         phoneNumberView.isHidden = isEmailVerify
         emailView.isHidden = !isEmailVerify
         errorView.isHidden = true
-        topCorners(bgView: headerView, cornerRadius: 10, maskToBounds: true)
-        bottomCorner(bgView: buttonView, cornerRadius: 10, maskToBounds: true)
-        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        self.showAnimate()
-        self.navigationController?.navigationBar.isHidden = true
     }
     
     //MARK: - Selectors -
@@ -68,7 +61,6 @@ class VerifyViewController: UIViewController {
     // CAncel Button Action
     @IBAction func cancelButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        removeAnimate()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -86,6 +78,7 @@ class VerifyViewController: UIViewController {
         }
     }
     
+    // Country Code Picker Button Action
     @IBAction func phoneCodeBtnAction(_ sender: UIButton) {
         self.view.endEditing(true)
         let countriesVC = self.storyboard?.instantiateViewController(withIdentifier: "CountryViewController") as! CountryViewController
@@ -118,6 +111,7 @@ class VerifyViewController: UIViewController {
         return isValidate
     }
     
+    // Phone Number Validation
     func phoneNumberValidation() -> Bool {
         
         var isValidate = true
@@ -146,36 +140,6 @@ class VerifyViewController: UIViewController {
         
     }
     
-    // Present View With Animation
-    func showAnimate(){
-        self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-        self.view.alpha = 0.0;
-        UIView.animate(withDuration: 0.25, animations: {
-            self.view.alpha = 1.0
-            self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-        });
-    }
-    
-    // Dismiss View With Animation
-    func removeAnimate(){
-        UIView.animate(withDuration: 0.25, animations: {
-            self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-            self.view.alpha = 0.0;
-        }, completion:{(finished : Bool)  in
-            if (finished){
-                self.view.endEditing(true)
-                self.view.removeFromSuperview()
-            }
-        });
-    }
-
-    // View End Editing
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if(touches.first?.view != emailView){
-            removeAnimate()
-        }
-    }
-    
 }
 
 //MARK: - Extensions -
@@ -188,11 +152,9 @@ extension VerifyViewController: UITextFieldDelegate {
             if emailTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
                 errorView.isHidden = false
                 errorLbl.text = ValidationManager.shared.sEmail
-//                isValidate = false
             } else if !isValidEmail(emailTextField.text?.trimmingCharacters(in: .whitespaces) ?? ""){
                 errorView.isHidden = false
                 errorLbl.text = ValidationManager.shared.sEmailInvalid
-//                isValidate = false
             } else {
                 errorView.isHidden = true
             }

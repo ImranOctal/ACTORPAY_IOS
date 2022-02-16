@@ -407,4 +407,16 @@ final class APIHelper {
             }
         }
     }
+    
+    //MARK: Dispute List Api
+    static func disputeListApi(urlParameters: Parameters, bodyParameter:Parameters, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
+        APIManager.shared.mainRequest(method: .post,url: APIEndPoint.disputeListApi.rawValue, urlParameters: urlParameters, bodyParameter: bodyParameter, needUserToken: true) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
 }

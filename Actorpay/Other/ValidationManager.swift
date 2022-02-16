@@ -45,7 +45,7 @@ class ValidationManager {
     let addressType  = "Please Enter Valid Address Type"
     let addName = "Please Enter Name"
     let addressLine1 = "Please Enter Address Line 1"
-    let zipcode = "Please EEnter Valid Zipcode"
+    let zipcode = "Please Enter Valid Zipcode"
     let landmark = "Please Enter Valid Address Area"
     let city = "Please Enter City"
     let state = "Please Enter State"
@@ -63,4 +63,9 @@ class ValidationManager {
     let emptyBaneficiaryAccountNo = "Please Enter Baneficiary Account Number"
     let emptyBaneficiaryIFSCCode = "Please Enter Baneficiary IFSC Code"
     let emptyBaneficiaryBranchName = "Please Enter Baneficiary Branch Name"
+    
+    // Mobile And DTH Recharge
+    let emptyMobileNumber = "Oops! Your Mobile Number is Empty"
+    let emptyDTHNumber = "Oops! Your DTH Number is Empty"
+    
 }

@@ -16,6 +16,7 @@ import FBSDKCoreKit
 import IQKeyboardManagerSwift
 import AuthenticationServices
 import KeychainSwift
+import PopupDialog
 
 class LoginViewController: UIViewController {
     
@@ -312,12 +313,9 @@ class LoginViewController: UIViewController {
     // Forgot Password Button Action
     @IBAction func forgotPasswordButton(_ sender: UIButton) {
         self.view.endEditing(true)
-        let popOverConfirmVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
-        self.addChild(popOverConfirmVC)
-        popOverConfirmVC.view.frame = self.view.frame
-        self.view.center = popOverConfirmVC.view.center
-        self.view.addSubview(popOverConfirmVC.view)
-        popOverConfirmVC.didMove(toParent: self)
+        let customV = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
+        let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+        self.present(popup, animated: true, completion: nil)
     }
     
     // Alerady Login Button Action

@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import SVPullToRefresh
+import PopupDialog
 
 class ProductListViewController: UIViewController {
     
@@ -97,14 +98,11 @@ class ProductListViewController: UIViewController {
     
     // Replace Cart Item Alert
     func replaceCartItemAler() {
-        let newVC = (self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as? CustomAlertViewController)!
-        newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        newVC.setUpCustomAlert(titleStr: "Replace Cart Item", descriptionStr: "Your cart contains products from different Merchant, Do you want to discard the selection and add this product?", isShowCancelBtn: false)
-        newVC.customAlertDelegate = self
-        self.definesPresentationContext = true
-        self.providesPresentationContextTransitionStyle = true
-        newVC.modalPresentationStyle = .overCurrentContext
-        self.navigationController?.present(newVC, animated: true, completion: nil)
+        let customV = self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as! CustomAlertViewController
+        let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+        customV.setUpCustomAlert(titleStr: "Replace Cart Item", descriptionStr: "Your cart contains products from different Merchant, Do you want to discard the selection and add this product?", isShowCancelBtn: false)
+        customV.customAlertDelegate = self
+        self.present(popup, animated: true, completion: nil)
     }
     
 }

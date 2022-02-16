@@ -1,49 +1,48 @@
 //
-//  FilterOrderViewController.swift
-//  Actorpay Merchant
+//  FilterDisputesViewController.swift
+//  Actorpay
 //
-//  Created by iMac on 12/01/22.
+//  Created by iMac on 15/02/22.
 //
 
 import UIKit
 import Alamofire
 import DropDown
 
-class FilterOrderViewController: UIViewController {
+class FilterDisputesViewController: UIViewController {
     
     //MARK: - Properties -
     
     @IBOutlet weak var filterView: UIView!
-    @IBOutlet weak var orderNoTextField: UITextField!
-    @IBOutlet weak var merchantNameTextField: UITextField!
-    @IBOutlet weak var totalAmountTextField: UITextField!
+    @IBOutlet weak var disputeCodeTextField: UITextField!
     @IBOutlet weak var startDateTextField: UITextField!
     @IBOutlet weak var endDateTextField: UITextField!
-    @IBOutlet weak var statusTextField: UITextField!
+    @IBOutlet weak var disputeStatusTextField: UITextField!
     
     var startDatePicker = UIDatePicker()
     var endDatePicker = UIDatePicker()
     typealias comp = (_ params: Parameters?) -> Void
     var completion:comp?
-    var orderStatusDropDown =  DropDown()
-    var orderStatus: String = ""
+    var disputeStatusDropDown =  DropDown()
+    var DisputeStatus: String = ""
     var statusData: [String] = []
-    var filterOrderParm: Parameters?
+    var filterDisputeParm: Parameters?
 
     //MARK: - Life Cycles -
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        statusData = ["SUCCESS","READY","CANCELLED","PARTIALLY_CANCELLED","DISPATCHED","RETURNING","PARTIALLY_RETURNING","RETURNED","PARTIALLY_RETURNED","DELIVERED","PENDING","FAILURE"]
+        statusData = ["PENDING","OPEN"]
         topCorner(bgView: filterView, maskToBounds: true)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         self.showAnimate()
-        setStartDatePicker()
-        setEndDatePicker()
-        setupOrderStatusDropDown()
+        self.setStartDatePicker()
+        self.setEndDatePicker()
+        self.setUpDisputeStatusDropDown()
         self.setFilterData()
+
     }
     
     //MARK: - Selectors -
@@ -53,7 +52,7 @@ class FilterOrderViewController: UIViewController {
         self.view.endEditing(true)
         removeAnimate()
         if let codeCompletion = completion {
-            codeCompletion(filterOrderParm)
+            codeCompletion(filterDisputeParm)
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -61,33 +60,21 @@ class FilterOrderViewController: UIViewController {
     // Reset Button Action
     @IBAction func resetButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        orderNoTextField.text = ""
-        merchantNameTextField.text = ""
-        totalAmountTextField.text = ""
+        disputeCodeTextField.text = ""
         startDateTextField.text = ""
         endDateTextField.text = ""
-        statusTextField.text = ""
-        orderStatus = ""
-        filterOrderParm = nil
+        disputeStatusTextField.text = ""
+        filterDisputeParm = nil
     }
     
     // Apply Button Action
     @IBAction func applyButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         let param : Parameters = [
-            "totalPrice":totalAmountTextField.text ?? "",
-            "merchantName": merchantNameTextField.text ?? "",
-            "merchantId":"",
-            "customerEmail":"",
-            "status":"true",
             "startDate":startDateTextField.text ?? "",
             "endData":endDateTextField.text ?? "",
-            "priceRangeFrom": "",
-            "priceRangeTo": "",
-            "orderNo":orderNoTextField.text ?? "",
-            "orderId":"",
-            "orderStatus":orderStatus
-//            "orderStatus":statusTextField.text ?? ""
+            "disputeCode":disputeCodeTextField.text ?? "",
+            "status":disputeStatusTextField.text ?? ""
         ]
         if let codeCompletion = completion {
             codeCompletion(param)
@@ -98,38 +85,34 @@ class FilterOrderViewController: UIViewController {
     // Status Button Acction
     @IBAction func statusButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        orderStatusDropDown.show()
+        disputeStatusDropDown.show()
     }
     
     //MARK: - Helper Functions -
     
     // Set Filter Data
     func setFilterData() {
-        orderNoTextField.text = filterOrderParm?["orderNo"] as? String
-        startDateTextField.text = filterOrderParm?["startDate"] as? String
-        endDateTextField.text = filterOrderParm?["endData"] as? String
-        orderStatus = (filterOrderParm?["orderStatus"] as? String) ?? ""
-        statusTextField.text = orderStatus.replacingOccurrences(of: "_", with: " ", options: .literal, range: nil)
-        merchantNameTextField.text = filterOrderParm?["merchantName"] as? String
-        totalAmountTextField.text = filterOrderParm?["totalPrice"] as? String
+        disputeCodeTextField.text = filterDisputeParm?["disputeCode"] as? String
+        startDateTextField.text = filterDisputeParm?["startDate"] as? String
+        endDateTextField.text = filterDisputeParm?["endData"] as? String
+        disputeStatusTextField.text = filterDisputeParm?["status"] as? String
     }
     
     // SetUp Order Status Drop Down
-    func setupOrderStatusDropDown() {
-        orderStatusDropDown.anchorView = statusTextField
-        orderStatusDropDown.dataSource = statusData.map({$0.replacingOccurrences(of: "_", with: " ", options: .literal, range: nil)})
-        orderStatusDropDown.backgroundColor = .white
-        orderStatusDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.statusTextField.text = item
-            self.orderStatus = statusData[index]
+    func setUpDisputeStatusDropDown() {
+        disputeStatusDropDown.anchorView = disputeStatusTextField
+        disputeStatusDropDown.dataSource = statusData.map({$0.replacingOccurrences(of: "_", with: " ", options: .literal, range: nil)})
+        disputeStatusDropDown.backgroundColor = .white
+        disputeStatusDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.disputeStatusTextField.text = item
             self.view.endEditing(true)
-            self.orderStatusDropDown.hide()
+            self.disputeStatusDropDown.hide()
         }
-        orderStatusDropDown.topOffset = CGPoint(x: -10, y: -50)
-        orderStatusDropDown.width = statusTextField.frame.width + 60
-        orderStatusDropDown.direction = .top
+        disputeStatusDropDown.topOffset = CGPoint(x: -10, y: -50)
+        disputeStatusDropDown.width = disputeStatusTextField.frame.width + 60
+        disputeStatusDropDown.direction = .top
     }
-
+    
     
     // Set Date Picker To FromTextField
     func setStartDatePicker() {
@@ -218,5 +201,5 @@ class FilterOrderViewController: UIViewController {
             }
         }
     }
-
+    
 }

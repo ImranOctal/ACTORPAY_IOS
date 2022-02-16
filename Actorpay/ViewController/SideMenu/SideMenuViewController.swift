@@ -7,6 +7,7 @@
 
 import UIKit
 import AKSideMenu
+import PopupDialog
 
 final class SideMenuViewController: UIViewController {
     
@@ -35,6 +36,7 @@ final class SideMenuViewController: UIViewController {
         let home: typeAliasStringDictionary = [VAL_TITLE :"Home", VAL_IMAGE : "home"]
         let myOrders: typeAliasStringDictionary = [VAL_TITLE :"My Orders", VAL_IMAGE : "my_orders"]
         let walletStatement: typeAliasStringDictionary = [VAL_TITLE :"Wallet Statement", VAL_IMAGE : "wallet_statement"]
+        let dispute: typeAliasStringDictionary = [VAL_TITLE :"Dispute", VAL_IMAGE : "cancel_dispute"]
         let rewardsPoints: typeAliasStringDictionary = [VAL_TITLE :"My Loyalty/Rewards Points", VAL_IMAGE : "my_profile"]
         let referral: typeAliasStringDictionary = [VAL_TITLE :"Referral", VAL_IMAGE : "refferal"]
         let availabelMoney: typeAliasStringDictionary = [VAL_TITLE :"View Available Money in Wallet", VAL_IMAGE : "walletMoney"]
@@ -48,6 +50,7 @@ final class SideMenuViewController: UIViewController {
             home,
             myOrders,
             walletStatement,
+            dispute,
             rewardsPoints,
             referral,
             availabelMoney,
@@ -71,14 +74,11 @@ final class SideMenuViewController: UIViewController {
     
     @IBAction func logOutButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        let newVC = (self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as? CustomAlertViewController)!
-        newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        newVC.setUpCustomAlert(titleStr: "Logout", descriptionStr: "Are you sure you want to Logout?", isShowCancelBtn: false)
-        newVC.customAlertDelegate = self
-        self.definesPresentationContext = true
-        self.providesPresentationContextTransitionStyle = true
-        newVC.modalPresentationStyle = .overCurrentContext
-        self.navigationController?.present(newVC, animated: true, completion: nil)
+        let customV = self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as! CustomAlertViewController
+        let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+        customV.setUpCustomAlert(titleStr: "Logout", descriptionStr: "Are you sure you want to Logout?", isShowCancelBtn: false)
+        customV.customAlertDelegate = self
+        self.present(popup, animated: true, completion: nil)
     }
     
     //MARK: - Helper Functions -
@@ -121,21 +121,28 @@ extension SideMenuViewController: UITableViewDelegate {
                 sideMenuViewController?.hideMenuViewController()
             }
         case 3:
+            // Dispute
+            if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "DisputesViewController") {
+                let contentViewController = UINavigationController(rootViewController: myOrderVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
+            }
+        case 4:
             // My Loyalty/Reward Points
             if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "RewardPointsViewController") {
                 let contentViewController = UINavigationController(rootViewController: myOrderVC)
                 sideMenuViewController?.setContentViewController(contentViewController, animated: true)
                 sideMenuViewController?.hideMenuViewController()
             }
-        case 4:
+        case 5:
             //Referral
             obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
             break
-        case 5:
+        case 6:
             //Available Money
             obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
             break
-        case 6:
+        case 7:
             //Promo and Offers
             self.view.endEditing(true)
             if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "OfferViewController") {
@@ -143,19 +150,19 @@ extension SideMenuViewController: UITableViewDelegate {
                 sideMenuViewController?.setContentViewController(contentViewController, animated: true)
                 sideMenuViewController?.hideMenuViewController()
             }
-        case 7:
+        case 8:
             //My Profile
             isProfileView = true
             let newVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeNav") as! UINavigationController
             myApp.window?.rootViewController = newVC
-        case 8:
+        case 9:
             //Settings
             if let moreVC = storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") {
                 let contentViewController = UINavigationController(rootViewController: moreVC)
                 sideMenuViewController?.setContentViewController(contentViewController, animated: true)
                 sideMenuViewController?.hideMenuViewController()
             }
-        case 9:
+        case 10:
             // More
             if let moreVC = storyboard?.instantiateViewController(withIdentifier: "MoreViewController") {
                 let contentViewController = UINavigationController(rootViewController: moreVC)

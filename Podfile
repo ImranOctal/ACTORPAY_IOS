@@ -26,7 +26,6 @@ target 'Actorpay' do
   pod 'GooglePlaces'
   pod 'KeychainSwift'
 
-
   target 'ActorpayTests' do
     inherit! :search_paths
     # Pods for testing

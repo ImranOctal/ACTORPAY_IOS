@@ -98,6 +98,14 @@ class CheckoutViewController: UIViewController {
                 "country":"\(selectedAddress.country ?? "")",
                 "primaryContactNumber":"\(selectedAddress.primaryContactNumber ?? "")",
                 "secondaryContactNumber":"\(selectedAddress.secondaryContactNumber ?? "")",
+                
+                "id": selectedAddress.id ?? "",
+                "extensionNumber": "+91",
+                "primary": false,
+                "area": "Manali",
+                "title": selectedAddress.title ?? "",
+                "orderNoteDescription":"This is Order not done by customer"
+                
             ]
             print(param)
             showLoading()

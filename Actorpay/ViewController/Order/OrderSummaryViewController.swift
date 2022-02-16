@@ -82,14 +82,11 @@ class OrderSummaryViewController: UIViewController {
     @IBAction func cancelOrderBtnAction(_ sender: UIButton) {
         self.view.endEditing(true)
         if sender.currentTitle == "CANCEL ORDER" {
-            let newVC = (self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as? CustomAlertViewController)!
-            newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-            newVC.setUpCustomAlert(titleStr: "Cancel Order", descriptionStr: "Are you sure you want to Cancel This Order?", isShowCancelBtn: false)
-            newVC.customAlertDelegate = self
-            self.definesPresentationContext = true
-            self.providesPresentationContextTransitionStyle = true
-            newVC.modalPresentationStyle = .overCurrentContext
-            self.navigationController?.present(newVC, animated: true, completion: nil)
+            let customV = self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as! CustomAlertViewController
+            let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+            customV.setUpCustomAlert(titleStr: "Cancel Order", descriptionStr: "Are you sure you want to Cancel This Order?", isShowCancelBtn: false)
+            customV.customAlertDelegate = self
+            self.present(popup, animated: true, completion: nil)
         }else{
             self.navigationController?.popToRootViewController(animated: true)
         }        

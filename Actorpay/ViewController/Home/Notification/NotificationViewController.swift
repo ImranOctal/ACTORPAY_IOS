@@ -8,33 +8,41 @@
 import UIKit
 
 class NotificationViewController: UIViewController {
-
     
+    //MARK: - Properites -
+
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            self.tableView.delegate = self
+            self.tableView.dataSource = self
+        }
+    }
+    
+    //MARK: - Life Cycles -
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        topCorner(bgView: mainView, maskToBounds: true)
-//        tableView.register(UINib(nibName: "MyOrdersTableViewCell", bundle: nil), forCellReuseIdentifier: "MyOrdersTableViewCell")
-        tableView.delegate = self
-        tableView.dataSource = self
         // Do any additional setup after loading the view.
+        
+        topCorner(bgView: mainView, maskToBounds: true)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
-    }
+    //MARK: - Selectors -
 
+    // Back Button Action
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)
-
     }
+    
 }
 
+//MARK: - Extensions -
+
+//MARK: TableView SetUp
 extension NotificationViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }

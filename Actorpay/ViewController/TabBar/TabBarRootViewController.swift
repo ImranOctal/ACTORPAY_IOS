@@ -8,9 +8,10 @@
 import UIKit
 
 class TabBarRootViewController: UIViewController {
+    
+    //MARK: - Properties -
 
     @IBOutlet weak var categoryCollectionView: UICollectionView!
-    @IBOutlet weak var rightSideButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleLabelStackView: UIStackView!
     @IBOutlet weak var amountLabel: UILabel!
@@ -25,6 +26,8 @@ class TabBarRootViewController: UIViewController {
     ]
     let contactHeaderHeight: CGFloat = 32
     
+    //MARK: - Life Cycles -
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryCollectionView.delegate = self
@@ -38,6 +41,31 @@ class TabBarRootViewController: UIViewController {
         refreshRightButton()
     }
     
+    //MARK: - Selectors -
+    
+    // Menu Button Action
+    @IBAction func menuButtonAction(_ sender: UIButton){
+        self.view.endEditing(true)
+        self.sideMenuViewController?.presentLeftMenuViewController()
+    }
+    
+    // Notification Button Action
+    @IBAction func notificationButtonAction(_ sender: UIButton){
+        self.view.endEditing(true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
+    }
+    
+    // Cart Button Action
+    @IBAction func cartButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
+    }
+    
+    //MARK:- Helper Function -
+    
+    // Refresh Right Side Button Action
     @objc func refreshRightButton(){
         if selectedTabTag == 0 {
             titleLabel.isHidden = true
@@ -57,26 +85,15 @@ class TabBarRootViewController: UIViewController {
         }
     }
     
-    
-    @IBAction func menuButtonAction(_ sender: UIButton){
-        self.view.endEditing(true)
-        self.sideMenuViewController?.presentLeftMenuViewController()
-    }
-    
-    @IBAction func notificationButtonAction(_ sender: UIButton){
-        self.view.endEditing(true)        
-        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
-        self.navigationController?.pushViewController(newVC, animated: true)
-    }
-    
+    // Tab Bar Menu Button Action
     @objc private func menuButtonAction(sender: UIButton) {
-//        selectedIndex = 2
+        //        selectedIndex = 2
         self.view.endEditing(true)
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
-
-    //MARK:- Helper Function -
+    
+    // Set Up Tab Bar Middel Button
     func setupMiddleButton() {
         let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         var menuButtonFrame = menuButton.frame
@@ -98,7 +115,11 @@ class TabBarRootViewController: UIViewController {
     }
 }
 
+//MARK: - Extensions-
+
+//MARK: - Collection View SetUp
 extension TabBarRootViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return category.count
     }
@@ -109,6 +130,7 @@ extension TabBarRootViewController: UICollectionViewDelegate, UICollectionViewDa
         cell.titleLabel.text = category[indexPath.row].title
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.view.endEditing(true)
         collectionView.deselectItem(at: indexPath, animated: true)
@@ -135,4 +157,5 @@ extension TabBarRootViewController: UICollectionViewDelegate, UICollectionViewDa
             break
         }
     }
+    
 }

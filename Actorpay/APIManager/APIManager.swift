@@ -329,4 +329,42 @@ class APIManager {
         }
         
     }
+    
+    func mainRequest(method : HTTPMethod, url:String, urlParameters:Parameters = [:], bodyParameter: Parameters = [:], needUserToken:Bool = false, success:@escaping APICompletionBlock) {
+        
+        absoluteUrl = APIBaseUrlPoint.localHostBaseURL.rawValue + url
+        let headers: HTTPHeaders =  needUserToken ? [.authorization(bearerToken: AppManager.shared.token)] : []
+        
+        var urlParams: Parameters? = urlParameters
+        if let urlParameters = urlParams {
+            if !(urlParameters.isEmpty) {
+                absoluteUrl.append("?")
+                var array:[String] = []
+                let _ = urlParameters.map { (key, value) -> Bool in
+                    let str = key + "=" +  String(describing: value)
+                    array.append(str)
+                    return true
+                }
+                absoluteUrl.append(array.joined(separator: "&"))
+            }
+        }
+        urlParams = nil
+        print(absoluteUrl)
+        
+        manager.request(absoluteUrl, method: method, parameters: bodyParameter, encoding: JSONEncoding.default, headers: headers)
+            .responseJSON(completionHandler: { (response) in
+                switch response.result {
+                case .success(let retrivedResult):
+                    let responseJSON = JSON(retrivedResult)
+                    let message = responseJSON["message"].stringValue
+                    success(APIResponse.createSuccessAPIResponse(message, responseJSON))
+                    break
+                case .failure(let errorGiven):
+                    dissmissLoader()
+                    let message = errorGiven.errorDescription ?? ""
+                    success(APIResponse.createFailureAPIResponse(message))
+                    break
+                }
+            })
+    }
 }
