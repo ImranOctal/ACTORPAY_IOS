@@ -200,11 +200,19 @@ extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource
                 cell.setUpCancelOrderDropDown()
             }
             cell.cancelOrderHandler = { status in
-                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "CancelOrderViewController") as! CancelOrderViewController
-                newVC.status = status
-                newVC.orderItems = self.orderItems
-                newVC.orderItemDtos = item
-                self.navigationController?.pushViewController(newVC, animated: true)
+                if status == "Raise Dispute" {
+                    let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RaiseDisputeViewController") as! RaiseDisputeViewController
+                    newVC.status = status
+                    newVC.orderItems = self.orderItems
+                    newVC.orderItemDtos = item
+                    self.navigationController?.pushViewController(newVC, animated: true)
+                }else{
+                    let newVC = self.storyboard?.instantiateViewController(withIdentifier: "CancelOrderViewController") as! CancelOrderViewController
+                    newVC.status = status
+                    newVC.orderItems = self.orderItems
+                    newVC.orderItemDtos = item
+                    self.navigationController?.pushViewController(newVC, animated: true)
+                }
             }
             return cell
         case notesTblView:

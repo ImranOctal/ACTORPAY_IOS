@@ -18,11 +18,10 @@ struct DisputeItem {
 	let merchantName : String?
 	let merchantId : String?
 	let disputeFlag : Bool?
-	let disputeMessages : String?
+	let disputeMessages : Array<DisputeMessages>?
 	let active : Bool?
 
     init(json: JSON) {
-
         createdAt = json["createdAt"].string
         updatedAt = json["updatedAt"].string
         disputeId = json["disputeId"].string
@@ -38,7 +37,7 @@ struct DisputeItem {
         merchantName = json["merchantName"].string
         merchantId = json["merchantId"].string
         disputeFlag = json["disputeFlag"].bool
-        disputeMessages = json["disputeMessages"].string
+        disputeMessages = json["disputeMessages"].arrayValue.map{ DisputeMessages(json: $0)}
         active = json["active"].bool
 	}
 

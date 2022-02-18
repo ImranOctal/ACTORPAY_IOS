@@ -73,6 +73,7 @@ class TransferMoneyViewController: UIViewController {
     @IBOutlet weak var emailAddressDescValidationLbl: UILabel!
     
     var placeHolder = ""
+    var sendMoneyType : String = ""
     
     //MARK: - Life Cycles -
     override func viewDidLoad() {
@@ -80,6 +81,7 @@ class TransferMoneyViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         topCorner(bgView: mainView, maskToBounds: true)
+        self.manageView()
         self.setUpTextView()
         self.managePayWithPhoneNoValidationLbl()
         self.managePayWithEmailAddressValidationLbl()
@@ -260,6 +262,23 @@ class TransferMoneyViewController: UIViewController {
             payNowReasonSendMoneyTextView.textColor = .lightGray
         } else {
             payNowReasonSendMoneyTextView.textColor = .black
+        }
+    }
+    
+    // Manage UI View
+    func manageView() {
+        if sendMoneyType == "Phone Number" {
+            phoneNumberView.isHidden = false
+            emailAddressView.isHidden = true
+            payNowView.isHidden = true
+        } else if sendMoneyType == "Email Address" {
+            phoneNumberView.isHidden = true
+            emailAddressView.isHidden = false
+            payNowView.isHidden = true
+        } else if sendMoneyType == "Pay Now" {
+            phoneNumberView.isHidden = true
+            emailAddressView.isHidden = true
+            payNowView.isHidden = false
         }
     }
     

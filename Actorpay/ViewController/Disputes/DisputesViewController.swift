@@ -37,7 +37,10 @@ class DisputesViewController: UIViewController {
         disputeTblView.addPullToRefresh {
             self.page = 0
             self.disputeListApi()
-        }
+        }        
+//        Notification
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,13 +74,13 @@ class DisputesViewController: UIViewController {
         }
         self.navigationController?.present(newVC, animated: true, completion: nil)
     }
+    
     //MARK: - Helper Functions -
     
     
 }
 
 //MARK: - Extensions -
-
 
 //MARK: Api Call
 extension DisputesViewController {
@@ -90,7 +93,7 @@ extension DisputesViewController {
             urlParams["pageNo"] = page
             urlParams["pageSize"] = 10
             urlParams["sortBy"] = "createdAt"
-            urlParams["asc"] = true
+            urlParams["asc"] = false
         } else{
             page = 0
             if let parameter = urlParameter {
@@ -134,6 +137,7 @@ extension DisputesViewController {
             }
         }
     }
+    
 }
 
 //MARK: TableView SetUp
@@ -156,7 +160,10 @@ extension DisputesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "RaiseDisputeViewController") as! RaiseDisputeViewController
+        self.view.endEditing(true)
+        let item = self.disputeItems[indexPath.row]
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "DisputeDetailsViewController") as! DisputeDetailsViewController
+        newVC.disputeId = item.disputeId ?? ""
         self.navigationController?.pushViewController(newVC, animated: true)
     }
 }

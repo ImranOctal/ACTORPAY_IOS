@@ -44,6 +44,8 @@ class OrderItemTableViewCell: UITableViewCell {
                 priceLbl.text = "Price: ₹\((item.totalPrice ?? 0.0).doubleToStringWithComma())"
                 imgView.sd_setImage(with: URL(string: item.image ?? ""), placeholderImage: UIImage(named: "NewLogo"), options: SDWebImageOptions.allowInvalidSSLCertificates, completed: nil)
                 statusLbl.text = "Status: \(item.orderItemStatus ?? "")"
+                print(item.orderItemStatus)
+                
             }
         }
     }
@@ -75,6 +77,8 @@ class OrderItemTableViewCell: UITableViewCell {
             cancelOrderDropDown.dataSource = ["Cancel Order"]
         } else if item?.orderItemStatus == "DISPATCHED" || item?.orderItemStatus == "DELIVERED" {
             cancelOrderDropDown.dataSource = ["Return Order"]
+        }else if item?.orderItemStatus == "RETURNING_DECLINED" {
+            cancelOrderDropDown.dataSource = ["Raise Dispute"]
         }
         cancelOrderDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             cancelOrderHandler(item)

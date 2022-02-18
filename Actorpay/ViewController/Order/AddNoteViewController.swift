@@ -127,7 +127,7 @@ extension AddNoteViewController {
             "orderNoteDescription": noteDescTextView.text ?? ""
         ]
         showLoading()
-        APIHelper.postOrderNoteApi(params: [:], bodyParameter: bodyParams) { (success, response) in
+        APIHelper.postOrderNoteApi(urlParameters: [:], bodyParameter: bodyParams) { (success, response) in
             if !success {
                 dissmissLoader()
                 let message = response.message

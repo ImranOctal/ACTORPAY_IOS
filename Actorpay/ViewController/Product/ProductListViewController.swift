@@ -142,7 +142,7 @@ extension ProductListViewController {
         
         print(parameters)
         showLoading()
-        APIHelper.productListApi(params: parameters,bodyParameter: bodyParam) { (success, response) in
+        APIHelper.productListApi(urlParameters: parameters,bodyParameter: bodyParam) { (success, response) in
             self.tableView.pullToRefreshView?.stopAnimating()
             if !success {
                 dissmissLoader()
@@ -226,12 +226,12 @@ extension ProductListViewController {
     // Clear Cart Item Api
     func clearCartItemApi() {
         showLoading()
-        APIHelper.clearCartItemApi(params: [:], bodyParameter: [:]) { (success, response) in
+        APIHelper.clearCartItemApi(urlParameters: [:], bodyParameter: [:]) { (success, response) in
             if !success {
                 dissmissLoader()
                 let message = response.message
                 self.view.makeToast(message)
-            }else {
+            } else {
                 dissmissLoader()
                 let message = response.message
                 print(message)

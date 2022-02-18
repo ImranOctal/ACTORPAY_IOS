@@ -74,12 +74,12 @@ class VerifyOTPViewController: UIViewController {
         let otp = (firstCodeTxtField.text ?? "")+(secondCodeTxtField.text ?? "")+(thirdCodeTxtField.text ?? "")
         let otp2 = (fourthCodeTxtField.text ?? "")+(fifthCodeTxtField.text ?? "")+(sixthCodeTxtField.text ?? "")
         let finalOTP = otp + otp2
-        let params: Parameters = [
+        let urlParameters: Parameters = [
             "otp": "\(finalOTP)"
         ]
         print(finalOTP)
         showLoading()
-        APIHelper.verifyOTPAPI(params: params) { (success,response)  in
+        APIHelper.verifyOTPAPI(urlParameters: urlParameters) { (success,response)  in
             if !success {
                 dissmissLoader()
                 let message = response.message

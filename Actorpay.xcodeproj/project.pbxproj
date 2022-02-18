@@ -40,6 +40,8 @@
 		882FEF1D275E09A0003E8812 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882FEF1C275E09A0003E8812 /* NotificationViewController.swift */; };
 		882FEF25275E09AF003E8812 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882FEF24275E09AF003E8812 /* NotificationTableViewCell.swift */; };
 		882FEF37275E2737003E8812 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882FEF36275E2737003E8812 /* ProductDetailsViewController.swift */; };
+		8833EC0127BCFD3900AC5B12 /* DisputeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8833EC0027BCFD3900AC5B12 /* DisputeDetailsViewController.swift */; };
+		8833EC0627BD014100AC5B12 /* DisputeMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8833EC0527BD014100AC5B12 /* DisputeMessages.swift */; };
 		8836A24D275DEAD00099C5E0 /* WalletStatementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8836A24C275DEAD00099C5E0 /* WalletStatementViewController.swift */; };
 		8836A252275DEAF10099C5E0 /* WalletStatementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8836A251275DEAF10099C5E0 /* WalletStatementTableViewCell.swift */; };
 		8836A25B275DEF400099C5E0 /* RewardPointsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8836A25A275DEF400099C5E0 /* RewardPointsTableViewCell.swift */; };
@@ -55,6 +57,7 @@
 		8853DED5278C493100C728C1 /* ShippingAddressDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8853DED4278C493100C728C1 /* ShippingAddressDTO.swift */; };
 		8853DEDA278C4FD700C728C1 /* OrderImgCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8853DED9278C4FD700C728C1 /* OrderImgCollectionViewCell.swift */; };
 		8856C5E3277D81800097DFFC /* MyOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8856C5E2277D81800097DFFC /* MyOrderCell.swift */; };
+		885BF73327BE119000FA985F /* DisputeAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885BF73227BE119000FA985F /* DisputeAlertViewController.swift */; };
 		886254EA275E3A49001D09F1 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886254E9275E3A49001D09F1 /* ProductTableViewCell.swift */; };
 		88689B8A277C267700663712 /* OrderSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88689B89277C267700663712 /* OrderSummaryViewController.swift */; };
 		88689B94277C2BAB00663712 /* OrderItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88689B93277C2BAB00663712 /* OrderItemTableViewCell.swift */; };
@@ -79,6 +82,8 @@
 		8892CB2B27BBD09400BF2794 /* RaiseDisputeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8892CB2A27BBD09400BF2794 /* RaiseDisputeViewController.swift */; };
 		8898D02227967DEA00BC9F80 /* MerchantDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8898D02127967DEA00BC9F80 /* MerchantDTO.swift */; };
 		88A572A32757A29300F2FC66 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A572A22757A29300F2FC66 /* Global.swift */; };
+		88A7312A27BD11A9007F18B0 /* MerchantMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7312927BD11A9007F18B0 /* MerchantMessageCell.swift */; };
+		88A7312F27BD125C007F18B0 /* CustomerMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7312E27BD125C007F18B0 /* CustomerMessageCell.swift */; };
 		88A993E427B3827B005A379A /* AddMoneyInWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A993E327B3827B005A379A /* AddMoneyInWalletViewController.swift */; };
 		88A993EA27B385F0005A379A /* AddMoneyAmountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A993E927B385F0005A379A /* AddMoneyAmountCollectionViewCell.swift */; };
 		88AE6370275F6A250069ABB4 /* TabBarRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AE636F275F6A250069ABB4 /* TabBarRootViewController.swift */; };
@@ -199,6 +204,8 @@
 		882FEF1C275E09A0003E8812 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		882FEF24275E09AF003E8812 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		882FEF36275E2737003E8812 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
+		8833EC0027BCFD3900AC5B12 /* DisputeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisputeDetailsViewController.swift; sourceTree = "<group>"; };
+		8833EC0527BD014100AC5B12 /* DisputeMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisputeMessages.swift; sourceTree = "<group>"; };
 		8836A24C275DEAD00099C5E0 /* WalletStatementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletStatementViewController.swift; sourceTree = "<group>"; };
 		8836A251275DEAF10099C5E0 /* WalletStatementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletStatementTableViewCell.swift; sourceTree = "<group>"; };
 		8836A25A275DEF400099C5E0 /* RewardPointsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardPointsTableViewCell.swift; sourceTree = "<group>"; };
@@ -215,6 +222,7 @@
 		8853DED4278C493100C728C1 /* ShippingAddressDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingAddressDTO.swift; sourceTree = "<group>"; };
 		8853DED9278C4FD700C728C1 /* OrderImgCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderImgCollectionViewCell.swift; sourceTree = "<group>"; };
 		8856C5E2277D81800097DFFC /* MyOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderCell.swift; sourceTree = "<group>"; };
+		885BF73227BE119000FA985F /* DisputeAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisputeAlertViewController.swift; sourceTree = "<group>"; };
 		886254E9275E3A49001D09F1 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 		88689B89277C267700663712 /* OrderSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryViewController.swift; sourceTree = "<group>"; };
 		88689B93277C2BAB00663712 /* OrderItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -239,6 +247,8 @@
 		8892CB2A27BBD09400BF2794 /* RaiseDisputeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaiseDisputeViewController.swift; sourceTree = "<group>"; };
 		8898D02127967DEA00BC9F80 /* MerchantDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MerchantDTO.swift; sourceTree = "<group>"; };
 		88A572A22757A29300F2FC66 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		88A7312927BD11A9007F18B0 /* MerchantMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MerchantMessageCell.swift; sourceTree = "<group>"; };
+		88A7312E27BD125C007F18B0 /* CustomerMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerMessageCell.swift; sourceTree = "<group>"; };
 		88A993E327B3827B005A379A /* AddMoneyInWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoneyInWalletViewController.swift; sourceTree = "<group>"; };
 		88A993E927B385F0005A379A /* AddMoneyAmountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoneyAmountCollectionViewCell.swift; sourceTree = "<group>"; };
 		88AE636F275F6A250069ABB4 /* TabBarRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRootViewController.swift; sourceTree = "<group>"; };
@@ -606,6 +616,8 @@
 				8892CB0927BBB49200BF2794 /* DisputesViewController.swift */,
 				8892CB2527BBC78C00BF2794 /* FilterDisputesViewController.swift */,
 				8892CB2A27BBD09400BF2794 /* RaiseDisputeViewController.swift */,
+				8833EC0027BCFD3900AC5B12 /* DisputeDetailsViewController.swift */,
+				885BF73227BE119000FA985F /* DisputeAlertViewController.swift */,
 			);
 			path = Disputes;
 			sourceTree = "<group>";
@@ -614,6 +626,8 @@
 			isa = PBXGroup;
 			children = (
 				8892CB1227BBB83900BF2794 /* DisputeTableViewCell.swift */,
+				88A7312927BD11A9007F18B0 /* MerchantMessageCell.swift */,
+				88A7312E27BD125C007F18B0 /* CustomerMessageCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -623,6 +637,7 @@
 			children = (
 				8892CB1B27BBBF9A00BF2794 /* DisputeList.swift */,
 				8892CB1C27BBBF9B00BF2794 /* DisputeItem.swift */,
+				8833EC0527BD014100AC5B12 /* DisputeMessages.swift */,
 			);
 			path = Disputes;
 			sourceTree = "<group>";
@@ -1246,6 +1261,7 @@
 			files = (
 				881F0A33278329450044D6C1 /* ManageAddressTableViewCell.swift in Sources */,
 				88D099792760B9E500B5E564 /* UtilityBillViewController.swift in Sources */,
+				88A7312F27BD125C007F18B0 /* CustomerMessageCell.swift in Sources */,
 				88689B94277C2BAB00663712 /* OrderItemTableViewCell.swift in Sources */,
 				881A9233275A2E0D00825572 /* ProfileViewController.swift in Sources */,
 				880E011E2760AEEC00016D3C /* DTHRechageViewController.swift in Sources */,
@@ -1284,6 +1300,7 @@
 				88BCE7852760DEBB00471BB3 /* QRCodePayNowViewController.swift in Sources */,
 				882FC369278402E700B3566B /* AddAddressViewController.swift in Sources */,
 				88BBF7E5275DDD1D0090C449 /* MyOrdersViewController.swift in Sources */,
+				8833EC0127BCFD3900AC5B12 /* DisputeDetailsViewController.swift in Sources */,
 				88B17A3A27841F5300F517EA /* FilterTableViewCell.swift in Sources */,
 				88138B4E27705CA000F5F6A8 /* Constant.swift in Sources */,
 				88BF63AA27B3A0010023AA43 /* PaymentSuccessAndFailViewController.swift in Sources */,
@@ -1314,6 +1331,7 @@
 				883DC434276AF70200B9E4C2 /* QRSquareView.swift in Sources */,
 				88B596F727574C71008F64EE /* SceneDelegate.swift in Sources */,
 				88CD1D9D278703D200A4D02D /* ValidationManager.swift in Sources */,
+				885BF73327BE119000FA985F /* DisputeAlertViewController.swift in Sources */,
 				88A572A32757A29300F2FC66 /* Global.swift in Sources */,
 				8856C5E3277D81800097DFFC /* MyOrderCell.swift in Sources */,
 				88F764A927881B1C00164112 /* CountryCell.swift in Sources */,
@@ -1341,6 +1359,7 @@
 				88BBF7D0275DC9220090C449 /* MoreViewController.swift in Sources */,
 				882FC37D2784195000B3566B /* FilterViewController.swift in Sources */,
 				88689B8A277C267700663712 /* OrderSummaryViewController.swift in Sources */,
+				88A7312A27BD11A9007F18B0 /* MerchantMessageCell.swift in Sources */,
 				88138B4927705B8900F5F6A8 /* User.swift in Sources */,
 				8836A260275DEF510099C5E0 /* RewardPointsViewController.swift in Sources */,
 				887DAA4B27886BCD0056C415 /* AddressItems.swift in Sources */,
@@ -1355,6 +1374,7 @@
 				88A993E427B3827B005A379A /* AddMoneyInWalletViewController.swift in Sources */,
 				88138B3C2770581900F5F6A8 /* APIManager.swift in Sources */,
 				887C252B279A80BA00100196 /* ProductCategoryFilterCell.swift in Sources */,
+				8833EC0627BD014100AC5B12 /* DisputeMessages.swift in Sources */,
 				88AE957C27B3EE990069E6FC /* TransferMoneyViewController.swift in Sources */,
 				88DAD93B27B396CD007AE363 /* DummyTransactionViewController.swift in Sources */,
 				88EF90962758BF9000FEA684 /* TransactionTableViewCell.swift in Sources */,
@@ -1540,8 +1560,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Actorpay/Actorpay.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KV242QAT6U;
 				INFOPLIST_FILE = Actorpay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1550,7 +1571,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Actorpay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "booqpro employee";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1563,8 +1584,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Actorpay/Actorpay.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KV242QAT6U;
 				INFOPLIST_FILE = Actorpay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1573,7 +1595,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Actorpay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "booqpro employee";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

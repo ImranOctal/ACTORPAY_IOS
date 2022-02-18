@@ -120,8 +120,8 @@ final class APIHelper {
     }
     
     //MARK: Product List Api
-    static func productListApi(params: Parameters, bodyParameter:Parameters, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){
-        APIManager.shared.requestWithParameters(method: .post,url: APIEndPoint.productListApi.rawValue, parameters: params, bodyParameter: bodyParameter) { (response) in
+    static func productListApi(urlParameters: Parameters, bodyParameter:Parameters, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){
+        APIManager.shared.mainRequest(method: .post,url: APIEndPoint.productListApi.rawValue, urlParameters: urlParameters, bodyParameter: bodyParameter, needUserToken: true) { (response) in
             let status = response.response["status"]
             if status == "200" {
                 success(true, response)
@@ -216,8 +216,8 @@ final class APIHelper {
     }
     
     //MARK:  Verify OTP Api
-    static func verifyOTPAPI(params: Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ){
-        APIManager.shared.requestWithParameters(method: .post, url: APIEndPoint.verifyOTP.rawValue, parameters: params, bodyParameter: [:]) { (response) in
+    static func verifyOTPAPI(urlParameters: Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ){
+        APIManager.shared.mainRequest(method: .post, url: APIEndPoint.verifyOTP.rawValue, urlParameters: urlParameters, bodyParameter: [:], needUserToken: true) { (response) in
             let status = response.response["status"]
             if status == "200" {
                 success(true, response)
@@ -229,8 +229,8 @@ final class APIHelper {
     
     
     //MARK: Get All Order List Api
-    static func getAllOrders( parameters: Parameters, bodyParameter:Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
-        APIManager.shared.requestWithParameters(method: .post, url: APIEndPoint.orderList.rawValue, parameters: parameters, bodyParameter: bodyParameter) { (response) in
+    static func getAllOrders( urlParameters: Parameters, bodyParameter:Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
+        APIManager.shared.mainRequest(method: .post, url: APIEndPoint.orderList.rawValue, urlParameters: urlParameters, bodyParameter: bodyParameter, needUserToken: true) { (response) in
             let status = response.response["status"]
             if status == "200" {
                 success(true, response)
@@ -266,6 +266,17 @@ final class APIHelper {
     //MARK: Cancel Or Return Order Api
     static func cancelOrReturnOrderApi(params: Parameters, imgData: Data?, imageKey: String,orderNo: String, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
         APIManager.shared.uploadData(method: .post, url: APIEndPoint.cancelOrReturnOrder.rawValue+"\(orderNo)", parameters: params, imgData: imgData, imageKey: imageKey) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
+    
+    static func raiseDisputeAPI(params: Parameters, imgData: Data?, imageKey: String, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
+        APIManager.shared.uploadData(method: .post, url: APIEndPoint.raiseDispute.rawValue, parameters: params, imgData: imgData, imageKey: imageKey) { (response) in
             let status = response.response["status"]
             if status == "200" {
                 success(true, response)
@@ -385,8 +396,8 @@ final class APIHelper {
     }
     
     //MARK: Clear Cart Item Api
-    static func clearCartItemApi(params: Parameters, bodyParameter:Parameters, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ){
-        APIManager.shared.requestWithParameters(method: .delete, url: APIEndPoint.clearCartItemApi.rawValue, parameters: params, bodyParameter: bodyParameter) { (response) in
+    static func clearCartItemApi(urlParameters: Parameters, bodyParameter:Parameters, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ){
+        APIManager.shared.mainRequest(method: .delete, url: APIEndPoint.clearCartItemApi.rawValue, urlParameters: urlParameters, bodyParameter: bodyParameter, needUserToken: true) { (response) in
             let status = response.response["status"]
             if status == "200" {
                 success(true, response)
@@ -397,8 +408,8 @@ final class APIHelper {
     }
     
     //MARK: Post Order Notes Api
-    static func postOrderNoteApi(params: Parameters, bodyParameter:Parameters, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ) {
-        APIManager.shared.requestWithParameters(method: .post, url: APIEndPoint.postOrderNoteApi.rawValue, parameters: params, bodyParameter: bodyParameter) { (response) in
+    static func postOrderNoteApi(urlParameters: Parameters, bodyParameter:Parameters, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void ) {
+        APIManager.shared.mainRequest(method: .post, url: APIEndPoint.postOrderNoteApi.rawValue, urlParameters: urlParameters, bodyParameter: bodyParameter, needUserToken: true) { (response) in
             let status = response.response["status"]
             if status == "200" {
                 success(true, response)
@@ -419,4 +430,30 @@ final class APIHelper {
             }
         }
     }
+    
+    //MARK: Dispute List Api
+    static func sendMessageAPI(urlParameters: Parameters = [:], bodyParameter:Parameters, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
+        APIManager.shared.mainRequest(method: .post,url: APIEndPoint.send_message.rawValue, urlParameters: urlParameters, bodyParameter: bodyParameter, needUserToken: true) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
+    
+    // MARK: FAQ Api
+    static func disputeDetailsApi(id: String, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
+        APIManager.shared.getMethod(method: .get, url: APIEndPoint.disputeDetailsApi.rawValue+"/\(id)") { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
 }
+
+

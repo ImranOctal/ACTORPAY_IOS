@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import Alamofire
+import PopupDialog
 class RaiseDisputeViewController: UIViewController {
     
     //MARK: - Properties -
@@ -30,6 +31,7 @@ class RaiseDisputeViewController: UIViewController {
     @IBOutlet weak var uploadImageBtn: UIButton!
     @IBOutlet weak var disputeReasonTextField: UITextField!
     @IBOutlet weak var disputeReasonValidationLbl: UILabel!
+    @IBOutlet weak var disputeReasonValidationView: UIView!
     
     var imagePicker = UIImagePickerController()
     var status:String = ""
@@ -37,6 +39,7 @@ class RaiseDisputeViewController: UIViewController {
     var orderItemDtos: OrderItemDtos?
     var placeHolder = ""
     var productImage: UIImage?
+    var disputeDetail: DisputeItem?
 
     //MARK: - Life Cycles -
     
@@ -44,10 +47,10 @@ class RaiseDisputeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        imagePicker.delegate = self
-        self.setUpTextView()
         topCorner(bgView: bgView, maskToBounds: true)
-        disputeReasonValidationLbl.isHidden = true
+        self.imagePicker.delegate = self
+        self.setUpTextView()
+        self.manageValidationLabel()
     }
     
     //MARK: - Selectors -
@@ -61,9 +64,9 @@ class RaiseDisputeViewController: UIViewController {
     // Cancel Order Button Action
     @IBAction func cancelOrderBtnAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        if cancelOrderValidation() {
-            disputeReasonDetailValidationView.isHidden = true
-//            cancelOrReturnOrderApi()
+        if raiseDisputeValidation() {
+            self.manageValidationLabel()
+            self.raiseDisputeAPI()
         }
     }
     
@@ -88,7 +91,6 @@ class RaiseDisputeViewController: UIViewController {
     
     // SetUp Text View
     func setUpTextView() {
-        disputeReasonDetailValidationView.isHidden = true
         placeHolder = "Enter reason in details"
         disputeReasonDetailTextView.delegate = self
         disputeReasonDetailTextView.text = placeHolder
@@ -100,8 +102,16 @@ class RaiseDisputeViewController: UIViewController {
     }
     
     // Cancel Order Validation
-    func cancelOrderValidation() -> Bool {
+    func raiseDisputeValidation() -> Bool {
         var isValidate = true
+        
+        if disputeReasonTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+            disputeReasonValidationView.isHidden = false
+            disputeReasonValidationLbl.text = ValidationManager.shared.emptyCancelOrderDescription
+            isValidate = false
+        } else {
+            disputeReasonValidationView.isHidden = true
+        }
         
         if disputeReasonDetailTextView.text?.trimmingCharacters(in: .whitespaces).count == 0 || disputeReasonDetailTextView.text == placeHolder {
             disputeReasonDetailValidationView.isHidden = false
@@ -115,6 +125,12 @@ class RaiseDisputeViewController: UIViewController {
         
     }
     
+    // Manage Validation Label
+    func manageValidationLabel() {
+        self.disputeReasonValidationView.isHidden = true
+        self.disputeReasonDetailValidationView.isHidden = true
+    }
+    
     // Set Order Data
     func setOrderData() {
         orderNoLbl.text = orderItems?.orderNo
@@ -122,8 +138,8 @@ class RaiseDisputeViewController: UIViewController {
         orderPriceLbl.text = "₹\((orderItems?.totalPrice ?? 0.0).doubleToStringWithComma())"
     }
     
-    //Open Camera
-    func openCamera(){
+    // Open Camera
+    func openCamera() {
         if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
             imagePicker.sourceType = UIImagePickerController.SourceType.camera
             imagePicker.allowsEditing = false
@@ -135,18 +151,57 @@ class RaiseDisputeViewController: UIViewController {
         }
     }
     
-    //Open Image Gallary
-    func openPhotos(){
+    // Open Image Gallary
+    func openPhotos() {
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
         imagePicker.allowsEditing = false
         self.present(imagePicker, animated: true, completion: nil)
     }
+    
 }
 
 //MARK: - Extensions -
 
 //MARK: Api Call
 extension RaiseDisputeViewController {
+    
+    // Raise Dispute Api
+    func raiseDisputeAPI() {
+        var imgData: Data?
+        
+        let params: Parameters = [
+            "dispute": [
+                "title": disputeReasonTextField.text ?? "",
+                "description": disputeReasonDetailTextView.text ?? "",
+                "orderItemId":orderItemDtos?.orderItemId ?? ""
+            ]
+        ]
+        if productImage != nil {
+            imgData = self.productImage?.jpegData(compressionQuality: 0.1)
+        }
+        showLoading()
+        APIHelper.raiseDisputeAPI(params:params, imgData: imgData, imageKey: "file") { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+                let data = response.response["data"]
+                self.disputeDetail = DisputeItem.init(json: data)
+                NotificationCenter.default.post(name:  Notification.Name("getOrderDetailsApi"), object: self)
+                NotificationCenter.default.post(name:  Notification.Name("reloadOrderListApi"), object: self)
+                self.navigationController?.popViewController(animated: true)
+                let customV = self.storyboard?.instantiateViewController(withIdentifier: "DisputeAlertViewController") as! DisputeAlertViewController
+                let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+                customV.setUpDisputeAlert(disputeTitle: self.disputeDetail?.title ?? "", disputeCode: self.disputeDetail?.disputeCode ?? "", disputeStatus: self.disputeDetail?.status ?? "")
+                myApp.window?.rootViewController?.present(popup, animated: true, completion: nil)
+                
+            }
+        }
+    }
     
 }
 
@@ -161,6 +216,25 @@ extension RaiseDisputeViewController: UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItemTableViewCell", for: indexPath) as! OrderItemTableViewCell
         cell.cancelOrderItemDtos = orderItemDtos
         return cell
+    }
+    
+}
+
+//MARK: TextField Delegate Methods
+extension RaiseDisputeViewController: UITextFieldDelegate {
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        switch textField {
+        case disputeReasonTextField:
+            if disputeReasonTextField.text?.trimmingCharacters(in: .whitespaces).count == 0 {
+                disputeReasonValidationView.isHidden = false
+                disputeReasonValidationLbl.text = ValidationManager.shared.emptyCancelOrderDescription
+            } else {
+                disputeReasonValidationView.isHidden = true
+            }
+        default:
+            break
+        }
     }
     
 }

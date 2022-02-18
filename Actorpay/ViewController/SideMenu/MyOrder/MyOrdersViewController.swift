@@ -117,7 +117,7 @@ extension MyOrdersViewController {
             }
         }
         showLoading()
-        APIHelper.getAllOrders(parameters: parameters,bodyParameter: bodyParam) { (success, response) in
+        APIHelper.getAllOrders(urlParameters: parameters,bodyParameter: bodyParam) { (success, response) in
             self.tableView.pullToRefreshView?.stopAnimating()
             if !success {
                 dissmissLoader()

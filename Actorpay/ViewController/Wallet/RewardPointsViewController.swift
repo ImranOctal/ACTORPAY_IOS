@@ -64,6 +64,9 @@ extension RewardPointsViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RewardPointsTableViewCell", for: indexPath) as! RewardPointsTableViewCell
+        cell.redeemButtonHandler = {
+            self.view.makeToast("Successfully Redeem")
+        }
         return cell
     }
     

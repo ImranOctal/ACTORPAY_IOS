@@ -45,6 +45,9 @@ enum APIEndPoint: String {
     case verifyOTP = "user-service/users/phone/verify"
     case postOrderNoteApi = "user-service/orderNotes/post"
     case disputeListApi = "user-service/dispute/list/paged"
+    case disputeDetailsApi = "user-service/dispute/get"
+    case send_message = "user-service/dispute/send/message"
+    case raiseDispute = "user-service/dispute/raise" 
 }
 
 struct MessageConstant {
