@@ -30,7 +30,6 @@ class OrderSummaryViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var contactNoLbl: UILabel!
     @IBOutlet weak var businessNameLabel: UILabel!
-    @IBOutlet weak var buttonAction: UIButton!
     @IBOutlet weak var statusLbl: UILabel!
     @IBOutlet weak var orderStatusView: UIView!
     @IBOutlet weak var notesTblView: UITableView! {
@@ -40,6 +39,8 @@ class OrderSummaryViewController: UIViewController {
         }
     }
     @IBOutlet weak var notesTblViewHeightConst: NSLayoutConstraint!
+    @IBOutlet weak var buttonView: UIView!
+    @IBOutlet weak var addNoteView: UIView!
     
     var orderNo = ""
     var orderItems: OrderItems?
@@ -51,8 +52,8 @@ class OrderSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         statusView.isHidden = !isPlaceOrder
-        let name = isPlaceOrder ? "EXPLORE MORE" : "CANCEL ORDER"
-        buttonAction.setTitle(name, for: .normal)
+        buttonView.isHidden = !isPlaceOrder
+        addNoteView.isHidden = isPlaceOrder
         topCorner(bgView: bgView, maskToBounds: true)
         self.getOrderDetailsApi()
         self.orderSummaryScrollView.addPullToRefresh {
@@ -78,20 +79,6 @@ class OrderSummaryViewController: UIViewController {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    // Cancel Order Button Action
-    @IBAction func cancelOrderBtnAction(_ sender: UIButton) {
-        self.view.endEditing(true)
-        if sender.currentTitle == "CANCEL ORDER" {
-            let customV = self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as! CustomAlertViewController
-            let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
-            customV.setUpCustomAlert(titleStr: "Cancel Order", descriptionStr: "Are you sure you want to Cancel This Order?", isShowCancelBtn: false)
-            customV.customAlertDelegate = self
-            self.present(popup, animated: true, completion: nil)
-        }else{
-            self.navigationController?.popToRootViewController(animated: true)
-        }        
-    }
-    
     // Add Order Note Button Action
     @IBAction func addNoteBtnAction(_ sender: UIButton) {
         self.view.endEditing(true)
@@ -101,6 +88,23 @@ class OrderSummaryViewController: UIViewController {
         self.providesPresentationContextTransitionStyle = true
         newVC.modalPresentationStyle = .overCurrentContext
         self.navigationController?.present(newVC, animated: true, completion: nil)
+    }
+    
+    // Check Orders Button Action
+    @IBAction func checkOrdersBtnAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        if let myOrderVC = storyboard?.instantiateViewController(withIdentifier: "MyOrdersViewController") {
+            let contentViewController = UINavigationController(rootViewController: myOrderVC)
+            sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+            sideMenuViewController?.hideMenuViewController()
+        }
+    }
+    
+    // Continue Shopping Button Action
+    @IBAction func continueShoppingBtnAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        let newVC = navigationController!.viewControllers.filter { $0 is ProductListViewController }.first!
+        self.navigationController?.popToViewController(newVC, animated: true)
     }
     
     //MARK: - Helper Functions -
@@ -155,8 +159,6 @@ extension OrderSummaryViewController {
                 self.setUpOrderDetailsData()
                 self.filterNoteArr = (self.orderItems?.orderNotesDtos ?? []).filter({$0.orderNoteDescription != nil})
                 self.notesTblView.reloadData()
-//                self.notesTblViewHeightConst.constant = CGFloat((self.orderItems?.orderNotesDtos?.count ?? 0) * 83)
-//                self.notesTblViewHeightConst.constant = CGFloat((self.filterNoteArr.count) * 83)
                 self.tblView.reloadData()
             }
         }
@@ -172,12 +174,6 @@ extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource
         case tblView:
             return orderItems?.orderItemDtos?.count ?? 0
         case notesTblView:
-//            if self.orderItems?.orderNotesDtos?.count == 0 {
-//                notesTblView.setEmptyMessage("No Data Found.")
-//            }else {
-//                notesTblView.restore()
-//            }
-//            return self.orderItems?.orderNotesDtos?.count ?? 0
             if self.filterNoteArr.count == 0 {
                 notesTblView.setEmptyMessage("No Data Found.")
             } else {
@@ -217,7 +213,6 @@ extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource
             return cell
         case notesTblView:
             let cell = tableView.dequeueReusableCell(withIdentifier: "OrderNoteTableViewCell", for: indexPath) as! OrderNoteTableViewCell
-//            let item = orderItems?.orderNotesDtos?[indexPath.row]
             let item = filterNoteArr[indexPath.row]
             cell.item = item
             return cell
@@ -230,25 +225,10 @@ extension OrderSummaryViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         switch tableView {
         case notesTblView:
-//            notesTblViewHeightConst.constant = cell.contentView.frame.height * CGFloat(orderItems?.orderNotesDtos?.count ?? 0)
-//            notesTblViewHeightConst.constant = cell.contentView.frame.height * CGFloat(filterNoteArr.count)
             self.viewWillLayoutSubviews()
         default:
             break
         }
-    }
-    
-}
-
-//MARK: CustomAlert Delegate Methods
-extension OrderSummaryViewController: CustomAlertDelegate {
-    
-    func okButtonclick() {
-        print("Cancel Order Button Tapped")
-    }
-    
-    func cancelButtonClick() {
-        self.dismiss(animated: true, completion: nil)
     }
     
 }

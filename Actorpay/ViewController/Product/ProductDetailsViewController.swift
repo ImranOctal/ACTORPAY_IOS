@@ -7,6 +7,8 @@
 
 import UIKit
 import SDWebImage
+import Alamofire
+import PopupDialog
 
 class ProductDetailsViewController: UIViewController {
     
@@ -26,11 +28,17 @@ class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var actualPriceLabel: UILabel!
     @IBOutlet weak var dealPriceLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var buyNowButton: UIButton!
+    @IBOutlet weak var addToCartButton: UIButton!
     
     var productArray = [1,2,3,4,5,6,7]
     var item: Items?
     var productId = ""
     var isFavourite = false
+    var addToCartProductId : String?
+    var addToCartProductPrice : Double?
+    var buyNow = false
+    var cartList: CartList?
     
     //MARK: - Life Cycle Function -
     
@@ -61,13 +69,34 @@ class ProductDetailsViewController: UIViewController {
     // Buy Now Button action
     @IBAction func buyNowButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-       print("Buy Now Button Tapped")
+        if (self.cartList?.cartItemDTOList ?? []).contains(where:{($0.productId  == item?.productId )}) {
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
+            self.navigationController?.pushViewController(newVC, animated: true)
+            return
+        }
+        if self.cartList?.merchantId != item?.merchantId && self.cartList?.merchantId != nil {
+            self.replaceCartItemAler()
+            self.buyNow = true
+        } else {
+            self.buyNow = true
+            self.addToCart()
+        }
     }
     
     // Add To Cart Button action
     @IBAction func addToCartButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        print("Add To Cart Button Tapped")
+        if addToCartButton.titleLabel?.text == "Go To Cart" {
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
+            newVC.cartList = self.cartList
+            self.navigationController?.pushViewController(newVC, animated: true)
+        } else {
+            if self.cartList?.merchantId != item?.merchantId && self.cartList?.merchantId != nil {
+                self.replaceCartItemAler()
+            } else {
+                self.addToCart()
+            }
+        }
     }
     
     //MARK:- Helper Functions -
@@ -83,6 +112,15 @@ class ProductDetailsViewController: UIViewController {
             dealPriceLabel.text = (item.dealPrice ?? 0 + totalGst).doubleToStringWithComma()
         }
     }
+    
+    // Replace Cart Item Alert
+    func replaceCartItemAler() {
+        let customV = self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as! CustomAlertViewController
+        let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+        customV.setUpCustomAlert(titleStr: "Replace Cart Item", descriptionStr: "Your cart contains products from different Merchant, Do you want to discard the selection and add this product?", isShowCancelBtn: false)
+        customV.customAlertDelegate = self
+        self.present(popup, animated: true, completion: nil)
+    }
 }
 
 //MARK: - Extensions -
@@ -91,9 +129,9 @@ class ProductDetailsViewController: UIViewController {
 extension ProductDetailsViewController {
     
     // Product Details Api
-    func getProductDetailsApi(){
+    func getProductDetailsApi() {
         showLoading()
-        APIHelper.getProductDetails(id: productId) { (success, response) in
+        APIHelper.getProductDetails(id: productId) { [self] (success, response) in
             if !success {
                 dissmissLoader()
                 let message = response.message
@@ -106,12 +144,88 @@ extension ProductDetailsViewController {
 //                myApp.window?.rootViewController?.view.makeToast(message)
                 let data = response.response["data"]
                 self.item = Items.init(json: data)
+                self.addToCartProductId = self.item?.productId
+                self.addToCartProductPrice = self.item?.dealPrice
                 self.setupProductData()
+                self.cartItemList()
                 self.tableView.reloadData()
             }
         }
     }
     
+    // Add to Cart Api
+    func addToCart() {
+        let params: Parameters = [
+            "productId":"\(addToCartProductId ?? "")",
+            "productPrice":addToCartProductPrice ?? 0.0,
+            "productQty":1
+        ]
+        print(params)
+        showLoading()
+        APIHelper.addToCartProduct(params: params) { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+                print(message)
+            }else {
+                dissmissLoader()
+                let message = response.message
+                //                myApp.window?.rootViewController?.view.makeToast(message)
+                print(message)
+                self.cartItemList()
+                self.tableView.reloadData()
+                if self.buyNow == true {
+                    self.buyNow = false
+                    let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
+                    self.navigationController?.pushViewController(newVC, animated: true)
+                }
+            }
+        }
+    }
+    
+    // Cart List Api
+    func cartItemList(){
+        let params: Parameters = [:]
+        print(params)
+        showLoading()
+        APIHelper.getCartItemsList(parameters: params) { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+                print(message)
+            }else {
+                dissmissLoader()
+                let data = response.response["data"]
+                self.cartList = CartList.init(json: data)
+                for (_, value) in (self.cartList?.cartItemDTOList ?? []).enumerated() {
+                    if value.productId == self.item?.productId {
+                        self.addToCartButton.setTitle("Go To Cart", for: .normal)
+                    }
+                }
+            }
+        }
+    }
+    
+    // Clear Cart Item Api
+    func clearCartItemApi() {
+        showLoading()
+        APIHelper.clearCartItemApi(urlParameters: [:], bodyParameter: [:]) { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                self.view.makeToast(message)
+            } else {
+                dissmissLoader()
+                let message = response.message
+                print(message)
+                //                self.view.makeToast(message)
+                self.cartItemList()
+                self.addToCart()
+            }
+        }
+    }
 }
 
 //MARK: Table View SetUp
@@ -145,3 +259,16 @@ extension ProductDetailsViewController: UIScrollViewDelegate {
     
 }
 
+//MARK: CustomAlert Delegate Methods
+extension ProductDetailsViewController: CustomAlertDelegate {
+    
+    func okButtonclick() {
+        self.clearCartItemApi()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonClick() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+}

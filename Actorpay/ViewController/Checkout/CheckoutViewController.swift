@@ -135,6 +135,7 @@ class CheckoutViewController: UIViewController {
 
     //MARK:- Helper Functions -
     
+    // Set Cart Data
     func setCartData() {
         for item in self.cartList?.cartItemDTOList ?? [] {
             guard let total = item.shippingCharge else { return }
@@ -146,6 +147,14 @@ class CheckoutViewController: UIViewController {
         gstLbl.text = ((cartList?.totalCgst ?? 0.0) + (cartList?.totalSgst ?? 0.0)).doubleToStringWithComma()
         totalLbl.text = cartList?.totalPrice?.doubleToStringWithComma()
     }
+    
+}
+
+//MARK: - Extensions -
+
+//MARK: Api Call
+extension CheckoutViewController {
+    
     // Get All Shipping Address List Api
     func getAllShippingAddressListApi() {
         let params: Parameters = [
@@ -177,6 +186,7 @@ class CheckoutViewController: UIViewController {
         }
     }
     
+    // Delete Address Api
     func deleteAddressAPI(id: String) {
         let params: Parameters = [
             "ids" : [id]
@@ -197,9 +207,8 @@ class CheckoutViewController: UIViewController {
             }
         }
     }
+    
 }
-
-//MARK: - Extensions -
 
 //MARK: TableView SetUp
 extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
@@ -304,7 +313,7 @@ extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: ScrollView Setup
-extension CheckoutViewController: UIScrollViewDelegate{
+extension CheckoutViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
@@ -325,4 +334,5 @@ extension CheckoutViewController: UIScrollViewDelegate{
 //            }
         }
     }
+    
 }

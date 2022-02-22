@@ -136,7 +136,11 @@ extension SideMenuViewController: UITableViewDelegate {
             }
         case 5:
             //Referral
-            obj_AppDelegate.window?.rootViewController?.view.makeToast("Coming Soon")
+            if let myReferVC = storyboard?.instantiateViewController(withIdentifier: "ReferAndEarnViewController") {
+                let contentViewController = UINavigationController(rootViewController: myReferVC)
+                sideMenuViewController?.setContentViewController(contentViewController, animated: true)
+                sideMenuViewController?.hideMenuViewController()
+            }
             break
         case 6:
             //Available Money
