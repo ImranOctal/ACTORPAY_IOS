@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class TransferMoneyViewController: UIViewController {
     
@@ -74,6 +75,8 @@ class TransferMoneyViewController: UIViewController {
     
     var placeHolder = ""
     var sendMoneyType : String = ""
+    var emailAddress = ""
+    var phoneNumber = ""
     
     //MARK: - Life Cycles -
     override func viewDidLoad() {
@@ -86,6 +89,8 @@ class TransferMoneyViewController: UIViewController {
         self.managePayWithPhoneNoValidationLbl()
         self.managePayWithEmailAddressValidationLbl()
         self.managePayNowValidationLbl()
+        enterPhoneNumerTextField.text = emailAddress == "" ? phoneNumber : emailAddress
+        enterEmailAddressTextField.text = emailAddress == "" ? phoneNumber : emailAddress
     }
     
     //MARK: - Selectors -
@@ -102,8 +107,7 @@ class TransferMoneyViewController: UIViewController {
         self.view.endEditing(true)
         if payNowViewValidation() {
             self.managePayNowValidationLbl()
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "DummyTransactionViewController") as! DummyTransactionViewController
-            self.navigationController?.pushViewController(newVC, animated: true)
+            self.transferMoneyToWalletApi()
         }
     }
     
@@ -112,8 +116,7 @@ class TransferMoneyViewController: UIViewController {
         self.view.endEditing(true)
         if phoneNumberViewValidation() {
             self.managePayWithPhoneNoValidationLbl()
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "DummyTransactionViewController") as! DummyTransactionViewController
-            self.navigationController?.pushViewController(newVC, animated: true)
+            self.transferMoneyToWalletApi()
         }
     }
     
@@ -122,8 +125,7 @@ class TransferMoneyViewController: UIViewController {
         self.view.endEditing(true)
         if emailAddressViewValidation() {
             self.managePayWithEmailAddressValidationLbl()
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "DummyTransactionViewController") as! DummyTransactionViewController
-            self.navigationController?.pushViewController(newVC, animated: true)
+            self.transferMoneyToWalletApi()
         }
     }
     
@@ -285,6 +287,40 @@ class TransferMoneyViewController: UIViewController {
 }
 
 //MARK: - Extensions -
+
+//MARK: Api Call
+extension TransferMoneyViewController {
+    
+    // Add Money In Wallet Api
+    func transferMoneyToWalletApi() {
+        let bodyParameter: Parameters = [
+            "userIdentity": sendMoneyType == "Phone Number" ? enterPhoneNumerTextField.text ?? "" : enterEmailAddressTextField.text ?? "",
+            "amount": sendMoneyType == "Phone Number" ? phoneNumerEnterAmountTextField.text ?? "" : emailAddressEnterAmountTextField.text ?? "",
+            "transactionRemark": sendMoneyType == "Phone Number" ? phoneNumerReasonSendMoneyTextView.text ?? "" : emailAddressReasonSendMoneyTextView.text ?? ""
+        ]
+        showLoading()
+        APIHelper.transferMoneyToWalletApi(bodyParameter: bodyParameter) { (success,response)  in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentSuccessAndFailViewController") as! PaymentSuccessAndFailViewController
+                newVC.isSuccess = false
+                self.navigationController?.pushViewController(newVC, animated: true)
+            }else {
+                dissmissLoader()
+                let message = response.message
+//                myApp.window?.rootViewController?.view.makeToast(message)
+                print(message)
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentSuccessAndFailViewController") as! PaymentSuccessAndFailViewController
+                newVC.isSuccess = true
+                self.navigationController?.pushViewController(newVC, animated: true)
+                NotificationCenter.default.post(name:  Notification.Name("viewWalletBalanceByIdApi"), object: self)
+            }
+        }
+    }
+    
+}
 
 //MARK: UITextField Delegate Methods
 extension TransferMoneyViewController: UITextFieldDelegate {

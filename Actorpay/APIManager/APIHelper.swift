@@ -454,6 +454,55 @@ final class APIHelper {
             }
         }
     }
+    
+    //MARK: Add Money To Wallet Api
+    static func addMoneyToWalletApi(bodyParameter: Parameters , success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){
+        APIManager.shared.mainRequest(method: .post, url: APIEndPoint.addMoneyToWalletApi.rawValue, bodyParameter: bodyParameter, needUserToken: true) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
+    
+    // MARK: Transfer Money To Wallet Api
+    static func transferMoneyToWalletApi(bodyParameter: Parameters , success:@escaping (_ success: Bool,_ response: APIResponse) -> Void){
+        APIManager.shared.mainRequest(method: .post, url: APIEndPoint.transferMoneyToWalletApi.rawValue, bodyParameter: bodyParameter, needUserToken: true) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
+    
+    //MARK: Get All Order List Api
+    static func walletTranscationApi( urlParameters: Parameters, bodyParameter:Parameters,success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
+        APIManager.shared.mainRequest(method: .post, url: APIEndPoint.walletTranscationApi.rawValue, urlParameters: urlParameters, bodyParameter: bodyParameter, needUserToken: true) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
+    
+    //MARK: View Wallet Balance By Id Api
+    static func viewWalletBalanceByIdApi(parameters: Parameters,userId: String, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
+        APIManager.shared.getMethod(method: .get, url: APIEndPoint.viewWalletBalanceByIdApi.rawValue + "\(userId)/balance", parameters: parameters) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
+    
 }
 
 

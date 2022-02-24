@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import SVPullToRefresh
+import Lottie
 
 class OfferViewController: UIViewController {
     
@@ -19,8 +20,9 @@ class OfferViewController: UIViewController {
             tblView.dataSource = self
         }
     }
-    
     @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var emptyMessageView: UIView!
+    @IBOutlet weak var animationView: AnimationView!
     
     var page = 0
     var totalCount = 10
@@ -31,12 +33,14 @@ class OfferViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getCouponList()
+        
         topCorner(bgView: bgView, maskToBounds: true)
+        self.getCouponList()
         tblView.addPullToRefresh {
             self.page = 0
             self.getCouponList()
         }
+        self.setEmptyCartLottieAnimation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +65,22 @@ class OfferViewController: UIViewController {
     
     //MARK: - Helper Functions -
     
-    // SetUp TblView
+    // Set Empty Cart Lottie Animation
+    func setEmptyCartLottieAnimation() {
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.animationSpeed = 0.5
+        animationView.play()
+    }
+    
+}
+
+//MARK: - Extensions -
+
+//MARK: Api Call
+extension OfferViewController {
+    
+    // Get Coupon List Api
     func getCouponList() {
         let params: Parameters = [
             "pageNo": page,
@@ -86,25 +105,29 @@ class OfferViewController: UIViewController {
                     self.couponList = self.couponData?.items ?? []
                 } else{
                     self.couponList.append(contentsOf: self.couponData?.items ?? [])
-                }                
+                }
                 self.totalCount = self.couponData?.totalItems ?? 0
-                print(self.couponList.count)
+                if self.couponList.count == 0 {
+                    self.emptyMessageView.isHidden = false
+                } else {
+                    self.emptyMessageView.isHidden = true
+                }
                 self.tblView.reloadData()
             }
         }
     }
+    
 }
 
-//MARK: - Extensions -
-
+//MARK: TableView SetUp
 extension OfferViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.couponList.count == 0 {
-            tableView.setEmptyMessage("No Data Found.")
-        }else {
-            tableView.restore()
-        }
+//        if self.couponList.count == 0 {
+//            tableView.setEmptyMessage("No Data Found.")
+//        } else {
+//            tableView.restore()
+//        }
         return self.couponList.count
     }
     
@@ -127,20 +150,14 @@ extension OfferViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        let totalRecords = self.couponData?.items?.count ?? 0
+        let totalRecords = self.couponList.count ?? 0
         // Change 10.0 to adjust the distance from bottom
         if maximumOffset - currentOffset <= 10.0 && /*totalRecords >= 10*/totalRecords < totalCount {
             if page < ((self.couponData?.totalPages ?? 0)-1) {
                 page += 1
                 self.getCouponList()
             }
-        }else{
-//            if page <= 0 {
-//                return
-//            }else {
-//                page -= 1
-//                self.getCouponList()
-//            }
         }
     }
+    
 }

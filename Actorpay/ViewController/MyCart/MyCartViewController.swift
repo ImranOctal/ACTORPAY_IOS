@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import Lottie
 
 class MyCartViewController: UIViewController {
 
@@ -33,6 +34,7 @@ class MyCartViewController: UIViewController {
     @IBOutlet weak var subTotalLbl: UILabel!
     @IBOutlet weak var igstLbl: UILabel!
     @IBOutlet weak var totalLbl: UILabel!
+    @IBOutlet weak var animationView: AnimationView!
     
     var cartList: CartList?
     
@@ -40,9 +42,10 @@ class MyCartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        cartItemList()
+        
+        self.cartItemList()
+        self.setEmptyCartLottieAnimation()
     }
     
     //MARK: - Selectors -
@@ -67,6 +70,14 @@ class MyCartViewController: UIViewController {
         subTotalLbl.text = cartList?.totalTaxableValue?.doubleToStringWithComma()
         igstLbl.text = ((cartList?.totalCgst ?? 0.0) + (cartList?.totalSgst ?? 0.0)).doubleToStringWithComma()
         totalLbl.text = cartList?.totalPrice?.doubleToStringWithComma()
+    }
+    
+    // Set Empty Cart Lottie Animation
+    func setEmptyCartLottieAnimation() {
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .playOnce
+        animationView.animationSpeed = 0.5
+        animationView.play()
     }
     
 }

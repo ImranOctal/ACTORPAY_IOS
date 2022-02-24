@@ -12,6 +12,11 @@ class CheckoutViewController: UIViewController {
     
     //MARK: - Properties -
     
+    @IBOutlet weak var mainView: UIView! {
+        didSet{
+            topCorner(bgView: mainView, maskToBounds: true)
+        }
+    }
     @IBOutlet weak var addressTableView: UITableView! {
         didSet{
             addressTableView.delegate = self
@@ -19,19 +24,6 @@ class CheckoutViewController: UIViewController {
         }
     }
     @IBOutlet weak var addressTableViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var paymentMethodTableView: UITableView! {
-        didSet{
-            paymentMethodTableView.delegate = self
-            paymentMethodTableView.dataSource = self
-        }
-    }
-    @IBOutlet weak var paymentMethodTableViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var mainView: UIView! {
-        didSet{
-            topCorner(bgView: mainView, maskToBounds: true)
-        }
-    }
-    
     @IBOutlet weak var priceView: UIView! {
         didSet{
             topCornerWithShadow(bgView: priceView, maskToBounds: false)
@@ -41,6 +33,9 @@ class CheckoutViewController: UIViewController {
     @IBOutlet weak var gstLbl: UILabel!
     @IBOutlet weak var totalLbl: UILabel!
     @IBOutlet weak var shippingChargesLbl: UILabel!
+    @IBOutlet weak var walletPaymentRadioButton: UIButton!
+    @IBOutlet weak var walletBalanceLbl: UILabel!
+    @IBOutlet weak var walletBalanceErrorView: UIView!
     
     var selectedAddressIndex: Int = 0
     var selectedCardIndex : IndexPath?
@@ -54,6 +49,7 @@ class CheckoutViewController: UIViewController {
     var shippingCharge: Int = 0
     var cardArray:[Int] = [1,2,3,5]
     var addressLoaded = false
+    var walletPaymentIsSelected = false
 
     //MARK: - Life Cycles -
     
@@ -61,6 +57,10 @@ class CheckoutViewController: UIViewController {
         super.viewDidLoad()
         getAllShippingAddressListApi()
         setCartData()
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("setWalletBalance"), object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(self.setWalletBalance),name:Notification.Name("setWalletBalance"), object: nil)
+        self.setWalletBalance()
+        self.walletBalanceErrorView.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,7 +69,6 @@ class CheckoutViewController: UIViewController {
             getAllShippingAddressListApi()
         }
         addressLoaded = true
-        
     }
     
     //MARK: - Selectors -
@@ -80,16 +79,31 @@ class CheckoutViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    // Add New Address Button Action
     @IBAction func addNewAddressButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    // Wallet Radio Button Action
+    @IBAction func walletRadioBtnAction(_ sender: UIButton) {
+        if (cartList?.totalPrice ?? 0.0) > (walletData?.amount ?? 0.0) {
+            walletBalanceErrorView.isHidden = false
+            return
+        } else {
+            walletBalanceErrorView.isHidden = true
+        }
+        walletPaymentIsSelected = !walletPaymentIsSelected
+        walletPaymentRadioButton.setImage(UIImage(named: walletPaymentIsSelected ? "fillRadioBtn" : "blankRadioBtn"), for: .normal)
+        walletPaymentRadioButton.tintColor = walletPaymentIsSelected ? UIColor.init(hexFromString: "2878B6") : UIColor.darkGray
+    }
+    
+    // Place Order Button Action
     @IBAction func placeOrderButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         if let selectedAddress = self.selectedAddress {
-            let param: Parameters = [
+            var param: Parameters = [
                 "addressLine1": "\(selectedAddress.addressLine1 ?? "")",
                 "addressLine2":"\(selectedAddress.addressLine2 ?? "")",
                 "zipCode":"\(selectedAddress.zipCode ?? "")",
@@ -105,8 +119,11 @@ class CheckoutViewController: UIViewController {
                 "area": "Manali",
                 "title": selectedAddress.title ?? "",
                 "orderNoteDescription":"This is Order not done by customer"
-                
             ]
+//            if walletPaymentIsSelected {
+//             param["payment_method"] = "wallet"
+//            }
+            
             print(param)
             showLoading()
             APIHelper.placeOrderAPI(params: param) { (success, response) in
@@ -148,6 +165,11 @@ class CheckoutViewController: UIViewController {
         totalLbl.text = cartList?.totalPrice?.doubleToStringWithComma()
     }
     
+    // Set Wallet Balance
+    @objc func setWalletBalance() {
+        walletBalanceLbl.text = "₹\(walletData?.amount ?? 0.0)"
+    }
+    
 }
 
 //MARK: - Extensions -
@@ -181,6 +203,7 @@ extension CheckoutViewController {
                 }
                 self.selectedAddress = self.addressListItems.first
                 self.totalCount = self.shippingAddressList?.totalItems ?? 0
+                self.addressTableViewHeightConstraint.constant = self.addressListItems.count == 1 ? 120 : 240
                 self.addressTableView.reloadData()
             }
         }
@@ -204,6 +227,7 @@ extension CheckoutViewController {
                 print(message)
                 self.addressTableView.reloadData()
                 self.getAllShippingAddressListApi()
+                myApp.window?.rootViewController?.view.makeToast(message)
             }
         }
     }
@@ -217,8 +241,6 @@ extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
         switch tableView {
         case addressTableView:
             return self.addressListItems.count
-        case paymentMethodTableView:
-            return (cardArray.count + 2)
         default:
             break
         }
@@ -266,29 +288,6 @@ extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
             clearView.backgroundColor = .clear // Whatever color you like
             cell.selectedBackgroundView = clearView
             return cell
-        case paymentMethodTableView:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cardTableViewCell", for: indexPath) as! cardTableViewCell
-            if indexPath.row == (cardArray.count) {
-                cell.iconImageView.image = UIImage(named: "cash_on_delivery")
-                cell.numberLabel.text = "Cash On Delivery"
-                cell.removeButton.isHidden = true
-            }
-            if indexPath.row == (cardArray.count + 1) {
-                cell.iconImageView.image = UIImage(named: "pocket-money")
-                cell.numberLabel.text = "Wallet $250"
-                cell.removeButton.isHidden = true
-            }
-            
-            if (selectedCardIndex == indexPath) {
-                cell.selectedButton.isHidden = false
-            } else {
-                cell.selectedButton.isHidden = true
-            }
-            let clearView = UIView()
-            clearView.backgroundColor = .clear // Whatever color you like
-            cell.selectedBackgroundView = clearView
-            return cell
-
         default:
             break
         }
@@ -302,9 +301,6 @@ extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
             selectedAddressIndex = indexPath.row
             let item = self.addressListItems[indexPath.row]
             self.selectedAddress = item
-            tableView.reloadData()
-        case paymentMethodTableView:
-            selectedCardIndex = indexPath
             tableView.reloadData()
         default:
             break
@@ -325,13 +321,6 @@ extension CheckoutViewController: UIScrollViewDelegate {
                 page += 1
                 self.getAllShippingAddressListApi()
             }
-        }else{
-//            if page <= 0 {
-//                return
-//            }else {
-//                page -= 1
-//                self.getAllShippingAddressListApi()
-//            }
         }
     }
     

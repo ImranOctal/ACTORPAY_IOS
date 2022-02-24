@@ -184,3 +184,16 @@ func getStatus(stausString: String) -> (UIColor) {
     }
     return UIColor.black
 }
+
+// Transaction Type
+func transactionType(transactionType: String) -> (UIColor) {
+    switch transactionType {
+    case "DEBIT":
+        return UIColor.red
+    case "CREDIT":
+        return UIColor.systemGreen
+    default:
+        break
+    }
+    return UIColor.black
+}

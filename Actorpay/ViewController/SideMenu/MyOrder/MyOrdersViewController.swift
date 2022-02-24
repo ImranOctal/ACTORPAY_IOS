@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import Lottie
 
 class MyOrdersViewController: UIViewController {
     
@@ -14,6 +15,8 @@ class MyOrdersViewController: UIViewController {
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyMessageView: UIView!
+    @IBOutlet weak var animationView: AnimationView!
     
     var myOrders: OrderList?
     var orderList: [OrderItems] = []
@@ -36,7 +39,7 @@ class MyOrdersViewController: UIViewController {
         })
         NotificationCenter.default.removeObserver(self, name: Notification.Name("reloadOrderListApi"), object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(self.reloadOrderListApi),name:Notification.Name("reloadOrderListApi"), object: nil)
-        
+        self.setEmptyCartLottieAnimation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,6 +86,14 @@ class MyOrdersViewController: UIViewController {
     // Reload Order List Api
     @objc func reloadOrderListApi() {
         self.getOrderListApi()
+    }
+    
+    // Set Empty Cart Lottie Animation
+    func setEmptyCartLottieAnimation() {
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.animationSpeed = 0.5
+        animationView.play()
     }
     
 }
@@ -136,6 +147,11 @@ extension MyOrdersViewController {
                 let message = response.message
                 print(message)
 //                myApp.window?.rootViewController?.view.makeToast(message)
+                if self.orderList.count == 0 {
+                    self.emptyMessageView.isHidden = false
+                } else {
+                    self.emptyMessageView.isHidden = true
+                }
                 self.tableView.reloadData()
             }
         }
@@ -165,11 +181,11 @@ extension MyOrdersViewController {
 extension MyOrdersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.orderList.count == 0 {
-            tableView.setEmptyMessage("No Data Found.")
-        }else {
-            tableView.restore()
-        }
+//        if self.orderList.count == 0 {
+//            tableView.setEmptyMessage("No Data Found.")
+//        }else {
+//            tableView.restore()
+//        }
         return self.orderList.count
     }
     

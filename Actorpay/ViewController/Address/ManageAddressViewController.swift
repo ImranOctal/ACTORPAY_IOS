@@ -107,6 +107,7 @@ class ManageAddressViewController: UIViewController {
                 print(message)
                 self.getAllShippingAddressListApi()
                 self.tblView.reloadData()
+                myApp.window?.rootViewController?.view.makeToast(message)
             }
         }
     }

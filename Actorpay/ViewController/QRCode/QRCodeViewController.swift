@@ -324,11 +324,13 @@ extension QRCodeViewController: UITextFieldDelegate {
         case phoneOrEmailTextField:
             if validatePhoneNumber() {
                 let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
+                newVC.phoneNumber = textField.text ?? ""
                 newVC.sendMoneyType = "Phone Number"
                 self.navigationController?.pushViewController(newVC, animated: true)
             } else if validateEmailAddress() {
                 let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
                 newVC.sendMoneyType = "Email Address"
+                newVC.emailAddress = textField.text ?? ""
                 self.navigationController?.pushViewController(newVC, animated: true)
             } else {
                 return false
@@ -337,6 +339,25 @@ extension QRCodeViewController: UITextFieldDelegate {
             break
         }
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case phoneOrEmailTextField:
+            if validatePhoneNumber() {
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
+                newVC.phoneNumber = textField.text ?? ""
+                newVC.sendMoneyType = "Phone Number"
+                self.navigationController?.pushViewController(newVC, animated: true)
+            } else if validateEmailAddress() {
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
+                newVC.sendMoneyType = "Email Address"
+                newVC.emailAddress = textField.text ?? ""
+                self.navigationController?.pushViewController(newVC, animated: true)
+            }
+        default:
+            break
+        }
     }
     
 }
@@ -509,6 +530,7 @@ extension QRCodeViewController: CNContactPickerDelegate {
                         self.phoneOrEmailTextField.text = (actualNumber.stringValue).replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
                         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
                         newVC.sendMoneyType = "Phone Number"
+                        newVC.phoneNumber = self.phoneOrEmailTextField.text ?? ""
                         self.navigationController?.pushViewController(newVC, animated: true)
                     })
                     //Add the action to the AlertController
@@ -560,6 +582,7 @@ extension QRCodeViewController: CNContactPickerDelegate {
                     self.phoneOrEmailTextField.text = (actualNumber.stringValue).replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
                     let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
                     newVC.sendMoneyType = "Phone Number"
+                    newVC.phoneNumber = self.phoneOrEmailTextField.text ?? ""
                     self.navigationController?.pushViewController(newVC, animated: true)
                 } else {
                     //If there are no phone numbers associated with the contact I call a custom funciton I wrote that lets me display an alert Controller to the user

@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 import SVPullToRefresh
 import PopupDialog
+import Lottie
 
 class ProductListViewController: UIViewController {
     
@@ -32,6 +33,8 @@ class ProductListViewController: UIViewController {
             self.collectionView.dataSource = self
         }
     }
+    @IBOutlet weak var emptyMessageView: UIView!
+    @IBOutlet weak var animationView: AnimationView!
     
     var product: ProductList?
     var productList: [Items] = []
@@ -50,7 +53,9 @@ class ProductListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         topCorner(bgView: mainView, maskToBounds: true)
+        self.setEmptyCartLottieAnimation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,6 +108,14 @@ class ProductListViewController: UIViewController {
         customV.setUpCustomAlert(titleStr: "Replace Cart Item", descriptionStr: "Your cart contains products from different Merchant, Do you want to discard the selection and add this product?", isShowCancelBtn: false)
         customV.customAlertDelegate = self
         self.present(popup, animated: true, completion: nil)
+    }
+    
+    // Set Empty Cart Lottie Animation
+    func setEmptyCartLottieAnimation() {
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.animationSpeed = 0.5
+        animationView.play()
     }
     
 }
@@ -159,6 +172,11 @@ extension ProductListViewController {
                 }
                 self.totalCount = self.product?.totalItems ?? 0
                 self.cartItemList()
+                if self.productList.count == 0 {
+                    self.emptyMessageView.isHidden = false
+                } else {
+                    self.emptyMessageView.isHidden = true
+                }
                 self.tableView.reloadData()
             }
         }
@@ -247,11 +265,11 @@ extension ProductListViewController {
 extension ProductListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.productList.count == 0 {
-            tableView.setEmptyMessage("No Data Found")
-        }else{
-            tableView.restore()
-        }
+//        if self.productList.count == 0 {
+//            tableView.setEmptyMessage("No Data Found")
+//        }else{
+//            tableView.restore()
+//        }
         return self.productList.count
     }
     

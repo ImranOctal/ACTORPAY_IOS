@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class AddMoneyInWalletViewController: UIViewController {
     
@@ -24,6 +25,7 @@ class AddMoneyInWalletViewController: UIViewController {
         }
     }
     @IBOutlet weak var amountValidationLbl: UILabel!
+    @IBOutlet weak var walletBalanceLbl: UILabel!
     
     var addMoneyAmountArr = [50,100,200,500,1000,2000]
 
@@ -35,6 +37,9 @@ class AddMoneyInWalletViewController: UIViewController {
         
         topCorner(bgView: bgView, maskToBounds: true)
         self.manageValidationLabel()
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("setWalletBalanceInAddMoneyInWallet"), object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(self.setWalletBalanceInAddMoneyInWallet),name:Notification.Name("setWalletBalanceInAddMoneyInWallet"), object: nil)
+        self.setWalletBalanceInAddMoneyInWallet()
     }
     
     //MARK: - Selectors -
@@ -50,8 +55,7 @@ class AddMoneyInWalletViewController: UIViewController {
         self.view.endEditing(true)
         if addMoneyInWalletValidation() {
             self.manageValidationLabel()
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "DummyTransactionViewController") as! DummyTransactionViewController
-            self.navigationController?.pushViewController(newVC, animated: true)
+            self.addMoneyToWalletApi()
         }
     }
     
@@ -77,9 +81,45 @@ class AddMoneyInWalletViewController: UIViewController {
         return isValidate
     }
     
+    // Set Wallet Balance
+    @objc func setWalletBalanceInAddMoneyInWallet() {
+        walletBalanceLbl.text = "₹ \(walletData?.amount ?? 0.0)"
+    }
+    
 }
 
 //MARK: - Extensions -
+
+//MARK: Api Call
+extension AddMoneyInWalletViewController {
+    
+    // Add Money In Wallet Api
+    func addMoneyToWalletApi() {
+        let bodyParameter: Parameters = [
+            "amount": amountTextField.text ?? ""
+        ]
+        showLoading()
+        APIHelper.addMoneyToWalletApi(bodyParameter: bodyParameter) { (success,response)  in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let message = response.message
+//                myApp.window?.rootViewController?.view.makeToast(message)
+                print(message)
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentSuccessAndFailViewController") as! PaymentSuccessAndFailViewController
+                newVC.isSuccess = true
+                newVC.addMoneyWalletAmount = self.amountTextField.text ?? ""
+                newVC.isAddMoneyWallet = true
+                self.navigationController?.pushViewController(newVC, animated: true)
+                NotificationCenter.default.post(name:  Notification.Name("viewWalletBalanceByIdApi"), object: self)
+            }
+        }
+    }
+    
+}
 
 //MARK: Collection View Setup
 extension AddMoneyInWalletViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

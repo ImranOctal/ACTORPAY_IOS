@@ -25,6 +25,7 @@ target 'Actorpay' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'KeychainSwift'
+  pod 'lottie-ios'
 
   target 'ActorpayTests' do
     inherit! :search_paths

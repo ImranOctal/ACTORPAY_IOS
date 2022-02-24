@@ -90,8 +90,8 @@ extension ForgotPasswordViewController {
             }else {
                 dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
                 self.dismiss(animated: true, completion: nil)
+                myApp.window?.rootViewController?.view.makeToast(message)
             }
         }
     }

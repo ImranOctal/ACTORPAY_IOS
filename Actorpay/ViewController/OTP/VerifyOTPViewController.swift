@@ -93,6 +93,7 @@ class VerifyOTPViewController: UIViewController {
                     codeCompletion(true)
                     self.dismiss(animated: true, completion: nil)
                 }
+                myApp.window?.rootViewController?.view.makeToast(message)
             }
         }
     }

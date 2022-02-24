@@ -188,7 +188,6 @@ extension RaiseDisputeViewController {
             }else {
                 dissmissLoader()
                 let message = response.message
-                myApp.window?.rootViewController?.view.makeToast(message)
                 let data = response.response["data"]
                 self.disputeDetail = DisputeItem.init(json: data)
                 NotificationCenter.default.post(name:  Notification.Name("getOrderDetailsApi"), object: self)
@@ -198,7 +197,7 @@ extension RaiseDisputeViewController {
                 let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
                 customV.setUpDisputeAlert(disputeTitle: self.disputeDetail?.title ?? "", disputeCode: self.disputeDetail?.disputeCode ?? "", disputeStatus: self.disputeDetail?.status ?? "")
                 myApp.window?.rootViewController?.present(popup, animated: true, completion: nil)
-                
+                myApp.window?.rootViewController?.view.makeToast(message)
             }
         }
     }

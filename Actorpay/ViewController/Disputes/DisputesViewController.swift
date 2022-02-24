@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import Lottie
 
 class DisputesViewController: UIViewController {
     
@@ -19,6 +20,8 @@ class DisputesViewController: UIViewController {
             self.disputeTblView.dataSource = self
         }
     }
+    @IBOutlet weak var emptyMessageView: UIView!
+    @IBOutlet weak var animationView: AnimationView!
 
     var page = 0
     var totalCount = 10
@@ -37,9 +40,8 @@ class DisputesViewController: UIViewController {
         disputeTblView.addPullToRefresh {
             self.page = 0
             self.disputeListApi()
-        }        
-//        Notification
-        
+        }
+        self.setEmptyCartLottieAnimation()
         
     }
     
@@ -77,6 +79,13 @@ class DisputesViewController: UIViewController {
     
     //MARK: - Helper Functions -
     
+    // Set Empty Cart Lottie Animation
+    func setEmptyCartLottieAnimation() {
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.animationSpeed = 0.5
+        animationView.play()
+    }
     
 }
 
@@ -133,6 +142,11 @@ extension DisputesViewController {
                     self.disputeItems.append(contentsOf: DisputeList.init(json: data).items ?? [])
                 }
                 self.totalCount = self.disputeList?.totalItems ?? 0
+                if self.disputeItems.count == 0 {
+                    self.emptyMessageView.isHidden = false
+                } else {
+                    self.emptyMessageView.isHidden = true
+                }
                 self.disputeTblView.reloadData()
             }
         }
@@ -144,11 +158,11 @@ extension DisputesViewController {
 extension DisputesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.disputeItems.count == 0 {
-            tableView.setEmptyMessage("No Data Found")
-        }else{
-            tableView.restore()
-        }
+//        if self.disputeItems.count == 0 {
+//            tableView.setEmptyMessage("No Data Found")
+//        }else{
+//            tableView.restore()
+//        }
         return self.disputeItems.count
     }
     

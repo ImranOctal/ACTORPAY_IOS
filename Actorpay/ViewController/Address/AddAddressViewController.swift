@@ -356,6 +356,7 @@ extension AddAddressViewController {
                 print(message)
                 NotificationCenter.default.post(name: NSNotification.Name("getAllShippingAddressListApi"), object: nil)
                 self.navigationController?.popViewController(animated: true)
+                myApp.window?.rootViewController?.view.makeToast(message)
             }
         }
     }
@@ -393,6 +394,7 @@ extension AddAddressViewController {
                 print(message)
                 NotificationCenter.default.post(name: NSNotification.Name("getAllShippingAddressListApi"), object: nil)
                 self.navigationController?.popViewController(animated: true)
+                myApp.window?.rootViewController?.view.makeToast(message)
             }
         }
     }

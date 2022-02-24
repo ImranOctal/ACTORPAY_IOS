@@ -22,7 +22,7 @@ final class SideMenuViewController: UIViewController {
     }
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var userEmailLabel: UILabel!
+    @IBOutlet weak var walletBalanceLbl: UILabel!
     
     var sidemenuArray = [typeAliasStringDictionary]()
     var selectedObject = typeAliasStringDictionary()
@@ -88,7 +88,7 @@ final class SideMenuViewController: UIViewController {
 //        userImageView.sd_setImage(with: URL(string: user?.profilePicture ?? ""), placeholderImage: UIImage(named: "profile"), options: SDWebImageOptions.allowInvalidSSLCertificates, completed: nil)
         userImageView.image = UIImage(named: "profile")
         userNameLabel.text = (user?.firstName ?? "") + (user?.lastName ?? "")
-        userEmailLabel.text = user?.email ?? ""
+        walletBalanceLbl.text = "₹ \(walletData?.amount ?? 0.0)"
     }
 }
 

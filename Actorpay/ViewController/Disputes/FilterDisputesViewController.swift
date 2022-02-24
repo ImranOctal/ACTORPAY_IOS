@@ -34,7 +34,7 @@ class FilterDisputesViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        statusData = ["PENDING","OPEN"]
+        statusData = ["Select Status","OPEN","CLOSED","PENDING"]
         topCorner(bgView: filterView, maskToBounds: true)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         self.showAnimate()
@@ -104,6 +104,10 @@ class FilterDisputesViewController: UIViewController {
         disputeStatusDropDown.dataSource = statusData.map({$0.replacingOccurrences(of: "_", with: " ", options: .literal, range: nil)})
         disputeStatusDropDown.backgroundColor = .white
         disputeStatusDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            if item == "Select Status" {
+                self.disputeStatusTextField.text = ""
+                return
+            }
             self.disputeStatusTextField.text = item
             self.view.endEditing(true)
             self.disputeStatusDropDown.hide()

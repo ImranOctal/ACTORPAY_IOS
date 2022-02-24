@@ -49,6 +49,9 @@ class HomeViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: Notification.Name("getUserDetail"), object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(self.getUserDetailsApi),name:Notification.Name("getUserDetail"), object: nil)
         getAllCategories(pageSize: 10)
+        self.viewWalletBalanceByIdApi()
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("viewWalletBalanceByIdApi"), object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(self.viewWalletBalanceByIdApi),name:Notification.Name("viewWalletBalanceByIdApi"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -124,6 +127,29 @@ extension HomeViewController {
                 categoryList = CategoryList.init(json: data)
                 let message = response.message
                 print(message)
+            }
+        }
+    }
+    
+    // Get User Wallet Details Api
+    @objc func viewWalletBalanceByIdApi() {
+        showLoading()
+        APIHelper.viewWalletBalanceByIdApi(parameters: [:], userId: AppManager.shared.userId) { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                print(message)
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let data = response.response["data"]
+                walletData = Wallet.init(json: data)
+                let message = response.message
+                print(message)
+//                myApp.window?.rootViewController?.view.makeToast(message)
+                NotificationCenter.default.post(name:  Notification.Name("setProfileData"), object: self)
+                NotificationCenter.default.post(name:  Notification.Name("setWalletBalance"), object: self)
+                NotificationCenter.default.post(name:  Notification.Name("setWalletBalanceInWalletStatement"), object: self)
             }
         }
     }

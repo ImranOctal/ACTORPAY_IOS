@@ -47,7 +47,11 @@ enum APIEndPoint: String {
     case disputeListApi = "user-service/dispute/list/paged"
     case disputeDetailsApi = "user-service/dispute/get"
     case send_message = "user-service/dispute/send/message"
-    case raiseDispute = "user-service/dispute/raise" 
+    case raiseDispute = "user-service/dispute/raise"
+    case addMoneyToWalletApi = "user-service/v1/wallet/addMoney"
+    case walletTranscationApi = "user-service/v1/wallet/list/paged"
+    case transferMoneyToWalletApi = "user-service/v1/wallet/transfer"
+    case viewWalletBalanceByIdApi = "user-service/v1/wallet/"
 }
 
 struct MessageConstant {

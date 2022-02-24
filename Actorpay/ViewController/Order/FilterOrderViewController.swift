@@ -36,7 +36,7 @@ class FilterOrderViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        statusData = ["SUCCESS","READY","CANCELLED","PARTIALLY_CANCELLED","DISPATCHED","RETURNING","PARTIALLY_RETURNING","RETURNED","PARTIALLY_RETURNED","DELIVERED","PENDING","FAILURE"]
+        statusData = ["Select Status","SUCCESS","READY","CANCELLED","PARTIALLY_CANCELLED","DISPATCHED","RETURNING","PARTIALLY_RETURNING","RETURNED","PARTIALLY_RETURNED","DELIVERED","PENDING","FAILURE"]
         topCorner(bgView: filterView, maskToBounds: true)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         self.showAnimate()
@@ -120,6 +120,10 @@ class FilterOrderViewController: UIViewController {
         orderStatusDropDown.dataSource = statusData.map({$0.replacingOccurrences(of: "_", with: " ", options: .literal, range: nil)})
         orderStatusDropDown.backgroundColor = .white
         orderStatusDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            if item == "Select Status" {
+                self.statusTextField.text = ""
+                return
+            }
             self.statusTextField.text = item
             self.orderStatus = statusData[index]
             self.view.endEditing(true)
