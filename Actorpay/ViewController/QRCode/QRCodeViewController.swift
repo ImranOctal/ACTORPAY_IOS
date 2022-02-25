@@ -77,6 +77,7 @@ class QRCodeViewController: UIViewController {
     var userImage: UIImage?
     var numeroADiscar = ""
     var placeHolder = ""
+    var userDetail: UserDetails?
     
     //MARK: - Life Cycles -
     
@@ -278,6 +279,36 @@ class QRCodeViewController: UIViewController {
 
 //MARK: - Extensions -
 
+//MARK: Api Call
+extension QRCodeViewController {
+    
+    // Get User Wallet Details Api
+    @objc func getUserDetailByMobileAndEmail(isEmail: Bool = false, mobileAndEmail:String) {
+        self.view.endEditing(true)
+        showLoading()
+        APIHelper.getUserDetailByMobileAndEmail(parameters: [:], mobileAndEmail: mobileAndEmail) { (success, response) in
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                print(message)
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let data = response.response["data"]
+                self.userDetail = UserDetails.init(json: data)
+                let message = response.message
+                print(message)
+                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
+                newVC.sendMoneyType = isEmail ? "Email Address" :"Phone Number"
+                newVC.userDetail = self.userDetail
+                self.navigationController?.pushViewController(newVC, animated: true)
+                }
+//                myApp.window?.rootViewController?.view.makeToast(message)
+        }
+    }
+    
+}
+
 //MARK: UITextField Delegate Methods
 extension QRCodeViewController: UITextFieldDelegate {
     
@@ -323,15 +354,9 @@ extension QRCodeViewController: UITextFieldDelegate {
         switch textField {
         case phoneOrEmailTextField:
             if validatePhoneNumber() {
-                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
-                newVC.phoneNumber = textField.text ?? ""
-                newVC.sendMoneyType = "Phone Number"
-                self.navigationController?.pushViewController(newVC, animated: true)
+                self.getUserDetailByMobileAndEmail(isEmail: false,mobileAndEmail: textField.text ?? "")
             } else if validateEmailAddress() {
-                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
-                newVC.sendMoneyType = "Email Address"
-                newVC.emailAddress = textField.text ?? ""
-                self.navigationController?.pushViewController(newVC, animated: true)
+                self.getUserDetailByMobileAndEmail(isEmail: true,mobileAndEmail: textField.text ?? "")
             } else {
                 return false
             }
@@ -345,15 +370,9 @@ extension QRCodeViewController: UITextFieldDelegate {
         switch textField {
         case phoneOrEmailTextField:
             if validatePhoneNumber() {
-                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
-                newVC.phoneNumber = textField.text ?? ""
-                newVC.sendMoneyType = "Phone Number"
-                self.navigationController?.pushViewController(newVC, animated: true)
+                self.getUserDetailByMobileAndEmail(isEmail: false,mobileAndEmail: textField.text ?? "")
             } else if validateEmailAddress() {
-                let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
-                newVC.sendMoneyType = "Email Address"
-                newVC.emailAddress = textField.text ?? ""
-                self.navigationController?.pushViewController(newVC, animated: true)
+                self.getUserDetailByMobileAndEmail(isEmail: true,mobileAndEmail: textField.text ?? "")
             }
         default:
             break
@@ -528,10 +547,7 @@ extension QRCodeViewController: CNContactPickerDelegate {
                         //Get the string value of the phone number like this:
                         self.numeroADiscar = actualNumber.stringValue
                         self.phoneOrEmailTextField.text = (actualNumber.stringValue).replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
-                        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
-                        newVC.sendMoneyType = "Phone Number"
-                        newVC.phoneNumber = self.phoneOrEmailTextField.text ?? ""
-                        self.navigationController?.pushViewController(newVC, animated: true)
+                        self.getUserDetailByMobileAndEmail(isEmail: false,mobileAndEmail: self.phoneOrEmailTextField.text ?? "")
                     })
                     //Add the action to the AlertController
                     multiplePhoneNumbersAlert.addAction(numberAction)
@@ -580,10 +596,7 @@ extension QRCodeViewController: CNContactPickerDelegate {
                     //Do what you need to do with your new contact information here!
                     //Get the string value of the phone number like this:
                     self.phoneOrEmailTextField.text = (actualNumber.stringValue).replacingOccurrences(of: "-", with: "", options: .literal, range: nil)
-                    let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
-                    newVC.sendMoneyType = "Phone Number"
-                    newVC.phoneNumber = self.phoneOrEmailTextField.text ?? ""
-                    self.navigationController?.pushViewController(newVC, animated: true)
+                    self.getUserDetailByMobileAndEmail(isEmail: false,mobileAndEmail: self.phoneOrEmailTextField.text ?? "")
                 } else {
                     //If there are no phone numbers associated with the contact I call a custom funciton I wrote that lets me display an alert Controller to the user
                     let alert = UIAlertController(title: "Missing info", message: "You have no phone numbers associated with this contact", preferredStyle: .alert)

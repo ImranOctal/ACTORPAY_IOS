@@ -17,10 +17,14 @@ class PaymentSuccessAndFailViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var animationView: AnimationView!
     @IBOutlet weak var walletHistoryBtn: UIView!
+    @IBOutlet weak var transactionIdLbl: UILabel!
+    @IBOutlet weak var doneButtonView: UIView!
+    @IBOutlet weak var buttonStackView: UIStackView!
     
     var isSuccess = false
     var addMoneyWalletAmount = ""
     var isAddMoneyWallet = false
+    var transactionDetails: TransactionDetails?
     
     //MARK: - Life Cycles -
     
@@ -50,30 +54,25 @@ class PaymentSuccessAndFailViewController: UIViewController {
         }
     }
     
+    // Done Button Action
+    @IBAction func doneButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
     //MARK: - Helper Functions -
     
     // SetUp UI
     func setUpUI() {
-        if isSuccess {
-            self.descLabel.isHidden = false
-            descLabel.text = isAddMoneyWallet ? "Amount ₹\(addMoneyWalletAmount).0 \n has been added successfully" : "Transaction has been done successfully"
-            self.titleLabel.text = "Payment Succeed!"
-            self.walletHistoryBtn.isHidden = isAddMoneyWallet ? false : true
-            animationView.animation = Animation.named("success_tick_lottie")
-            animationView.contentMode = .scaleAspectFit
-            animationView.loopMode = .playOnce
-            animationView.animationSpeed = 0.5
-            animationView.play()
-        } else {
-            self.descLabel.isHidden = true
-            self.titleLabel.text = "Payment Failed"
-            self.walletHistoryBtn.isHidden = true
-            animationView.animation = Animation.named("fail_tick_lottie")
-            animationView.contentMode = .scaleAspectFit
-            animationView.loopMode = .playOnce
-            animationView.animationSpeed = 0.5
-            animationView.play()
-        }
+        self.descLabel.text = isAddMoneyWallet ? "Amount ₹\(transactionDetails?.transferredAmount ?? 0.0) \n added into wallet successfully" : "Amount ₹\(addMoneyWalletAmount) transferred into \(transactionDetails?.customerName ?? "")'s wallet successfully"
+        self.transactionIdLbl.text = "Transaction ID: \(transactionDetails?.transactionId ?? "")"
+        self.titleLabel.text = isSuccess ? "Payment Succeed!" : "Payment Failed"
+        self.buttonStackView.isHidden = isSuccess ? false : true
+        animationView.animation = Animation.named(isSuccess ? "success_tick_lottie" : "fail_tick_lottie")
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .playOnce
+        animationView.animationSpeed = 0.5
+        animationView.play()
     }
 
 }

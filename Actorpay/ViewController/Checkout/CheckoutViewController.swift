@@ -34,6 +34,7 @@ class CheckoutViewController: UIViewController {
     @IBOutlet weak var totalLbl: UILabel!
     @IBOutlet weak var shippingChargesLbl: UILabel!
     @IBOutlet weak var walletPaymentRadioButton: UIButton!
+    @IBOutlet weak var codPaymentRadioButton: UIButton!
     @IBOutlet weak var walletBalanceLbl: UILabel!
     @IBOutlet weak var walletBalanceErrorView: UIView!
     
@@ -50,6 +51,7 @@ class CheckoutViewController: UIViewController {
     var cardArray:[Int] = [1,2,3,5]
     var addressLoaded = false
     var walletPaymentIsSelected = false
+    var codPaymentIsSelected = false
 
     //MARK: - Life Cycles -
     
@@ -87,14 +89,23 @@ class CheckoutViewController: UIViewController {
     }
     
     // Wallet Radio Button Action
-    @IBAction func walletRadioBtnAction(_ sender: UIButton) {
-        if (cartList?.totalPrice ?? 0.0) > (walletData?.amount ?? 0.0) {
-            walletBalanceErrorView.isHidden = false
-            return
-        } else {
-            walletBalanceErrorView.isHidden = true
+    @IBAction func walletAndCodRadioBtnAction(_ sender: UIButton) {
+        if sender.tag == 1005 {
+            if (cartList?.totalPrice ?? 0.0) > (walletData?.amount ?? 0.0) {
+                walletBalanceErrorView.isHidden = false
+                return
+            } else {
+                walletBalanceErrorView.isHidden = true
+            }
+            walletPaymentIsSelected = !walletPaymentIsSelected
+            codPaymentIsSelected = !walletPaymentIsSelected
+            
+        } else if sender.tag == 1006 {
+            codPaymentIsSelected = !codPaymentIsSelected
+            walletPaymentIsSelected = !codPaymentIsSelected
         }
-        walletPaymentIsSelected = !walletPaymentIsSelected
+        codPaymentRadioButton.setImage(UIImage(named: codPaymentIsSelected ? "fillRadioBtn" : "blankRadioBtn"), for: .normal)
+        codPaymentRadioButton.tintColor = codPaymentIsSelected ? UIColor.init(hexFromString: "2878B6") : UIColor.darkGray
         walletPaymentRadioButton.setImage(UIImage(named: walletPaymentIsSelected ? "fillRadioBtn" : "blankRadioBtn"), for: .normal)
         walletPaymentRadioButton.tintColor = walletPaymentIsSelected ? UIColor.init(hexFromString: "2878B6") : UIColor.darkGray
     }
@@ -120,9 +131,13 @@ class CheckoutViewController: UIViewController {
                 "title": selectedAddress.title ?? "",
                 "orderNoteDescription":"This is Order not done by customer"
             ]
-//            if walletPaymentIsSelected {
-//             param["payment_method"] = "wallet"
-//            }
+            if walletPaymentIsSelected {
+             param["paymentMethod"] = "WALLET"
+//                "CARD"
+            }
+            if codPaymentIsSelected {
+                param["paymentMethod"] = "COD"
+            }
             
             print(param)
             showLoading()
@@ -145,6 +160,7 @@ class CheckoutViewController: UIViewController {
                     self.navigationController?.pushViewController(newVC, animated: true)
                     let message = response.message
                     print(message)
+                    NotificationCenter.default.post(name:  Notification.Name("viewWalletBalanceByIdApi"), object: self)
                 }
             }
         }

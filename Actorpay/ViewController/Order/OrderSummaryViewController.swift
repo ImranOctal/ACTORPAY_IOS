@@ -41,6 +41,8 @@ class OrderSummaryViewController: UIViewController {
     @IBOutlet weak var notesTblViewHeightConst: NSLayoutConstraint!
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var addNoteView: UIView!
+    @IBOutlet weak var paymentMethodLbl: UILabel!
+    @IBOutlet weak var paymentMethodView: UIView!
     
     var orderNo = ""
     var orderItems: OrderItems?
@@ -130,6 +132,12 @@ class OrderSummaryViewController: UIViewController {
         statusLbl.text = (orderItems?.orderStatus ?? "").replacingOccurrences(of: "_", with: " ", options: .literal, range: nil)
         orderStatusView.layer.borderColor = getStatus(stausString: orderItems?.orderStatus ?? "").cgColor
         statusLbl.textColor = getStatus(stausString: orderItems?.orderStatus ?? "")
+        if orderItems?.paymentMethod != nil {
+            paymentMethodLbl.text = orderItems?.paymentMethod
+        } else {
+            paymentMethodView.isHidden = true
+        }
+        
     }
     
 }

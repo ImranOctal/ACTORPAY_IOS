@@ -21,7 +21,6 @@
 		88138B4927705B8900F5F6A8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88138B4827705B8900F5F6A8 /* User.swift */; };
 		88138B4E27705CA000F5F6A8 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88138B4D27705CA000F5F6A8 /* Constant.swift */; };
 		88138B532770630000F5F6A8 /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88138B522770630000F5F6A8 /* AppManager.swift */; };
-		881A921E275A184600825572 /* PaymentSucceedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A921D275A184600825572 /* PaymentSucceedViewController.swift */; };
 		881A9227275A256F00825572 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A9226275A256F00825572 /* QRCodeViewController.swift */; };
 		881A922D275A2DE400825572 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A922C275A2DE400825572 /* WalletViewController.swift */; };
 		881A9233275A2E0D00825572 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A9232275A2E0D00825572 /* ProfileViewController.swift */; };
@@ -115,6 +114,8 @@
 		88BCE7852760DEBB00471BB3 /* QRCodePayNowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BCE7842760DEBB00471BB3 /* QRCodePayNowViewController.swift */; };
 		88BF63AA27B3A0010023AA43 /* PaymentSuccessAndFailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BF63A927B3A0010023AA43 /* PaymentSuccessAndFailViewController.swift */; };
 		88CD1D9D278703D200A4D02D /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CD1D9C278703D200A4D02D /* ValidationManager.swift */; };
+		88CF9CA927C899C100D4D0C6 /* UserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF9CA827C899C100D4D0C6 /* UserDetails.swift */; };
+		88CF9CC327C8D6D300D4D0C6 /* TransactionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF9CC227C8D6D300D4D0C6 /* TransactionDetails.swift */; };
 		88D099792760B9E500B5E564 /* UtilityBillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D099782760B9E500B5E564 /* UtilityBillViewController.swift */; };
 		88D0997D2760BA8B00B5E564 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88B5977D27575427008F64EE /* Poppins-Light.ttf */; };
 		88D0997F2760BA8B00B5E564 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88B5977E27575427008F64EE /* Poppins-Regular.ttf */; };
@@ -197,7 +198,6 @@
 		88138B4827705B8900F5F6A8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		88138B4D27705CA000F5F6A8 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		88138B522770630000F5F6A8 /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
-		881A921D275A184600825572 /* PaymentSucceedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSucceedViewController.swift; sourceTree = "<group>"; };
 		881A9226275A256F00825572 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		881A922C275A2DE400825572 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		881A9232275A2E0D00825572 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -302,6 +302,8 @@
 		88BCE7842760DEBB00471BB3 /* QRCodePayNowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePayNowViewController.swift; sourceTree = "<group>"; };
 		88BF63A927B3A0010023AA43 /* PaymentSuccessAndFailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessAndFailViewController.swift; sourceTree = "<group>"; };
 		88CD1D9C278703D200A4D02D /* ValidationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationManager.swift; sourceTree = "<group>"; };
+		88CF9CA827C899C100D4D0C6 /* UserDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetails.swift; sourceTree = "<group>"; };
+		88CF9CC227C8D6D300D4D0C6 /* TransactionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetails.swift; sourceTree = "<group>"; };
 		88D099782760B9E500B5E564 /* UtilityBillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityBillViewController.swift; sourceTree = "<group>"; };
 		88D099852760BC9400B5E564 /* UtilityBillCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityBillCollectionViewCell.swift; sourceTree = "<group>"; };
 		88D099ED2760C8DB00B5E564 /* ScanQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRCodeViewController.swift; sourceTree = "<group>"; };
@@ -466,7 +468,6 @@
 				88A993E827B385D4005A379A /* Cell */,
 				882626B12759D2BA00C9C26D /* AddMoneyViewController.swift */,
 				88F895C42759F51400B679BE /* AddCardViewController.swift */,
-				881A921D275A184600825572 /* PaymentSucceedViewController.swift */,
 				88A993E327B3827B005A379A /* AddMoneyInWalletViewController.swift */,
 				88DAD93A27B396CD007AE363 /* DummyTransactionViewController.swift */,
 				88BF63A927B3A0010023AA43 /* PaymentSuccessAndFailViewController.swift */,
@@ -846,6 +847,14 @@
 			path = MyOrder;
 			sourceTree = "<group>";
 		};
+		88CF9CA727C899A800D4D0C6 /* MobileAndEmailUserDetails */ = {
+			isa = PBXGroup;
+			children = (
+				88CF9CA827C899C100D4D0C6 /* UserDetails.swift */,
+			);
+			path = MobileAndEmailUserDetails;
+			sourceTree = "<group>";
+		};
 		88D099772760B9C000B5E564 /* UtilityBill */ = {
 			isa = PBXGroup;
 			children = (
@@ -916,6 +925,7 @@
 		88EF90772758A9B900FEA684 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				88CF9CA727C899A800D4D0C6 /* MobileAndEmailUserDetails */,
 				88FDAAEB27C653EA00B33FA2 /* Wallet */,
 				8892CB1A27BBBF8600BF2794 /* Disputes */,
 				887C2532279A8A0000100196 /* Category */,
@@ -1027,6 +1037,7 @@
 				88FDAAED27C6540100B33FA2 /* WalletList.swift */,
 				88FDAAEE27C6540100B33FA2 /* WalletItems.swift */,
 				88439DE72782CEFA002A0212 /* Wallet.swift */,
+				88CF9CC227C8D6D300D4D0C6 /* TransactionDetails.swift */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -1354,6 +1365,7 @@
 				886CC6F32779C1F900682D27 /* Dictionary+Extension.swift in Sources */,
 				88FDAAF027C6540100B33FA2 /* WalletList.swift in Sources */,
 				88B7AA332779818E000AAEDF /* CartList.swift in Sources */,
+				88CF9CA927C899C100D4D0C6 /* UserDetails.swift in Sources */,
 				8836A25B275DEF400099C5E0 /* RewardPointsTableViewCell.swift in Sources */,
 				88BB8C4727C38B2700438629 /* ReferAndEarnViewController.swift in Sources */,
 				88B7AA4F27799A00000AAEDF /* FAQViewController.swift in Sources */,
@@ -1361,11 +1373,11 @@
 				887C2535279A8A0000100196 /* CategoryItem.swift in Sources */,
 				882FEF25275E09AF003E8812 /* NotificationTableViewCell.swift in Sources */,
 				8884E8E927AC00F600E725A4 /* AddNoteViewController.swift in Sources */,
+				88CF9CC327C8D6D300D4D0C6 /* TransactionDetails.swift in Sources */,
 				88F764A0278819D900164112 /* CountryViewController.swift in Sources */,
 				88AE6370275F6A250069ABB4 /* TabBarRootViewController.swift in Sources */,
 				886254EA275E3A49001D09F1 /* ProductTableViewCell.swift in Sources */,
 				8853DED5278C493100C728C1 /* ShippingAddressDTO.swift in Sources */,
-				881A921E275A184600825572 /* PaymentSucceedViewController.swift in Sources */,
 				883A0BA72771E17800C90875 /* MyCartViewController.swift in Sources */,
 				8829DD9D2797CEA8001206FF /* IntroScreenViewController.swift in Sources */,
 				88B7AA2E2779817C000AAEDF /* CartItemDTOList.swift in Sources */,

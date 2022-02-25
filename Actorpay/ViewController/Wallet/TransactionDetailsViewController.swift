@@ -20,6 +20,8 @@ class TransactionDetailsViewController: UIViewController {
     @IBOutlet weak var adminCommissionLbl: UILabel!
     @IBOutlet weak var totalAmountLbl: UILabel!
     @IBOutlet weak var transactionDetailView: UIView!
+    @IBOutlet weak var toUserNameLbl: UILabel!
+    @IBOutlet weak var toUserView: UIView!
     
     var walletItems: WalletItems?
     
@@ -51,15 +53,17 @@ class TransactionDetailsViewController: UIViewController {
  
     // Set Wallet Transaction Data
     func setWalletTransactionData() {
-        titleLbl.text = walletItems?.transactionRemark
+        titleLbl.text = purchaseType(purchaseType: walletItems?.purchaseType ?? "")
         transactionIdLbl.text = walletItems?.walletTransactionId
         dateLbl.text = walletItems?.createdAt?.toFormatedDate(from: "yyyy-MM-dd HH:mm", to: "dd MMM yyyy HH:MM")
-        amountLbl.text = "\(walletItems?.transactionTypes == "DEBIT" ? "-" : "+") ₹ \(walletItems?.transactionAmount ?? 0.0)"
+        amountLbl.text = "₹ \(walletItems?.transactionAmount ?? 0.0)"
         transferAmountLbl.text = "₹ \(walletItems?.transferAmount ?? 0.0)"
         adminCommissionLbl.text = "₹ \(walletItems?.adminCommission ?? 0.0)"
         totalAmountLbl.text = "₹ \(walletItems?.transactionAmount ?? 0.0)"
         amountLbl.textColor = transactionType(transactionType: walletItems?.transactionTypes ?? "")
-        transactionDetailView.isHidden = walletItems?.transactionTypes == "DEBIT" ? true : false
+        toUserNameLbl.text = (walletItems?.toUserName ?? "").replacingOccurrences(of: ",", with: "")
+        toUserView.isHidden = walletItems?.purchaseType == "TRANSFER" ? false : true
+        
     }
 
 }

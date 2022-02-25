@@ -64,7 +64,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
             endingLineNumber = "108"
-            landmarkName = "payNowViewButtonAction(_:)"
+            landmarkName = "transferMoneyValidation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

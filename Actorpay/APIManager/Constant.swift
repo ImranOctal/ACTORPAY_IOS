@@ -52,6 +52,7 @@ enum APIEndPoint: String {
     case walletTranscationApi = "user-service/v1/wallet/list/paged"
     case transferMoneyToWalletApi = "user-service/v1/wallet/transfer"
     case viewWalletBalanceByIdApi = "user-service/v1/wallet/"
+    case getUserDetailByMobileAndEmail = "user-service/users/" 
 }
 
 struct MessageConstant {

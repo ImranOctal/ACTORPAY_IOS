@@ -79,5 +79,9 @@ class TabBarViewController: UITabBarController {
         selectedTabIndex = item.tag
         selectedTabTag = item.tag
         NotificationCenter.default.post(name:  Notification.Name("refreshRightButton"), object: self)
+        if item.tag == 3 {
+            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WalletStatementViewController") as! WalletStatementViewController
+            self.navigationController?.pushViewController(newVC, animated: true)
+        }
     }
 }

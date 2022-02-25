@@ -197,3 +197,18 @@ func transactionType(transactionType: String) -> (UIColor) {
     }
     return UIColor.black
 }
+
+// Purchase Type
+func purchaseType(purchaseType: String) -> String {
+    switch purchaseType {
+    case "TRANSFER":
+        return "Money Transferred Successfully"
+    case "SHOPPING":
+        return "Online Shopping"
+    case "ADDED_MONEY_TO_WALLET":
+        return "Money Added Successfully"
+    default:
+        break
+    }
+    return ""
+}

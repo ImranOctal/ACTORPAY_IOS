@@ -134,10 +134,13 @@ extension WalletStatementViewController {
                 dissmissLoader()
                 let data = response.response["data"]
                 self.walletList = WalletList.init(json: data)
+                var newList = WalletList.init(json: data).items ?? []
+                newList = newList.filter { ($0.purchaseType != "ADMIN_WALLET_COMMISSION")}
                 if self.page == 0 {
-                    self.walletItems = WalletList.init(json: data).items ?? []
+                    self.walletItems = newList
+                    
                 } else{
-                    self.walletItems.append(contentsOf: WalletList.init(json: data).items ?? [])
+                    self.walletItems.append(contentsOf: newList)
                 }
                 self.totalCount = self.walletList?.totalItems ?? 0
                 let message = response.message

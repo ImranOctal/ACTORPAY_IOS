@@ -10,6 +10,7 @@ import UIKit
 class AddCardViewController: UIViewController {
 
     //MARK:- Properties -
+    
     @IBOutlet weak var cardHolderNameTextField: UITextField!
     @IBOutlet weak var cardNumberTextField: UITextField!
     @IBOutlet weak var cardExpiryDateTextField: UITextField!
@@ -17,28 +18,33 @@ class AddCardViewController: UIViewController {
     @IBOutlet weak var mainView: UIView!
 
     var isSavedCard = false
+    
     //MARK:- Life Cycle Function -
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Main View design
-        topCorner(bgView: mainView, maskToBounds: true)
         // Do any additional setup after loading the view.
+        
+        topCorner(bgView: mainView, maskToBounds: true)
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }
+    
     //MARK:- Selectors -
     
+    // Back Button Action
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)
     }
     
+    // Save Card Check Box Button Action
     @IBAction func saveCardCheckBocAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        // remember Me
         isSavedCard = !isSavedCard
         if #available(iOS 13.0, *) {
             sender.setImage(UIImage(systemName: isSavedCard ? "checkmark" : ""), for: .normal)
@@ -48,7 +54,8 @@ class AddCardViewController: UIViewController {
         }
     }
     
-    @IBAction func payNowButtonAction(_ sender: UIButton){
+    // Pay Now Button Action
+    @IBAction func payNowButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         if cardHolderNameTextField.text?.trimmingCharacters(in: .whitespaces).count == 0{
             self.alertViewController(message: "Please enter Card holder Name.")
@@ -67,8 +74,9 @@ class AddCardViewController: UIViewController {
             return
         }
         //Pay Now Button Action
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "PaymentSucceedViewController") as! PaymentSucceedViewController
-        self.navigationController?.pushViewController(vc, animated: true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentSuccessAndFailViewController") as! PaymentSuccessAndFailViewController
+        newVC.isSuccess = true
+        self.navigationController?.pushViewController(newVC, animated: true)
     }
     
     //MARK:- Helper Function -

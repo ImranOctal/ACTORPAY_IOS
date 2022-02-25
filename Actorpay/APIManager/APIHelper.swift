@@ -503,6 +503,18 @@ final class APIHelper {
         }
     }
     
+    //MARK: Get User Detail By Mobile And Email Api
+    static func getUserDetailByMobileAndEmail(parameters: Parameters,mobileAndEmail: String, success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
+        APIManager.shared.getMethod(method: .get, url: APIEndPoint.getUserDetailByMobileAndEmail.rawValue + "\(mobileAndEmail)/get", parameters: parameters) { (response) in
+            let status = response.response["status"]
+            if status == "200" {
+                success(true, response)
+            }else {
+                success(false, response)
+            }
+        }
+    }
+    
 }
 
 

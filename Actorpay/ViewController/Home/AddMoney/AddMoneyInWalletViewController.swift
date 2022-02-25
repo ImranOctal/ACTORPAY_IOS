@@ -28,6 +28,7 @@ class AddMoneyInWalletViewController: UIViewController {
     @IBOutlet weak var walletBalanceLbl: UILabel!
     
     var addMoneyAmountArr = [50,100,200,500,1000,2000]
+    var transactionDetails: TransactionDetails?
 
     //MARK: - Life Cycles -
     
@@ -109,10 +110,13 @@ extension AddMoneyInWalletViewController {
                 let message = response.message
 //                myApp.window?.rootViewController?.view.makeToast(message)
                 print(message)
+                let data = response.response["data"]
+                self.transactionDetails = TransactionDetails.init(json: data)
                 let newVC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentSuccessAndFailViewController") as! PaymentSuccessAndFailViewController
                 newVC.isSuccess = true
                 newVC.addMoneyWalletAmount = self.amountTextField.text ?? ""
                 newVC.isAddMoneyWallet = true
+                newVC.transactionDetails = self.transactionDetails
                 self.navigationController?.pushViewController(newVC, animated: true)
                 NotificationCenter.default.post(name:  Notification.Name("viewWalletBalanceByIdApi"), object: self)
             }

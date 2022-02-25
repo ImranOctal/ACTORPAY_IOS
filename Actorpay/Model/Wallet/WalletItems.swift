@@ -12,6 +12,7 @@ struct WalletItems {
 	let userId : String?
 	let walletId : String?
 	let toUser : String?
+    let toUserName: String?
 	let adminCommission : Double?
 	let transferAmount : Double?
 	let purchaseType : String?
@@ -29,6 +30,7 @@ struct WalletItems {
         userId = json["userId"].string
         walletId = json["walletId"].string
         toUser = json["toUser"].string
+        toUserName = json["toUserName"].string
         adminCommission = json["adminCommission"].double
         transferAmount = json["transferAmount"].double
         purchaseType = json["purchaseType"].string

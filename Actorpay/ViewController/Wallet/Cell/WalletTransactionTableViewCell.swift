@@ -20,7 +20,7 @@ class WalletTransactionTableViewCell: UITableViewCell {
                 amountLbl.text = "\(item.transactionTypes == "DEBIT" ? "-" : "+") ₹\(item.transactionAmount ?? 0.0)"
                 transactionIdLbl.text = item.walletTransactionId
                 dateLbl.text = item.createdAt?.toFormatedDate(from: "yyyy-MM-dd HH:mm", to: "dd MMM yyyy HH:MM")
-                titleLbl.text = item.transactionRemark
+                titleLbl.text = purchaseType(purchaseType: item.purchaseType ?? "")
                 amountLbl.textColor = transactionType(transactionType: item.transactionTypes ?? "")
             }
         }
