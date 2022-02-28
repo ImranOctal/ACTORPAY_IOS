@@ -95,6 +95,25 @@ class ProfileViewController: UIViewController {
     
     //MARK: - Selectors -
     
+    // Menu Button Action
+    @IBAction func menuButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        self.sideMenuViewController?.presentLeftMenuViewController()
+    }
+    
+    // Notification Button Action
+    @IBAction func notificationButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
+    }
+    
+    // Cart Button Action
+    @IBAction func cartButtonAction(_ sender: UIButton) {
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
+    }
+    
     // Edit Image Button Action
     @IBAction func editImageButton(_ sender: UIButton) {
         self.view.endEditing(true)
@@ -116,11 +135,6 @@ class ProfileViewController: UIViewController {
     @IBAction func verifyEmailButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         if sender.currentTitle == "UPDATE" {
-//            emailTextField.isUserInteractionEnabled = true
-//            emailTextField.textColor = UIColor.black
-//            emailValidationLbl.textColor = UIColor.orange
-//            emailValidationLbl.text = "Verification Pending"
-//            emailVerifyButton.setTitle("Verify", for: .normal)
             let customV = self.storyboard?.instantiateViewController(withIdentifier: "VerifyViewController") as! VerifyViewController
             let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
             customV.isEmailVerify = true
@@ -137,11 +151,6 @@ class ProfileViewController: UIViewController {
     @IBAction func verifyPhoneButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         if sender.currentTitle == "UPDATE" {
-//            phoneNumberTextField.isUserInteractionEnabled = true
-//            phoneNumberTextField.textColor = UIColor .black
-//            phoneNoValidationLbl.text = "Verification Pending"
-//            phoneNoValidationLbl.textColor = UIColor.orange
-//            phoneVerifyButton.setTitle("Verify", for: .normal)
             let customV = self.storyboard?.instantiateViewController(withIdentifier: "VerifyViewController") as! VerifyViewController
             let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
             customV.isEmailVerify = false
@@ -152,12 +161,6 @@ class ProfileViewController: UIViewController {
             }else{
                 self.view.makeToast("Phone Number Already Verified!.")
             }
-//            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "VerifyOTPViewController") as! VerifyOTPViewController
-//            newVC.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-//            self.definesPresentationContext = true
-//            self.providesPresentationContextTransitionStyle = true
-//            newVC.modalPresentationStyle = .overCurrentContext
-//            self.navigationController?.present(newVC, animated: true, completion: nil)
         }
         self.setupUserData()
     }

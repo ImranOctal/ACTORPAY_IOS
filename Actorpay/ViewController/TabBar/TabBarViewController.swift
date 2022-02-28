@@ -34,6 +34,11 @@ class TabBarViewController: UITabBarController {
             isProfileView = false
             return
         }
+        if isWalletView {
+            self.selectedIndex = 3
+            isWalletView = false
+            return
+        }
         self.navigationController?.navigationBar.isHidden = true
     }
 
@@ -79,9 +84,5 @@ class TabBarViewController: UITabBarController {
         selectedTabIndex = item.tag
         selectedTabTag = item.tag
         NotificationCenter.default.post(name:  Notification.Name("refreshRightButton"), object: self)
-        if item.tag == 3 {
-            let newVC = self.storyboard?.instantiateViewController(withIdentifier: "WalletStatementViewController") as! WalletStatementViewController
-            self.navigationController?.pushViewController(newVC, animated: true)
-        }
     }
 }

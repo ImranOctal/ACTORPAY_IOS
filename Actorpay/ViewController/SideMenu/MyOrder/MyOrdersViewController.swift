@@ -181,11 +181,6 @@ extension MyOrdersViewController {
 extension MyOrdersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if self.orderList.count == 0 {
-//            tableView.setEmptyMessage("No Data Found.")
-//        }else {
-//            tableView.restore()
-//        }
         return self.orderList.count
     }
     

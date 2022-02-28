@@ -62,7 +62,6 @@ class CheckoutViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: Notification.Name("setWalletBalance"), object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(self.setWalletBalance),name:Notification.Name("setWalletBalance"), object: nil)
         self.setWalletBalance()
-        self.walletBalanceErrorView.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -184,6 +183,12 @@ class CheckoutViewController: UIViewController {
     // Set Wallet Balance
     @objc func setWalletBalance() {
         walletBalanceLbl.text = "₹\(walletData?.amount ?? 0.0)"
+        if (cartList?.totalPrice ?? 0.0) > (walletData?.amount ?? 0.0) {
+            walletBalanceErrorView.isHidden = false
+            return
+        } else {
+            walletBalanceErrorView.isHidden = true
+        }
     }
     
 }

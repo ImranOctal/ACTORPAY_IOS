@@ -15,20 +15,27 @@ class HomeViewController: UIViewController {
     
     //MARK: - Properties -
 
-    @IBOutlet weak var categoryCollectionView: UICollectionView!
+    @IBOutlet weak var categoryCollectionView: UICollectionView! {
+        didSet {
+            self.categoryCollectionView.delegate = self
+            self.categoryCollectionView.dataSource = self
+        }
+    }
+    @IBOutlet weak var transactionTableView: UITableView! {
+        didSet {
+            self.transactionTableView.delegate = self
+            self.transactionTableView.dataSource = self
+        }
+    }
     @IBOutlet weak var transactionView: UIView!
-    @IBOutlet weak var transactionTableView: UITableView!
     
     var category:[Category] = [
         Category(title: "Add Money", icon: UIImage(named: "add_money")),
         Category(title: "Send Money", icon: UIImage(named: "send_money")),
         Category(title: "Mobile & DTH", icon: UIImage(named: "smartphone")),
         Category(title: "Utility Bill", icon: UIImage(named: "bill")),
-        Category(title: "Add Money", icon: UIImage(named: "add_money")),
-        Category(title: "Send Money", icon: UIImage(named: "send_money")),
-        Category(title: "Mobile & DTH", icon: UIImage(named: "smartphone")),
-        Category(title: "Utility Bill", icon: UIImage(named: "bill"))
-        
+        Category(title: "Online Payment", icon: UIImage(named: "qr-code2")),
+        Category(title: "Product List", icon: UIImage(named: "bill"))
     ]
     let contactHeaderHeight: CGFloat = 32
     var transactionArray:[Int] = [1,2,3]
@@ -72,6 +79,13 @@ class HomeViewController: UIViewController {
     @IBAction func notificationButtonAction(_ sender: UIButton){
         self.view.endEditing(true)
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
+    }
+    
+    // Cart Button Action
+    @IBAction func cartButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
         self.navigationController?.pushViewController(newVC, animated: true)
     }
     
@@ -165,20 +179,38 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as! CategoryCollectionViewCell
         cell.iconImageView.image = category[indexPath.row].icon
+        cell.iconImageView.tintColor = UIColor.white
         cell.titleLabel.text = category[indexPath.row].title
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.view.endEditing(true)
         collectionView.deselectItem(at: indexPath, animated: true)
         switch indexPath.row {
         case 0:
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddMoneyViewController") as! AddMoneyViewController
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddMoneyInWalletViewController") as! AddMoneyInWalletViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 1:
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 2:
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "DTHRechageViewController") as! DTHRechageViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 3:
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "UtilityBillViewController") as! UtilityBillViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 4:
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ScanQRCodeViewController") as! ScanQRCodeViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 5:
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProductListViewController") as! ProductListViewController
             self.navigationController?.pushViewController(vc, animated: true)
         default:
             break
         }
     }
+    
 }
 
 //MARK: Tableview Setup

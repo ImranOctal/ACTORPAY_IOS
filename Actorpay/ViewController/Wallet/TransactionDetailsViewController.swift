@@ -63,7 +63,7 @@ class TransactionDetailsViewController: UIViewController {
         amountLbl.textColor = transactionType(transactionType: walletItems?.transactionTypes ?? "")
         toUserNameLbl.text = (walletItems?.toUserName ?? "").replacingOccurrences(of: ",", with: "")
         toUserView.isHidden = walletItems?.purchaseType == "TRANSFER" ? false : true
-        
+        transactionDetailView.isHidden = ((walletItems?.adminCommission ?? 0) > 0) ? false : true
     }
 
 }

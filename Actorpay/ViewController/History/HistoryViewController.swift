@@ -8,20 +8,26 @@
 import UIKit
 
 class HistoryViewController: UIViewController {
+    
     //MARK: - Properties -
    
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            self.tableView.delegate = self
+            self.tableView.dataSource = self
+        }
+    }
     
     //MARK: - Life Cycle Functions -
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        topCorner(bgView: mainView, maskToBounds: true)
-//        tableView.register(UINib(nibName: "MyOrdersTableViewCell", bundle: nil), forCellReuseIdentifier: "MyOrdersTableViewCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        self.navigationController?.navigationBar.isHidden = true
         // Do any additional setup after loading the view.
+        
+        topCorner(bgView: mainView, maskToBounds: true)
+        self.navigationController?.navigationBar.isHidden = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,13 +37,33 @@ class HistoryViewController: UIViewController {
 
     //MARK: - Selectors -
     
-    //MARK: - Helper Functions -
+    // Menu Button Action
+    @IBAction func menuButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        self.sideMenuViewController?.presentLeftMenuViewController()
+    }
     
+    // Notification Button Action
+    @IBAction func notificationButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "NotificationViewController ") as! NotificationViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
+    }
+    
+    // Cart Button Action
+    @IBAction func cartButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "MyCartViewController") as! MyCartViewController
+        self.navigationController?.pushViewController(newVC, animated: true)
+    }
+        
 }
 
 //MARK: - Extension -
 
+//MARK: TableView SetUp
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }

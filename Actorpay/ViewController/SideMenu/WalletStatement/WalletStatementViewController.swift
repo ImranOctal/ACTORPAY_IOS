@@ -8,6 +8,9 @@
 import UIKit
 import Alamofire
 import Lottie
+import SVPullToRefresh
+
+var isWalletView = false
 
 class WalletStatementViewController: UIViewController {
 
@@ -38,6 +41,10 @@ class WalletStatementViewController: UIViewController {
         
         topCorner(bgView: mainView, maskToBounds: true)
         self.walletTranscationApi()
+        tableView.addPullToRefresh(actionHandler: {
+            self.page = 0
+            self.walletTranscationApi()
+        })
         self.setEmptyCartLottieAnimation()
         NotificationCenter.default.removeObserver(self, name: Notification.Name("setWalletBalanceInWalletStatement"), object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(self.setWalletBalanceInWalletStatement),name:Notification.Name("setWalletBalanceInWalletStatement"), object: nil)
