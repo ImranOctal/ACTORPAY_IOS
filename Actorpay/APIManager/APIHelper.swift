@@ -384,8 +384,8 @@ final class APIHelper {
     }
     
     //MARK: Delete Address Api
-    static func deleteAddressAPI(parameters: Parameters , success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
-        APIManager.shared.request2(method: .delete, url: APIEndPoint.deleteAddress.rawValue, parameters: parameters) { (response) in
+    static func deleteAddressAPI(id: String , success:@escaping (_ success: Bool,_ response: APIResponse) -> Void) {
+        APIManager.shared.request2(method: .delete, url: APIEndPoint.deleteAddress.rawValue+id, parameters: [:]) { (response) in
             let status = response.response["status"]
             if status == "200" {
                 success(true, response)

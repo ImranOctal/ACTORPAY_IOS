@@ -232,12 +232,12 @@ extension CheckoutViewController {
     
     // Delete Address Api
     func deleteAddressAPI(id: String) {
-        let params: Parameters = [
+       /* let params: Parameters = [
             "ids" : [id]
         ]
-        print(params)
+        print(params)*/
         showLoading()
-        APIHelper.deleteAddressAPI(parameters: params) { (success, response) in
+        APIHelper.deleteAddressAPI(id: id) { (success, response) in
             if !success {
                 dissmissLoader()
                 let message = response.message

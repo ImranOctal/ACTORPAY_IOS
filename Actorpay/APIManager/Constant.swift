@@ -39,7 +39,7 @@ enum APIEndPoint: String {
     case shippingAddressList = "user-service/get/all/user/shipping/address"
     case staticContentApi = "cms-service/get/static/data/by/cms"
     case addAddress = "user-service/add/new/shipping/address"
-    case deleteAddress = "user-service/delete/saved/shipping/address/ids"
+    case deleteAddress = "user-service/delete/saved/shipping/address/"
     case updateAddress = "user-service/update/shipping/address"
     case sendOTP = "user-service/users/phone/otp/request"
     case verifyOTP = "user-service/users/phone/verify"
