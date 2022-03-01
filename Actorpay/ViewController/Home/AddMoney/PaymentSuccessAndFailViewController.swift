@@ -21,6 +21,7 @@ class PaymentSuccessAndFailViewController: UIViewController {
     @IBOutlet weak var doneButtonView: UIView!
     @IBOutlet weak var buttonStackView: UIStackView!
     
+    var userDetail : UserDetails?
     var isSuccess = false
     var addMoneyWalletAmount = ""
     var isAddMoneyWallet = false
@@ -64,7 +65,7 @@ class PaymentSuccessAndFailViewController: UIViewController {
     
     // SetUp UI
     func setUpUI() {
-        self.descLabel.text = isAddMoneyWallet ? "Amount ₹\(transactionDetails?.transferredAmount ?? 0.0) \n added into wallet successfully" : "Amount ₹\(addMoneyWalletAmount) transferred into \(transactionDetails?.customerName ?? "")'s wallet successfully"
+        self.descLabel.text = isAddMoneyWallet ? "Amount ₹\(transactionDetails?.transferredAmount ?? 0.0) \n added into wallet successfully" : "Amount ₹\(addMoneyWalletAmount) transferred into \(userDetail?.firstName ?? "") \(userDetail?.lastName ?? "")'s wallet successfully"
         self.transactionIdLbl.text = "Transaction ID: \(transactionDetails?.transactionId ?? "")"
         self.titleLabel.text = isSuccess ? "Payment Succeed!" : "Payment Failed"
         self.buttonStackView.isHidden = isSuccess ? false : true

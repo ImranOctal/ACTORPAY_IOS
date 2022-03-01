@@ -179,6 +179,8 @@ func getStatus(stausString: String) -> (UIColor) {
         return UIColor.red
     case "FAILED":
         return UIColor.red
+    case "RETURNING_ACCEPTED":
+        return UIColor.systemGreen
     default :
         break
     }

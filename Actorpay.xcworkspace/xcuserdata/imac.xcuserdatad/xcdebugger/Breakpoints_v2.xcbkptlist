@@ -3,4 +3,54 @@
    uuid = "6387F797-380E-4528-98E8-51A805B7593E"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "28CECEE6-DCA5-4474-A316-D50A0693B3AC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Actorpay/ViewController/Disputes/DisputeDetailsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "disputeListApi()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "28CECEE6-DCA5-4474-A316-D50A0693B3AC - d2d8e7898077932"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Actorpay.DisputeDetailsViewController.disputeListApi() -&gt; ()"
+                  moduleName = "Actorpay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Data/iOS/Actor%20Pay/Actorpay/ViewController/Disputes/DisputeDetailsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "172"
+                  endingLineNumber = "172"
+                  offsetFromSymbolStart = "229">
+               </Location>
+               <Location
+                  uuid = "28CECEE6-DCA5-4474-A316-D50A0693B3AC - 786cee5ba9f74920"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Actorpay.APIResponse) -&gt; () in Actorpay.DisputeDetailsViewController.disputeListApi() -&gt; ()"
+                  moduleName = "Actorpay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Data/iOS/Actor%20Pay/Actorpay/ViewController/Disputes/DisputeDetailsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "173"
+                  endingLineNumber = "173"
+                  offsetFromSymbolStart = "225">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -38,6 +38,7 @@ class TransferMoneyViewController: UIViewController {
     var sendMoneyType : String = ""
     var userDetail : UserDetails?
     var transactionDetails: TransactionDetails?
+    var toUserDetail = ""
     
     //MARK: - Life Cycles -
     override func viewDidLoad() {
@@ -144,12 +145,12 @@ class TransferMoneyViewController: UIViewController {
     func setUserDetails() {
         titleLbl.text = "Pay to \(userDetail?.firstName ?? "") \(userDetail?.lastName ?? "")"
         if sendMoneyType == "Phone Number" {
-            phoneOrEmailTextField.text = userDetail?.contactNumber
+            phoneOrEmailTextField.text = toUserDetail //userDetail?.contactNumber
             phoneOrEmailTextField.placeholder = "Enter Phone Number"
             phoneOrEmailTextFieldView.isHidden = false
         } else if sendMoneyType == "Email Address" {
             phoneOrEmailTextField.placeholder = "Enter Email Address"
-            phoneOrEmailTextField.text = user?.email
+            phoneOrEmailTextField.text = toUserDetail // user?.email
             phoneOrEmailTextFieldView.isHidden = false
         } else if sendMoneyType == "Pay Now" {
             phoneOrEmailTextFieldView.isHidden = true
@@ -168,7 +169,7 @@ extension TransferMoneyViewController {
         let bodyParameter: Parameters = [
             "userIdentity": phoneOrEmailTextField.text ?? "",
             "amount": amountTextField.text ?? "",
-            "transactionRemark": sendMoneyResonTextView.text ?? ""
+            "transactionReason": sendMoneyResonTextView.text ?? ""
         ]
         showLoading()
         APIHelper.transferMoneyToWalletApi(bodyParameter: bodyParameter) { (success,response)  in
@@ -190,6 +191,7 @@ extension TransferMoneyViewController {
                 newVC.isSuccess = true
                 newVC.transactionDetails = self.transactionDetails
                 newVC.addMoneyWalletAmount = self.amountTextField.text ?? ""
+                newVC.userDetail = self.userDetail
                 self.navigationController?.pushViewController(newVC, animated: true)
                 NotificationCenter.default.post(name:  Notification.Name("viewWalletBalanceByIdApi"), object: self)
             }

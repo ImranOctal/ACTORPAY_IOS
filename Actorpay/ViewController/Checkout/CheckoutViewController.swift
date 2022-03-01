@@ -72,6 +72,13 @@ class CheckoutViewController: UIViewController {
         addressLoaded = true
     }
     
+    override func viewWillLayoutSubviews() {
+        super.updateViewConstraints()
+        DispatchQueue.main.async {
+            self.addressTableViewHeightConstraint.constant = self.addressTableView.contentSize.height
+        }
+    }
+    
     //MARK: - Selectors -
     
     // Back Button Action
@@ -224,7 +231,8 @@ extension CheckoutViewController {
                 }
                 self.selectedAddress = self.addressListItems.first
                 self.totalCount = self.shippingAddressList?.totalItems ?? 0
-                self.addressTableViewHeightConstraint.constant = self.addressListItems.count == 1 ? 120 : 240
+//                self.addressTableViewHeightConstraint.constant = self.addressListItems.count == 1 ? 120 : 240
+                self.viewWillLayoutSubviews()
                 self.addressTableView.reloadData()
             }
         }
@@ -327,6 +335,16 @@ extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
             break
         }
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        switch tableView {
+        case addressTableView:
+            self.viewWillLayoutSubviews()
+        default:
+            break
+        }
+    }
+
 }
 
 // MARK: ScrollView Setup

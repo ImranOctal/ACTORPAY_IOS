@@ -274,14 +274,19 @@ class APIManager {
                 absoluteUrl.append(array.joined(separator: "&"))
             }
         }
-        urlParams = nil
+        //urlParams = nil
+        print(headers)
+        print("absoluteUrl")
         print(absoluteUrl)
-        
+        print("bodyParameter")
+        print(bodyParameter)
         manager.request(absoluteUrl, method: method, parameters: bodyParameter, encoding: JSONEncoding.default, headers: headers)
             .responseJSON(completionHandler: { (response) in
                 switch response.result {
                 case .success(let retrivedResult):
                     let responseJSON = JSON(retrivedResult)
+                    print("responseJSON")
+                    print(responseJSON)
                     let message = responseJSON["message"].stringValue
                     success(APIResponse.createSuccessAPIResponse(message, responseJSON))
                     break

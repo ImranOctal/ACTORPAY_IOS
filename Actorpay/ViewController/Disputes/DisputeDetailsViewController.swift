@@ -34,6 +34,7 @@ class DisputeDetailsViewController: UIViewController {
     var disputeMessages:[DisputeMessages] = []
     var disputeDetails: DisputeItem?
     var disputeId: String = ""
+    var disputeCode: String = ""
     
     //MARK: - Life Cycles -
     
@@ -41,11 +42,12 @@ class DisputeDetailsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.disputeDetailsApi()
-        self.tableView.addPullToRefresh {
-            self.disputeDetailsApi()
-        }
+//        self.disputeDetailsApi()
+//        self.tableView.addPullToRefresh {
+//            self.disputeDetailsApi()
+//        }
         
+        self.disputeListApi()
     }
     
     //MARK: - Selectors -
@@ -151,8 +153,34 @@ extension DisputeDetailsViewController {
                 dissmissLoader()
                 let message = response.message
                 print(message)
-                self.disputeDetailsApi()
+//                self.disputeDetailsApi()
+                self.disputeListApi()
                 self.messageTextField.text = nil
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    // Dispute List Api
+    func disputeListApi() {
+        
+        let bodyParameter: Parameters = [
+            "disputeCode": disputeCode
+        ]
+        
+        showLoading()
+        APIHelper.disputeListApi(urlParameters: [:], bodyParameter: bodyParameter ) { (success, response) in
+            self.tableView.pullToRefreshView?.stopAnimating()
+            if !success {
+                dissmissLoader()
+                let message = response.message
+                myApp.window?.rootViewController?.view.makeToast(message)
+            }else {
+                dissmissLoader()
+                let data = response.response["data"]
+                self.disputeDetails = DisputeList.init(json: data).items?[0]
+                self.disputeMessages = self.disputeDetails?.disputeMessages ?? []
+                self.disputeMessages = self.disputeMessages.reversed()
                 self.tableView.reloadData()
             }
         }

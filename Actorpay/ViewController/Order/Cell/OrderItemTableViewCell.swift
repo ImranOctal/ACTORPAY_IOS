@@ -29,8 +29,8 @@ class OrderItemTableViewCell: UITableViewCell {
                 qtyLbl.text = "Quantity: \(item.productQty ?? 0)"
                 priceLbl.text = "Price: ₹\((item.totalPrice ?? 0.0).doubleToStringWithComma())"
                 imgView.sd_setImage(with: URL(string: item.image ?? ""), placeholderImage: UIImage(named: "NewLogo"), options: SDWebImageOptions.allowInvalidSSLCertificates, completed: nil)
-                statusLbl.text = "\(item.orderItemStatus ?? "")"
-                menuButton.isHidden = item.orderItemStatus == "CANCELLED" || item.orderItemStatus == "RETURNING" || item.orderItemStatus == "RETURNED" ? true : false
+                statusLbl.text = "\(item.orderItemStatus ?? "")".replacingOccurrences(of: "_", with: " ")
+                menuButton.isHidden = item.orderItemStatus == "CANCELLED" || item.orderItemStatus == "RETURNING" || item.orderItemStatus == "RETURNED" || item.orderItemStatus == "RETURNING_ACCEPTED" ? true : false
                 statusLbl.textColor = getStatus(stausString: item.orderItemStatus ?? "")
             }
         }

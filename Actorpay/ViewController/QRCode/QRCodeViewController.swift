@@ -78,6 +78,7 @@ class QRCodeViewController: UIViewController {
     var numeroADiscar = ""
     var placeHolder = ""
     var userDetail: UserDetails?
+    var isApicalling = false
     
     //MARK: - Life Cycles -
     
@@ -286,14 +287,23 @@ extension QRCodeViewController {
     @objc func getUserDetailByMobileAndEmail(isEmail: Bool = false, mobileAndEmail:String) {
         self.view.endEditing(true)
         showLoading()
+        if isApicalling == true {
+            self.isApicalling = false
+            return
+        } else{
+            self.isApicalling = true
+        }
+        
         APIHelper.getUserDetailByMobileAndEmail(parameters: [:], mobileAndEmail: mobileAndEmail) { (success, response) in
             if !success {
                 dissmissLoader()
                 let message = response.message
                 print(message)
                 myApp.window?.rootViewController?.view.makeToast(message)
+                self.isApicalling = false
             }else {
                 dissmissLoader()
+                self.isApicalling = false
                 let data = response.response["data"]
                 self.userDetail = UserDetails.init(json: data)
                 let message = response.message
@@ -301,6 +311,7 @@ extension QRCodeViewController {
                 let newVC = self.storyboard?.instantiateViewController(withIdentifier: "TransferMoneyViewController") as! TransferMoneyViewController
                 newVC.sendMoneyType = isEmail ? "Email Address" :"Phone Number"
                 newVC.userDetail = self.userDetail
+                newVC.toUserDetail = mobileAndEmail
                 self.navigationController?.pushViewController(newVC, animated: true)
                 }
 //                myApp.window?.rootViewController?.view.makeToast(message)

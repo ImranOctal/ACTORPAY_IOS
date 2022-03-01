@@ -178,6 +178,7 @@ extension DisputesViewController: UITableViewDelegate, UITableViewDataSource {
         let item = self.disputeItems[indexPath.row]
         let newVC = self.storyboard?.instantiateViewController(withIdentifier: "DisputeDetailsViewController") as! DisputeDetailsViewController
         newVC.disputeId = item.disputeId ?? ""
+        newVC.disputeCode = item.disputeCode ?? ""
         self.navigationController?.pushViewController(newVC, animated: true)
     }
 }
