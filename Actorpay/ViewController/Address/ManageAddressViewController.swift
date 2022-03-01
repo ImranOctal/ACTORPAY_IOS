@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import PopupDialog
 
 class ManageAddressViewController: UIViewController {
     
@@ -18,6 +19,7 @@ class ManageAddressViewController: UIViewController {
     var page = 0
     var totalCount = 10
     var addressListItems:[AddressItems] = []
+    var shippingAddressID = ""
     
     //MARK: - Life Cycles -
     
@@ -134,18 +136,14 @@ extension ManageAddressViewController: UITableViewDelegate, UITableViewDataSourc
         cell.contactNoLbl.text = item.primaryContactNumber
         cell.deleteButtonHandler = { sender in
             sender.tag = indexPath.row
-            let alert = UIAlertController(title: "Delete Address", message: "Are you sure you want to remove address?", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "OK", style: .default) { (action) in
-                if let id = item.id {
-                    self.deleteAddressAPI(id: id)
-                }
+            if let id = item.id {
+                self.shippingAddressID = id
             }
-            let cancel = UIAlertAction(title: "Cancel", style: .default) { (action) in
-                self.dismiss(animated: true, completion: nil)
-            }
-            alert.addAction(cancel)
-            alert.addAction(ok)
-            self.present(alert, animated: true, completion: nil)
+            let customV = self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as! CustomAlertViewController
+            let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+            customV.setUpCustomAlert(titleStr: "Delete Address", descriptionStr: "Are you sure you want to remove address?", isShowCancelBtn: false)
+            customV.customAlertDelegate = self
+            self.present(popup, animated: true, completion: nil)
         }
         cell.editButtonHandler = {
             let newVC = self.storyboard?.instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
@@ -170,13 +168,20 @@ extension ManageAddressViewController: UIScrollViewDelegate{
                 page += 1
                 self.getAllShippingAddressListApi()
             }
-        }else{
-//            if page <= 0 {
-//                return
-//            }else {
-//                page -= 1
-//                self.getAllShippingAddressListApi()
-//            }
         }
     }
+}
+
+//MARK: CustomAlert Delegate Methods
+extension ManageAddressViewController: CustomAlertDelegate {
+    
+    func okButtonclick() {
+        self.deleteAddressAPI(id: shippingAddressID)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonClick() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

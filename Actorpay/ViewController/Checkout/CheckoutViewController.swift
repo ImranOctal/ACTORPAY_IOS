@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import PopupDialog
 
 class CheckoutViewController: UIViewController {
     
@@ -52,6 +53,7 @@ class CheckoutViewController: UIViewController {
     var addressLoaded = false
     var walletPaymentIsSelected = false
     var codPaymentIsSelected = false
+    var shippingAddressID = ""
 
     //MARK: - Life Cycles -
     
@@ -300,18 +302,14 @@ extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
             }            
             cell.deleteButtonHandler = { sender in
                 sender.tag = indexPath.row
-                let alert = UIAlertController(title: "Delete Address", message: "Are you sure you want to remove address?", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "OK", style: .default) { (action) in
-                    if let id = item.id {
-                        self.deleteAddressAPI(id: id)
-                    }
+                if let id = item.id {
+                    self.shippingAddressID = id
                 }
-                let cancel = UIAlertAction(title: "Cancel", style: .default) { (action) in
-                    self.dismiss(animated: true, completion: nil)
-                }
-                alert.addAction(cancel)
-                alert.addAction(ok)
-                self.present(alert, animated: true, completion: nil)
+                let customV = self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertViewController") as! CustomAlertViewController
+                let popup = PopupDialog(viewController: customV, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+                customV.setUpCustomAlert(titleStr: "Delete Address", descriptionStr: "Are you sure you want to remove address?", isShowCancelBtn: false)
+                customV.customAlertDelegate = self
+                self.present(popup, animated: true, completion: nil)
             }
             let clearView = UIView()
             clearView.backgroundColor = .clear // Whatever color you like
@@ -363,4 +361,17 @@ extension CheckoutViewController: UIScrollViewDelegate {
         }
     }
     
+}
+
+//MARK: CustomAlert Delegate Methods
+extension CheckoutViewController: CustomAlertDelegate {
+    
+    func okButtonclick() {
+        self.deleteAddressAPI(id: shippingAddressID)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonClick() {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
