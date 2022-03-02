@@ -13,6 +13,7 @@ class WalletTransactionTableViewCell: UITableViewCell {
     @IBOutlet weak var amountLbl: UILabel!
     @IBOutlet weak var transactionIdLbl: UILabel!
     @IBOutlet weak var dateLbl: UILabel!
+    @IBOutlet weak var transactionRemarkLbl: UILabel!
     
     var item: WalletItems? {
         didSet {
@@ -22,6 +23,7 @@ class WalletTransactionTableViewCell: UITableViewCell {
                 dateLbl.text = item.createdAt?.toFormatedDate(from: "yyyy-MM-dd HH:mm", to: "dd MMM yyyy HH:MM")
                 titleLbl.text = purchaseType(purchaseType: item.purchaseType ?? "")
                 amountLbl.textColor = transactionType(transactionType: item.transactionTypes ?? "")
+                transactionRemarkLbl.text = item.transactionRemark
             }
         }
     }

@@ -2956,13 +2956,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJJ-AV-IVh">
-                                        <rect key="frame" x="90" y="21" width="170" height="19"/>
+                                        <rect key="frame" x="90" y="21" width="170" height="26.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Abc@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHI-JI-ddk">
-                                        <rect key="frame" x="90" y="45" width="170" height="16.5"/>
+                                        <rect key="frame" x="90" y="52.5" width="170" height="23"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -3001,7 +3001,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOGOUT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkw-Uw-qt8">
-                                        <rect key="frame" x="63" y="20.5" width="192" height="19"/>
+                                        <rect key="frame" x="63" y="17" width="192" height="26.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4576,17 +4576,17 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletTransactionTableViewCell" id="ypF-fw-jrs" customClass="WalletTransactionTableViewCell" customModule="Actorpay" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="180"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="236"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ypF-fw-jrs" id="MeH-sW-UHT">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="236"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLK-LF-dDL">
-                                                            <rect key="frame" x="15" y="5" width="345" height="170"/>
+                                                            <rect key="frame" x="15" y="5" width="345" height="226"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gma-5U-WS8">
-                                                                    <rect key="frame" x="10" y="10" width="325" height="150"/>
+                                                                    <rect key="frame" x="10" y="10" width="325" height="206"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6nF-dE-ssg">
                                                                             <rect key="frame" x="0.0" y="0.0" width="325" height="50"/>
@@ -4673,6 +4673,35 @@
                                                                                 <constraint firstItem="aiT-cn-4ok" firstAttribute="leading" secondItem="i3U-8p-gxQ" secondAttribute="leading" id="zUg-QT-Cjf"/>
                                                                             </constraints>
                                                                         </view>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DuX-Ej-1Q6">
+                                                                            <rect key="frame" x="0.0" y="150" width="325" height="56"/>
+                                                                            <subviews>
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="yeo-A3-f94">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="56"/>
+                                                                                    <subviews>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Remark:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Nf-KX-Tjm">
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="325" height="28"/>
+                                                                                            <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                                                            <color key="textColor" name="BlackColor"/>
+                                                                                            <nil key="highlightedColor"/>
+                                                                                        </label>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Money Successfully" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5V8-m3-Tc6">
+                                                                                            <rect key="frame" x="0.0" y="28" width="325" height="28"/>
+                                                                                            <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                            <nil key="highlightedColor"/>
+                                                                                        </label>
+                                                                                    </subviews>
+                                                                                </stackView>
+                                                                            </subviews>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                            <constraints>
+                                                                                <constraint firstItem="yeo-A3-f94" firstAttribute="leading" secondItem="DuX-Ej-1Q6" secondAttribute="leading" id="Bhx-Z9-xuI"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="yeo-A3-f94" secondAttribute="bottom" id="hxD-Jl-Ihc"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="yeo-A3-f94" secondAttribute="trailing" id="pbi-7m-QSi"/>
+                                                                                <constraint firstItem="yeo-A3-f94" firstAttribute="top" secondItem="DuX-Ej-1Q6" secondAttribute="top" id="uqa-E3-NfK"/>
+                                                                            </constraints>
+                                                                        </view>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
@@ -4703,6 +4732,7 @@
                                                     <outlet property="dateLbl" destination="aHU-2W-4FM" id="Gbd-z3-luJ"/>
                                                     <outlet property="titleLbl" destination="R7O-8H-QTu" id="eof-ct-0Ip"/>
                                                     <outlet property="transactionIdLbl" destination="cZL-wi-K7G" id="KU2-St-zpe"/>
+                                                    <outlet property="transactionRemarkLbl" destination="5V8-m3-Tc6" id="JUT-xn-15N"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -11496,7 +11526,7 @@
                                 <rect key="frame" x="0.0" y="56" width="375" height="611"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="w9w-yu-mMO">
-                                        <rect key="frame" x="20" y="40" width="335" height="261"/>
+                                        <rect key="frame" x="20" y="40" width="335" height="317"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Money added successfully" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jat-oT-8To">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="21"/>
@@ -11505,10 +11535,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QaL-uz-Igs">
-                                                <rect key="frame" x="0.0" y="41" width="335" height="220"/>
+                                                <rect key="frame" x="0.0" y="41" width="335" height="276"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="okE-Bh-eUj">
-                                                        <rect key="frame" x="10" y="10" width="315" height="200"/>
+                                                        <rect key="frame" x="10" y="10" width="315" height="256"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ufs-ha-MWk">
                                                                 <rect key="frame" x="0.0" y="0.0" width="315" height="50"/>
@@ -11626,6 +11656,35 @@
                                                                     <constraint firstItem="7pP-tF-Hvy" firstAttribute="leading" secondItem="8YV-E8-Uc9" secondAttribute="leading" id="enp-VH-HWQ"/>
                                                                 </constraints>
                                                             </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4p7-3u-ADk">
+                                                                <rect key="frame" x="0.0" y="200" width="315" height="56"/>
+                                                                <subviews>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="rG0-hk-FnL">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="56"/>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Remark:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gb3-H6-le6">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="315" height="28"/>
+                                                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                                                <color key="textColor" name="BlackColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Money Successfully" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sjz-lQ-0vU">
+                                                                                <rect key="frame" x="0.0" y="28" width="315" height="28"/>
+                                                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="rG0-hk-FnL" firstAttribute="top" secondItem="4p7-3u-ADk" secondAttribute="top" id="CHD-R3-SQO"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="rG0-hk-FnL" secondAttribute="trailing" id="QQq-Fl-PZT"/>
+                                                                    <constraint firstItem="rG0-hk-FnL" firstAttribute="leading" secondItem="4p7-3u-ADk" secondAttribute="leading" id="ZOv-Im-Kwg"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="rG0-hk-FnL" secondAttribute="bottom" id="g1t-vP-1Qf"/>
+                                                                </constraints>
+                                                            </view>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
@@ -11644,7 +11703,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43E-i4-mis">
-                                                <rect key="frame" x="0.0" y="261" width="335" height="20"/>
+                                                <rect key="frame" x="0.0" y="317" width="335" height="20"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ItS-Zv-BAc">
                                                         <rect key="frame" x="10" y="10" width="315" height="0.0"/>
@@ -11821,6 +11880,7 @@
                         <outlet property="totalAmountLbl" destination="gT4-v2-2yO" id="YXx-cd-bMV"/>
                         <outlet property="transactionDetailView" destination="43E-i4-mis" id="YET-qn-yUK"/>
                         <outlet property="transactionIdLbl" destination="cVm-1F-paq" id="S5U-jJ-rG5"/>
+                        <outlet property="transactionRemarkLbl" destination="Sjz-lQ-0vU" id="gT7-t7-s9F"/>
                         <outlet property="transferAmountLbl" destination="3t0-BV-OEm" id="VmK-0z-39c"/>
                     </connections>
                 </viewController>
@@ -15494,13 +15554,13 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="India" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKZ-Qo-YIc">
-                                                                    <rect key="frame" x="50" y="8" width="26.5" height="14"/>
+                                                                    <rect key="frame" x="50" y="5" width="29.5" height="20"/>
                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+91" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiI-EB-JKl">
-                                                                    <rect key="frame" x="324" y="8" width="21" height="14"/>
+                                                                    <rect key="frame" x="324" y="5" width="21" height="20"/>
                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>

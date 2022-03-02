@@ -22,6 +22,7 @@ class TransactionDetailsViewController: UIViewController {
     @IBOutlet weak var transactionDetailView: UIView!
     @IBOutlet weak var toUserNameLbl: UILabel!
     @IBOutlet weak var toUserView: UIView!
+    @IBOutlet weak var transactionRemarkLbl: UILabel!
     
     var walletItems: WalletItems?
     
@@ -64,6 +65,7 @@ class TransactionDetailsViewController: UIViewController {
         toUserNameLbl.text = (walletItems?.toUserName ?? "").replacingOccurrences(of: ",", with: "")
         toUserView.isHidden = walletItems?.purchaseType == "TRANSFER" ? false : true
         transactionDetailView.isHidden = ((walletItems?.adminCommission ?? 0) > 0) ? false : true
+        transactionRemarkLbl.text = walletItems?.transactionRemark
     }
 
 }

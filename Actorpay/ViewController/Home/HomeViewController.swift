@@ -128,7 +128,6 @@ extension HomeViewController {
             "filterByIsActive":true,
             "sortBy":"name",
             "asc":true
-            
         ]
         APIHelper.getAllCategoriesAPI(parameters: params) { (success, response) in
             if !success {
